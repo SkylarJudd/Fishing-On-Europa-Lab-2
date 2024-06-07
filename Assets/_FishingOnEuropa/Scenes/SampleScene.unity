@@ -19153,7 +19153,7 @@ MonoBehaviour:
   lerpSpeed: 2
   hideDelay: 2
   fishingLine: {fileID: 5546088772805892097}
-  rodCastScript: {fileID: 0}
+  rodCastScript: {fileID: 1041669895}
   resetfishscript: {fileID: 1874830655}
 --- !u!114 &1874830655
 MonoBehaviour:
