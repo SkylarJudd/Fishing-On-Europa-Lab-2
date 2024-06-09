@@ -3,7 +3,13 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Fish
+  - RightHandTag
+  - LeftHandTag
+  - FishingRod
+  - Lure
+  - Reel
   layers:
   - Default
   - TransparentFX
@@ -11,12 +17,12 @@ TagManager:
   - 
   - Water
   - UI
-  - Grabbing
-  - Grabbable
-  - Hand
-  - HandPlayer
-  - 
-  - 
+  - Player
+  - FishingRod
+  - Fish
+  - Lure
+  - Interactible
+  - Reel
   - 
   - 
   - 

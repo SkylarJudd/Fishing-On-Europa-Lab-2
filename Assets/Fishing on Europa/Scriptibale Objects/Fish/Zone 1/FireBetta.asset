@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54bd298808f8b0c4e9982add6a5636d2, type: 3}
+  m_Name: FireBetta
+  m_EditorClassIdentifier: 
+  fishID: 100009
+  fishName: FireBetta
+  description: a fish hybried betwen a red panda and a Betta fish
+  fishSpeed: 0.3
+  rarity: 2
+  spawnLocation: 0
+  foodEaten: 1
+  favFood: 9
+  catchChance: 8
+  damageToRod: 27
+  favToy: 8
