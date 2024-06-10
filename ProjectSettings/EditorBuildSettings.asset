@@ -5,9 +5,12 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Fishing on Europa/Scenes/MainScene.unity
     guid: 99c9720ab356a0642a771bea13969a05
+  - enabled: 1
+    path: Assets/Fishing on Europa/Scenes/EuropaWaterFixes.unity
+    guid: b9a4ac005e7752b4ca718091a423638e
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: ce8a07b5daa2ace4eb80a93c35d6c6a0,
       type: 2}
