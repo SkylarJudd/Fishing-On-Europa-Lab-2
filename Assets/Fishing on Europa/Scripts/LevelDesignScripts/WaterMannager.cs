@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WaterMannager : MonoBehaviour
+public class WaterMannager : Singleton<WaterMannager>
 {
     public float wavesHight = 7f;
     public float wavesFrequency = 1f;
