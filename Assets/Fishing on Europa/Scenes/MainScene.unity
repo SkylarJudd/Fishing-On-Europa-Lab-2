@@ -4966,7 +4966,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aed809fdaf3738c4c96af9b23f56f46b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fileName: data.game
+  fileName: FOEdata.game
+  useEncryption: 0
 --- !u!4 &613521781
 Transform:
   m_ObjectHideFlags: 0
@@ -7711,12 +7712,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 883880114}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 892321365}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &888589338 stripped
 GameObject:
@@ -7770,6 +7771,7 @@ Transform:
   - {fileID: 1990845154}
   - {fileID: 2022540730}
   - {fileID: 613521781}
+  - {fileID: 883880116}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &893963748
@@ -28354,10 +28356,10 @@ MeshRenderer:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
+  - {fileID: 892321365}
   - {fileID: 1747763263}
   - {fileID: 580322831}
   - {fileID: 410087041}
-  - {fileID: 883880116}
   - {fileID: 287511767}
   - {fileID: 1807566310}
   - {fileID: 1341849861}
@@ -28386,6 +28388,5 @@ SceneRoots:
   - {fileID: 340928735}
   - {fileID: 1980936182}
   - {fileID: 2025311325}
-  - {fileID: 892321365}
   - {fileID: 1512808433}
   - {fileID: 590686444}
