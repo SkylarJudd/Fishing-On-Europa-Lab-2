@@ -16,7 +16,7 @@ MonoBehaviour:
   seedDesc: 
   foodProduced: Apple
   spawnLocation: 1
-  growthTime: 0
+  growthTime: 3
   price: 0
   artwork: {fileID: 0}
   seedling: {fileID: 9156764235852979800, guid: d3684be5fbf821748bf88f6b7ec408ba,

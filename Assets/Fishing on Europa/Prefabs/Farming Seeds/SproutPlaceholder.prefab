@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 8758825622217702786}
   - component: {fileID: 3917145858610325233}
   - component: {fileID: 2202067343063343850}
+  - component: {fileID: 1303889118724804835}
   m_Layer: 0
   m_Name: SproutPlaceholder
   m_TagString: Untagged
@@ -105,3 +106,16 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1303889118724804835
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4831865379003320886}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b8716b4b07bc2844b0c15a93a401623, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  seed: {fileID: 11400000, guid: f32e877a5d3813745adc06e7dfe76378, type: 2}

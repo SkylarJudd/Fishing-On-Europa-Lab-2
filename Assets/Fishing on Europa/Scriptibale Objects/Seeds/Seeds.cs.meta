@@ -3,7 +3,12 @@ guid: c653d012513930448aa8e1a37256b7b5
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - artwork: {instanceID: 0}
+  - seedling: {instanceID: 0}
+  - sprout: {instanceID: 0}
+  - adolecent: {instanceID: 0}
+  - mature: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
