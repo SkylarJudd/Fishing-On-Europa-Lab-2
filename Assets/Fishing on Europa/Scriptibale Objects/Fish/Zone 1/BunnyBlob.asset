@@ -15,11 +15,16 @@ MonoBehaviour:
   fishID: 100003
   fishName: BunnyBlob
   description: a Hybrid between Amaercan Fuzzy Lop and a Blob fish
-  fishSpeed: 0.7
+  hybridPrefab: {fileID: 8529042409891104253, guid: b275e49e7ab569e47a5ce37fcf52b870,
+    type: 3}
+  hybridPoolType: 0
   rarity: 0
   spawnLocation: 0
+  poolType: 0
+  spawnChance: 60
+  damageToRod: 8
+  catchChance: 60
+  fishSpeed: 0.7
   foodEaten: 0
   favFood: 6
-  catchChance: 60
-  damageToRod: 8
   favToy: 2

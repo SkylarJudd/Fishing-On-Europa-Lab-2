@@ -10,13 +10,9 @@ public class fishStats : MonoBehaviour
 {
    
     public Food food;
-    public Fish fish;
+    public HybridScriptableObjects fish;
 
 
-    private void Start()
-    {
-        
-    }
 }
 
 

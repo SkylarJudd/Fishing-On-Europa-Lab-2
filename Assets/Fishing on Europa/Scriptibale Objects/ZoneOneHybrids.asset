@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 262546772e8e0b34c970b031305e0844, type: 3}
+  m_Name: ZoneOneHybrids
+  m_EditorClassIdentifier: 
+  FishToSpawnList:
+  - {fileID: 11400000, guid: 776caf4cc4ccdba4cb9fa5ecf383e743, type: 2}
+  - {fileID: 11400000, guid: d0a9f39952c8dd54a988d57caa969c5e, type: 2}
+  - {fileID: 11400000, guid: fc8355f0a1f2668438f22f2240d9d8b1, type: 2}
+  - {fileID: 11400000, guid: 9324671bbaa17be4986f2003aa4549d2, type: 2}
+  - {fileID: 11400000, guid: b5bffd5595ec26e48b841f2a784e1235, type: 2}
+  - {fileID: 11400000, guid: 11b9830542c4d264fbbee450aa971683, type: 2}
+  - {fileID: 11400000, guid: 8498973ca9613a14197874a007333231, type: 2}
+  - {fileID: 11400000, guid: 745894885b8b05e4e981b12d3968dd43, type: 2}
+  - {fileID: 11400000, guid: 62f2201882b826a4eaeea487b409f0c5, type: 2}
+  - {fileID: 11400000, guid: 3cf2b0dc153bc9d4987319f845fad268, type: 2}

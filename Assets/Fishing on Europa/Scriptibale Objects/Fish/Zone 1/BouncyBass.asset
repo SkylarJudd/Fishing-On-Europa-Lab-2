@@ -15,11 +15,16 @@ MonoBehaviour:
   fishID: 100002
   fishName: Bouncy Bass
   description: The Bouncy Bass is a Hybrid betwen the Green tree frog and a Bass
-  fishSpeed: 0.5
+  hybridPrefab: {fileID: 5912814878153290071, guid: bd86ef7a1f46d734a8783466175ab949,
+    type: 3}
+  hybridPoolType: 0
   rarity: 0
   spawnLocation: 0
+  poolType: 0
+  spawnChance: 59
+  damageToRod: 9
+  catchChance: 59
+  fishSpeed: 0.5
   foodEaten: 5
   favFood: 0
-  catchChance: 59
-  damageToRod: 9
   favToy: 1
