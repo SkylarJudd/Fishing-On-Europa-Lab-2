@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using static FishSpawnerGeyser;
 
 
 
@@ -20,10 +21,13 @@ public class FishSpawnerGeyser : MonoBehaviour
     {
         public float spawnChance;
         public float newSpawnChance;
+        public PoolType poolType;
         public GameObject hybridGameObject;
     }
 
     float forceMultiplier = 10f;
+
+    
 
     private void Start()
     {
@@ -35,6 +39,7 @@ public class FishSpawnerGeyser : MonoBehaviour
             HybridsToSpawn newEntry = new HybridsToSpawn();
             newEntry.spawnChance = fishToSpawn.FishToSpawnList[i].spawnChance;
             newEntry.hybridGameObject = fishToSpawn.FishToSpawnList[i].hybridPrefab;
+            newEntry.poolType = fishToSpawn.FishToSpawnList[i].poolType;
             total += fishToSpawn.FishToSpawnList[i].spawnChance;
             fishList.Add(newEntry);
         }
@@ -50,22 +55,33 @@ public class FishSpawnerGeyser : MonoBehaviour
 
         fishList.Sort((x, y) => x.newSpawnChance.CompareTo(y.newSpawnChance));
 
+        
+
     }
+
+    
 
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
-            //print("Mouse1Pressed");
-            GameObject Hybrid = Instantiate(GetFishToSpawn(), spawnPos.position, Quaternion.LookRotation(targetPos.transform.position));
-            MoveToTarget(Hybrid, GetRandomPositionAround(targetPos));
+            spawnHybrid();
         }
         else if (Input.GetKeyDown(KeyCode.Mouse1))
         {
-            //print("Mouse2Pressed");
-            GameObject Hybrid = Instantiate(GetFishToSpawn(), spawnPos.position, Quaternion.LookRotation(targetPos.transform.position));
-            MoveToTarget(Hybrid, targetPos.position);
+            spawnHybrid();
         }
+    }
+
+    public void spawnHybrid()
+    {
+
+        HybridsToSpawn hybridToSpawn = GetFishToSpawn();
+
+        GameObject hybridFromManager = ObjectPoolManager.OPM_Instance.spawnObject(hybridToSpawn.hybridGameObject,spawnPos.transform.position,Quaternion.LookRotation(targetPos.position),hybridToSpawn.poolType);
+
+        MoveToTarget(hybridFromManager, GetRandomPositionAround( targetPos));
+
     }
 
     public void MoveToTarget(GameObject fishHybrid, Vector3 target)
@@ -122,31 +138,33 @@ public class FishSpawnerGeyser : MonoBehaviour
         //Debug.Log($"Assigned velocity: {_Rb.velocity}");
     }
 
-    private GameObject GetFishToSpawn()
+    private HybridsToSpawn GetFishToSpawn()
     {
-        float randomNumber = UnityEngine.Random.Range(0, 100);
+        
         if ( 100 == UnityEngine.Random.Range(0, 100))
         {
             bool isShiney = true;
         }
 
-        print(fishList.Count);
-        print("Random number = " + randomNumber);
+        //print(fishList.Count);
+        //print("Random number = " + randomNumber);
+
+        float randomNumber = UnityEngine.Random.Range(0, 100);
 
         float currentChanceValue = 0;
 
         foreach (HybridsToSpawn hybrids in fishList)
         {
-
             currentChanceValue += hybrids.newSpawnChance;
 
             if (randomNumber <= currentChanceValue)
             {
-                return hybrids.hybridGameObject;
+                return hybrids;
             }
         }
-        Debug.LogError($"Hybrid was outside the random range with a value of {randomNumber} , spawning {fishList[1].hybridGameObject}");
-        return fishList[1].hybridGameObject;
+
+        Debug.LogError($"Hybrid was outside the random range with a value of {randomNumber}, spawning {fishList[1].hybridGameObject}");
+        return fishList[1];
     }
 
     public Vector3 GetRandomPositionAround(Transform centerTransform)

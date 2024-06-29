@@ -1,9 +1,11 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 using static UnityEngine.ParticleSystem;
+
 
 public enum PoolType
 {
@@ -20,10 +22,10 @@ public enum PoolType
 
 }
 
-public class ObjectPoolMannager : MonoBehaviour
+public class ObjectPoolManager : MonoBehaviour
 {
-    public static ObjectPoolMannager OPM_Instance { get; private set; }
-    public static List<PooledObjectInfo> objectPools = new List<PooledObjectInfo>();
+    public static ObjectPoolManager OPM_Instance { get; private set; }
+    public List<PooledObjectInfo> objectPools = new List<PooledObjectInfo>();
 
     #region ObjectPoolEmpites
     private GameObject _objectPoolEmptyHolder;
@@ -31,21 +33,22 @@ public class ObjectPoolMannager : MonoBehaviour
     private GameObject _hybridsEmptyHolder;
     private GameObject _farmEmptyHolder;
 
-    private static GameObject _zoneOneHybridsEmpty;
-    private static GameObject _zoneTwoHybridsEmpty;
-    private static GameObject _zoneThreeHybridsEmpty;
-    private static GameObject _zoneFarmHybridsEmpty;
+    private GameObject _zoneOneHybridsEmpty;
+    private GameObject _zoneTwoHybridsEmpty;
+    private GameObject _zoneThreeHybridsEmpty;
+    private GameObject _zoneFarmHybridsEmpty;
 
-    private static GameObject _seedsEmpty;
-    private static GameObject _plantsEmpty;
-    private static GameObject _foodEmpty;
+    private GameObject _seedsEmpty;
+    private GameObject _plantsEmpty;
+    private GameObject _foodEmpty;
 
-    private static GameObject _particalesEmpty;
-    private static GameObject _sounds;
+    private GameObject _particalesEmpty;
+    private GameObject _sounds;
     #endregion
 
+   
 
-    public static PoolType PoolingType;
+    public PoolType PoolingType;
 
     private void Awake()
     {
@@ -100,7 +103,7 @@ public class ObjectPoolMannager : MonoBehaviour
         child.transform.SetParent(parent.transform);
     }
 
-    private static GameObject SetParentObject(PoolType poolType)
+    private GameObject SetParentObject(PoolType poolType)
     {
         #region PoolAssignmentNotes
         //ZoneOneHybrids = _zoneOneHybridsEmpty
@@ -153,48 +156,56 @@ public class ObjectPoolMannager : MonoBehaviour
         }
     }
 
-    public static GameObject spawnObject(GameObject objectToSpawn, Vector3 spawnPosition, Quaternion spawnRotation , PoolType poolType = PoolType.None)
+    public string CallTest()
     {
+        return "Bitch we working";
+    }
+
+
+
+    public GameObject spawnObject(GameObject objectToSpawn, Vector3 spawnPosition, Quaternion spawnRotation, PoolType poolType = PoolType.None)
+    {
+        Debug.Log("SpawnObject Called");
         PooledObjectInfo pool = objectPools.Find(p => p.LookUpString == objectToSpawn.name);
 
-        if (pool != null)
+        if (pool == null)
         {
             pool = new PooledObjectInfo() { LookUpString = objectToSpawn.name };
             objectPools.Add(pool);
-
-
-
+            Debug.Log("Created a new Pool");
         }
-        //check if there is any Incative objects in the pool
 
+        // Check if there are any inactive objects in the pool
         GameObject spawnableObj = pool.inactiveObjects.FirstOrDefault();
 
         if (spawnableObj == null)
         {
+            Debug.Log("No Pooled Object To Pull");
+            // Find the Parent of the empty Object
+            GameObject parentObject = SetParentObject(poolType);
 
-            //Find the Parent of the empty Object
-            GameObject parameObject = SetParentObject(poolType);
-
-            //if there is no active object Crate a new one
+            // If there is no active object, create a new one
             spawnableObj = Instantiate(objectToSpawn, spawnPosition, spawnRotation);
+            Debug.Log($"Created a new GameObject: {spawnableObj}");
 
-            if ( parameObject != null )
+            if (parentObject != null)
             {
-                spawnableObj.transform.SetParent(parameObject.transform);
+                spawnableObj.transform.SetParent(parentObject.transform);
             }
-
         }
         else
         {
+            Debug.Log("Found Pooled Object");
             spawnableObj.transform.position = spawnPosition;
             spawnableObj.transform.rotation = spawnRotation;
             pool.inactiveObjects.Remove(spawnableObj);
             spawnableObj.SetActive(true);
         }
+
         return spawnableObj;
     }
 
-    public static void ReturnObjectToPool(GameObject obj)
+    public void ReturnObjectToPool(GameObject obj)
     {
         string goName = obj.name.Substring(0, obj.name.Length - 7); // by taking off the 7, we are removing the (clone) from the passed in Obj
 
@@ -211,6 +222,7 @@ public class ObjectPoolMannager : MonoBehaviour
         }
     }
 
+    [Serializable]
     public class PooledObjectInfo
     {
         public string LookUpString;
