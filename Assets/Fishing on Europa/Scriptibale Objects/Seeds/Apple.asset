@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   seedName: Apple
   seedDesc: 
-  foodProduced: Apple
+  foodProduced: {fileID: 11400000, guid: 89f8af54d84bf5f4e84772b0c45010c8, type: 2}
   spawnLocation: 1
   growthTime: 3
   price: 0

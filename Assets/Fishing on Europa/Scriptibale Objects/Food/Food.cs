@@ -20,6 +20,7 @@ public class Food : ScriptableObject
     public int finshiedCropDropSeeds;
     public int finshiedCropDropFood;
     public int happinesAdd;
+    public GameObject gameModel;
 
 
 }

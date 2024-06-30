@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   seedName: Orange
   seedDesc: 
-  foodProduced: 
+  foodProduced: {fileID: 11400000, guid: c20194e65dd31cd4dab8e90789e0e9b3, type: 2}
   spawnLocation: 1
   growthTime: 0
   price: 0

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   seedName: Watermelon
   seedDesc: 
-  foodProduced: 
+  foodProduced: {fileID: 11400000, guid: 3e4f24647197e2843a138d37674faced, type: 2}
   spawnLocation: 3
   growthTime: 0
   price: 0

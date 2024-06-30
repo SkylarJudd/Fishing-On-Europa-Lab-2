@@ -7,6 +7,10 @@ public class FarmingSoil : MonoBehaviour
     public GameObject parentObject;
     public Vector3[] positions;
 
+    [Header("Crops")]
+    //The crop prefab to instantiate
+    public GameObject cropPrefab;
+
     private void Start()
     {
         int childCount = transform.childCount;
@@ -29,11 +33,16 @@ public class FarmingSoil : MonoBehaviour
                     {
                         // Move the child to the specified position
                         child.localPosition = positions[i];
+                        cropPrefab = child.gameObject;
                     }
                 }
             }
         }
     }
 
-
+    public void GrowCrop()
+    {
+        //Access the CropBehaviour script
+        
+    }
 }

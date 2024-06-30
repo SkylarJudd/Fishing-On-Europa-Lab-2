@@ -8,7 +8,7 @@ public class Seeds : ScriptableObject
 {
     public string seedName;
     public string seedDesc;
-    public string foodProduced;
+    public Food foodProduced;
 
     public int spawnLocation; // 1 = Lake, 2 = River, 3 = Pond
     public float growthTime;

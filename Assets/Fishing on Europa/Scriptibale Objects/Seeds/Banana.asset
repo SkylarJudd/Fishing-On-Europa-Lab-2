@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   seedName: Banana
   seedDesc: 
-  foodProduced: 
+  foodProduced: {fileID: 11400000, guid: 5ebdfe9165682f545922c843a88e84ac, type: 2}
   spawnLocation: 2
   growthTime: 0
   price: 0

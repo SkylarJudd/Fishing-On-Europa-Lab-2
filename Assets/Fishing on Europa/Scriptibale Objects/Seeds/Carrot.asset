@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   seedName: Carrot
   seedDesc: 
-  foodProduced: 
+  foodProduced: {fileID: 11400000, guid: 135b551d7da2192439826b07ad73e8fd, type: 2}
   spawnLocation: 1
   growthTime: 0
   price: 0

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   seedName: Potato
   seedDesc: 
-  foodProduced: 
+  foodProduced: {fileID: 11400000, guid: 52170ea5027286e4d87b395015c99357, type: 2}
   spawnLocation: 1
   growthTime: 0
   price: 0
