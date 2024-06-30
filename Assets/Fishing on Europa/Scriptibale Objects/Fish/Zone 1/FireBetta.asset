@@ -15,7 +15,7 @@ MonoBehaviour:
   fishID: 100009
   fishName: FireBetta
   description: a fish hybried betwen a red panda and a Betta fish
-  hybridPrefab: {fileID: 5912814878153290071, guid: c531c38de1ecf0a4298d3b63e3af9d16,
+  hybridPrefab: {fileID: 8410365432979560448, guid: 1c1d57968cc88894dba3696a27423985,
     type: 3}
   hybridPoolType: 0
   rarity: 2

@@ -27,7 +27,10 @@ public class FishSpawnerGeyser : MonoBehaviour
 
     float forceMultiplier = 10f;
 
-    
+    [SerializeField] FishNavigationManager fishNavigationManager;
+    [SerializeField] GeyserMannager geyserMannager;
+
+
 
     private void Start()
     {
@@ -59,26 +62,21 @@ public class FishSpawnerGeyser : MonoBehaviour
 
     }
 
-    
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Mouse0))
-        {
-            spawnHybrid();
-        }
-        else if (Input.GetKeyDown(KeyCode.Mouse1))
-        {
-            spawnHybrid();
-        }
-    }
 
     public void spawnHybrid()
     {
 
         HybridsToSpawn hybridToSpawn = GetFishToSpawn();
 
-        GameObject hybridFromManager = ObjectPoolManager.OPM_Instance.spawnObject(hybridToSpawn.hybridGameObject,spawnPos.transform.position,Quaternion.LookRotation(targetPos.position),hybridToSpawn.poolType);
+        Vector3 direction = targetPos.position - spawnPos.position;
+        Quaternion lookRotation = Quaternion.LookRotation(direction);
+
+        //Debug.Log($"Spawning {hybridToSpawn.hybridGameObject.name} at {spawnPos.position} looking towards {targetPos.position} with rotation {lookRotation.eulerAngles}");
+        GameObject hybridFromManager = ObjectPoolManager.OPM_Instance.spawnObject(hybridToSpawn.hybridGameObject, spawnPos.transform.position, lookRotation, hybridToSpawn.poolType);
+        //Debug.Log($"Spawned object {hybridFromManager.name} with rotation {hybridFromManager.transform.rotation.eulerAngles}");
+
+        fishNavigationManager.addHybridToPondList(hybridFromManager);
 
         MoveToTarget(hybridFromManager, GetRandomPositionAround( targetPos));
 
@@ -134,8 +132,12 @@ public class FishSpawnerGeyser : MonoBehaviour
         _Rb.velocity = new Vector3(VXZ.x, Vy, VXZ.z);
         _Rb.useGravity = true;
 
-        // Debugging output to check assigned velocity
-        //Debug.Log($"Assigned velocity: {_Rb.velocity}");
+        // Apply rotational force
+        Vector3 rotationalForce = new Vector3(UnityEngine.Random.Range(-1.0f, 1.0f), UnityEngine.Random.Range(-1.0f, 1.0f), UnityEngine.Random.Range(-1.0f, 1.0f)); // This will rotate the object around its Y-axis
+
+        _Rb.angularVelocity = rotationalForce;
+
+
     }
 
     private HybridsToSpawn GetFishToSpawn()

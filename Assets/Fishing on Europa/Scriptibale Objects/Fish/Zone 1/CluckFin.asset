@@ -15,7 +15,7 @@ MonoBehaviour:
   fishID: 100001
   fishName: Cluck Fin
   description: A fish that is a cross between a Puffer fish and a Chicken
-  hybridPrefab: {fileID: 6194223639413533073, guid: f63fdbf67a4281f4a812a55e95a7f8f4,
+  hybridPrefab: {fileID: 8267993753747670083, guid: a658ccac28258b440a9128cd15af0c79,
     type: 3}
   hybridPoolType: 0
   rarity: 0

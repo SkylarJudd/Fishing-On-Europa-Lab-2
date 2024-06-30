@@ -15,7 +15,7 @@ MonoBehaviour:
   fishID: 10006
   fishName: Frost Scale
   description: a Hybrid of an Arctic fox and a fish
-  hybridPrefab: {fileID: 5912814878153290071, guid: 5162fe94d02cd8b41bf7e2c83c3c7d68,
+  hybridPrefab: {fileID: 5008421055324423510, guid: 6946779f18dbbd64c9f5b834ba4c73a4,
     type: 3}
   hybridPoolType: 0
   rarity: 1

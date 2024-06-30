@@ -46,9 +46,9 @@ public class ObjectPoolManager : MonoBehaviour
     private GameObject _sounds;
     #endregion
 
-   
+    [SerializeField] int minPoolSize = 5;
 
-    public PoolType PoolingType;
+    [HideInInspector] public PoolType PoolingType;
 
     private void Awake()
     {
@@ -59,9 +59,15 @@ public class ObjectPoolManager : MonoBehaviour
         else
         {
             OPM_Instance = this;
+            DontDestroyOnLoad(gameObject);
         }
 
         SetUpEmpties();
+    }
+
+    private void Start()
+    {
+        StartCoroutine(CheckInactiveObjects());
     }
 
     private void SetUpEmpties()
@@ -165,14 +171,14 @@ public class ObjectPoolManager : MonoBehaviour
 
     public GameObject spawnObject(GameObject objectToSpawn, Vector3 spawnPosition, Quaternion spawnRotation, PoolType poolType = PoolType.None)
     {
-        Debug.Log("SpawnObject Called");
+        //Debug.Log("SpawnObject Called");
         PooledObjectInfo pool = objectPools.Find(p => p.LookUpString == objectToSpawn.name);
 
         if (pool == null)
         {
             pool = new PooledObjectInfo() { LookUpString = objectToSpawn.name };
             objectPools.Add(pool);
-            Debug.Log("Created a new Pool");
+            //Debug.Log("Created a new Pool");
         }
 
         // Check if there are any inactive objects in the pool
@@ -180,13 +186,13 @@ public class ObjectPoolManager : MonoBehaviour
 
         if (spawnableObj == null)
         {
-            Debug.Log("No Pooled Object To Pull");
+            //Debug.Log("No Pooled Object To Pull");
             // Find the Parent of the empty Object
             GameObject parentObject = SetParentObject(poolType);
 
             // If there is no active object, create a new one
             spawnableObj = Instantiate(objectToSpawn, spawnPosition, spawnRotation);
-            Debug.Log($"Created a new GameObject: {spawnableObj}");
+            //Debug.Log($"Created a new GameObject: {spawnableObj}");
 
             if (parentObject != null)
             {
@@ -199,6 +205,7 @@ public class ObjectPoolManager : MonoBehaviour
             spawnableObj.transform.position = spawnPosition;
             spawnableObj.transform.rotation = spawnRotation;
             pool.inactiveObjects.Remove(spawnableObj);
+            pool.inactiveTimestamps.Remove(spawnableObj);
             spawnableObj.SetActive(true);
         }
 
@@ -211,7 +218,7 @@ public class ObjectPoolManager : MonoBehaviour
 
         PooledObjectInfo pool = objectPools.Find(p => p.LookUpString == goName);
 
-        if ( pool == null)
+        if (pool == null)
         {
             Debug.LogWarning("Trying To Releace An Object That is Not Pooled: " + obj.name);
         }
@@ -219,6 +226,7 @@ public class ObjectPoolManager : MonoBehaviour
         {
             obj.SetActive(false);
             pool.inactiveObjects.Add(obj);
+            pool.inactiveTimestamps[obj] = Time.time;
         }
     }
 
@@ -227,6 +235,38 @@ public class ObjectPoolManager : MonoBehaviour
     {
         public string LookUpString;
         public List<GameObject> inactiveObjects = new List<GameObject>();
+        public Dictionary<GameObject, float> inactiveTimestamps = new Dictionary<GameObject, float>();
     }
 
+    private IEnumerator CheckInactiveObjects()
+    {
+        float checkInterval = 10f; // Interval to check for inactive objects
+        float maxInactiveDuration = 60f; // Maximum allowed inactive duration
+
+        while (true)
+        {
+            yield return new WaitForSeconds(checkInterval);
+
+            foreach (PooledObjectInfo pool in objectPools)
+            {
+                List<GameObject> toRemove = new List<GameObject>();
+
+                foreach (var kvp in pool.inactiveTimestamps)  //kvp = key value pair
+                {
+                    if (Time.time - kvp.Value > maxInactiveDuration && pool.inactiveObjects.Count > minPoolSize)
+                    {
+                        toRemove.Add(kvp.Key);
+                    }
+                }
+
+                foreach (GameObject obj in toRemove)
+                {
+                    pool.inactiveObjects.Remove(obj);
+                    pool.inactiveTimestamps.Remove(obj);
+                    Destroy(obj); // Or handle the object removal as needed
+                }
+            }
+        }
+
+    }
 }

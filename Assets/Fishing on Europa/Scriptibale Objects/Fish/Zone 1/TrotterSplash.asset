@@ -15,7 +15,7 @@ MonoBehaviour:
   fishID: 100005
   fishName: Trottersplash
   description: 'A hybrid of a tamworth pig and a fish '
-  hybridPrefab: {fileID: 6194223639413533073, guid: e92ca46d3656c4a458a1a0f003c09730,
+  hybridPrefab: {fileID: 3486279173215007155, guid: b929009a1e406ab4ea63131a7266dcc3,
     type: 3}
   hybridPoolType: 0
   rarity: 1

@@ -5,7 +5,7 @@ using UnityEngine;
 public class FishNavigationScript : MonoBehaviour
 {
     //public int fishBehaviorState; // 1 idel, 2 flock, 3 catch
-    [SerializeField] float speed = 0.1f;
+    public float speed = 0.1f;
     [SerializeField] float rotationSpeed = 8.0f;
     Vector3 averageHeading;
     Vector3 averagePosition;

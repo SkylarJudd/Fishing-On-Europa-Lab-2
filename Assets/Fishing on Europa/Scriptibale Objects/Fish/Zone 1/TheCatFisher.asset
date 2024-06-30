@@ -15,7 +15,7 @@ MonoBehaviour:
   fishID: 100008
   fishName: CatFisher
   description: a hybrid between a Ragdoll cat and a cat fish
-  hybridPrefab: {fileID: 8529042409891104253, guid: 7511c601290129c428bbd940bae3cc4c,
+  hybridPrefab: {fileID: 3928281344754751941, guid: 89de44bbcc799f743807bed7b34b7aa2,
     type: 3}
   hybridPoolType: 0
   rarity: 2

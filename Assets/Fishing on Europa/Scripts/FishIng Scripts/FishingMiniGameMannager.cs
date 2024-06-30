@@ -27,7 +27,7 @@ public class FishingMiniGameMannager : MonoBehaviour
     [SerializeField] ClosestObjectsFinder closestObjectsFinder;
     [SerializeField] FollowFish LureFollowFish;
     [SerializeField] RodAncorScript rodAnchorScript;
-    [SerializeField] fishStats fishStat;
+    [SerializeField] HybridInfo fishStat;
     [SerializeField] float nextToggle;
     [SerializeField] float toggleRate = 10f;
     [SerializeField] float toggleRange = 5f;
@@ -201,7 +201,7 @@ public class FishingMiniGameMannager : MonoBehaviour
     private void DamageRod()
     {
         //damages the rod every second based on the fishes damage to rod
-        rodHealth = rodHealth - fishStat.fish.damageToRod;
+        rodHealth = rodHealth - fishStat.hybridInfo.damageToRod;
         rodHealthText.text = rodHealth + "/100";
         dammaging = true;
         damagedDelay = 1f;
@@ -313,7 +313,7 @@ public class FishingMiniGameMannager : MonoBehaviour
         miniGameActive = timerState;
         caughtFish = closestObjectsFinder.caughtFish;
         fishNavScipt = caughtFish.GetComponent<FishNavigationScript>();
-        fishStat = caughtFish.GetComponent<fishStats>();
+        fishStat = caughtFish.GetComponent<HybridInfo>();
         rodHealth = 100; // need to set up something later to get the rod health from somewhere else so we can have upgrades
         rodHealthText.text = rodHealth + "/100";
         updateColour(rodHealth);

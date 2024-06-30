@@ -15,7 +15,7 @@ MonoBehaviour:
   fishID: 100004
   fishName: Rainbow Beaker Fish
   description: a hybrid between a tropical fish and a Toocan
-  hybridPrefab: {fileID: 3286629955569976930, guid: 9b40c92d909bab149a0c95e51c7e683e,
+  hybridPrefab: {fileID: 5124686827279370238, guid: 8105af756e5722043bf3f6b1b50ea9c9,
     type: 3}
   hybridPoolType: 0
   rarity: 0

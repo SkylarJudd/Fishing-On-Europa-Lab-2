@@ -15,7 +15,7 @@ MonoBehaviour:
   fishID: 100003
   fishName: BunnyBlob
   description: a Hybrid between Amaercan Fuzzy Lop and a Blob fish
-  hybridPrefab: {fileID: 8529042409891104253, guid: b275e49e7ab569e47a5ce37fcf52b870,
+  hybridPrefab: {fileID: 224917526755603837, guid: a3bbf64426e413c47a4ba5a0db793a5e,
     type: 3}
   hybridPoolType: 0
   rarity: 0

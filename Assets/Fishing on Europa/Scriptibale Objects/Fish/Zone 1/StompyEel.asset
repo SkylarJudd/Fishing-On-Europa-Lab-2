@@ -15,7 +15,7 @@ MonoBehaviour:
   fishID: 100010
   fishName: StompyEel
   description: African Frost Elephant and fish
-  hybridPrefab: {fileID: 3286629955569976930, guid: e168770a0ac320d418e42908054a9fb0,
+  hybridPrefab: {fileID: 113598577132029567, guid: 7cc4ba5405534ea4782b35573c6df9b9,
     type: 3}
   hybridPoolType: 0
   rarity: 3

@@ -135,8 +135,8 @@ public class ClosestObjectsFinder : MonoBehaviour
     void OnFishFound(GameObject fish)
     {
         //Debug.Log("Found fish: " + fish.name);
-        fishStats fishStat = fish.GetComponent<fishStats>();
-        float catchChance = fishStat.fish.catchChance;
+        HybridInfo fishStat = fish.GetComponent<HybridInfo>();
+        float catchChance = fishStat.hybridInfo.catchChance;
         FishNavigationScript fishNavigationScript = fish.GetComponent<FishNavigationScript>();
         //FishNavigationScript.ToggleToCatch();
         //print("Fish Set To Move To Lure");
@@ -198,9 +198,9 @@ public class ClosestObjectsFinder : MonoBehaviour
 
             foreach(GameObject closestObject in closestObjects)
             {
-                fishStats fishStat = closestObject.GetComponent<fishStats>();
+                HybridInfo fishStat = closestObject.GetComponent<HybridInfo>();
                 //print("Current Nuber = " + currentNumber + "Object " + closestObject + "Catch Chance = " + (fishStat.fish.catchChance) + "To " + (Mathf.Abs(fishStat.fish.catchChance - 100)));
-                if (Mathf.FloorToInt(currentNumber) == Mathf.Abs(fishStat.fish.catchChance - 100) )
+                if (Mathf.FloorToInt(currentNumber) == Mathf.Abs(fishStat.hybridInfo.catchChance - 100) )
                 {
                     if (closestObject != caughtFish)
                     {

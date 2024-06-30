@@ -7,6 +7,8 @@ public class GeyserMannager : MonoBehaviour
     [SerializeField] List<GameObject> geysers = new List<GameObject>();
     [SerializeField] GameObject fishMannager;
 
+    public Transform waterHight;
+
     Coroutine spawnHybridsOnstart;
 
     private void Start()
@@ -26,6 +28,17 @@ public class GeyserMannager : MonoBehaviour
         spawnHybridsOnstart = StartCoroutine(SpawnHybridsOnStart());
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Mouse0))
+        {
+            SpawnAHybrid();
+        }
+        else if (Input.GetKeyDown(KeyCode.Mouse1))
+        {
+            SpawnAHybrid();
+        }
+    }
     private IEnumerator SpawnHybridsOnStart()
     {
         float _spawnCooldown = 1f;

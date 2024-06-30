@@ -15,7 +15,7 @@ MonoBehaviour:
   fishID: 100007
   fishName: Spotted Prowlfin
   description: a hybrid between Amur leopard and a Fish
-  hybridPrefab: {fileID: 8529042409891104253, guid: 38daa828b8a374b4f9da641f7449a309,
+  hybridPrefab: {fileID: 1673533686132058831, guid: 8e75e5077e4fab245a6620e856c067b2,
     type: 3}
   hybridPoolType: 0
   rarity: 1
