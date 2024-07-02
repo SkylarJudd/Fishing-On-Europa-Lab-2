@@ -13,9 +13,10 @@ GameObject:
   - component: {fileID: 8962177131695969835}
   - component: {fileID: 1132201955035333179}
   - component: {fileID: -9006011360737295723}
+  - component: {fileID: -7087294194286195889}
   m_Layer: 0
-  m_Name: SeedPlaceholder
-  m_TagString: Untagged
+  m_Name: OrangeSeedPlaceholder
+  m_TagString: Seed
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -115,7 +116,38 @@ MonoBehaviour:
   m_GameObject: {fileID: 9156764235852979800}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1b8716b4b07bc2844b0c15a93a401623, type: 3}
+  m_Script: {fileID: 11500000, guid: 87d633e095e4e2442ba6cb5c7305807f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  seed: {fileID: 11400000, guid: f32e877a5d3813745adc06e7dfe76378, type: 2}
+  seedToGrow: {fileID: 11400000, guid: 4b9832a81e8158e45a7848fd0b230b34, type: 2}
+  seed: {fileID: 9156764235852979800}
+  growth: 0
+  maxGrowth: 0
+  cropState: 0
+--- !u!54 &-7087294194286195889
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9156764235852979800}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0

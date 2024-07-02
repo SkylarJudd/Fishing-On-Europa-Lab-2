@@ -5,13 +5,19 @@ using UnityEngine;
 public class CropBehaviour : MonoBehaviour
 {
     //Infomation on what the crop will grow into
-    Seeds seedToGrow;
+    public Seeds seedToGrow;
 
     [Header("Growth Stages")]
-    public GameObject seed;
-    public GameObject sprout;
-    public GameObject adolecent;
-    public GameObject mature;
+    public  GameObject seed;
+    private GameObject sprout;
+    private GameObject adolecent;
+    private GameObject mature;
+
+    //growth points of the crop
+    public float growth;
+    //how many grouth points it takes before it becomes harvestable
+    public float maxGrowth;
+
     public enum CropState
     {
         Seed, Sprout, Adolecent, Mature
@@ -22,11 +28,8 @@ public class CropBehaviour : MonoBehaviour
 
     //Initialisation for the crop GameObject
     //Called when the player plants a seed
-    public void Plant(Seeds seedToGrow)
+    public void Plant()
     {
-        //Save the seed information
-        this.seedToGrow = seedToGrow;
-
         //Set the sprout and harvestable GameObjects
         sprout = Instantiate(seedToGrow.sprout, transform);
 
@@ -39,13 +42,36 @@ public class CropBehaviour : MonoBehaviour
         //Instantiate the harvestable crop
         mature = Instantiate(foodProduced.gameModel, transform);
 
+        //Convert Growth Time into minutes (TODO with day/night cycle)
+        maxGrowth = seedToGrow.growthTime;
+
         //Set the inital state to Seed
         SwitchState(CropState.Seed);
     }
 
+    //crop will griw when condition is met
     public void Grow()
     {
+        //increase the growth point by 1
+        growth++;
 
+        //the seed will sprout when the groth is at 33%
+        if (growth >= maxGrowth / 3 && cropState == CropState.Seed)
+        {
+            SwitchState(CropState.Sprout);
+        }
+
+        //the sprout will reach adolecent at 63%
+        if (growth >= maxGrowth / 3 * 2 && cropState == CropState.Sprout)
+        {
+            SwitchState(CropState.Adolecent);
+        }
+
+        //Fully grown
+        if (growth >= maxGrowth && cropState == CropState.Adolecent)
+        {
+            SwitchState(CropState.Mature);
+        }
     }
 
     //function to handle the state change
@@ -65,15 +91,20 @@ public class CropBehaviour : MonoBehaviour
                 break;
             case CropState.Sprout:
                 //Enable the Sprout GameObject
-                sprout.SetActive(true);
+                sprout = Instantiate(seedToGrow.sprout, transform);
+                //sprout.SetActive(true);
                 break;
             case CropState.Adolecent:
                 //Enable the Adolecent GameObject
                 adolecent.SetActive(true);
                 break;
             case CropState.Mature:
-                //Enable the MAture GameObject
+                //Enable the Mature GameObject
                 mature.SetActive(true);
+                //unparent to soil
+                mature.transform.parent = null;
+                //
+                Destroy(gameObject);
                 break;
         }
 

@@ -19,7 +19,7 @@ MonoBehaviour:
   growthTime: 3
   price: 0
   artwork: {fileID: 0}
-  seedling: {fileID: 9156764235852979800, guid: d3684be5fbf821748bf88f6b7ec408ba,
+  seedling: {fileID: 9156764235852979800, guid: b2d671496f9929f4ebcd56443642581b,
     type: 3}
   sprout: {fileID: 4831865379003320886, guid: cf495d7253a57864e8269b27d0cb77b6, type: 3}
   adolecent: {fileID: 277370471398807642, guid: 68c1652350b8f3244865cca412bed0f3,

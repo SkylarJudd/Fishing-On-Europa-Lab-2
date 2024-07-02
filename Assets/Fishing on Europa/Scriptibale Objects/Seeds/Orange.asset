@@ -16,10 +16,12 @@ MonoBehaviour:
   seedDesc: 
   foodProduced: {fileID: 11400000, guid: c20194e65dd31cd4dab8e90789e0e9b3, type: 2}
   spawnLocation: 1
-  growthTime: 0
+  growthTime: 5
   price: 0
   artwork: {fileID: 0}
-  seedling: {fileID: 0}
-  sprout: {fileID: 0}
-  adolecent: {fileID: 0}
-  mature: {fileID: 0}
+  seedling: {fileID: 9156764235852979800, guid: d3684be5fbf821748bf88f6b7ec408ba,
+    type: 3}
+  sprout: {fileID: 4831865379003320886, guid: cf495d7253a57864e8269b27d0cb77b6, type: 3}
+  adolecent: {fileID: 277370471398807642, guid: 68c1652350b8f3244865cca412bed0f3,
+    type: 3}
+  mature: {fileID: 4387607978619465981, guid: cf744e29c8c1a904fa9054594f53b102, type: 3}
