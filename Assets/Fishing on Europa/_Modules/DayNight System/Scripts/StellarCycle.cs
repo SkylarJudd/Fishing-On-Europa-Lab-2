@@ -9,19 +9,31 @@ public class StellarCycle : MonoBehaviour
     public float yRotation; //rotates horizontally
     public float zRotation; //rotates object like a barrel roll
     public float lerpDuration = 0.5f; // duration of the rotate/lerp
-    public bool isSun = false;
-    public bool isContinuous = false;
-    public bool isRotating = false;
+    [SerializeField] public bool isSun = false;
+    [SerializeField] public bool isIO = false;
+    [SerializeField] public bool isGanymede = false;
+    [SerializeField] public bool isContinuous = false;
+    [SerializeField] public bool isRotating = false;
 
     private void Start()
     {
         tm = FindObjectOfType<TimeManager>();
         if (isSun)
         {
-            UpdateDayDuration();
+            UpdateDayDuration(2);
             isRotating = true;
         }
-            
+        if (isIO)
+        {
+            UpdateDayDuration(3);
+            isRotating = true;
+        }
+        if (isGanymede)
+        {
+            UpdateDayDuration(1);
+            isRotating = true;
+        }
+
     }
 
     private void Update()
@@ -55,8 +67,8 @@ public class StellarCycle : MonoBehaviour
         isRotating = true;
     }
     //For Day/Night Cycle
-    public void UpdateDayDuration()
+    void UpdateDayDuration(int _orbit)
     {
-        lerpDuration = tm.dayDuration / 2;
+        lerpDuration = tm.dayDuration / _orbit;
     }
 }

@@ -10,6 +10,14 @@ TagManager:
   - FishingRod
   - Lure
   - Reel
+  - Ground
+  - Lock1
+  - Wall
+  - Lock2
+  - Button
+  - Key1
+  - Key2
+  - CinemachineTarget
   layers:
   - Default
   - TransparentFX
@@ -23,7 +31,7 @@ TagManager:
   - Lure
   - Interactible
   - Reel
-  - 
+  - FarRender
   - 
   - 
   - 
