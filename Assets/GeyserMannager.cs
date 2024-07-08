@@ -7,6 +7,8 @@ public class GeyserMannager : MonoBehaviour
     [SerializeField] List<GameObject> geysers = new List<GameObject>();
     [SerializeField] GameObject fishMannager;
 
+    [SerializeField] int _startSpawnAmout = 1;
+
     public Transform waterHight;
 
     Coroutine spawnHybridsOnstart;
@@ -42,9 +44,9 @@ public class GeyserMannager : MonoBehaviour
     private IEnumerator SpawnHybridsOnStart()
     {
         float _spawnCooldown = 1f;
-        int _startSpawnAmout = 10;
+        
 
-        for (int i = 0; i <= _startSpawnAmout; i++)
+        for (int i = 0; i < _startSpawnAmout; i++)
         {
             SpawnAHybrid();
             _spawnCooldown = UnityEngine.Random.Range(0.1f, 0.5f);

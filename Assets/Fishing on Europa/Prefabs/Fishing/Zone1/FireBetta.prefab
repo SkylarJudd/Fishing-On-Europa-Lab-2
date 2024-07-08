@@ -8,6 +8,46 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 5148902112461333217}
     m_Modifications:
+    - target: {fileID: 296825457099780986, guid: c531c38de1ecf0a4298d3b63e3af9d16,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 356062832180174497, guid: c531c38de1ecf0a4298d3b63e3af9d16,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1914359232062474793, guid: c531c38de1ecf0a4298d3b63e3af9d16,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 2970203996632645211, guid: c531c38de1ecf0a4298d3b63e3af9d16,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5039544001370798290, guid: c531c38de1ecf0a4298d3b63e3af9d16,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5160643390751530943, guid: c531c38de1ecf0a4298d3b63e3af9d16,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5391759636790523857, guid: c531c38de1ecf0a4298d3b63e3af9d16,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5613798548296166479, guid: c531c38de1ecf0a4298d3b63e3af9d16,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 5912814878153290068, guid: c531c38de1ecf0a4298d3b63e3af9d16,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -62,6 +102,26 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Fish 8 Testing
+      objectReference: {fileID: 0}
+    - target: {fileID: 5912814878153290071, guid: c531c38de1ecf0a4298d3b63e3af9d16,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5923569211907369052, guid: c531c38de1ecf0a4298d3b63e3af9d16,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 6798514649086361963, guid: c531c38de1ecf0a4298d3b63e3af9d16,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 6965802714389800397, guid: c531c38de1ecf0a4298d3b63e3af9d16,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -137,12 +197,27 @@ PrefabInstance:
       propertyPath: m_Name
       value: FireBetta
       objectReference: {fileID: 0}
+    - target: {fileID: 3508470786671384094, guid: cf5949429d9f4124dacf18057d9c903c,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4330627709333622891, guid: cf5949429d9f4124dacf18057d9c903c,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 7475558278636915969, guid: cf5949429d9f4124dacf18057d9c903c,
         type: 3}
       propertyPath: hybridInfo
       value: 
       objectReference: {fileID: 11400000, guid: 9324671bbaa17be4986f2003aa4549d2,
         type: 2}
+    - target: {fileID: 9215500234652228996, guid: cf5949429d9f4124dacf18057d9c903c,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:

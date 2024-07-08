@@ -10,6 +10,7 @@ TagManager:
   - FishingRod
   - Lure
   - Reel
+  - Wall
   layers:
   - Default
   - TransparentFX

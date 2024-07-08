@@ -8,6 +8,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 8421034734353710367}
     m_Modifications:
+    - target: {fileID: 304726060756795257, guid: 9b40c92d909bab149a0c95e51c7e683e,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 781831671966795469, guid: 9b40c92d909bab149a0c95e51c7e683e,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -58,10 +63,80 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1471309428904260437, guid: 9b40c92d909bab149a0c95e51c7e683e,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1942985610428627792, guid: 9b40c92d909bab149a0c95e51c7e683e,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 2264001063401370257, guid: 9b40c92d909bab149a0c95e51c7e683e,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 3286629955569976930, guid: 9b40c92d909bab149a0c95e51c7e683e,
         type: 3}
       propertyPath: m_Name
       value: Fish 4 Prefab Testing
+      objectReference: {fileID: 0}
+    - target: {fileID: 3286629955569976930, guid: 9b40c92d909bab149a0c95e51c7e683e,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 3837958592426153548, guid: 9b40c92d909bab149a0c95e51c7e683e,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4895069015954587690, guid: 9b40c92d909bab149a0c95e51c7e683e,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5124445158870932619, guid: 9b40c92d909bab149a0c95e51c7e683e,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5581170908092027561, guid: 9b40c92d909bab149a0c95e51c7e683e,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5625781135357877663, guid: 9b40c92d909bab149a0c95e51c7e683e,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 7114101980714991316, guid: 9b40c92d909bab149a0c95e51c7e683e,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 7300443618480765260, guid: 9b40c92d909bab149a0c95e51c7e683e,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 8019500090909528427, guid: 9b40c92d909bab149a0c95e51c7e683e,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 8227360599179406044, guid: 9b40c92d909bab149a0c95e51c7e683e,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 8878619581387114482, guid: 9b40c92d909bab149a0c95e51c7e683e,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -137,12 +212,27 @@ PrefabInstance:
       propertyPath: m_Name
       value: RainbowBeakerFish
       objectReference: {fileID: 0}
+    - target: {fileID: 3508470786671384094, guid: cf5949429d9f4124dacf18057d9c903c,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4330627709333622891, guid: cf5949429d9f4124dacf18057d9c903c,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 7475558278636915969, guid: cf5949429d9f4124dacf18057d9c903c,
         type: 3}
       propertyPath: hybridInfo
       value: 
       objectReference: {fileID: 11400000, guid: 11b9830542c4d264fbbee450aa971683,
         type: 2}
+    - target: {fileID: 9215500234652228996, guid: cf5949429d9f4124dacf18057d9c903c,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
