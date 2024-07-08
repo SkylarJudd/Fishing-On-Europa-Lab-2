@@ -15,13 +15,11 @@ public class FarmingSoil : MonoBehaviour
 
     public Seeds seedToGrow;
 
+    //The crop currently planted in the land. 
+    public CropBehaviour cropPlanted;
+
     [Header("Time PlaceHolder")]
     public float hours;
-
-    private void Start()
-    {
-        int childCount = transform.childCount;
-    }
 
     private void Update()
     {
@@ -33,9 +31,10 @@ public class FarmingSoil : MonoBehaviour
         else
         {
             hours = 24;
-            foreach(GameObject go in cropList)
+            foreach(GameObject crop in cropList)
             {
-                //CropBehaviour.Grow();
+                print("Name");
+                cropPlanted.Grow();
             }
         }
     }
@@ -46,6 +45,11 @@ public class FarmingSoil : MonoBehaviour
         {
             if (transform.childCount < positions.Length)
             {
+                cropList.Add(collision.gameObject);
+                collision.gameObject.GetComponent<CropBehaviour>();
+                cropPlanted = collision.gameObject.GetComponent<CropBehaviour>();
+                cropPlanted.Plant();
+
                 // Make the collided GameObject a child of parentObject
                 collision.transform.parent = parentObject.transform;
 
@@ -53,68 +57,14 @@ public class FarmingSoil : MonoBehaviour
                 {
                     Transform child = transform.GetChild(i);
 
-                    //Access the CropBehaviour script
-                    foreach (GameObject go in cropList)
-                    {
-                        child.gameObject.GetComponent<CropBehaviour>();
-                    }
-
                     // Check if current index is within bounds of the positions array
                     if (i < positions.Length)
                     {
-                        //turn off box collider and Rigidbody
-                        BoxCollider myBC = child.gameObject.GetComponent<BoxCollider>();
-                        myBC.enabled = false;
-
-                        Rigidbody rb = child.gameObject.GetComponent<Rigidbody>();
-                        rb.isKinematic = true;
-
                         // Move the child to the specified position
                         child.localPosition = positions[i];
-
-                        cropList.Add(child.gameObject);
                     }
                 }
             }
         }
     }
-
-    /*private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.CompareTag("Seed"))
-        {
-            if (transform.childCount < positions.Length)
-            {
-                // Make the collided GameObject a child of parentObject
-                collision.transform.parent = parentObject.transform;
-
-                for (int i = 0; i < transform.childCount; i++)
-                {
-                    Transform child = transform.GetChild(i);
-
-                    //Access the CropBehaviour script
-                    foreach (GameObject go in cropList)
-                    {
-                        child.gameObject.GetComponent<CropBehaviour>();
-                    }
-
-                    // Check if current index is within bounds of the positions array
-                    if (i < positions.Length)
-                    {
-                        //turn off box collider and Rigidbody
-                        BoxCollider myBC = child.gameObject.GetComponent<BoxCollider>();
-                        myBC.enabled = false;
-
-                        Rigidbody rb = child.gameObject.GetComponent<Rigidbody>();
-                        rb.isKinematic = true;
-
-                        // Move the child to the specified position
-                        child.localPosition = positions[i];
-
-                        cropList.Add(child.gameObject);
-                    }
-                }
-            }
-        }
-    }*/
 }
