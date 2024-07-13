@@ -11,18 +11,16 @@ public class FarmingSoil : MonoBehaviour
 
     [Header("Crops")]
     //The crops currently planted on the land
-    public List<GameObject> cropList;
 
-    public Seeds seedToGrow;
-
-    //The crop currently planted in the land. 
-    public CropBehaviour cropPlanted;
+    public List<CropBehaviour> cropsPlanted;
 
     [Header("Time PlaceHolder")]
     public float hours;
 
     private void Update()
     {
+        RemoveCropBehaviour();
+
         if (hours > 0)
         {
             hours -= Time.deltaTime;
@@ -31,10 +29,10 @@ public class FarmingSoil : MonoBehaviour
         else
         {
             hours = 24;
-            foreach(GameObject crop in cropList)
+
+           foreach (CropBehaviour crop in cropsPlanted )
             {
-                print("Name");
-                cropPlanted.Grow();
+                crop.Grow();
             }
         }
     }
@@ -45,10 +43,12 @@ public class FarmingSoil : MonoBehaviour
         {
             if (transform.childCount < positions.Length)
             {
-                cropList.Add(collision.gameObject);
-                collision.gameObject.GetComponent<CropBehaviour>();
-                cropPlanted = collision.gameObject.GetComponent<CropBehaviour>();
-                cropPlanted.Plant();
+                cropsPlanted.Add(collision.gameObject.GetComponent<CropBehaviour>());
+
+                foreach (CropBehaviour crop in cropsPlanted)
+                {
+                    crop.Plant();
+                }
 
                 // Make the collided GameObject a child of parentObject
                 collision.transform.parent = parentObject.transform;
@@ -64,6 +64,17 @@ public class FarmingSoil : MonoBehaviour
                         child.localPosition = positions[i];
                     }
                 }
+            }
+        }
+    }
+
+    private void RemoveCropBehaviour()
+    {
+        for (int i = cropsPlanted.Count - 1; i > -1; i--)
+        {
+            if (cropsPlanted[i] == null)
+            {
+                cropsPlanted.RemoveAt(i);
             }
         }
     }

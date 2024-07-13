@@ -30,17 +30,8 @@ public class CropBehaviour : MonoBehaviour
     //Called when the player plants a seed
     public void Plant()
     {
-        //Set the sprout and harvestable GameObjects
-        //sprout = Instantiate(seedToGrow.sprout, transform);
-
-        //Set the growth stages and harvestable GameObjects
-        //adolecent = Instantiate(seedToGrow.adolecent, transform);
-
         //Access the crop item data
         Food foodProduced = seedToGrow.foodProduced;
-
-        //Instantiate the harvestable crop
-        //mature = Instantiate(foodProduced.gameModel, transform);
 
         //Convert Growth Time into minutes (TODO with day/night cycle)
         maxGrowth = seedToGrow.growthTime;
@@ -55,7 +46,7 @@ public class CropBehaviour : MonoBehaviour
         //increase the growth point by 1
         growth++;
 
-        //the seed will sprout when the groth is at 33%
+        //the seed will sprout when the growth is at 33%
         if (growth >= maxGrowth / 3 && cropState == CropState.Seed)
         {
             SwitchState(CropState.Sprout);
@@ -77,38 +68,27 @@ public class CropBehaviour : MonoBehaviour
     //function to handle the state change
     void SwitchState(CropState stateToSwitch)
     {
-        //Reset everything and set all GameObjects to inactive
-        seed.SetActive(false);
-        sprout.SetActive(false);
-        adolecent.SetActive(false);
-        mature.SetActive(false);
-
         switch (stateToSwitch)
         {
-            case CropState.Seed:
-                //Enable the Seed GameObject
-                //seed.SetActive(true);
-                break;
             case CropState.Sprout:
+                //Instantiate the sprout game object as child of the seed.
                 sprout = Instantiate(seedToGrow.sprout, transform);
-
-                //Enable the Sprout GameObject
-                //sprout.SetActive(true);
                 break;
+
             case CropState.Adolecent:
-                adolecent = Instantiate(seedToGrow.adolecent, transform);
+                //Deactivate Sprout GameObject
+                sprout.SetActive(false);
 
-                //Enable the Adolecent GameObject
-                //adolecent.SetActive(true);
+                //Instantiate the adolecent game object as child of the seed.
+                adolecent = Instantiate(seedToGrow.adolecent, transform);
                 break;
+
             case CropState.Mature:
                 //Access the crop item data
                 Food foodProduced = seedToGrow.foodProduced;
                 //Instantiate the harvestable crop
                 mature = Instantiate(foodProduced.gameModel, transform);
 
-                //Enable the Mature GameObject
-                //mature.SetActive(true);
                 //unparent to soil
                 mature.transform.parent = null;
 
