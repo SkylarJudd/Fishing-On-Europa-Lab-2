@@ -241,10 +241,10 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0.70710677, y: -0, z: -0, w: 0.7071069}
   m_LocalPosition: {x: 0, y: -4, z: -20.51}
-  m_LocalScale: {x: 38.59851, y: 3.5684, z: 10.939824}
+  m_LocalScale: {x: 38.59851, y: 3.5684, z: 10.939823}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 309084443}
+  m_Father: {fileID: 453800239}
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!65 &286918969
 BoxCollider:
@@ -424,14 +424,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1326145227}
-  - {fileID: 286918968}
-  - {fileID: 1736230912}
-  - {fileID: 1187537611}
-  - {fileID: 417875787}
-  - {fileID: 1304918774}
-  - {fileID: 1028888789}
-  - {fileID: 1039949910}
-  - {fileID: 835487434}
+  - {fileID: 453800239}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &413346472 stripped
@@ -472,7 +465,7 @@ Transform:
   m_LocalScale: {x: 38.59851, y: 2.975, z: 10.939824}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 309084443}
+  m_Father: {fileID: 453800239}
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: -90}
 --- !u!65 &417875788
 BoxCollider:
@@ -650,6 +643,45 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 419199767}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &453800238
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 453800239}
+  m_Layer: 0
+  m_Name: Boal
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &453800239
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 453800238}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -2.5, z: 0}
+  m_LocalScale: {x: 1.9878254, y: 2.9888942, z: 1.9878254}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 286918968}
+  - {fileID: 1736230912}
+  - {fileID: 1187537611}
+  - {fileID: 417875787}
+  - {fileID: 1304918774}
+  - {fileID: 1028888789}
+  - {fileID: 1039949910}
+  - {fileID: 835487434}
+  m_Father: {fileID: 309084443}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &573580428 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7036427764430357314, guid: 0aed68c94a02b2947abfd023c30cd5b7,
@@ -1087,7 +1119,7 @@ Transform:
   m_LocalScale: {x: 38.59851, y: 4.0786, z: 10.939824}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 309084443}
+  m_Father: {fileID: 453800239}
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 46.477}
 --- !u!65 &835487435
 BoxCollider:
@@ -1272,10 +1304,10 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0.65328145, y: -0.27059823, z: -0.27059773, w: 0.6532816}
   m_LocalPosition: {x: -16.5, y: -4, z: 17.2}
-  m_LocalScale: {x: 38.59851, y: 1, z: 10.939824}
+  m_LocalScale: {x: 38.598515, y: 1, z: 10.939824}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 309084443}
+  m_Father: {fileID: 453800239}
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: -45}
 --- !u!65 &1028888790
 BoxCollider:
@@ -1377,10 +1409,10 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0.6497386, y: 0.27899775, z: 0.2789982, w: 0.64973843}
   m_LocalPosition: {x: 14.55, y: -4, z: 20.03}
-  m_LocalScale: {x: 38.59851, y: 3.2031, z: 10.939824}
+  m_LocalScale: {x: 38.59851, y: 3.2030997, z: 10.939824}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 309084443}
+  m_Father: {fileID: 453800239}
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 46.477}
 --- !u!65 &1039949911
 BoxCollider:
@@ -1774,7 +1806,7 @@ Transform:
   m_LocalScale: {x: 38.59851, y: 4.9421, z: 10.939824}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 309084443}
+  m_Father: {fileID: 453800239}
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: -90}
 --- !u!65 &1187537612
 BoxCollider:
@@ -1959,10 +1991,10 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0.65328145, y: -0.27059823, z: -0.27059773, w: 0.6532816}
   m_LocalPosition: {x: 13.66, y: -4, z: -13.02}
-  m_LocalScale: {x: 38.59851, y: 2.9795, z: 10.939824}
+  m_LocalScale: {x: 38.598515, y: 2.9795, z: 10.939824}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 309084443}
+  m_Father: {fileID: 453800239}
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: -45}
 --- !u!65 &1304918775
 BoxCollider:
@@ -2063,8 +2095,8 @@ Transform:
   m_GameObject: {fileID: 1326145226}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -4, z: 0}
-  m_LocalScale: {x: 38.59851, y: 1, z: 47.26136}
+  m_LocalPosition: {x: 0, y: -19.43, z: 0}
+  m_LocalScale: {x: 74.07826, y: 1.9192, z: 90.704}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 309084443}
@@ -2416,8 +2448,19 @@ MonoBehaviour:
   neighbourDistance: 4
   rotationSpeed: 45
   correctRotationSpeed: 5
-  waterHight: 0
+  waterHeight: 0
   turnTarget: {fileID: 1456617349}
+  boidSettings:
+    separationRange: 0
+    alignmentRange: 0
+    cohesionRange: 0
+    separationFactor: 0
+    alignmentFactor: 0
+    cohesionFactor: 0
+    boidScale: 0
+    minSpeed: 0
+    maxSpeed: 0
+    rotationSpeed: 0
 --- !u!4 &1593381376
 Transform:
   m_ObjectHideFlags: 0
@@ -2501,10 +2544,10 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0.70710677, y: -0, z: -0, w: 0.7071069}
   m_LocalPosition: {x: 0, y: -4, z: 24.68}
-  m_LocalScale: {x: 38.59851, y: 4.9808, z: 10.939824}
+  m_LocalScale: {x: 38.59851, y: 4.9808, z: 10.939823}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 309084443}
+  m_Father: {fileID: 453800239}
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!65 &1736230913
 BoxCollider:
@@ -2697,7 +2740,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   geysers: []
   fishMannager: {fileID: 0}
-  _startSpawnAmout: 1
+  _startSpawnAmout: 200
   waterHight: {fileID: 0}
 --- !u!4 &1970452785
 Transform:

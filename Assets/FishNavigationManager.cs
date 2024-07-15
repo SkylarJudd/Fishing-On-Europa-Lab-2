@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Security.Cryptography;
 using Unity.VisualScripting;
 using Unity.VisualScripting.Antlr3.Runtime.Collections;
 using UnityEngine;
@@ -12,6 +13,7 @@ public enum HybridState
     HybridFlying,
     HybridHitWater,
     HybridFlocking,
+    HybridAvoidingWall,
 
 }
 
@@ -29,9 +31,12 @@ public class FishNavigationManager : MonoBehaviour
     [SerializeField] float rotationSpeed = 45f;
     [SerializeField] float correctRotationSpeed = 0.1f;
 
-    [SerializeField] float waterHight = 0;
+    [SerializeField] float waterHeight = 0;
 
     [SerializeField] GameObject turnTarget;
+
+    [SerializeField] BoidSettings boidSettings = new BoidSettings(1.5f, 3f, 2f, 1f, 1f, 1f, 1f, 0.5f, 5f, 10);
+
 
     private Coroutine updateHybridFlyingCoroutine;
     private Coroutine updateHitWaterCoroutine;
@@ -49,10 +54,55 @@ public class FishNavigationManager : MonoBehaviour
         public HybridState HybridState;
         public Rigidbody hybridRigidbody;
         public bool isTurning;
+
+        public Vector3 velocity;
+        public bool aboutToHitWall = false;
+
+    }
+
+    [Serializable]
+    public struct BoidSettings
+    {
+
+        // boid behavior range
+        public float separationRange;
+        public float alignmentRange;
+        public float cohesionRange;
+
+        // boid behavior weights
+        public float separationFactor;
+        public float alignmentFactor;
+        public float cohesionFactor;
+
+        // misc settings
+        public float boidScale;
+        public float minSpeed;
+        public float maxSpeed;
+        public int rotationSpeed;
+
+        // Constructor to set default values
+        public BoidSettings(float separationRange, float alignmentRange, float cohesionRange,
+                            float separationFactor, float alignmentFactor, float cohesionFactor,
+                            float boidScale, float minSpeed, float maxSpeed, int rotationSpeed)
+        {
+            this.separationRange = separationRange;
+            this.alignmentRange = alignmentRange;
+            this.cohesionRange = cohesionRange;
+            this.separationFactor = separationFactor;
+            this.alignmentFactor = alignmentFactor;
+            this.cohesionFactor = cohesionFactor;
+            this.boidScale = boidScale;
+            this.minSpeed = minSpeed;
+            this.maxSpeed = maxSpeed;
+            this.rotationSpeed = rotationSpeed;
+        }
     }
 
     private void Start()
     {
+        // If values are being set here, ensure they are correct
+        boidSettings = new BoidSettings(1.5f, 3f, 2f, 1f, 1f, 1f, 1f, 0.5f, 5f, 10);
+
         //waterHight = GetComponentInParent<GeyserMannager>().waterHight.transform.position.y;
         updateHybridFlyingCoroutine = StartCoroutine(UpdateHybridFlying());
         updateHitWaterCoroutine = StartCoroutine(UpdateHitWater());
@@ -76,6 +126,7 @@ public class FishNavigationManager : MonoBehaviour
         newEntry.currentSpeed = 0f;
         newEntry.HybridState = HybridState.HybridFlying;
         newEntry.hybridRigidbody = go.GetComponent<Rigidbody>();
+        newEntry.velocity = Vector3.forward * newEntry.baseSpeed; 
 
         if (newEntry.hybridRigidbody == null)
         {
@@ -89,11 +140,6 @@ public class FishNavigationManager : MonoBehaviour
 
     }
 
-    private void Update()
-    {
-
-    }
-
     /// <summary>
     /// loops though the list of Flying Hybrids and updates their rigid body values and check when they hit the water. 
     /// </summary>
@@ -102,7 +148,7 @@ public class FishNavigationManager : MonoBehaviour
     {
         while (true)
         {
-            
+
             if (hybridsFlying.Count > 0)
             {
                 //print("Hybrids flying count is grater then 0");
@@ -123,10 +169,10 @@ public class FishNavigationManager : MonoBehaviour
 
                     //print($"{_hybridd} has a y value of {_hybridd.hybridGameObject.transform.position.y} and the water hight is {waterHight}.y ");
                     // Check if the Hybrids have hit the water
-                    if (_hybridd.hybridGameObject.transform.position.y <= waterHight)
+                    if (_hybridd.hybridGameObject.transform.position.y <= waterHeight)
                     {
                         hybridsHitWater.Add(_hybridd);
-                        hybridsFlying.RemoveAt(i); 
+                        hybridsFlying.RemoveAt(i);
                     }
                 }
             }
@@ -199,170 +245,145 @@ public class FishNavigationManager : MonoBehaviour
             {
                 foreach (hybridNavData _Hybrid in hybridsSwimming)
                 {
+                    bool outofWater = false;
 
-                    CheckIfOutOfWater(_Hybrid);
-                    CheckIfWall(_Hybrid);
-
-                    //add function to set z back to 0 over time
-
-                    if (UnityEngine.Random.Range(0, 10) < 1)
+                    if (_Hybrid.hybridGameObject.transform.position.y > waterHeight)
                     {
-                        //Update boids system 
-                        ApplyFlockRules(_Hybrid);
+                        outofWater = true;
                     }
 
-                    if (_Hybrid.isTurning == false)
+                    if (UnityEngine.Random.Range(0, 20) < 1 && hybridsSwimming.Count > 1)
                     {
-                        MoveHybrid(_Hybrid);
+                        Ray hybridRay = new Ray(_Hybrid.hybridGameObject.transform.position, _Hybrid.hybridGameObject.transform.forward);
+                        float raycastDistance = 2f;
+                        int layerMask = ~LayerMask.GetMask("Fish");
+
+                        Debug.DrawRay(hybridRay.origin, hybridRay.direction * raycastDistance, Color.red);
+
+                        if (Physics.Raycast(hybridRay, out RaycastHit hit, raycastDistance, layerMask))
+                        {
+                            if (hit.collider.gameObject.CompareTag("Wall"))
+                            {
+                                _Hybrid.aboutToHitWall = true;
+                            }
+                            else
+                            {
+                                _Hybrid.aboutToHitWall = false;
+                                _Hybrid.HybridState = HybridState.HybridFlocking;
+                            }
+                        }
+                        else
+                        {
+                            _Hybrid.aboutToHitWall = false;
+                            _Hybrid.HybridState = HybridState.HybridFlocking;
+                        }
                     }
+
+                    if (UnityEngine.Random.Range(0, 20) < 1 && hybridsSwimming.Count > 1)
+                    {
+                        Vector3 separationVelocity = Vector3.zero;
+                        Vector3 alignmentVelocity = Vector3.zero;
+                        Vector3 cohesionVelocity = Vector3.zero;
+
+                        int numOfBoidsToAvoid = 0;
+                        int numOfBoidsToAlignWith = 0;
+                        int numOfBoidsInFlock = 0;
+                        Vector3 currBoidPosition = _Hybrid.hybridGameObject.transform.position;
+                        Vector3 positionToMoveTowards = Vector3.zero;
+
+                        foreach (hybridNavData _otherBoid in hybridsSwimming)
+                        {
+                            if (ReferenceEquals(_otherBoid, _Hybrid))
+                            {
+                                continue;
+                            }
+
+                            Vector3 otherBoidsPosition = _otherBoid.hybridGameObject.transform.position;
+                            float dist = Vector3.Distance(currBoidPosition, otherBoidsPosition);
+
+                            // Separation Check
+                            if (dist < boidSettings.separationRange)
+                            {
+                                Vector3 otherBoidToCurrentBoid = currBoidPosition - otherBoidsPosition;
+                                Vector3 dirToTravel = otherBoidToCurrentBoid.normalized;
+                                separationVelocity += dirToTravel / dist;
+                                numOfBoidsToAvoid++;
+                            }
+
+                            // Alignment Check
+                            if (dist < boidSettings.alignmentRange)
+                            {
+                                alignmentVelocity += _otherBoid.velocity;
+                                numOfBoidsToAlignWith++;
+                            }
+
+                            // Cohesion Check
+                            if (dist < boidSettings.cohesionRange)
+                            {
+                                positionToMoveTowards += otherBoidsPosition;
+                                numOfBoidsInFlock++;
+                            }
+                        }
+
+                        if (numOfBoidsToAvoid != 0)
+                        {
+                            separationVelocity /= numOfBoidsToAvoid;
+                            separationVelocity.Normalize();
+                            separationVelocity *= boidSettings.separationFactor;
+                        }
+
+                        if (numOfBoidsToAlignWith != 0)
+                        {
+                            alignmentVelocity /= numOfBoidsToAlignWith;
+                            alignmentVelocity.Normalize();
+                            alignmentVelocity *= boidSettings.alignmentFactor;
+                        }
+
+                        if (numOfBoidsInFlock != 0)
+                        {
+                            positionToMoveTowards /= numOfBoidsInFlock;
+                            Vector3 cohesionDirection = positionToMoveTowards - currBoidPosition;
+                            cohesionDirection.Normalize();
+                            cohesionVelocity = cohesionDirection * boidSettings.cohesionFactor;
+                        }
+
+                        _Hybrid.velocity += separationVelocity;
+                        _Hybrid.velocity += alignmentVelocity;
+                        _Hybrid.velocity += cohesionVelocity;
+
+                        _Hybrid.velocity = Vector3.ClampMagnitude(_Hybrid.velocity, boidSettings.maxSpeed);
+
+                        Vector3 direction = _Hybrid.velocity.normalized;
+                        float speed = _Hybrid.velocity.magnitude;
+                        speed = Mathf.Clamp(speed, boidSettings.minSpeed, boidSettings.maxSpeed);
+                        _Hybrid.velocity = direction * speed;
+                    }
+
+                    if (outofWater)
+                    {
+                        _Hybrid.velocity.y = -Mathf.Abs(_Hybrid.velocity.y);
+                    }
+
+                    if (_Hybrid.aboutToHitWall == true && _Hybrid.HybridState != HybridState.HybridAvoidingWall)
+                    {
+                        Vector3 oppositeDirection = -_Hybrid.hybridGameObject.transform.forward;
+                        _Hybrid.velocity = oppositeDirection * boidSettings.maxSpeed;
+                        _Hybrid.HybridState = HybridState.HybridAvoidingWall;
+                    }
+
+                    // Move the Hybrid in the direction of Velocity
+                    _Hybrid.hybridGameObject.transform.position += _Hybrid.velocity * Time.deltaTime;
+
+                    // Rotate the Hybrid toward the direction it is moving
+                    Quaternion targetRotation = Quaternion.LookRotation(_Hybrid.velocity);
+                    Debug.Log($"Updating Rotation: {_Hybrid.hybridGameObject.name} Current Rotation: {_Hybrid.hybridGameObject.transform.rotation} Target Rotation: {targetRotation}");
+                    _Hybrid.hybridGameObject.transform.rotation = Quaternion.Lerp(_Hybrid.hybridGameObject.transform.rotation, targetRotation, boidSettings.rotationSpeed * Time.deltaTime);
+
                 }
             }
             yield return new WaitForFixedUpdate();
         }
     }
-    /// <summary>
-    /// Moves the Hybrid Forward 
-    /// </summary>
-    /// <param name="_Hybrid"></param>
-    private void MoveHybrid(hybridNavData _Hybrid)
-    {
-        _Hybrid.hybridGameObject.transform.Translate(0, 0, Time.deltaTime * speed);
-    }
-    /// <summary>
-    /// Turns the Inputted Hybrid to the inputted Direction by the inputted Rotation speed. 
-    /// </summary>
-    /// <param name="_Hybrid"></param>
-    /// <param name="turnDirection"></param>
-    /// <param name="rotationSpeed"></param>
-    /// <returns></returns>
-    private IEnumerator turnHybrid(hybridNavData _Hybrid, Vector3 turnDirection, float rotationSpeed)
-    {
-        Quaternion targetRotation = Quaternion.LookRotation(turnDirection);
-        _Hybrid.isTurning = true;
-        while (true)
-        {
-            _Hybrid.hybridGameObject.transform.rotation = Quaternion.Slerp(_Hybrid.hybridGameObject.transform.rotation,targetRotation,rotationSpeed * Time.deltaTime);
-
-            // Check if the rotation is close enough to the target rotation
-            if (Quaternion.Angle(_Hybrid.hybridGameObject.transform.rotation, targetRotation) < 5f)
-            {
-                _Hybrid.isTurning = false; 
-                yield break;
-            }
-
-            yield return new WaitForFixedUpdate();
-        }
-    }
-    /// <summary>
-    /// Checks if the inputted Hybrid is above the water Hight
-    /// </summary>
-    /// <param name="_Hybrid"></param>
-    private void CheckIfOutOfWater(hybridNavData _Hybrid)
-    {
-        if (_Hybrid.hybridGameObject.transform.position.y > waterHight)
-        {
-
-            Vector3 oppositeDirection = -_Hybrid.hybridGameObject.transform.forward;
-            oppositeDirection = new Vector3(oppositeDirection.x + UnityEngine.Random.Range(-10f, 10f), oppositeDirection.y + UnityEngine.Random.Range(-10f, 10f), oppositeDirection.z + UnityEngine.Random.Range(-10f, 10f));
-
-
-            if (_Hybrid.isTurning == false)
-            {
-                _Hybrid.hybridGameObject.transform.position = new Vector3(_Hybrid.hybridGameObject.transform.position.x, _Hybrid.hybridGameObject.transform.position.y - 0.2f, _Hybrid.hybridGameObject.transform.position.z);
-                StartCoroutine(turnHybrid(_Hybrid, oppositeDirection, rotationSpeed));
-            }
-        }
-    }
-    /// <summary>
-    /// checks to see if the hybrid is about to collide with a wall
-    /// </summary>
-    /// <param name="_Hybrid"></param>
-    private void CheckIfWall(hybridNavData _Hybrid)
-    {
-        Ray hybridRay = new Ray(_Hybrid.hybridGameObject.transform.position, _Hybrid.hybridGameObject.transform.forward);
-        float raycastDistance = 2f;
-
-        Debug.DrawRay(hybridRay.origin, hybridRay.direction * raycastDistance, Color.red);
-
-        int layerMask = ~LayerMask.GetMask("Fish");
-
-        if (Physics.Raycast(hybridRay, out RaycastHit hit, raycastDistance, layerMask))
-        {
-
-            if (hit.collider.gameObject.CompareTag("Wall"))
-            {
-                Vector3 oppositeDirection = -_Hybrid.hybridGameObject.transform.forward;
-                oppositeDirection = new Vector3(oppositeDirection.x + UnityEngine.Random.Range(-10f, 10f), oppositeDirection.y + UnityEngine.Random.Range(-10f, 10f), oppositeDirection.z + UnityEngine.Random.Range(-10f, 10f));
-                if (_Hybrid.isTurning == false)
-                {
-                    StartCoroutine(turnHybrid(_Hybrid, oppositeDirection, rotationSpeed));
-                }
-            }
-        }
-    }
-    /// <summary>
-    /// calculates the the inputted hybrids direction using the boids algorithm
-    /// </summary>
-    /// <param name="_hybridd"></param>
-    void ApplyFlockRules(hybridNavData _hybridd)
-    {
-
-        List<hybridNavData> gos = hybridsInPond;
-
-        Vector3 vCentre = Vector3.zero;
-        Vector3 vAvoid = Vector3.zero;
-        float gSpeed = 0.1f;
-
-        Vector3 goalPos = FishSpawner.goalPos;
-
-
-        float dist;
-
-        int groupSize = 0;
-        gSpeed = 0;
-
-        foreach (hybridNavData go in gos)
-        {
-            if (go != _hybridd)
-            {
-                dist = Vector3.Distance(go.hybridGameObject.transform.position, this.transform.position);
-                if (dist <= neighbourDistance)
-                {
-                    vCentre += go.hybridGameObject.transform.position;
-                    groupSize++;
-
-                    if (dist < 3.5f)
-                    {
-                        vAvoid = vAvoid + (this.transform.position - go.hybridGameObject.transform.position);
-                    }
-                    gSpeed += _hybridd.baseSpeed;
-                }
-            }
-        }
-        if (groupSize > 0)
-        {
-            //finds the avarge of the group center
-            vCentre = vCentre / groupSize + (goalPos - this.transform.position); //+ new Vector3(Random.Range(1,-1), Random.Range(1, -1), Random.Range(1, -1)));
-                                                                                 // Calculate the average speed for the group
-                                                                                 //print("Gspeed before avarge" + gSpeed);
-            gSpeed = gSpeed / groupSize;
-            //print("group size = " + groupSize);
-            // Update the fish's speed
-            speed = gSpeed;
-            // print("fish Is going " + speed);
-
-            //updates the direction the fish needs to turn based on the avoid and the center values
-            Vector3 direction = (vCentre + vAvoid) - transform.position;
-
-            //slowly turns the fish 
-            if (direction != Vector3.zero)
-            {
-                transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(direction), rotationSpeed * Time.deltaTime);
-            }
-        }
-    }
-
-
 }
 
 

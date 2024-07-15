@@ -123,7 +123,17 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 8
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 3991694128348243006, guid: b275e49e7ab569e47a5ce37fcf52b870, type: 3}
+    - {fileID: 7335939387950727648, guid: b275e49e7ab569e47a5ce37fcf52b870, type: 3}
+    - {fileID: 2534955680262224859, guid: b275e49e7ab569e47a5ce37fcf52b870, type: 3}
+    - {fileID: 1494961333276701052, guid: b275e49e7ab569e47a5ce37fcf52b870, type: 3}
+    - {fileID: 8941054337944102622, guid: b275e49e7ab569e47a5ce37fcf52b870, type: 3}
+    - {fileID: 5034463515287879775, guid: b275e49e7ab569e47a5ce37fcf52b870, type: 3}
+    - {fileID: 1629748305198487917, guid: b275e49e7ab569e47a5ce37fcf52b870, type: 3}
+    - {fileID: 5154567279228129252, guid: b275e49e7ab569e47a5ce37fcf52b870, type: 3}
+    - {fileID: 6923278092664117619, guid: b275e49e7ab569e47a5ce37fcf52b870, type: 3}
+    - {fileID: 1799223773834434027, guid: b275e49e7ab569e47a5ce37fcf52b870, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -213,12 +223,23 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: d0a9f39952c8dd54a988d57caa969c5e,
         type: 2}
+    - target: {fileID: 9196630054490211768, guid: cf5949429d9f4124dacf18057d9c903c,
+        type: 3}
+      propertyPath: m_Size.z
+      value: 1.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 9196630054490211768, guid: cf5949429d9f4124dacf18057d9c903c,
+        type: 3}
+      propertyPath: m_Center.z
+      value: -0.09
+      objectReference: {fileID: 0}
     - target: {fileID: 9215500234652228996, guid: cf5949429d9f4124dacf18057d9c903c,
         type: 3}
       propertyPath: m_Layer
       value: 8
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 5479858474548457253, guid: cf5949429d9f4124dacf18057d9c903c, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 248712186289892607, guid: cf5949429d9f4124dacf18057d9c903c,
