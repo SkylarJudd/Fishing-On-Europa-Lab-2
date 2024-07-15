@@ -17,6 +17,8 @@ public class FarmingSoil : MonoBehaviour
     [Header("Time PlaceHolder")]
     public float hours;
 
+    public GameObject seed;
+
     private void Update()
     {
         RemoveCropBehaviour();
@@ -35,6 +37,12 @@ public class FarmingSoil : MonoBehaviour
                 crop.Grow();
             }
         }
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            Instantiate(seed, new Vector3 (0,5,0), Quaternion.identity);
+        }
+
     }
 
     private void OnCollisionEnter(Collision collision)

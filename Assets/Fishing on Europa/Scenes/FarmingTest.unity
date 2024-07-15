@@ -299,6 +299,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8962177131695969835, guid: d3684be5fbf821748bf88f6b7ec408ba,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 9156764235852979800, guid: d3684be5fbf821748bf88f6b7ec408ba,
         type: 3}
       propertyPath: m_Name
@@ -605,6 +610,7 @@ MonoBehaviour:
   - {x: -0.3, y: 1, z: -0.3}
   cropsPlanted: []
   hours: 5
+  seed: {fileID: 9156764235852979800, guid: b2d671496f9929f4ebcd56443642581b, type: 3}
 --- !u!1001 &1739485532
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -671,7 +677,7 @@ PrefabInstance:
     - target: {fileID: 9156764235852979800, guid: b2d671496f9929f4ebcd56443642581b,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -744,7 +750,7 @@ PrefabInstance:
     - target: {fileID: 9156764235852979800, guid: b2d671496f9929f4ebcd56443642581b,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
