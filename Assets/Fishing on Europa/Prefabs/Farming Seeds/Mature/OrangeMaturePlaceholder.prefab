@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2096741920211492394}
   - component: {fileID: 3561588956322069508}
   m_Layer: 0
-  m_Name: MaturePlaceholder
+  m_Name: OrangeMaturePlaceholder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -62,7 +62,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: ac5cc78840c59d145adc21c475a64b33, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

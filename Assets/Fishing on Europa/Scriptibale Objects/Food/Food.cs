@@ -4,7 +4,7 @@ using UnityEngine;
 
 public enum ChestZone { Zone1, Zone2, Zone3, NoChest};
 public enum FoodType { Veg, Fruit, Meat, Seed, Leaves, Bugs, Flowers};
-public enum FoodList { Bugs , WhiteMeat, RedMeat , Leaves , Flowers , Seeds , Carrot , Potato , Oranges , Apples , Bannan , WaterMelon}
+public enum FoodList { Bugs , WhiteMeat, RedMeat , Leaves , Flowers , Seeds , Carrot , Potato , Orange , Apple , Banana , WaterMelon}
 [CreateAssetMenu(fileName = "Food", menuName = "Europa/Food", order = 1)]
 
 

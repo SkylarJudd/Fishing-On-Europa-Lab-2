@@ -13,9 +13,9 @@ GameObject:
   - component: {fileID: 8962177131695969835}
   - component: {fileID: 1132201955035333179}
   - component: {fileID: -9006011360737295723}
-  - component: {fileID: 453718803286168850}
+  - component: {fileID: -7087294194286195889}
   m_Layer: 0
-  m_Name: AppleSeedPlaceholder
+  m_Name: WatermelonSeedPlaceholder
   m_TagString: Seed
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -64,7 +64,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: 3186eeb5e6873d64aa28d13ba1683522, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -119,12 +119,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87d633e095e4e2442ba6cb5c7305807f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  seedToGrow: {fileID: 11400000, guid: f32e877a5d3813745adc06e7dfe76378, type: 2}
+  seedToGrow: {fileID: 11400000, guid: 4b9832a81e8158e45a7848fd0b230b34, type: 2}
   seed: {fileID: 9156764235852979800}
   growth: 0
   maxGrowth: 0
   cropState: 0
---- !u!54 &453718803286168850
+--- !u!54 &-7087294194286195889
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

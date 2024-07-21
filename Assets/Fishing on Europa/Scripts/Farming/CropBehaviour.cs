@@ -7,6 +7,9 @@ public class CropBehaviour : MonoBehaviour
     //Infomation on what the crop will grow into
     public Seeds seedToGrow;
 
+
+    public HarvestBox harvestBox;
+
     [Header("Growth Stages")]
     public  GameObject seed;
     private GameObject sprout;
@@ -20,7 +23,7 @@ public class CropBehaviour : MonoBehaviour
 
     public enum CropState
     {
-        Seed, Sprout, Adolecent, Mature
+        Seed, Sprout, Adolecent, Mature, Harvested
     }
 
     //The current stage in the crop's growth
@@ -47,21 +50,27 @@ public class CropBehaviour : MonoBehaviour
         growth++;
 
         //the seed will sprout when the growth is at 33%
-        if (growth >= maxGrowth / 3 && cropState == CropState.Seed)
+        if (growth >= maxGrowth / 4 && cropState == CropState.Seed)
         {
             SwitchState(CropState.Sprout);
         }
 
         //the sprout will reach adolecent at 63%
-        if (growth >= maxGrowth / 3 * 2 && cropState == CropState.Sprout)
+        if (growth >= maxGrowth / 4 * 2 && cropState == CropState.Sprout)
         {
             SwitchState(CropState.Adolecent);
         }
 
         //Fully grown
-        if (growth >= maxGrowth && cropState == CropState.Adolecent)
+        if (growth >= maxGrowth / 4 * 3 && cropState == CropState.Adolecent)
         {
             SwitchState(CropState.Mature);
+        }
+
+        //HArvested
+        if (growth >= maxGrowth && cropState == CropState.Mature)
+        {
+            SwitchState(CropState.Harvested);
         }
     }
 
@@ -84,15 +93,27 @@ public class CropBehaviour : MonoBehaviour
                 break;
 
             case CropState.Mature:
+                //Deactivate Adolecent GameObject
+                adolecent.SetActive(false);
+
+                //Instantiate the Mature game object as child of the seed.
+                mature = Instantiate(seedToGrow.mature, transform);
+                break;
+
+            case CropState.Harvested:
                 //Access the crop item data
-                Food foodProduced = seedToGrow.foodProduced;
+                //Food foodProduced = seedToGrow.foodProduced;
                 //Instantiate the harvestable crop
-                mature = Instantiate(foodProduced.gameModel, transform);
+                //mature = Instantiate(foodProduced.gameModel, transform);
+
+                harvestBox.AddHarvestCount(seedToGrow.seedName);
 
                 //unparent to soil
-                mature.transform.parent = null;
-                mature.transform.localScale = new Vector3(1, 1, 1);
+                //mature.transform.parent = null;
+                //mature.transform.localScale = new Vector3(1, 1, 1);
                 Destroy(gameObject);
+
+
                 break;
         }
 
