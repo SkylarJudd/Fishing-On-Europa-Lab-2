@@ -14,33 +14,57 @@ public enum HybridState
     HybridHitWater,
     HybridFlocking,
     HybridAvoidingWall,
+    HybridSwimToLure,
+    HybridWaitForMiniGame,
+    HybridMiniGame_Pulling,
+    HybridMiniGame_Tired,
 
 }
 
 public class FishNavigationManager : MonoBehaviour
 {
+    [Header("All Hybrids In Pond")] // a list that contains all the hybrids that has been spawnned into this pond. 
     public List<hybridNavData> hybridsInPond = new List<hybridNavData>();
+    List<hybridNavData> removeHybridsInPond = new List<hybridNavData>();
+    [SerializeField] float waterHeight = 0;
 
+    [Header("Hybrids Doing Diffrent Tasks")] // Lists for each of the hybrids doing diffrent things so we dont have to loop over them all. 
     [SerializeField] List<hybridNavData> hybridsIdel = new List<hybridNavData>();
     [SerializeField] List<hybridNavData> hybridsFlying = new List<hybridNavData>();
     [SerializeField] List<hybridNavData> hybridsHitWater = new List<hybridNavData>();
     [SerializeField] List<hybridNavData> hybridsSwimming = new List<hybridNavData>();
+    [SerializeField] List<hybridNavData> hybridSwimToLure = new List<hybridNavData>();
+    [SerializeField] hybridNavData caughtHybrid;
 
-    [SerializeField] float speed = 0.1f;
-    [SerializeField] float neighbourDistance = 4.0f; //lower number = less likely to flock
-    [SerializeField] float rotationSpeed = 45f;
-    [SerializeField] float correctRotationSpeed = 0.1f;
+    List<hybridNavData> removeHybridsIdel = new List<hybridNavData>();
+    List<hybridNavData> removeHybridsFlying = new List<hybridNavData>();
+    List<hybridNavData> removeHybridsHitWater = new List<hybridNavData>();
+    List<hybridNavData> removeHybridsSwimming = new List<hybridNavData>();
+    List<hybridNavData> removeHybridSwimToLure = new List<hybridNavData>();
 
-    [SerializeField] float waterHeight = 0;
+    [Header("Boids Nav Settings")]
+    [SerializeField] int applyBoidsChance;
+    [SerializeField] int rayCastCheckChance;
+    [SerializeField] bool debug = true;
 
-    [SerializeField] GameObject turnTarget;
+    // boid behavior range
+    [SerializeField][Range(0.0f, 3.0f)] float separationRange;
+    [SerializeField][Range(0.0f, 3.0f)] float alignmentRange;
+    [SerializeField][Range(0.0f, 3.0f)] float cohesionRange;
 
-    [SerializeField] BoidSettings boidSettings = new BoidSettings(1.5f, 3f, 2f, 1f, 1f, 1f, 1f, 0.5f, 5f, 10);
+    // boid behavior weights
+    [SerializeField][Range(0.0f, 3.0f)] float separationFactor;
+    [SerializeField][Range(0.0f, 3.0f)] float alignmentFactor;
+    [SerializeField][Range(0.0f, 3.0f)] float cohesionFactor;
 
+    [SerializeField] float correctRotationSpeed = 0.1f; //being used by UpdateHitWater()
 
     private Coroutine updateHybridFlyingCoroutine;
     private Coroutine updateHitWaterCoroutine;
     private Coroutine updateSwimmingCoroutine;
+    private Coroutine updateSwimToLure;
+
+    private GameObject lureLocation;
 
     private float waterDrag = 5.0f;
     private float airDrag = 0.0f;
@@ -49,8 +73,9 @@ public class FishNavigationManager : MonoBehaviour
     public class hybridNavData
     {
         public GameObject hybridGameObject;
-        public float baseSpeed;
-        public float currentSpeed;
+        public float minSpeed;
+        public float maxSpeed;
+        public float rotationSpeed;
         public HybridState HybridState;
         public Rigidbody hybridRigidbody;
         public bool isTurning;
@@ -58,58 +83,17 @@ public class FishNavigationManager : MonoBehaviour
         public Vector3 velocity;
         public bool aboutToHitWall = false;
 
-    }
+        public bool arrivedAtLure = false;
 
-    [Serializable]
-    public struct BoidSettings
-    {
-
-        // boid behavior range
-        public float separationRange;
-        public float alignmentRange;
-        public float cohesionRange;
-
-        // boid behavior weights
-        public float separationFactor;
-        public float alignmentFactor;
-        public float cohesionFactor;
-
-        // misc settings
-        public float boidScale;
-        public float minSpeed;
-        public float maxSpeed;
-        public int rotationSpeed;
-
-        // Constructor to set default values
-        public BoidSettings(float separationRange, float alignmentRange, float cohesionRange,
-                            float separationFactor, float alignmentFactor, float cohesionFactor,
-                            float boidScale, float minSpeed, float maxSpeed, int rotationSpeed)
-        {
-            this.separationRange = separationRange;
-            this.alignmentRange = alignmentRange;
-            this.cohesionRange = cohesionRange;
-            this.separationFactor = separationFactor;
-            this.alignmentFactor = alignmentFactor;
-            this.cohesionFactor = cohesionFactor;
-            this.boidScale = boidScale;
-            this.minSpeed = minSpeed;
-            this.maxSpeed = maxSpeed;
-            this.rotationSpeed = rotationSpeed;
-        }
     }
 
     private void Start()
     {
-        // If values are being set here, ensure they are correct
-        boidSettings = new BoidSettings(1.5f, 3f, 2f, 1f, 1f, 1f, 1f, 0.5f, 5f, 10);
-
         //waterHight = GetComponentInParent<GeyserMannager>().waterHight.transform.position.y;
         updateHybridFlyingCoroutine = StartCoroutine(UpdateHybridFlying());
         updateHitWaterCoroutine = StartCoroutine(UpdateHitWater());
         updateSwimmingCoroutine = StartCoroutine(UpdateSwimming());
-
-
-
+        updateSwimToLure = StartCoroutine(UpdateHybridToLure());
     }
 
     public void addHybridToPondList(GameObject go)
@@ -122,11 +106,12 @@ public class FishNavigationManager : MonoBehaviour
             Debug.LogError($"{go} dose not have Hybrid Info attached");
         }
 
-        newEntry.baseSpeed = hybridInfo.hybridInfo.fishSpeed;
-        newEntry.currentSpeed = 0f;
+        newEntry.minSpeed = hybridInfo.hybridInfo.fishSpeed;
+        newEntry.maxSpeed = hybridInfo.hybridInfo.fishSpeed * 2;
         newEntry.HybridState = HybridState.HybridFlying;
         newEntry.hybridRigidbody = go.GetComponent<Rigidbody>();
-        newEntry.velocity = Vector3.forward * newEntry.baseSpeed; 
+        newEntry.velocity = Vector3.forward * hybridInfo.hybridInfo.fishSpeed;
+        newEntry.rotationSpeed = hybridInfo.hybridInfo.rotationSpeed;
 
         if (newEntry.hybridRigidbody == null)
         {
@@ -140,11 +125,33 @@ public class FishNavigationManager : MonoBehaviour
 
     }
 
-    /// <summary>
-    /// loops though the list of Flying Hybrids and updates their rigid body values and check when they hit the water. 
-    /// </summary>
-    /// <returns></returns>
-    private IEnumerator UpdateHybridFlying()
+    private IEnumerator UpdateIdel()
+    {
+        while (true)
+        {
+            if (hybridsIdel.Count > 0)
+            {
+                foreach (hybridNavData _Hybrid in hybridsIdel)
+                {
+
+                }
+                // Remove hybrids from hybridsHitWater
+                foreach (var hybrid in removeHybridsIdel)
+                {
+                    hybridsIdel.Remove(hybrid);
+                }
+                   
+            }
+            yield return new WaitForFixedUpdate();
+        } 
+    }
+
+
+/// <summary>
+/// loops though the list of Flying Hybrids and updates their rigid body values and check when they hit the water. 
+/// </summary>
+/// <returns></returns>
+private IEnumerator UpdateHybridFlying()
     {
         while (true)
         {
@@ -172,8 +179,15 @@ public class FishNavigationManager : MonoBehaviour
                     if (_hybridd.hybridGameObject.transform.position.y <= waterHeight)
                     {
                         hybridsHitWater.Add(_hybridd);
-                        hybridsFlying.RemoveAt(i);
+                        //hybridsFlying.RemoveAt(i);
+                        removeHybridsFlying.Add(_hybridd);
                     }
+                }
+
+                // Remove hybrids from hybridsHitWater
+                foreach (var hybrid in removeHybridsFlying)
+                {
+                    hybridsFlying.Remove(hybrid);
                 }
             }
 
@@ -190,8 +204,7 @@ public class FishNavigationManager : MonoBehaviour
         {
             if (hybridsHitWater.Count > 0)
             {
-                // Create a temporary list to hold hybrids to be removed
-                List<hybridNavData> hybridsToRemove = new List<hybridNavData>();
+                
 
                 for (int i = hybridsHitWater.Count - 1; i >= 0; i--)
                 {
@@ -220,12 +233,13 @@ public class FishNavigationManager : MonoBehaviour
                     {
                         //print($"{_hybridd} is within the range to make swim");
                         hybridsSwimming.Add(_hybridd);
-                        hybridsToRemove.Add(_hybridd);
+                        removeHybridsHitWater.Add(_hybridd);
+                        _hybridd.velocity = _hybridd.hybridGameObject.transform.position;
                     }
                 }
 
                 // Remove hybrids from hybridsHitWater
-                foreach (var hybrid in hybridsToRemove)
+                foreach (var hybrid in removeHybridsHitWater)
                 {
                     hybridsHitWater.Remove(hybrid);
                 }
@@ -252,13 +266,14 @@ public class FishNavigationManager : MonoBehaviour
                         outofWater = true;
                     }
 
-                    if (UnityEngine.Random.Range(0, 20) < 1 && hybridsSwimming.Count > 1)
+                    if (UnityEngine.Random.Range(0, rayCastCheckChance) < 1 && hybridsSwimming.Count > 1)
                     {
                         Ray hybridRay = new Ray(_Hybrid.hybridGameObject.transform.position, _Hybrid.hybridGameObject.transform.forward);
                         float raycastDistance = 2f;
                         int layerMask = ~LayerMask.GetMask("Fish");
 
-                        Debug.DrawRay(hybridRay.origin, hybridRay.direction * raycastDistance, Color.red);
+                        if (debug)
+                            Debug.DrawRay(hybridRay.origin, hybridRay.direction * raycastDistance, Color.red);
 
                         if (Physics.Raycast(hybridRay, out RaycastHit hit, raycastDistance, layerMask))
                         {
@@ -279,7 +294,7 @@ public class FishNavigationManager : MonoBehaviour
                         }
                     }
 
-                    if (UnityEngine.Random.Range(0, 20) < 1 && hybridsSwimming.Count > 1)
+                    if (UnityEngine.Random.Range(0, applyBoidsChance) < 1 && hybridsSwimming.Count > 1)
                     {
                         Vector3 separationVelocity = Vector3.zero;
                         Vector3 alignmentVelocity = Vector3.zero;
@@ -302,7 +317,7 @@ public class FishNavigationManager : MonoBehaviour
                             float dist = Vector3.Distance(currBoidPosition, otherBoidsPosition);
 
                             // Separation Check
-                            if (dist < boidSettings.separationRange)
+                            if (dist < separationRange)
                             {
                                 Vector3 otherBoidToCurrentBoid = currBoidPosition - otherBoidsPosition;
                                 Vector3 dirToTravel = otherBoidToCurrentBoid.normalized;
@@ -311,14 +326,14 @@ public class FishNavigationManager : MonoBehaviour
                             }
 
                             // Alignment Check
-                            if (dist < boidSettings.alignmentRange)
+                            if (dist < alignmentRange)
                             {
                                 alignmentVelocity += _otherBoid.velocity;
                                 numOfBoidsToAlignWith++;
                             }
 
                             // Cohesion Check
-                            if (dist < boidSettings.cohesionRange)
+                            if (dist < cohesionRange)
                             {
                                 positionToMoveTowards += otherBoidsPosition;
                                 numOfBoidsInFlock++;
@@ -329,14 +344,14 @@ public class FishNavigationManager : MonoBehaviour
                         {
                             separationVelocity /= numOfBoidsToAvoid;
                             separationVelocity.Normalize();
-                            separationVelocity *= boidSettings.separationFactor;
+                            separationVelocity *= separationFactor;
                         }
 
                         if (numOfBoidsToAlignWith != 0)
                         {
                             alignmentVelocity /= numOfBoidsToAlignWith;
                             alignmentVelocity.Normalize();
-                            alignmentVelocity *= boidSettings.alignmentFactor;
+                            alignmentVelocity *= alignmentFactor;
                         }
 
                         if (numOfBoidsInFlock != 0)
@@ -344,18 +359,18 @@ public class FishNavigationManager : MonoBehaviour
                             positionToMoveTowards /= numOfBoidsInFlock;
                             Vector3 cohesionDirection = positionToMoveTowards - currBoidPosition;
                             cohesionDirection.Normalize();
-                            cohesionVelocity = cohesionDirection * boidSettings.cohesionFactor;
+                            cohesionVelocity = cohesionDirection * cohesionFactor;
                         }
 
                         _Hybrid.velocity += separationVelocity;
                         _Hybrid.velocity += alignmentVelocity;
                         _Hybrid.velocity += cohesionVelocity;
 
-                        _Hybrid.velocity = Vector3.ClampMagnitude(_Hybrid.velocity, boidSettings.maxSpeed);
+                        _Hybrid.velocity = Vector3.ClampMagnitude(_Hybrid.velocity, _Hybrid.maxSpeed);
 
                         Vector3 direction = _Hybrid.velocity.normalized;
                         float speed = _Hybrid.velocity.magnitude;
-                        speed = Mathf.Clamp(speed, boidSettings.minSpeed, boidSettings.maxSpeed);
+                        speed = Mathf.Clamp(speed, _Hybrid.minSpeed, _Hybrid.maxSpeed);
                         _Hybrid.velocity = direction * speed;
                     }
 
@@ -367,7 +382,7 @@ public class FishNavigationManager : MonoBehaviour
                     if (_Hybrid.aboutToHitWall == true && _Hybrid.HybridState != HybridState.HybridAvoidingWall)
                     {
                         Vector3 oppositeDirection = -_Hybrid.hybridGameObject.transform.forward;
-                        _Hybrid.velocity = oppositeDirection * boidSettings.maxSpeed;
+                        _Hybrid.velocity = oppositeDirection * _Hybrid.maxSpeed;
                         _Hybrid.HybridState = HybridState.HybridAvoidingWall;
                     }
 
@@ -377,13 +392,139 @@ public class FishNavigationManager : MonoBehaviour
                     // Rotate the Hybrid toward the direction it is moving
                     Quaternion targetRotation = Quaternion.LookRotation(_Hybrid.velocity);
                     Debug.Log($"Updating Rotation: {_Hybrid.hybridGameObject.name} Current Rotation: {_Hybrid.hybridGameObject.transform.rotation} Target Rotation: {targetRotation}");
-                    _Hybrid.hybridGameObject.transform.rotation = Quaternion.Lerp(_Hybrid.hybridGameObject.transform.rotation, targetRotation, boidSettings.rotationSpeed * Time.deltaTime);
+                    _Hybrid.hybridGameObject.transform.rotation = Quaternion.Lerp(_Hybrid.hybridGameObject.transform.rotation, targetRotation, _Hybrid.rotationSpeed * Time.deltaTime);
 
+                }
+
+                // Remove hybrids from hybridsHitWater
+                foreach (var hybrid in removeHybridsSwimming)
+                {
+                    hybridsSwimming.Remove(hybrid);
                 }
             }
             yield return new WaitForFixedUpdate();
         }
     }
+
+    private IEnumerator UpdateHybridToLure()
+    {
+        while (true)
+        {
+            if (hybridSwimToLure.Count > 0)
+            {
+                foreach (hybridNavData _hybrid in hybridSwimToLure)
+                {
+                    Vector3 directionToTarget = lureLocation.transform.position - _hybrid.hybridGameObject.transform.position;
+                    float yOffset = 0.5f;
+                    directionToTarget = new Vector3(directionToTarget.x, directionToTarget.y - yOffset, directionToTarget.z);
+
+                    // Rotate towards the target
+                    Quaternion targetRotation = Quaternion.LookRotation(directionToTarget);
+                    transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * _hybrid.rotationSpeed);
+
+                    // Move towards the target
+                    Vector3 targetPosition = lureLocation.transform.position;
+
+                    if (targetPosition.y > waterHeight)
+                    {
+                        targetPosition.y = waterHeight;
+                    }
+
+                    transform.position = Vector3.Lerp(_hybrid.hybridGameObject.transform.position, new Vector3(targetPosition.x, targetPosition.y - yOffset, targetPosition.z), Time.deltaTime * (_hybrid.maxSpeed * 2));
+
+                    // Check if the object has reached the target position
+                    float distanceToTarget = Vector3.Distance(transform.position, targetPosition);
+                    float threshold = 1f; // Adjust the threshold as needed
+
+                    if (distanceToTarget < threshold && _hybrid.arrivedAtLure == false)
+                    {
+                        //Debug.Log("Object has reached the target!");
+                        _hybrid.HybridState = HybridState.HybridIdel;
+                        _hybrid.arrivedAtLure = true;
+                        hybridsIdel.Add(_hybrid);
+                        removeHybridSwimToLure.Add(_hybrid);
+
+                        //send an update to minigame Mannager that the Hybrid has arrived
+                    }
+
+                }
+                foreach (var hybrid in removeHybridSwimToLure)
+                {
+                    hybridSwimToLure.Remove(hybrid);
+                }
+            }
+            yield return new WaitForFixedUpdate();
+        }
+    }
+
+    private IEnumerator UpdateMiniGame()
+    {
+        while (true)
+        {
+            if (caughtHybrid != null)
+            {
+                if (caughtHybrid.HybridState == HybridState.HybridMiniGame_Pulling)
+                {
+
+                }
+                else if (caughtHybrid.HybridState == HybridState.HybridMiniGame_Tired)
+                {
+
+                    //print("Attached to line");
+                    Vector3 directionToTarget = lureLocation.transform.position - transform.position;
+                    float yOffset = 0.5f;
+                    directionToTarget = new Vector3(directionToTarget.x, directionToTarget.y - yOffset, directionToTarget.z);
+                    // Rotate towards the target
+
+                    Quaternion targetRotation = Quaternion.LookRotation(directionToTarget);
+                    transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * caughtHybrid.rotationSpeed);
+
+                    // Move towards the target
+                    Vector3 targetPosition = lureLocation.transform.position;
+
+                    if (targetPosition.y > waterHeight)
+                    {
+                        targetPosition.y = waterHeight;
+                    }
+
+                    transform.position = Vector3.Lerp(transform.position, new Vector3(targetPosition.x, targetPosition.y - yOffset, targetPosition.z), Time.deltaTime * 100);
+                }
+            }
+            yield return new WaitForFixedUpdate();
+        }
+    }
+
+    public void removeHybrid(GameObject go)
+    {
+        foreach (hybridNavData _hybrid in hybridsInPond)
+        {
+            if (_hybrid.hybridGameObject == go)
+            {
+                switch (_hybrid.HybridState)
+                {
+                    case HybridState.HybridIdel:
+                        removeHybridsIdel.Add(_hybrid);
+                        break;
+                    case HybridState.HybridFlying:
+                        removeHybridsFlying.Add(_hybrid);
+                        break;
+                    case HybridState.HybridHitWater:
+                        removeHybridsHitWater.Add(_hybrid);
+                        break;
+                    case HybridState.HybridFlocking or HybridState.HybridAvoidingWall:
+                        removeHybridsSwimming.Add(_hybrid);
+                        break;
+                    case HybridState.HybridSwimToLure:
+                        removeHybridSwimToLure.Add(_hybrid);
+                        break;
+                }
+                hybridsInPond.Remove(_hybrid);
+            }
+        }
+    }
+
+
+
 }
 
 

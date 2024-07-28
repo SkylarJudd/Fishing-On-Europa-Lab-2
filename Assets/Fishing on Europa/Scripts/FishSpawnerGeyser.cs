@@ -25,7 +25,6 @@ public class FishSpawnerGeyser : MonoBehaviour
         public GameObject hybridGameObject;
     }
 
-    float forceMultiplier = 10f;
 
     [SerializeField] FishNavigationManager fishNavigationManager;
     [SerializeField] GeyserMannager geyserMannager;
@@ -48,7 +47,6 @@ public class FishSpawnerGeyser : MonoBehaviour
         }
 
         //print(total);
-
         //print(FishList[1].spawnChance / total);
 
         for (int i = 0; i < fishToSpawn.FishToSpawnList.Count; i++)
@@ -57,12 +55,7 @@ public class FishSpawnerGeyser : MonoBehaviour
         }
 
         fishList.Sort((x, y) => x.newSpawnChance.CompareTo(y.newSpawnChance));
-
-        
-
     }
-
-
 
     public void spawnHybrid()
     {
@@ -95,11 +88,6 @@ public class FishSpawnerGeyser : MonoBehaviour
 
         float height = distance.y;
         Vector3 horizontalDistance = new Vector3(distance.x, 0, distance.z);
-
-        // Debugging output to check calculated values
-        //Debug.Log($"Distance: {distance}");
-        //Debug.Log($"Height: {height}");
-        //Debug.Log($"Horizontal Distance: {horizontalDistance}");
 
         float g = Physics.gravity.y;
         float Vy;
@@ -136,8 +124,6 @@ public class FishSpawnerGeyser : MonoBehaviour
         Vector3 rotationalForce = new Vector3(UnityEngine.Random.Range(-1.0f, 1.0f), UnityEngine.Random.Range(-1.0f, 1.0f), UnityEngine.Random.Range(-1.0f, 1.0f)); // This will rotate the object around its Y-axis
 
         _Rb.angularVelocity = rotationalForce;
-
-
     }
 
     private HybridsToSpawn GetFishToSpawn()
@@ -148,11 +134,7 @@ public class FishSpawnerGeyser : MonoBehaviour
             bool isShiney = true;
         }
 
-        //print(fishList.Count);
-        //print("Random number = " + randomNumber);
-
         float randomNumber = UnityEngine.Random.Range(0, 100);
-
         float currentChanceValue = 0;
 
         foreach (HybridsToSpawn hybrids in fishList)

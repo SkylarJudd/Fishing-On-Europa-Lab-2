@@ -25,6 +25,7 @@ MonoBehaviour:
   damageToRod: 9
   catchChance: 59
   fishSpeed: 0.5
+  rotationSpeed: 5
   foodEaten: 5
   favFood: 0
   favToy: 1

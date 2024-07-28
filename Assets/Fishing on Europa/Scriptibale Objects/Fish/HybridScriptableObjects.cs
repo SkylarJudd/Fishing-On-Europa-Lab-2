@@ -28,6 +28,7 @@ public class HybridScriptableObjects : ScriptableObject
     //Hybrid AI
 
     public float fishSpeed;
+    public float rotationSpeed;
     public FoodType foodEaten;
     public FoodList favFood;
     public ToyList favToy;
