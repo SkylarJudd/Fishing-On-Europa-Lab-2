@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using UnityEngine;
 using static CropBehaviour;
+using static Unity.VisualScripting.Metadata;
 
 public class FarmingSoil : MonoBehaviour
 {
     public GameObject parentObject;
     public Vector3[] positions;
+    public int maxCrops;
+    public float minDistance = 2.0f; // Minimum distance between child objects
 
     [Header("Crops")]
     //The crops currently planted on the land
@@ -49,7 +52,7 @@ public class FarmingSoil : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Seed"))
         {
-            if (transform.childCount < positions.Length)
+            if (transform.childCount < maxCrops /*positions.Length*/)
             {
                 cropsPlanted.Add(collision.gameObject.GetComponent<CropBehaviour>());
 
@@ -61,16 +64,47 @@ public class FarmingSoil : MonoBehaviour
                 // Make the collided GameObject a child of parentObject
                 collision.transform.parent = parentObject.transform;
 
-                for (int i = 0; i < transform.childCount; i++)
-                {
-                    Transform child = transform.GetChild(i);
+                // Get all child objects
+                Transform[] children = GetComponentsInChildren<Transform>();
 
-                    // Check if current index is within bounds of the positions array
-                    if (i < positions.Length)
+                // Iterate through all child objects
+                for (int i = 1; i < children.Length; i++) // Start at 1 to skip the parent object itself
+                {
+                    Transform childA = children[i];
+
+                    // Check distance with other children
+                    for (int j = i + 1; j < children.Length; j++)
                     {
-                        // Move the child to the specified position
-                        child.localPosition = positions[i];
+                        Transform childB = children[j];
+
+                        // Calculate distance between childA and childB
+                        float distance = Vector3.Distance(childA.position, childB.position);
+
+                        // If the distance is less than the minimum required, move childB away
+                        if (distance < minDistance)
+                        {
+                            // Calculate direction to move childB away from childA
+                            Vector3 direction = (childB.position - childA.position).normalized;
+
+                            // Calculate the amount to move childB
+                            float moveAmount = minDistance - distance;
+
+                            // Move childB away from childA
+                            childB.position += direction * moveAmount;
+                        }
                     }
+
+                    /*for (int i = 0; i < transform.childCount; i++)
+                    {
+                        Transform child = transform.GetChild(i);
+
+                        // Check if current index is within bounds of the positions array
+                        if (i < positions.Length)
+                        {
+                            // Move the child to the specified position
+                            child.localPosition = positions[i];
+                        }
+                    }*/
                 }
             }
         }

@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 1132201955035333179}
   - component: {fileID: -9006011360737295723}
   - component: {fileID: -7087294194286195889}
+  - component: {fileID: 3840014363253974192}
   m_Layer: 0
   m_Name: OrangeSeedPlaceholder
   m_TagString: Seed
@@ -120,6 +121,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   seedToGrow: {fileID: 11400000, guid: 4b9832a81e8158e45a7848fd0b230b34, type: 2}
+  harvestBox: {fileID: 0}
   seed: {fileID: 9156764235852979800}
   growth: 0
   maxGrowth: 0
@@ -151,3 +153,18 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &3840014363253974192
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9156764235852979800}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f232fcff38f7de6408eec1493b5ebdd9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetTag: Seed
+  pushDistance: 1
+  pushForce: 1

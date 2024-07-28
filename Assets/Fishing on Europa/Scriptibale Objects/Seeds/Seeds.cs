@@ -22,4 +22,6 @@ public class Seeds : ScriptableObject
     public GameObject sprout;
     public GameObject adolecent;
     public GameObject mature;
+
+
 }
