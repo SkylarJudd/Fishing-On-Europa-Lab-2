@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c653d012513930448aa8e1a37256b7b5, type: 3}
+  m_Name: Apple
+  m_EditorClassIdentifier: 
+  seedName: Apple
+  seedDesc: 
+  foodProduced: {fileID: 11400000, guid: 89f8af54d84bf5f4e84772b0c45010c8, type: 2}
+  spawnLocation: 1
+  growthTime: 3
+  price: 0
+  artwork: {fileID: 0}
+  seedling: {fileID: 9156764235852979800, guid: b2d671496f9929f4ebcd56443642581b,
+    type: 3}
+  sprout: {fileID: 4831865379003320886, guid: cf495d7253a57864e8269b27d0cb77b6, type: 3}
+  adolecent: {fileID: 277370471398807642, guid: 68c1652350b8f3244865cca412bed0f3,
+    type: 3}
+  mature: {fileID: 4387607978619465981, guid: cf744e29c8c1a904fa9054594f53b102, type: 3}

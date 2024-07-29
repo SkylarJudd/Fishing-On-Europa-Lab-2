@@ -22,3 +22,5 @@ MonoBehaviour:
   finshiedCropDropSeeds: 2
   finshiedCropDropFood: 2
   happinesAdd: 10
+  gameModel: {fileID: 4387607978619465981, guid: cf744e29c8c1a904fa9054594f53b102,
+    type: 3}
