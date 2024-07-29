@@ -68,7 +68,7 @@ public class FarmingSoil : MonoBehaviour
                 Transform[] children = GetComponentsInChildren<Transform>();
 
                 // Iterate through all child objects
-                for (int i = 1; i < children.Length; i++) // Start at 1 to skip the parent object itself
+                for (int i = 2; i < children.Length; i++) // Start at 1 to skip the parent object itself
                 {
                     Transform childA = children[i];
 
@@ -94,6 +94,19 @@ public class FarmingSoil : MonoBehaviour
                         }
                     }
 
+                    foreach (Transform child in transform)
+                    {
+                        // Set the rotation to (0, 0, 0)
+                        child.rotation = Quaternion.identity;
+
+                        // Freeze the Rigidbody position and rotation if a Rigidbody is attached
+                        Rigidbody rb = child.GetComponent<Rigidbody>();
+                        if (rb != null)
+                        {
+                            rb.constraints = RigidbodyConstraints.FreezeAll;
+                        }
+                    }
+
                     /*for (int i = 0; i < transform.childCount; i++)
                     {
                         Transform child = transform.GetChild(i);
@@ -106,6 +119,11 @@ public class FarmingSoil : MonoBehaviour
                         }
                     }*/
                 }
+            }
+
+            if (transform.childCount == 0)
+            {
+                return; ;
             }
         }
     }

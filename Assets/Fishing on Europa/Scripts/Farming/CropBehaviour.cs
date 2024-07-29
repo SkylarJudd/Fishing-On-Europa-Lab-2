@@ -39,8 +39,10 @@ public class CropBehaviour : MonoBehaviour
         //Convert Growth Time into minutes (TODO with day/night cycle)
         maxGrowth = seedToGrow.growthTime;
 
+        harvestBox = FindObjectOfType<HarvestBox>();
+
         //Set the inital state to Seed
-        SwitchState(CropState.Seed);
+        //SwitchState(CropState.Seed);
     }
 
     //crop will grow when condition is met
@@ -67,8 +69,14 @@ public class CropBehaviour : MonoBehaviour
             SwitchState(CropState.Mature);
         }
 
-        //HArvested
+        //Harvested
         if (growth >= maxGrowth && cropState == CropState.Mature)
+        {
+            SwitchState(CropState.Harvested);
+        }
+
+        //Harvested debug
+        if (growth >= maxGrowth + 1)
         {
             SwitchState(CropState.Harvested);
         }
