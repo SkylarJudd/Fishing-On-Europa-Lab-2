@@ -129,9 +129,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lure: {fileID: 5362260776484223801, guid: 76ccde9d1f3efc14599537f72e8a9155, type: 3}
+  fishingLine: {fileID: 0}
   spawnPoint: {fileID: 5513851745054659699}
-  fireSpeed: 20
-  rodVelcoty: {fileID: 0}
+  LureRB: {fileID: 0}
+  CurrentVelocity: {fileID: 0}
+  yThreshold: -7.036
+  delay: 5
+  resetScript: {fileID: 0}
+  lureCheck: []
+  cloestObjectScript: {fileID: 0}
+  casted: 0
+  fishCaught: 0
 --- !u!114 &5513851745549877251
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -150,7 +158,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4294967295
   m_InteractionLayers:
-    m_Bits: 1
+    m_Bits: 4294967295
   m_DistanceCalculationMode: 1
   m_SelectMode: 0
   m_FocusMode: 1

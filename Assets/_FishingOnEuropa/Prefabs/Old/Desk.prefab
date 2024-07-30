@@ -26,13 +26,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2881665518769474248}
+  serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0.09177011, w: 0.9957802}
-  m_LocalPosition: {x: 9.563929, y: 2.8363304, z: -12.277383}
-  m_LocalScale: {x: 0.11907048, y: 0.9146998, z: 0.09995038}
+  m_LocalPosition: {x: -0.894, y: 0.4400001, z: -0.262}
+  m_LocalScale: {x: 0.11907049, y: 0.9146998, z: 0.09995038}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2881665519417084337}
-  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -10.531}
 --- !u!33 &2881665518769474252
 MeshFilter:
@@ -92,9 +92,17 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2881665518769474248}
   m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
   m_IsTrigger: 0
+  m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 2
+  serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &2881665519229945437
@@ -123,13 +131,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2881665519229945437}
+  serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0.09177011, w: 0.9957802}
-  m_LocalPosition: {x: 9.563929, y: 2.8363304, z: -11.732383}
-  m_LocalScale: {x: 0.11907048, y: 0.9146998, z: 0.09995038}
+  m_LocalPosition: {x: -0.894, y: 0.4400001, z: 0.262}
+  m_LocalScale: {x: 0.11907049, y: 0.9146998, z: 0.09995038}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2881665519417084337}
-  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -10.531}
 --- !u!33 &2881665519229945425
 MeshFilter:
@@ -189,9 +197,17 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2881665519229945437}
   m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
   m_IsTrigger: 0
+  m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 2
+  serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &2881665519417084336
@@ -217,6 +233,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2881665519417084336}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -10.510928, y: -2.5343304, z: 14.204383}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -228,7 +245,6 @@ Transform:
   - {fileID: 2881665518769474249}
   - {fileID: 2881665519229945438}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2881665519582735366
 GameObject:
@@ -256,13 +272,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2881665519582735366}
+  serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 10.510928, y: 3.2943304, z: -11.998383}
+  m_LocalPosition: {x: 0, y: 0.898, z: 0}
   m_LocalScale: {x: 2.281, y: 0.067129, z: 0.76561}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2881665519417084337}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &2881665519582735482
 MeshFilter:
@@ -322,9 +338,17 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2881665519582735366}
   m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
   m_IsTrigger: 0
+  m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 2
+  serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &2881665520606000547
@@ -353,13 +377,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2881665520606000547}
+  serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: 0.112620816, w: 0.99363804}
-  m_LocalPosition: {x: 11.352928, y: 2.8363304, z: -12.277383}
+  m_LocalPosition: {x: 0.894, y: 0.4400001, z: -0.262}
   m_LocalScale: {x: 0.11907047, y: 0.9146998, z: 0.09995038}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2881665519417084337}
-  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 12.933}
 --- !u!33 &2881665520606000551
 MeshFilter:
@@ -419,9 +443,17 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2881665520606000547}
   m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
   m_IsTrigger: 0
+  m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 2
+  serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &2881665520676871303
@@ -450,13 +482,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2881665520676871303}
+  serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: 0.112620816, w: 0.99363804}
-  m_LocalPosition: {x: 11.352928, y: 2.8363304, z: -11.732383}
+  m_LocalPosition: {x: 0.894, y: 0.4400001, z: 0.262}
   m_LocalScale: {x: 0.11907047, y: 0.9146998, z: 0.09995038}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2881665519417084337}
-  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 12.933}
 --- !u!33 &2881665520676871419
 MeshFilter:
@@ -516,8 +548,16 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2881665520676871303}
   m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
   m_IsTrigger: 0
+  m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 2
+  serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}

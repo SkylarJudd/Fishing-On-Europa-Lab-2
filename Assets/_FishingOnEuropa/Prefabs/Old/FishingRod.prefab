@@ -3325,9 +3325,7 @@ MonoBehaviour:
   - {fileID: 2364951472933032793}
   - {fileID: 3965353635660878102}
   underWaterDrag: 3
-  underWaterAngularDrag: 1
   airDrag: 0
-  airAngularDrag: 0.05
   floatingPower: 120
   Text: {fileID: 2012817393867034272}
   waterManager: {fileID: 0}
@@ -3868,7 +3866,6 @@ MonoBehaviour:
   pullingToggleRate: 1
   pullingToggleRange: 0.5
   moveSpeed: 1
-  rotationSpeed: 5
   switchDelay: 1
   miniGameActive: 0
   pulling: 0
@@ -3898,7 +3895,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4294967295
   m_InteractionLayers:
-    m_Bits: 1
+    m_Bits: 4294967295
   m_DistanceCalculationMode: 1
   m_SelectMode: 0
   m_FocusMode: 1

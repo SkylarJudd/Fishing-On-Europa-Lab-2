@@ -123,9 +123,7 @@ MonoBehaviour:
   floaters:
   - {fileID: 1941887580805567707}
   underWaterDrag: 3
-  underWaterAngularDrag: 1
   airDrag: 0
-  airAngularDrag: 0.05
   floatingPower: 140
   Text: {fileID: 0}
   waterManager: {fileID: 0}
@@ -174,7 +172,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4294967295
   m_InteractionLayers:
-    m_Bits: 1
+    m_Bits: 4294967295
   m_DistanceCalculationMode: 1
   m_SelectMode: 0
   m_FocusMode: 1
