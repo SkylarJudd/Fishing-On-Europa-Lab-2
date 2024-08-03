@@ -96,7 +96,7 @@ public class FishNavigationManager : MonoBehaviour
         updateSwimToLure = StartCoroutine(UpdateHybridToLure());
     }
 
-    public void addHybridToPondList(GameObject go)
+    public void addHybridToPondList(GameObject go, HybridState enterState)
     {
         hybridNavData newEntry = new hybridNavData();
         newEntry.hybridGameObject = go;
@@ -121,7 +121,20 @@ public class FishNavigationManager : MonoBehaviour
 
         hybridsInPond.Add(newEntry);
 
-        hybridsFlying.Add(newEntry);
+        switch (enterState)
+        {
+            case HybridState.HybridFlying:
+                hybridsFlying.Add(newEntry);
+                break;
+            case HybridState.HybridFlocking:
+                hybridsSwimming.Add(newEntry);
+                break;
+            default:
+                hybridsSwimming.Add(newEntry);
+                break;
+        }
+
+
 
     }
 

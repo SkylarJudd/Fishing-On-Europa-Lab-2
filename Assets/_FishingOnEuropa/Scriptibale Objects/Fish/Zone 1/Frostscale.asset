@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54bd298808f8b0c4e9982add6a5636d2, type: 3}
   m_Name: Frostscale
   m_EditorClassIdentifier: 
-  fishID: 10006
+  fishID: 100006
   fishName: Frost Scale
   description: a Hybrid of an Arctic fox and a fish
   hybridPrefab: {fileID: 5008421055324423510, guid: 6946779f18dbbd64c9f5b834ba4c73a4,

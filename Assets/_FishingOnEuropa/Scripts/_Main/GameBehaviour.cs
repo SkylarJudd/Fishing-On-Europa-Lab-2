@@ -5,8 +5,9 @@ using System.Collections.Generic;
 public class GameBehaviour : MonoBehaviour
 {
     protected static GameMannager _GM { get { return GameMannager.instance; } }
-    protected static ObjectPoolManager _OPM{ get { return ObjectPoolManager.instance; } }
-    
+    protected static ObjectPoolManager _OPM { get { return ObjectPoolManager.instance; } }
+    protected static TempSaveMannager _TSM { get { return TempSaveMannager.instance; } }
+
 
     public Transform getClosestEnermy(Transform _origin, List<GameObject> _objects)
     {
