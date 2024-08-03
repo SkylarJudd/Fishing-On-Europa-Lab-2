@@ -18,6 +18,8 @@ public enum HybridState
     HybridWaitForMiniGame,
     HybridMiniGame_Pulling,
     HybridMiniGame_Tired,
+    HybridOnLand_Sitting,
+    HybridOnLand_Walking,
 
 }
 
@@ -84,6 +86,7 @@ public class FishNavigationManager : MonoBehaviour
         public bool aboutToHitWall = false;
 
         public bool arrivedAtLure = false;
+        public bool firstNav;
 
     }
 
@@ -112,6 +115,7 @@ public class FishNavigationManager : MonoBehaviour
         newEntry.hybridRigidbody = go.GetComponent<Rigidbody>();
         newEntry.velocity = Vector3.forward * hybridInfo.hybridInfo.fishSpeed;
         newEntry.rotationSpeed = hybridInfo.hybridInfo.rotationSpeed;
+        newEntry.firstNav = true;
 
         if (newEntry.hybridRigidbody == null)
         {
@@ -282,7 +286,7 @@ private IEnumerator UpdateHybridFlying()
                     if (UnityEngine.Random.Range(0, rayCastCheckChance) < 1 && hybridsSwimming.Count > 1)
                     {
                         Ray hybridRay = new Ray(_Hybrid.hybridGameObject.transform.position, _Hybrid.hybridGameObject.transform.forward);
-                        float raycastDistance = 2f;
+                        float raycastDistance = 0.5f;
                         int layerMask = ~LayerMask.GetMask("Fish");
 
                         if (debug)
@@ -307,8 +311,9 @@ private IEnumerator UpdateHybridFlying()
                         }
                     }
 
-                    if (UnityEngine.Random.Range(0, applyBoidsChance) < 1 && hybridsSwimming.Count > 1)
+                    if (UnityEngine.Random.Range(0, applyBoidsChance) < 1 && hybridsSwimming.Count > 1 || _Hybrid.firstNav == true)
                     {
+                        _Hybrid.firstNav = false;
                         Vector3 separationVelocity = Vector3.zero;
                         Vector3 alignmentVelocity = Vector3.zero;
                         Vector3 cohesionVelocity = Vector3.zero;

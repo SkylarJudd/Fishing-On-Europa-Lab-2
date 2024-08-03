@@ -24,8 +24,8 @@ MonoBehaviour:
   spawnChance: 25
   damageToRod: 17
   catchChance: 25
-  fishSpeed: 0.4
-  rotationSpeed: 5
+  fishSpeed: 0.2
+  rotationSpeed: 2.5
   foodEaten: 2
   favFood: 1
   favToy: 4

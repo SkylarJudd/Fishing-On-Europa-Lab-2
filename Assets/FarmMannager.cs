@@ -11,6 +11,8 @@ public class FarmHybridData
     public int hybridID;
     public string hybridName;
     public bool shiney;
+    public int tank;
+    public Vector3 lastLocation;
 
     [Header("Hybrid GameObject")]
     public GameObject hybridGameObject;
@@ -32,7 +34,9 @@ public class FarmMannager : GameBehaviour
 {
     [SerializeField] List<HybridScriptableObjects> hybridInfos = new List<HybridScriptableObjects>();
     [SerializeField] List<FarmHybridData> hybridInFarm = new List<FarmHybridData>();
-    [SerializeField] Transform[] spawnPoints;
+    [SerializeField] Transform[] tankOneSpawnPoints;
+    [SerializeField] Transform[] tankTwoSpawnPoints;
+    [SerializeField] Transform[] defaultGroundSpawnPoints;
     [SerializeField] FishNavigationManager fishNavigationManager;
 
 
@@ -56,6 +60,8 @@ public class FarmMannager : GameBehaviour
                     farmHybridData.hybridID = _TSM.HybridsInFarm[i];
                     farmHybridData.hybridName = _TSM.HybridsNames[i];
                     farmHybridData.shiney = _TSM.HybridsShiney[i];
+                    farmHybridData.tank = _TSM.HybridTank[i];
+                    farmHybridData.lastLocation = _TSM.HybridLastPos[i];
 
 
                     farmHybridData.hybridGameObject = _HI.hybridPrefab;
@@ -88,7 +94,31 @@ public class FarmMannager : GameBehaviour
 
     private void spawnHybridInFarm(FarmHybridData _hybridInfo)
     {
-        GameObject hybridFromManager = ObjectPoolManager._OPM.spawnObject(_hybridInfo.hybridGameObject, spawnPoints[UnityEngine.Random.Range(0, spawnPoints.Length)].transform.position, new Quaternion(0, UnityEngine.Random.Range(0,360), 0 , 0), _hybridInfo.poolType);
+        Transform[] spawnPoints = null;
+        Vector3 spawnTransform;
+
+        switch (_hybridInfo.tank)
+        {
+            case 0:
+                spawnPoints = tankOneSpawnPoints;
+                spawnTransform = spawnPoints[UnityEngine.Random.Range(0, spawnPoints.Length)].transform.position;
+                break;
+            case 1:
+                spawnPoints = tankTwoSpawnPoints;
+                spawnTransform = spawnPoints[UnityEngine.Random.Range(0, spawnPoints.Length)].transform.position;
+                break;
+            case 2:
+                spawnTransform = _hybridInfo.lastLocation;
+                break;
+            default:
+                spawnPoints = tankOneSpawnPoints;
+                spawnTransform = spawnPoints[UnityEngine.Random.Range(0, spawnPoints.Length)].transform.position;
+                break;
+
+        }    
+
+
+        GameObject hybridFromManager = ObjectPoolManager._OPM.spawnObject(_hybridInfo.hybridGameObject, spawnTransform, new Quaternion(0, UnityEngine.Random.Range(0,360), 0 , 0), _hybridInfo.poolType);
         fishNavigationManager.addHybridToPondList(hybridFromManager, HybridState.HybridFlying);
     }
     private void RemoveHybridFromFarm(FarmHybridData _hybridInfo)
