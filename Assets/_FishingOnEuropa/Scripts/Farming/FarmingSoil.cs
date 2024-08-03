@@ -8,34 +8,32 @@ using static Unity.VisualScripting.Metadata;
 public class FarmingSoil : MonoBehaviour
 {
     public GameObject parentObject;
+    public GameObject timeManager;
+    private TimeManager timer;
     public Vector3[] positions;
     public int maxCrops;
     public float minDistance = 2.0f; // Minimum distance between child objects
+    public float dayDurationAdj = 0.005f; // Adjust crop growth timer for day Duration. Default 30.
 
     [Header("Crops")]
     //The crops currently planted on the land
 
     public List<CropBehaviour> cropsPlanted;
 
-    [Header("Time PlaceHolder")]
-    public float hours;
-
     public GameObject seed;
+
+    private void Start()
+    {
+        timer = timeManager.GetComponent<TimeManager>();
+    }
 
     private void Update()
     {
         RemoveCropBehaviour();
 
-        if (hours > 0)
+        if (timer.currentTime <= dayDurationAdj)
         {
-            hours -= Time.deltaTime;
-
-        }
-        else
-        {
-            hours = 24;
-
-           foreach (CropBehaviour crop in cropsPlanted )
+            foreach (CropBehaviour crop in cropsPlanted)
             {
                 crop.Grow();
             }

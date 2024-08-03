@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,7 +9,7 @@ public class TimeManager : MonoBehaviour
     public const int hoursInDay = 24, minutesInHour = 60;
     public float dayDuration = 30f;
     float totalTime = 0;
-    float currentTime = 0;
+    public float currentTime = 0;
 
     // Update is called once per frame
     void Update()
