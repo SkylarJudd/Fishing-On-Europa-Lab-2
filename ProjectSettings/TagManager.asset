@@ -28,10 +28,10 @@ TagManager:
   - Reel
   - FarRender
   - Tp
-  - 
-  - 
-  - 
-  - 
+  - Grabbing
+  - Grabbable
+  - Hand
+  - HandPlayer
   - 
   - 
   - 

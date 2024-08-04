@@ -409,7 +409,7 @@ private IEnumerator UpdateHybridFlying()
 
                     // Rotate the Hybrid toward the direction it is moving
                     Quaternion targetRotation = Quaternion.LookRotation(_Hybrid.velocity);
-                    Debug.Log($"Updating Rotation: {_Hybrid.hybridGameObject.name} Current Rotation: {_Hybrid.hybridGameObject.transform.rotation} Target Rotation: {targetRotation}");
+                    //Debug.Log($"Updating Rotation: {_Hybrid.hybridGameObject.name} Current Rotation: {_Hybrid.hybridGameObject.transform.rotation} Target Rotation: {targetRotation}");
                     _Hybrid.hybridGameObject.transform.rotation = Quaternion.Lerp(_Hybrid.hybridGameObject.transform.rotation, targetRotation, _Hybrid.rotationSpeed * Time.deltaTime);
 
                 }
