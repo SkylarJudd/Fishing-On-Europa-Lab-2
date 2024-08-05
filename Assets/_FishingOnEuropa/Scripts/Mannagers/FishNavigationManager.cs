@@ -541,7 +541,10 @@ private IEnumerator UpdateHybridFlying()
         }
     }
 
+    public void RemoveAllHybrids()
+    {
 
+    }
 
 }
 

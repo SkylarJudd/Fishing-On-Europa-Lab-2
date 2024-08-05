@@ -81,6 +81,7 @@ public class MainMenuUiMannager : GameBehaviour
     public void OnPlayFromLastSavePressed()
     {
         print("OnPlayFromLastSavePressed");
+
     }
 
     [ContextMenu("OnNewSavePressed")]

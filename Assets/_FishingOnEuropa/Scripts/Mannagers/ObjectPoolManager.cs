@@ -27,7 +27,7 @@ public class ObjectPoolManager : Singleton<ObjectPoolManager>
     public List<PooledObjectInfo> objectPools = new List<PooledObjectInfo>();
 
     #region ObjectPoolEmpites
-    private GameObject _objectPoolEmptyHolder;
+    public GameObject _objectPoolEmptyHolder;
 
     private GameObject _hybridsEmptyHolder;
     private GameObject _farmEmptyHolder;
@@ -60,7 +60,7 @@ public class ObjectPoolManager : Singleton<ObjectPoolManager>
     {
 
         #region CreatingObjectPoolEmpties
-        _objectPoolEmptyHolder = new GameObject("PooledObjects");
+       // _objectPoolEmptyHolder = new GameObject("PooledObjects");
 
         // Initialize these objects before using them
         _hybridsEmptyHolder = new GameObject("HybridsPool");
