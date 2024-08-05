@@ -57,11 +57,11 @@ public class FarmMannager : GameBehaviour
 
     private void LoadHybrids()
     {
-        for (int i = 0; i < _TSM.HybridsInFarm.Count; i++)
+        for (int i = 0; i < _TSM.saveDatas[0].HybridsInFarm.Count; i++)
         {
             foreach (HybridScriptableObjects _HI in hybridInfos)
             {
-                if (_TSM.HybridsInFarm[i] == _HI.fishID)
+                if (_TSM.saveDatas[0].HybridsInFarm[i] == _HI.fishID)
                 {
                     FarmHybridData farmHybridData = new FarmHybridData();
 
@@ -105,11 +105,11 @@ public class FarmMannager : GameBehaviour
     /// <returns></returns>
     private FarmHybridData GetDataFromSaveMannager(FarmHybridData _farmHybridData, int _Index)
     {
-        _farmHybridData.hybridID = _TSM.HybridsInFarm[_Index];
-        _farmHybridData.hybridName = _TSM.HybridsNames[_Index];
-        _farmHybridData.shiney = _TSM.HybridsShiney[_Index];
-        _farmHybridData.tank = _TSM.HybridTank[_Index];
-        _farmHybridData.lastLocation = _TSM.HybridLastPos[_Index];
+        _farmHybridData.hybridID = _TSM.currentSave.HybridsInFarm[_Index];
+        _farmHybridData.hybridName = _TSM.currentSave.HybridsNames[_Index];
+        _farmHybridData.shiney = _TSM.currentSave.HybridsShiney[_Index];
+        _farmHybridData.tank = _TSM.currentSave.HybridTank[_Index];
+        _farmHybridData.lastLocation = _TSM.currentSave.HybridLastPos[_Index];
 
         return _farmHybridData;
     }
@@ -184,11 +184,11 @@ public class FarmMannager : GameBehaviour
     /// </summary>
     private void ClearSaveLists()
     {
-        _TSM.HybridsInFarm.Clear();
-        _TSM.HybridsShiney.Clear();
-        _TSM.HybridsNames.Clear();
-        _TSM.HybridTank.Clear();
-        _TSM.HybridLastPos.Clear();
+        _TSM.currentSave.HybridsInFarm.Clear();
+        _TSM.currentSave.HybridsShiney.Clear();
+        _TSM.currentSave.HybridsNames.Clear();
+        _TSM.currentSave.HybridTank.Clear();
+        _TSM.currentSave.HybridLastPos.Clear();
     }
 
     /// <summary>
@@ -197,11 +197,11 @@ public class FarmMannager : GameBehaviour
     /// <param name="_farmHybridData"></param>
     private void AddHybridsToSave(FarmHybridData _farmHybridData)
     {
-        _TSM.HybridsInFarm.Add(_farmHybridData.hybridID);
-        _TSM.HybridsShiney.Add(_farmHybridData.shiney);
-        _TSM.HybridsNames.Add(_farmHybridData.hybridName);
-        _TSM.HybridTank.Add(_farmHybridData.tank);
-        _TSM.HybridLastPos.Add(_farmHybridData.hybridGameObjectSpawnned.transform.position);
+        _TSM.currentSave.HybridsInFarm.Add(_farmHybridData.hybridID);
+        _TSM.currentSave.HybridsShiney.Add(_farmHybridData.shiney);
+        _TSM.currentSave.HybridsNames.Add(_farmHybridData.hybridName);
+        _TSM.currentSave.HybridTank.Add(_farmHybridData.tank);
+        _TSM.currentSave.HybridLastPos.Add(_farmHybridData.hybridGameObjectSpawnned.transform.position);
     }
 
     private void RemoveHybridFromFarm(FarmHybridData _hybridInfo)

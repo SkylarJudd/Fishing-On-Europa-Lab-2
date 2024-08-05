@@ -20,7 +20,7 @@ public class Singleton <T> : GameBehaviour where T : GameBehaviour
         }
     }
 
-    protected virtual void Awake()
+    public virtual void Awake()
     {
         if (_Instance == null)
         {

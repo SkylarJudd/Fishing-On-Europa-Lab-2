@@ -9,6 +9,7 @@ using Scene = UnityEditor.SearchService;
 public enum Scenes
 {
     _ERROR,
+    _TUTORIAL,
     _ESSENTIALES,
     _MAINMENU_SCENE,
     _FARM_SCENE,
