@@ -9,5 +9,5 @@ public class TimeSettings : ScriptableObject
     public float timeMultipler = 2000;
     public float startHour = 12;
     public float sunriseHour = 6;
-    public float sunsetHour = 18;
+    public float sunsetHour = 12;
 }

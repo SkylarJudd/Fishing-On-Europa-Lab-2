@@ -1,48 +1,46 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
-public class TimeManager
+public class TimeManager : MonoBehaviour
 {
-    //date time struct
-    readonly TimeSettings settings;
-    DateTime currentTime;
-    readonly TimeSpan sunriseTime; //duration
-    readonly TimeSpan sunsetime;
+    [SerializeReference] Light sun;
+    [SerializeReference] Light moon_temp; //will need to change as you can see two moons from Europa (Io and Ganymede)
 
-    //observable publishes an evevnt when the value of what it is observing changes
-    readonly IObservable<bool> isDayTime;
-    readonly IObservable<int> currentHour;
+    [SerializeField] TextMeshProUGUI timeText;
+    [SerializeField] TimeSettings timeSettings;
+    TimeService service;
 
-    public TimeManager(TimeSettings settings) 
+    // Start is called before the first frame update
+    void Start()
     {
-        this.settings = settings; //initalise
-
-        //set to todays date and starting hour
-        currentTime = DateTime.Now + TimeSpan.FromHours(settings.startHour);
-
-        //set sunrise and sunset time
-        sunriseTime = TimeSpan.FromHours(settings.sunriseHour);
-        sunsetime = TimeSpan.FromHours(settings.sunsetHour);
+        service = new TimeService(timeSettings);
+        
     }
 
-    //update time as playing
-    public void UpdateTime(float deltaTime)
+    private void Update()
     {
-        currentTime = currentTime.AddSeconds(deltaTime * settings.timeMultipler);
+        UpdateTimeOfDay();
+        RotateSun();
+
     }
 
-    //check if its daytime or nighttime, if true daytime
-    bool isDayTime() => currentTime.TimeOfDay > sunriseTime && currentTime.TimeOfDay < sunsetime;
-
-    //calculate difference between two timespans
-    TimeSpan CalculateDifference(TimeSpan from, TimeSpan to)
+    void RotateSun()
     {
-        TimeSpan difference = to - from;
-        //may need to change 24 as europa is 75 hour day
-        //if value is negative, add 24 to account for time difference being the next day
-        return difference.TotalHours < 0 ? difference + TimeSpan.FromHours(24) : difference;
+        float rotation = service.CalculateSunAngle();
+        sun.transform.rotation = Quaternion.AngleAxis(rotation, Vector3.right);
+
     }
- 
+
+    private void UpdateTimeOfDay()
+    {
+        service.UpdateTime(Time.deltaTime);
+
+        //get current time
+        if(timeText != null)
+        {
+            timeText.text = service.CurrentTime.ToString("hh:mm");
+        }
+    }
 }
