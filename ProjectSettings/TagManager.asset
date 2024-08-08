@@ -13,6 +13,7 @@ TagManager:
   - Seed
   - Soil
   - Wall
+  - Hybrid
   layers:
   - Default
   - TransparentFX
@@ -32,7 +33,7 @@ TagManager:
   - Grabbable
   - Hand
   - HandPlayer
-  - 
+  - FOEItem
   - 
   - 
   - 

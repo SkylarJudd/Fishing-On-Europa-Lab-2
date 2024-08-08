@@ -23,55 +23,55 @@ public class InventoryMannager : Singleton<InventoryMannager>
     private int maxHybrids;    //the max number of hybrids to be added to the inventory
 
 
-    private void Start()
-    {
-        //get items from the save mannager
+    //private void Start()
+    //{
+    //    //get items from the save mannager
 
-    }
+    //}
 
-    public bool AddItemToInventory(InventoryItem _item)
-    {
-        foreach (InventoryItem item in inventoryItems)
-        {
-            if (item.inventoryItemSO.itemID == _item.inventoryItemSO.itemID)
-            {
-                if (item.currnetStack >= item.inventoryItemSO.itemStackSize)
-                {
-                    inventoryItems.Add(_item);
-                    item.currnetStack++;
-                    //send _item to the disable object pool
-                    return true;
-                }
-            }
-        }
+    //public bool AddItemToInventory(InventoryItem _item)
+    //{
+    //    foreach (InventoryItem item in inventoryItems)
+    //    {
+    //        if (item.inventoryItemSO.itemID == _item.inventoryItemSO.itemID)
+    //        {
+    //            if (item.currnetStack >= item.inventoryItemSO.itemStackSize)
+    //            {
+    //                inventoryItems.Add(_item);
+    //                item.currnetStack++;
+    //                //send _item to the disable object pool
+    //                return true;
+    //            }
+    //        }
+    //    }
 
-        return false;
+    //    return false;
 
-    }
+    //}
 
-    public (bool, FOEItem) RemoveItemFromInventory(InventoryItem _item)
-    {
-        foreach (InventoryItem item in inventoryItems)
-        {
-            if (item.inventoryItemSO.itemID == _item.inventoryItemSO.itemStackSize)
-            {
-                if (item.currnetStack != 1)
-                {
+    //public (bool, FOEItem) RemoveItemFromInventory(InventoryItem _item)
+    //{
+    //    foreach (InventoryItem item in inventoryItems)
+    //    {
+    //        if (item.inventoryItemSO.itemID == _item.inventoryItemSO.itemStackSize)
+    //        {
+    //            if (item.currnetStack != 1)
+    //            {
 
-                    item.currnetStack--;
-                    //send _item to the disable object pool
-                    return (true, item.inventoryItemSO.worldObject);
-                }
-                else
-                {
-                    inventoryItems.Remove(item);
-                    //get _item game object from the pool and give it to the player
-                    return (true, item.inventoryItemSO.worldObject);
+    //                item.currnetStack--;
+    //                //send _item to the disable object pool
+    //                return (true, item.inventoryItemSO.worldObject);
+    //            }
+    //            else
+    //            {
+    //                inventoryItems.Remove(item);
+    //                //get _item game object from the pool and give it to the player
+    //                return (true, item.inventoryItemSO.worldObject);
 
-                }
-            }
-        }
+    //            }
+    //        }
+    //    }
 
-        return (false, _item.inventoryItemSO.worldObject);
-    }
+    //    return (false, _item.inventoryItemSO.worldObject);
+    //}
 }
