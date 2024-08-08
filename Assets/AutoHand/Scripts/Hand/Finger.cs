@@ -533,7 +533,7 @@ namespace Autohand {
                     UnityEditor.EditorUtility.SetDirty(this);
 #endif
 
-                    Debug.LogWarning("AUTO HAND: Automatically updating finger joint data, recommend doing this manually to ensure correct setup", this);
+                    //Debug.LogWarning("AUTO HAND: Automatically updating finger joint data, recommend doing this manually to ensure correct setup", this);
                 }
 
 

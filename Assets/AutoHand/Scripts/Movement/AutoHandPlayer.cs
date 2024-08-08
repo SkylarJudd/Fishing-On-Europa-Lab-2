@@ -5,22 +5,22 @@ using Autohand.Demo;
 using System;
 using NaughtyAttributes;
 using UnityEngine.Serialization;
+using Europa;
+
 
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
 
 namespace Autohand {
-    public enum RotationType {
-        snap,
-        smooth
-    }
+    
 
     public delegate void AutoHandPlayerEvent(AutoHandPlayer player);
 
     [RequireComponent(typeof(Rigidbody)), RequireComponent(typeof(CapsuleCollider)), DefaultExecutionOrder(1)]
     [HelpURL("https://app.gitbook.com/s/5zKO0EvOjzUDeT2aiFk3/auto-hand-3.1/auto-hand-player")]
     public class AutoHandPlayer : MonoBehaviour {
+
 
         static bool notFound = false;
         public static AutoHandPlayer _Instance;
@@ -53,8 +53,11 @@ namespace Autohand {
         public Hand handLeft;
 
 
+        [Tooltip("Player settings stored in a ScriptableObject")]
+        public SettingsSO playerSettings;
 
-        [AutoToggleHeader("Movement")]
+       
+            [AutoToggleHeader("Movement")]
         public bool useMovement = true;
         [EnableIf("useMovement"), FormerlySerializedAs("moveSpeed")]
         [Tooltip("Movement speed when isGrounded")]
@@ -751,7 +754,7 @@ namespace Autohand {
             //Snap turning
             if(rotationType == RotationType.snap) {
                 if(Mathf.Abs(turningAxis) > turnDeadzone && axisReset) {
-                    var angle = turningAxis > turnDeadzone ? snapTurnAngle : -snapTurnAngle;
+                    var angle = turningAxis > turnDeadzone ? playerSettings.turnAngle : -playerSettings.turnAngle;
 
                     var targetPos = transform.position - headCamera.transform.position; targetPos.y = 0;
 
@@ -793,7 +796,7 @@ namespace Autohand {
             else if(Mathf.Abs(turningAxis) > turnDeadzone) {
                 
                 lastUpdatePosition = new Vector3(transform.position.x, lastUpdatePosition.y, transform.position.z);
-                trackingContainer.RotateAround(transform.position, Vector3.up, smoothTurnSpeed * (Mathf.MoveTowards(turningAxis, 0, turnDeadzone)) * deltaTime);
+                trackingContainer.RotateAround(transform.position, Vector3.up, playerSettings.turnSpeed * (Mathf.MoveTowards(turningAxis, 0, turnDeadzone)) * deltaTime);
 
                 targetPosOffset = Vector3.zero;
                 targetTrackedPos = new Vector3(trackingContainer.position.x, targetTrackedPos.y, trackingContainer.position.z);

@@ -10,6 +10,9 @@ using UnityEngine;
 [Serializable]
 public class SaveData
 {
+    [Header("Saved Data")]
+    public string saveName;
+    public string saveDate;
 
     [Header("Farm Hybrid Save Data")]
     public List<int> HybridsInFarm = new List<int>();
@@ -23,12 +26,23 @@ public class SaveData
     public Vector3 playerLocation;
 
     [Header("Player Settings")]
-    public bool turntype;
+    public int turnType;
     public int turnAngle;
+    public float turnSpeed;
+
+    [Header("Audio Settings")]
     public float masterVolume;
     public float musicVolume;
-    public float ceatureVolume;
-    public float SFXVolume;
+    public float sFXVolume;
+    public float hybridVolume;
+    public float voicesVolume;
+  
+    [Header("Graphics Settings")]
+    public int gameQuality;
+
+    [Header("PostProsessing Settings")]
+    public bool postProssessing;
+    public float bloomAmout;
 
     [Header("Inventory")]
     public List<int> HybridsInInventory = new List<int>();
@@ -57,47 +71,54 @@ public class TempSaveMannager : Singleton<TempSaveMannager>
     public SaveData currentSave;
     public int currentSaveIndex;
 
-
     [Header("SaveSettings")]
-    [SerializeField, Tooltip("The max Number of saves the player can have at any time, keep in single Digits")]
-    private int maxSaves;
-    [SerializeField, Tooltip("defult Name For Worlds")]
-    private string fileName = "World1";
+    [SerializeField, Tooltip("The max number of saves the player can have at any time, keep in single digits")]
+    private int maxSaves = 5;
+    [SerializeField, Tooltip("Default name for worlds")]
+    private string fileName = "EuropaWorld";
     [SerializeField, Tooltip("The subdirectory for the save file")]
-    private string Exstention = ".FOE";
+    private string extension = ".FOE";
     [SerializeField, Tooltip("The subdirectory for the save file")]
     private string subDir = "Save";
-    [SerializeField, Tooltip("Do we want to use Encryption")]
+    [SerializeField, Tooltip("Do we want to use encryption")]
     private bool useEncryption = true;
     [SerializeField, Tooltip("The array of bytes we will use for our encryption key")]
     private byte[] cryptoKey = { 0xF7, 0x24, 0x94, 0x08, 0x71, 0xE9, 0x64, 0x51, 0xC3, 0x5B, 0x84, 0x60, 0xCC, 0x55, 0x12, 0x76 };
-    [SerializeField, Tooltip("Date Format")]
+    [SerializeField, Tooltip("Date format")]
     public static string dateFormat = "yyyy-MM-dd HH:mm:ss zzz";
-
     /// <summary>
     /// Gets the path of where the application is installed
     /// </summary>
     /// <returns>The path of the games instal location</returns>
-    private string GetPath(int _Index) => Application.dataPath.Substring(0, Application.dataPath.LastIndexOf('/')) + "/" + subDir + "/" + fileName + Exstention + _Index;
-
+    private string GetPath(int index) => Path.Combine(Application.persistentDataPath, subDir, fileName + index + extension);
     /// <summary>
     /// Makes a Time Stamp for the current Time
     /// </summary>
     /// <returns></returns>
     private string MakeTimestampNow() => DateTime.Now.ToString(dateFormat);
 
+    public void StartGame()
+    {
+        base.Awake();
+        FindAllSaves();
+    }
 
-    void OnApplicationQuit()
+    private void OnApplicationQuit()
     {
         Save();
     }
 
-    void OnApplicationFocus(bool appInFocus)
+    private void OnApplicationFocus(bool appInFocus)
     {
         if (!appInFocus)
             Save();
     }
 
+    /// <summary>
+    /// Creates a new save file if under the maximum number of saves
+    /// </summary>
+    /// <returns>True if a new save is created, otherwise false</returns>
+    [ContextMenu("NewSave")]
     public bool NewSave()
     {
         if (saveDatas.Count >= maxSaves)
@@ -105,24 +126,24 @@ public class TempSaveMannager : Singleton<TempSaveMannager>
             return false;
         }
 
-        currentSaveIndex = saveDatas.Count + 1;
-        //Load game data
-        currentSave = LoadDataObject<SaveData>(currentSaveIndex);
-
-        // Initialize new game data
+        currentSaveIndex = saveDatas.Count;
         currentSave = new SaveData();
-        Debug.Log("New Game Save Created");
+        Debug.Log("New game save created");
 
         InitializeNewSave();
-
+        Save();
+        saveDatas.Add(LoadDataObject<SaveData>(currentSaveIndex));
         return true;
-
     }
+
     /// <summary>
     /// Sets the starting Values for a save
     /// </summary>
     private void InitializeNewSave()
     {
+        currentSave.saveName = fileName + currentSaveIndex;
+        currentSave.saveDate = MakeTimestampNow();
+
         currentSave.HybridsInFarm = new List<int>();
         currentSave.HybridsShiney = new List<bool>();
         currentSave.HybridsNames = new List<string>();
@@ -132,14 +153,22 @@ public class TempSaveMannager : Singleton<TempSaveMannager>
         currentSave.currentScene = Scenes._TUTORIAL.ToString();
         currentSave.playerLocation = Vector3.zero;
 
-        currentSave.turntype = true;
-        currentSave.turnAngle = 15;
+        currentSave.turnType = 1;
+        currentSave.turnAngle = 30;
+        currentSave.turnSpeed = 180;
+
         currentSave.masterVolume = 50;
         currentSave.musicVolume = 50;
-        currentSave.ceatureVolume = 50;
-        currentSave.SFXVolume = 50;
+        currentSave.hybridVolume = 50;
+        currentSave.sFXVolume = 50;
+        currentSave.voicesVolume = 50;
 
-        currentSave.HybridsInInventory = new List<int>();
+        currentSave.gameQuality = 1;
+
+        currentSave.postProssessing = true;
+        currentSave.bloomAmout = 0.1f;
+
+    currentSave.HybridsInInventory = new List<int>();
         currentSave.ItemInInventory = new List<int>();
 
         currentSave.itemsInFarm = new List<int>();
@@ -153,175 +182,166 @@ public class TempSaveMannager : Singleton<TempSaveMannager>
         currentSave.Days = 0;
         currentSave.Hours = 0;
         currentSave.Minuites = 0;
-
     }
-
-    public void Load(int _saveIndex)
+    /// <summary>
+    /// Loads the save data from the specified save index
+    /// </summary>
+    /// <param name="_saveIndex">The index of the save file to load</param>
+    public void Load(int saveIndex)
     {
-        currentSave = LoadDataObject<SaveData>(_saveIndex);
-        currentSaveIndex = _saveIndex;
-        //call event to load all objects that need to be leaded
+        currentSave = LoadDataObject<SaveData>(saveIndex);
+        currentSaveIndex = saveIndex;
+        // Call event to load all objects that need to be loaded
     }
-
+    /// <summary>
+    /// Will save the data curretly stored in the current save to its corraponding file. 
+    /// </summary>
+    [ContextMenu("Save")]
     public void Save()
     {
-        //call Event to save all objects that need to be saved
+        // Call event to save all objects that need to be saved
         SaveDataObject(currentSave, currentSaveIndex);
     }
-
-    public void Delete(int _saveIndex)
+    /// <summary>
+    /// Deletes the save file at the specified index
+    /// </summary>
+    /// <param name="_saveIndex">The index of the save file to delete</param>
+    public void Delete(int saveIndex)
     {
-        DeleteDataObject(_saveIndex);
+        DeleteDataObject(saveIndex);
     }
-
     /// <summary>
     /// Loads our data as a GameDataObject type
     /// </summary>
     /// <typeparam name="T">The type of data to return</typeparam>
     /// <returns></returns>
-    protected T LoadDataObject<T>(int _saveIndex) where T : SaveData
+    protected T LoadDataObject<T>(int saveIndex) where T : SaveData
     {
-        // Ensure that the file exists
-        if (File.Exists(GetPath(_saveIndex)))
+        if (File.Exists(GetPath(saveIndex)))
         {
-            //Creates the File Stream for opening files
-            FileStream stream = new FileStream(GetPath(_saveIndex), FileMode.Open);
-
-            //Creates a stream reader and reads the stream
-            StreamReader reader = new StreamReader(stream);
-
-            //If we use encryption
-            if (useEncryption)
+            using (FileStream stream = new FileStream(GetPath(saveIndex), FileMode.Open))
             {
-                // Create a new AES instance
-                Aes aes = Aes.Create();
+                StreamReader reader;
+                if (useEncryption)
+                {
+                    // Create a new AES instance
+                    Aes aes = Aes.Create();
+                    aes.Mode = CipherMode.CBC;
 
-                // Set our encryption mode to Cipher Block Chain
-                aes.Mode = CipherMode.CBC;
+                    // Create an array of correct size based on AES IV
+                    byte[] outputIV = new byte[aes.IV.Length];
 
-                //Create an array of correct size based on ASE IV
-                byte[] outputIV = new byte[aes.IV.Length];
+                    // Read the IV from the file
+                    stream.Read(outputIV, 0, outputIV.Length);
 
-                // Read the IV from the file
-                stream.Read(outputIV, 0, outputIV.Length);
-
-                // Create cryptostream around the filestream
-                CryptoStream cStream = new CryptoStream(stream, aes.CreateDecryptor(cryptoKey, outputIV), CryptoStreamMode.Read);
-
-                // Update the reader with our cryptostream
-                reader = new StreamReader(cStream);
+                    // Create cryptostream around the filestream
+                    using (CryptoStream cStream = new CryptoStream(stream, aes.CreateDecryptor(cryptoKey, outputIV), CryptoStreamMode.Read))
+                    {
+                        reader = new StreamReader(cStream);
+                        string jSave = reader.ReadToEnd();
+                        return JsonUtility.FromJson<T>(jSave);
+                    }
+                }
+                else
+                {
+                    using (reader = new StreamReader(stream))
+                    {
+                        string jSave = reader.ReadToEnd();
+                        return JsonUtility.FromJson<T>(jSave);
+                    }
+                }
             }
-
-            //Read the entire file into a string value
-            string jSave = reader.ReadToEnd();
-
-            //Close the stream
-            stream.Close();
-
-            //Returns the string converted to json then to our GameData type
-            return JsonUtility.FromJson<T>(jSave);
         }
         else
         {
-            Debug.Log("Save file not found in " + GetPath(_saveIndex));
+            Debug.Log("Save file not found in " + GetPath(saveIndex));
             return null;
         }
     }
-
     /// <summary>
     /// Saves our data object to disk
     /// </summary>
     /// <typeparam name="T">The data type</typeparam>
     /// <param name="data">The data object to save</param>
-    protected void SaveDataObject<T>(T data , int _saveIndex) where T : SaveData
+    protected void SaveDataObject<T>(T data, int saveIndex) where T : SaveData
     {
-        //Creates the save directory if it doesn't exist
-        Directory.CreateDirectory(Path.GetDirectoryName(GetPath(_saveIndex)));
+        string path = GetPath(saveIndex);
+        Debug.Log("Saving data to: " + path);
 
-        //Convert the This Game Data object into json then put into a string
+        Directory.CreateDirectory(Path.GetDirectoryName(GetPath(saveIndex)));
+
         string jSave = JsonUtility.ToJson(data);
 
-        //Create a filestream to create files
-        FileStream stream = new FileStream(GetPath(_saveIndex), FileMode.Create);
-
-        //Create our stream writer to write the data 
-        StreamWriter writer = new StreamWriter(stream);
-
-        // If we are using encryption
-        if (useEncryption)
+        using (FileStream stream = new FileStream(GetPath(saveIndex), FileMode.Create))
         {
-            // Create a new AES instance
-            Aes aes = Aes.Create();
-
-            // Set our encryption mode to Cipher Block Chain
-            aes.Mode = CipherMode.CBC;
-
-            // Save newly generated IV
-            byte[] inputIV = aes.IV;
-
-            // Write the IV to the Filestream unencrypted
-            stream.Write(inputIV, 0, inputIV.Length);
-
-            // Create cryptostream wrapping filestream
-            CryptoStream cStream = new CryptoStream(stream, aes.CreateEncryptor(cryptoKey, aes.IV), CryptoStreamMode.Write);
-
-            // Create Streamwriter
-            writer = new StreamWriter(cStream);
-
-            // Write the innermost stream which we will encrypt
-            writer.Write(jSave);
-
-            //Close Streamwriter
-            writer.Close();
-
-            // Close Cryptostream
-            cStream.Close();
-        }
-        else
-        {
-            //Write the data from the jSave string
-            writer.Write(jSave);
-
-            //Close the stream writer
-            writer.Close();
-        }
-
-        //Close Filestream
-        stream.Close();
-    }
-
-    /// <summary>
-    /// Deletes our Game Data Object
-    /// </summary>
-    protected void DeleteDataObject(int _SaveIndex)
-    {
-        if (File.Exists(GetPath(_SaveIndex)))
-        {
-            Debug.Log("Deleting file " + fileName);
-            File.Delete(GetPath(_SaveIndex));
-        }
-        else
-        {
-            Debug.Log("No file found in " + GetPath(_SaveIndex));
-        }
-    }
-
-    private void FindAllSaves()
-    {
-        int saves = 0;
-        for (int i = 0; i < maxSaves + 1; i++)
-        {
-            if (File.Exists(GetPath(i)))
+            if (useEncryption)
             {
-                saveDatas[i] = LoadDataObject<SaveData>(i);
-                saves++;
+                Aes aes = Aes.Create();
+                aes.Mode = CipherMode.CBC;
+
+                byte[] inputIV = aes.IV;
+                stream.Write(inputIV, 0, inputIV.Length);
+
+                using (CryptoStream cStream = new CryptoStream(stream, aes.CreateEncryptor(cryptoKey, aes.IV), CryptoStreamMode.Write))
+                using (StreamWriter writer = new StreamWriter(cStream))
+                {
+                    writer.Write(jSave);
+                }
             }
             else
             {
-                break;
+                using (StreamWriter writer = new StreamWriter(stream))
+                {
+                    writer.Write(jSave);
+                }
+            }
+        }
+    }
+    /// <summary>
+    /// Deletes the data object at the specified index
+    /// </summary>
+    /// <param name="saveIndex">The index of the save file to delete</param>
+    protected void DeleteDataObject(int saveIndex)
+    {
+        if (File.Exists(GetPath(saveIndex)))
+        {
+            Debug.Log("Deleting file " + GetPath(saveIndex));
+            File.Delete(GetPath(saveIndex));
+        }
+        else
+        {
+            Debug.Log("No file found in " + GetPath(saveIndex));
+        }
+    }
+    /// <summary>
+    /// Finds all save data in our Directory
+    /// </summary>
+    private void FindAllSaves()
+    {
+        Debug.Log("Locating saves");
+        for (int i = 0; i < maxSaves; i++)
+        {
+            if (File.Exists(GetPath(i)))
+            {
+                Debug.Log($"Save found: {GetPath(i)}");
+                saveDatas.Add(LoadDataObject<SaveData>(i));
             }
         }
 
+        if (saveDatas.Count == 0)
+        {
+            NewSave();
+        }
+        else
+        {
+            Load(0);
+        }
     }
 
+    public void ResetSave()
+    {
+        saveDatas.Clear();
+        currentSave = null;
+        currentSaveIndex = -1;
+    }
 }

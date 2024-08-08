@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using UnityEditor.SearchService;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using Scene = UnityEditor.SearchService;
 
 public enum Scenes
 {
@@ -14,7 +13,6 @@ public enum Scenes
     _MAINMENU_SCENE,
     _FARM_SCENE,
     _DOME_SCENE,
-
 }
 
 public class SceneController : Singleton<SceneController>
@@ -23,44 +21,54 @@ public class SceneController : Singleton<SceneController>
     public Scenes[] IgnoreScenes;
     public Scenes currentEnviromentScene;
 
-    [Header("DefultTransform")]
+    [Header("DefaultTransform")]
     [SerializeField]
-    private Transform defultTransform;
+    private Transform defaultTransform;
+
+    [Header("Debug")]
+    [SerializeField] bool debug;
 
     private void Start()
     {
         currentEnviromentScene = DetectCurrentActiveEnviromentScene();
 
-        if( currentEnviromentScene == Scenes._ERROR )
-            Debug.LogError("Was Unable to find Scene, Check The name and Ensure the Scene Exsists");
-        
+        if (currentEnviromentScene == Scenes._ERROR)
+            Debug.LogError("Was unable to find Scene, check the name and ensure the scene exists");
+
+        if (currentEnviromentScene != Scenes._MAINMENU_SCENE && !debug)
+        {
+            Debug.LogWarning($"Switching to Main Menu from {currentEnviromentScene} If this is not what you wanted toggle on Debug");
+            StartCoroutine(SwitchScene(Scenes._MAINMENU_SCENE));
+        }
     }
 
     /// <summary>
-    /// Will Find the active Enviroment Scene that is curretly Active
+    /// Will find the active environment scene that is currently active
     /// </summary>
-    /// <exception cref="NotImplementedException"></exception>
     private Scenes DetectCurrentActiveEnviromentScene()
     {
-        Scenes _Sceme;
-        for (int i = 0; i < SceneManager.sceneCount; i++)
+        foreach (var scene in Enum.GetValues(typeof(Scenes)))
         {
-            _Sceme = GetSceneFromString(SceneManager.GetSceneAt(i).name.ToString());
-            if (_Sceme == Scenes._ERROR)
-                return _Sceme;
+            Scenes _Scene = (Scenes)scene;
+            if (_Scene == Scenes._ERROR) continue;
 
-            foreach (Scenes _scenes in IgnoreScenes)
+            for (int i = 0; i < SceneManager.sceneCount; i++)
             {
-                if (_Sceme != _scenes)
-                    return _Sceme;
+                var activeScene = SceneManager.GetSceneAt(i);
+                if (activeScene.name.Equals(_Scene.ToString(), StringComparison.OrdinalIgnoreCase))
+                {
+                    if (Array.Exists(IgnoreScenes, s => s == _Scene))
+                        continue;
+                    return _Scene;
+                }
             }
         }
-        _Sceme = Scenes._ERROR;
-        return _Sceme;
+
+        return Scenes._ERROR;
     }
-    
+
     /// <summary>
-    /// Converts a string of the Scene to a Enum of the scene
+    /// Converts a string of the Scene to an Enum of the scene
     /// </summary>
     /// <param name="_SceneName"></param>
     /// <returns></returns>
@@ -83,49 +91,62 @@ public class SceneController : Singleton<SceneController>
             case "_DOME_SCENE":
                 _Scene = Scenes._DOME_SCENE;
                 break;
+            case "_TUTORIAL":
+                _Scene = Scenes._TUTORIAL;
+                break;
             default:
                 _Scene = Scenes._ERROR;
                 break;
-
         }
         return _Scene;
     }
 
     /// <summary>
-    /// takes in a string and uses that to change the scene
+    /// Takes in a string and uses that to change the scene
     /// </summary>
     /// <param name="_sceneName"></param>
     public void ChangeScene(string _sceneName)
     {
-        SceneManager.LoadScene(_sceneName);
-
+        Scenes scenes = GetSceneFromString(_sceneName);
+        if (scenes == Scenes._ERROR)
+        {
+            Debug.LogError($"Count not find {_sceneName} Check you're using the right name, or add the scene to the scene controller Enum and switch statment");
+            return;
+        }
+        else
+        {
+            SwitchScene(scenes);
+        }
     }
+
     /// <summary>
-    /// Takes in a Enum of Scene and uses that to change the scene
+    /// Takes in an Enum of Scene and uses that to change the scene
     /// </summary>
     /// <param name="_sceneName"></param>
     public void ChangeScene(Scenes _sceneName)
     {
-        Debug.LogWarning("Change Scenes Is depricated, Use Start StartCoroutine(SwitchScene(Scenes.SceneNameEnum)");
+        Debug.LogWarning("Change Scenes Is deprecated, Use Start StartCoroutine(SwitchScene(Scenes.SceneNameEnum)");
         SceneManager.UnloadSceneAsync(currentEnviromentScene.ToString());
         SceneManager.LoadSceneAsync(_sceneName.ToString(), LoadSceneMode.Additive);
         currentEnviromentScene = _sceneName;
     }
+
     /// <summary>
-    /// Takes In a Enum Of the Scene and uses that to change the Scene Asyncly, Unloading the current enviroment scene, and waits while the two opperations are completing
+    /// Takes in an Enum of the Scene and uses that to change the Scene Asynchronously, unloading the current environment scene, and waits while the two operations are completing
     /// </summary>
     /// <param name="_sceneName"></param>
     /// <returns></returns>
     IEnumerator SwitchScene(Scenes _sceneName)
     {
-        AsyncOperation unlaod = SceneManager.UnloadSceneAsync(currentEnviromentScene.ToString());
+        AsyncOperation unload = SceneManager.UnloadSceneAsync(currentEnviromentScene.ToString());
         AsyncOperation load = SceneManager.LoadSceneAsync(_sceneName.ToString(), LoadSceneMode.Additive);
         currentEnviromentScene = _sceneName;
 
-        while(unlaod.isDone == false) { 
+        while (!unload.isDone)
+        {
             yield return new WaitForEndOfFrame();
         }
-        while (load.isDone == false)
+        while (!load.isDone)
         {
             yield return new WaitForEndOfFrame();
         }
@@ -138,16 +159,15 @@ public class SceneController : Singleton<SceneController>
         }
         else
         {
-            _PLAYER.UpdatePlayerTransform(defultTransform);
-            Debug.LogError("Was Not Able To Find WayPoint Please Make sure a SceneInfoContainer Is active in each Enviroment Scene and has a waypoint within its list");
+            _PLAYER.UpdatePlayerTransform(defaultTransform);
+            Debug.LogError("Was Not Able To Find WayPoint Please Make sure a SceneInfoContainer Is active in each Environment Scene and has a waypoint within its list");
         }
-
 
         yield return null;
     }
 
     /// <summary>
-    /// This Function Will quit the game, if called this will quit without saving and should only be called after save has been called. 
+    /// This function will quit the game, if called this will quit without saving and should only be called after save has been called. 
     /// </summary>
     public void QuitGame()
     {

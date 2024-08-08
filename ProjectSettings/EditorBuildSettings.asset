@@ -12,6 +12,9 @@ EditorBuildSettings:
     path: Assets/_FishingOnEuropa/Scenes/_MAINMENU_SCENE.unity
     guid: c02e975ba4421c14495a2cc556329357
   - enabled: 1
+    path: Assets/_FishingOnEuropa/Scenes/_TUTORIAL.unity
+    guid: c7feef6d16f549d45a512dfc10ff0db6
+  - enabled: 1
     path: Assets/_FishingOnEuropa/Scenes/_DOME_SCENE.unity
     guid: e79556d7e1bbe1144ae5a5ba64653db7
   - enabled: 1
