@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2564965387669434184}
-  - component: {fileID: 1331119936253296807}
   - component: {fileID: 7970628162596905377}
   - component: {fileID: 3911322961660261717}
   - component: {fileID: 4030487222927968435}
@@ -40,20 +39,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 8.36, y: 0.007, z: 0.051}
---- !u!114 &1331119936253296807
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8910402524323637192}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d20ac67f63415f541a501ee1cce03d17, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  inventoryItemSO: {fileID: 0}
-  europaItemSO: {fileID: 0}
 --- !u!33 &7970628162596905377
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -407,7 +392,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   collisionTriggers:
     serializedVersion: 2
-    m_Bits: 1631584311
+    m_Bits: 55
   source: {fileID: 972115237386750891}
   clip: {fileID: 8300000, guid: 1ebd2a75d209f8c418cde26c90046827, type: 3}
   velocityVolumeCurve:

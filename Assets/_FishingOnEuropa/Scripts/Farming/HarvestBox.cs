@@ -1,105 +1,69 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
+
+
+[Serializable]
+public class StoredItems
+{
+    public GameObject storedItem;
+    public int ItemCount;
+}
 
 public class HarvestBox : MonoBehaviour
 {
-    public GameObject apple;
-    public GameObject banana;
-    public GameObject carrot;
-    public GameObject orange;
-    public GameObject potato;
-    public GameObject watermelon;
 
-    public int appleCount;
-    public int bananaCount;
-    public int carrotCount;
-    public int orangeCount;
-    public int potatoCount;
-    public int watermelonCount;
+    [SerializeField]
+    private StoredItems[] storedTiems;
 
     public void Start()
     {
-        apple.SetActive(false);
-        banana.SetActive(false);
-        carrot.SetActive(false);
-        orange.SetActive(false);
-        potato.SetActive(false);
-        watermelon.SetActive(false);
+        InitializesItems();
     }
 
-    public void Update()
+    /// <summary>
+    /// initializes the Items setting all their values to 0 and making sure they are turned off
+    /// </summary>
+    private void InitializesItems()
     {
-        if (appleCount > 0)
-            apple.SetActive(true);
-        else
-            apple.SetActive(false);
-
-        if (bananaCount > 0)
-            banana.SetActive(true);
-        else
-            banana.SetActive(false);
-
-        if (carrotCount > 0)
-            carrot.SetActive(true);
-        else
-            carrot.SetActive(false);
-
-        if (orangeCount > 0)
-            orange.SetActive(true);
-        else
-            orange.SetActive(false);
-
-        if (potatoCount > 0)
-            potato.SetActive(true);
-        else
-            potato.SetActive(false);
-
-        if (watermelonCount > 0)
-            watermelon.SetActive(true);
-        else
-            watermelon.SetActive(false);
-
+        foreach (StoredItems _Item in storedTiems)
+        {
+            _Item.storedItem.SetActive(false);
+            _Item.ItemCount = 0;
+        }
     }
 
     /// <summary>
     /// Increases the count of individual fruit when called.
     /// </summary>
     /// <param name="_name">seed scriptable object name of frut to add</param>
-    public void AddHarvestCount(string _name)
+    public void UpdateHarvestValue(FoodList _name, int _Value)
     {
-        if (_name == "Apple")
+        switch (_name)
         {
-            appleCount++;
+            case FoodList.Apple:
+                UpdateFoodBox(0, _Value);
+                break;
+            case FoodList.Banana:
+                UpdateFoodBox(1, _Value);
+                break;
+            case FoodList.Carrot:
+                UpdateFoodBox(2, _Value);
+                break;
+            case FoodList.Orange:
+                UpdateFoodBox(3, _Value);
+                break;
+            case FoodList.Potato:
+                UpdateFoodBox(4, _Value);
+                break;
+            case FoodList.WaterMelon:
+                UpdateFoodBox(5, _Value);
+                break;
         }
+    }
 
-        if (_name == "Banana")
-        {
-            bananaCount++;
-        }
-
-        if (_name == "Carrot")
-        {
-            carrotCount++;
-        }
-
-        if (_name == "Orange")
-        {
-            orangeCount++;
-        }
-
-        if (_name == "Potato")
-        {
-            potatoCount++;
-        }
-
-        if (_name == "Watermelon")
-        {
-            watermelonCount++;
-        }
-
-        else
-            return;
-
+    private void UpdateFoodBox(int _Index, int _Value)
+    {
+        storedTiems[_Index].ItemCount += _Value;
+        storedTiems[_Index].storedItem.SetActive(storedTiems[_Index].ItemCount > 0);
     }
 }

@@ -2,8 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "FishToSpawn", menuName = "Europa/Fish", order = 1)]
-public class FishToSpawn : ScriptableObject
+[CreateAssetMenu(fileName = "FishToSpawn", menuName = "Europa/Fishing/Fish", order = 1)]
+public class FishToSpawnSO : ScriptableObject
 {
-    public List<HybridScriptableObjects> FishToSpawnList;
+    public List<FOEItem_Hybrid> FishToSpawnList;
 }

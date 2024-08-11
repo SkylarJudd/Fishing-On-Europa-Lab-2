@@ -34,7 +34,7 @@ public class FarmHybridData
 
 public class FarmMannager : GameBehaviour
 {
-    [SerializeField] List<HybridScriptableObjects> hybridInfos = new List<HybridScriptableObjects>();
+    [SerializeField] List<FOEItem_Hybrid> hybridInfos = new List<FOEItem_Hybrid>();
     [SerializeField] List<FarmHybridData> hybridInFarm = new List<FarmHybridData>();
     [SerializeField] Transform[] tankOneSpawnPoints;
     [SerializeField] Transform[] tankTwoSpawnPoints;
@@ -59,9 +59,9 @@ public class FarmMannager : GameBehaviour
     {
         for (int i = 0; i < _TSM.saveDatas[0].HybridsInFarm.Count; i++)
         {
-            foreach (HybridScriptableObjects _HI in hybridInfos)
+            foreach (FOEItem_Hybrid _HI in hybridInfos)
             {
-                if (_TSM.saveDatas[0].HybridsInFarm[i] == _HI.fishID)
+                if (_TSM.saveDatas[0].HybridsInFarm[i] == _HI.europaItemSO.itemID)
                 {
                     FarmHybridData farmHybridData = new FarmHybridData();
 
@@ -81,19 +81,19 @@ public class FarmMannager : GameBehaviour
     /// <param name="_farmHybridData"></param>
     /// <param name="_HybridInfo"></param>
     /// <returns></returns>
-    private FarmHybridData GetDataFromScrptibleObject(FarmHybridData _farmHybridData, HybridScriptableObjects _HybridInfo )
+    private FarmHybridData GetDataFromScrptibleObject(FarmHybridData _farmHybridData, FOEItem_Hybrid _HybridInfo )
     {
-        _farmHybridData.hybridGameObjectPrefab = _HybridInfo.hybridPrefab;
-        _farmHybridData.poolType = _HybridInfo.poolType;
+        _farmHybridData.hybridGameObjectPrefab = _HybridInfo.europaItemSO.itemPrefab;
+        _farmHybridData.poolType = _HybridInfo.hybridSO.hybridPoolType;
 
 
-        _farmHybridData.hybridSpeed = _HybridInfo.fishSpeed;
-        _farmHybridData.hybridRotationSpeed = _HybridInfo.rotationSpeed;
+        _farmHybridData.hybridSpeed = _HybridInfo.hybridSO.fishSpeed;
+        _farmHybridData.hybridRotationSpeed = _HybridInfo.hybridSO.rotationSpeed;
 
 
-        _farmHybridData.foodEaten = _HybridInfo.foodEaten;
-        _farmHybridData.favFood = _HybridInfo.favFood;
-        _farmHybridData.favToy = _HybridInfo.favToy;
+        _farmHybridData.foodEaten = _HybridInfo.hybridSO.foodEaten;
+        _farmHybridData.favFood = _HybridInfo.hybridSO.favFood;
+        _farmHybridData.favToy = _HybridInfo.hybridSO.favToy;
 
         return _farmHybridData;
     }

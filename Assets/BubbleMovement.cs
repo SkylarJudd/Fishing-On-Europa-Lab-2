@@ -16,6 +16,7 @@ public class BubbleMovement : MonoBehaviour
     private Vector3 targetPosition;
     private float currentVelocity = 0.0f;
     private float sineWaveOffset = 0.0f;
+    float distanceToGround;
 
     void Start()
     {
@@ -25,13 +26,16 @@ public class BubbleMovement : MonoBehaviour
             rb.useGravity = false; // Gravity should be off while floating
             targetPosition = transform.position;
         }
+
+        // Add a random phase offset to the sine wave
+        sineWaveOffset = Random.Range(0f, 2f * Mathf.PI);
     }
 
     void Update()
     {
         if (isFloating)
         {
-            if(rb == null)
+            if (rb == null)
             {
                 isFloating = false;
             }
@@ -43,14 +47,14 @@ public class BubbleMovement : MonoBehaviour
             RaycastHit hit;
             if (Physics.Raycast(transform.position, Vector3.down, out hit, Mathf.Infinity, groundLayerMask))
             {
-                float distanceToGround = hit.distance;
+                distanceToGround = hit.distance;
 
                 // Calculate the target position with sine wave offset
-                targetPosition = new Vector3(transform.position.x, targetHeight + sineWave, transform.position.z);
+                targetPosition = new Vector3(transform.position.x, ( targetHeight - distanceToGround) + sineWave, transform.position.z);
 
                 // Calculate the force to apply
                 Vector3 forceDirection = targetPosition - transform.position;
-                if( rb == null  ) 
+                if (rb == null)
                     return;
 
                 Vector3 force = forceDirection * springForce - rb.velocity * damping;
@@ -63,6 +67,8 @@ public class BubbleMovement : MonoBehaviour
             }
         }
     }
+
+
 
     public void Release()
     {

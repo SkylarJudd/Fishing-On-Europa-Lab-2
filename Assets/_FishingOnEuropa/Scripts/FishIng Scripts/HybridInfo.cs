@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class HybridInfo : MonoBehaviour
 { 
-    public HybridScriptableObjects hybridInfo;
+    public HybridSO hybridInfo;
 }
 
 

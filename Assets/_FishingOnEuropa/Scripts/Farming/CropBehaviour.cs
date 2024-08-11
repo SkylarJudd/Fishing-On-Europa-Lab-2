@@ -5,7 +5,7 @@ using UnityEngine;
 public class CropBehaviour : MonoBehaviour
 {
     //Infomation on what the crop will grow into
-    public Seeds seedToGrow;
+    public SeedsSO seedToGrow;
 
 
     public HarvestBox harvestBox;
@@ -34,7 +34,7 @@ public class CropBehaviour : MonoBehaviour
     public void Plant()
     {
         //Access the crop item data
-        Food foodProduced = seedToGrow.foodProduced;
+        FOEItem foodProduced = seedToGrow.foodProduced;
 
         //Convert Growth Time into minutes (TODO with day/night cycle)
         maxGrowth = seedToGrow.growthTime;
@@ -114,7 +114,7 @@ public class CropBehaviour : MonoBehaviour
                 //Instantiate the harvestable crop
                 //mature = Instantiate(foodProduced.gameModel, transform);
 
-                harvestBox.AddHarvestCount(seedToGrow.seedName);
+                //harvestBox.UpdateHarvestValue(seedToGrow.foodProduced.foodItem, 1);
 
                 //unparent to soil
                 //mature.transform.parent = null;

@@ -7,6 +7,6 @@ public class HybridInventoryItem : InventoryItem
 {
     private void Start()
     {
-        inventoryItemSO.itemStackSize = 1; 
+        //inventoryItemSO.itemStackSize = 1; 
     }
 }

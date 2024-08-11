@@ -1,18 +1,26 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using static UnityEditor.Progress;
 
+[Serializable]
+public class StoredFOEItems
+{
+    public int stackCount;
+    public int itemID;
+    public List<FOEItem> inventoryItems = new List<FOEItem>();
+}
 
 
 public class InventoryMannager : Singleton<InventoryMannager>
 {
     [Header("Inventory")]
     [SerializeField]
-    private List<InventoryItem> inventoryItems = new List<InventoryItem>();
+    private List<StoredFOEItems> inventoryItems = new List<StoredFOEItems>();
     [SerializeField]
-    private List<InventoryItem> hybridInventoryItems = new List<InventoryItem>();
+    private List<FOEItem> hybridInventoryItems = new List<FOEItem>();
 
     [Header("Inventory item")]
     [SerializeField]
@@ -23,55 +31,76 @@ public class InventoryMannager : Singleton<InventoryMannager>
     private int maxHybrids;    //the max number of hybrids to be added to the inventory
 
 
-    //private void Start()
-    //{
-    //    //get items from the save mannager
+    private void Start()
+    {
+        //get items from the save mannager
 
-    //}
+    }
 
-    //public bool AddItemToInventory(InventoryItem _item)
-    //{
-    //    foreach (InventoryItem item in inventoryItems)
-    //    {
-    //        if (item.inventoryItemSO.itemID == _item.inventoryItemSO.itemID)
-    //        {
-    //            if (item.currnetStack >= item.inventoryItemSO.itemStackSize)
-    //            {
-    //                inventoryItems.Add(_item);
-    //                item.currnetStack++;
-    //                //send _item to the disable object pool
-    //                return true;
-    //            }
-    //        }
-    //    }
+    public void AddItemToInventory(FOEItem _item)
+    {
+        if(AddItemToInventoryStack(_item) == false)
+        {
+            StoredFOEItems setup = new StoredFOEItems();
 
-    //    return false;
+            setup.stackCount = 0;
+            setup.itemID = _item.europaItemSO.itemID;
+            setup.inventoryItems.Add(_item);
 
-    //}
+            inventoryItems.Add(setup);
+        }
+    }
 
-    //public (bool, FOEItem) RemoveItemFromInventory(InventoryItem _item)
-    //{
-    //    foreach (InventoryItem item in inventoryItems)
-    //    {
-    //        if (item.inventoryItemSO.itemID == _item.inventoryItemSO.itemStackSize)
-    //        {
-    //            if (item.currnetStack != 1)
-    //            {
 
-    //                item.currnetStack--;
-    //                //send _item to the disable object pool
-    //                return (true, item.inventoryItemSO.worldObject);
-    //            }
-    //            else
-    //            {
-    //                inventoryItems.Remove(item);
-    //                //get _item game object from the pool and give it to the player
-    //                return (true, item.inventoryItemSO.worldObject);
+    private bool AddItemToInventoryStack(FOEItem _item)
+    {
+        foreach (StoredFOEItems storedItems in inventoryItems)
+        {
+            if (storedItems.itemID == _item.europaItemSO.itemID)
+            {
+                if (storedItems.stackCount <= _item.inventoryItemSO.itemStackSize)
+                {
+                    storedItems.inventoryItems.Add(_item);
+                    storedItems.stackCount++;
+                    //send _item to the disable object pool
+                    return true;
+                }
+            }
+        }
 
-    //            }
-    //        }
-    //    }
+        return false;
 
-    //    return (false, _item.inventoryItemSO.worldObject);
-    //}
+    }
+
+
+    public (bool, FOEItem) RemoveItemFromInventoryStack(FOEItem _item)
+    {
+        foreach (StoredFOEItems storedItems in inventoryItems)
+        {
+            if (storedItems.itemID == _item.europaItemSO.itemID)
+            {
+                if (storedItems.stackCount != 1)
+                {
+
+                    FOEItem itemToReturn = storedItems.inventoryItems[storedItems.stackCount - 1];
+                    storedItems.stackCount--;
+
+                    storedItems.inventoryItems.Remove(itemToReturn);
+
+                    //send _item to the disable object pool
+                    return (true, itemToReturn);
+                }
+                else
+                {
+                    FOEItem itemToReturn = storedItems.inventoryItems[storedItems.stackCount - 1];
+                    inventoryItems.Remove(storedItems);
+                    //get _item game object from the pool and give it to the player
+                    return (true, itemToReturn);
+
+                }
+            }
+        }
+
+        return (false, null);
+    }
 }
