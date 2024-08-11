@@ -5,12 +5,21 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
-    path: Assets/_FishingOnEuropa/Scenes/MainScene.unity
-    guid: 99c9720ab356a0642a771bea13969a05
   - enabled: 1
-    path: Assets/_FishingOnEuropa/Scenes/EuropaWaterFixes.unity
-    guid: b9a4ac005e7752b4ca718091a423638e
+    path: Assets/_FishingOnEuropa/Scenes/_ESSENTIALES.unity
+    guid: f3607298d4b45c248a8c08727eae4a07
+  - enabled: 1
+    path: Assets/_FishingOnEuropa/Scenes/_MAINMENU_SCENE.unity
+    guid: c02e975ba4421c14495a2cc556329357
+  - enabled: 1
+    path: Assets/_FishingOnEuropa/Scenes/_TUTORIAL.unity
+    guid: c7feef6d16f549d45a512dfc10ff0db6
+  - enabled: 1
+    path: Assets/_FishingOnEuropa/Scenes/_DOME_SCENE.unity
+    guid: e79556d7e1bbe1144ae5a5ba64653db7
+  - enabled: 1
+    path: Assets/_FishingOnEuropa/Scenes/_FARM_SCENE.unity
+    guid: 4c611d6f521e8e64c97a4b20dcc7403c
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: ce8a07b5daa2ace4eb80a93c35d6c6a0,
       type: 2}

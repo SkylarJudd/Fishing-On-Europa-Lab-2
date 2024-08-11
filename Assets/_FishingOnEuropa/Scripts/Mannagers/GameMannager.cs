@@ -16,4 +16,19 @@ public enum GameState
 public class GameMannager : Singleton<GameMannager>
 {
     public GameState gameState;
+
+    public override void Awake()
+    {
+        base.Awake();
+        StartCoroutine(StartGame());
+    }
+
+    IEnumerator StartGame()
+    {
+        _TSM.StartGame();
+        yield return new WaitForEndOfFrame();
+        _SETM.LoadSettings();
+    }
 }
+
+

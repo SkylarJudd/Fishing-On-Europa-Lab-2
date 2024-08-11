@@ -4,33 +4,19 @@ using UnityEngine;
 
 public static class GameEvents
 {
-    public static event Action<GameObject> OnEnermyHit = null;
-    public static event Action<GameObject> OnEnermyDie = null;
+    public static event Action<String> OnExsampleEventString = null;
+    public static event Action<GameObject> OnExsampleEventGameObject = null;
 
-    public static event Action<GameObject> OnChickenEnemyHit = null;
-    public static event Action<GameObject> OnChickenEnemyDie = null;
-
-    public static void ReportOnEnemyHit(GameObject go)
+    
+    public static void ExsampleGameEventString(String _ExsampleText)
     {
-        OnEnermyHit?.Invoke(go);
+        OnExsampleEventString?.Invoke(_ExsampleText);
     }
 
-    public static void ReportOnEnemyDie(GameObject go)
+    public static void ExsampleGameEventGO(GameObject _ExsampleGO)
     {
-        OnEnermyDie?.Invoke(go);
+        OnExsampleEventGameObject?.Invoke(_ExsampleGO);
     }
 
-    public static void ReportOnChickenEnemyHit(GameObject go)
-    {
-        Debug.Log("ChickenHitEvent Fired");
-        OnChickenEnemyHit?.Invoke(go);
-        
-    }
-
-    public static void ReportOnChickenEnemyDie(GameObject go)
-    {
-        Debug.Log("ChickenDiedEvent Fired");
-        OnChickenEnemyDie?.Invoke(go);
-        
-    }
+   
 }

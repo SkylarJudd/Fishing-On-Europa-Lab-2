@@ -48,16 +48,22 @@ public class GeyserMannager : MonoBehaviour
 
         for (int i = 0; i < _startSpawnAmout; i++)
         {
-            SpawnAHybrid();
             _spawnCooldown = UnityEngine.Random.Range(0.1f, 0.5f);
             yield return new WaitForSeconds(_spawnCooldown);
-
+            print($"Spawn Amout = {_startSpawnAmout} i = {i}");
+            SpawnAHybrid();
         }
     }
 
     public void SpawnAHybrid()
     {
-        FishSpawnerGeyser fishSpawnerGeyser = geysers[UnityEngine.Random.Range(0, geysers.Count - 1)].GetComponent<FishSpawnerGeyser>();
+
+        FishSpawnerGeyser fishSpawnerGeyser = geysers[UnityEngine.Random.Range(0, geysers.Count)].GetComponent<FishSpawnerGeyser>();
+        if(fishSpawnerGeyser == null)
+        {
+            Debug.LogError("Unable to find FishSpawnerGeyser");
+        }
+
         fishSpawnerGeyser.spawnHybrid();
     }
 }

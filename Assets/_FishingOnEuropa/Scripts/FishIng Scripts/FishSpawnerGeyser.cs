@@ -59,6 +59,7 @@ public class FishSpawnerGeyser : GameBehaviour
 
     public void spawnHybrid()
     {
+        print("Spawn Hybrid Called");
 
         HybridsToSpawn hybridToSpawn = GetFishToSpawn();
 
@@ -69,7 +70,7 @@ public class FishSpawnerGeyser : GameBehaviour
         GameObject hybridFromManager = ObjectPoolManager._OPM.spawnObject(hybridToSpawn.hybridGameObject, spawnPos.transform.position, lookRotation, hybridToSpawn.poolType);
         //Debug.Log($"Spawned object {hybridFromManager.name} with rotation {hybridFromManager.transform.rotation.eulerAngles}");
 
-        fishNavigationManager.addHybridToPondList(hybridFromManager);
+        fishNavigationManager.addHybridToPondList(hybridFromManager, HybridState.HybridFlying);
 
         MoveToTarget(hybridFromManager, GetRandomPositionAround( targetPos));
 
@@ -128,7 +129,8 @@ public class FishSpawnerGeyser : GameBehaviour
 
     private HybridsToSpawn GetFishToSpawn()
     {
-        
+        print("GetFishToSpawn Called");
+
         if ( 100 == UnityEngine.Random.Range(0, 100))
         {
             //bool isShiney = true;

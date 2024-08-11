@@ -18,6 +18,8 @@ public enum HybridState
     HybridWaitForMiniGame,
     HybridMiniGame_Pulling,
     HybridMiniGame_Tired,
+    HybridOnLand_Sitting,
+    HybridOnLand_Walking,
 
 }
 
@@ -84,6 +86,7 @@ public class FishNavigationManager : MonoBehaviour
         public bool aboutToHitWall = false;
 
         public bool arrivedAtLure = false;
+        public bool firstNav;
 
     }
 
@@ -96,7 +99,7 @@ public class FishNavigationManager : MonoBehaviour
         updateSwimToLure = StartCoroutine(UpdateHybridToLure());
     }
 
-    public void addHybridToPondList(GameObject go)
+    public void addHybridToPondList(GameObject go, HybridState enterState)
     {
         hybridNavData newEntry = new hybridNavData();
         newEntry.hybridGameObject = go;
@@ -112,6 +115,7 @@ public class FishNavigationManager : MonoBehaviour
         newEntry.hybridRigidbody = go.GetComponent<Rigidbody>();
         newEntry.velocity = Vector3.forward * hybridInfo.hybridInfo.fishSpeed;
         newEntry.rotationSpeed = hybridInfo.hybridInfo.rotationSpeed;
+        newEntry.firstNav = true;
 
         if (newEntry.hybridRigidbody == null)
         {
@@ -121,7 +125,20 @@ public class FishNavigationManager : MonoBehaviour
 
         hybridsInPond.Add(newEntry);
 
-        hybridsFlying.Add(newEntry);
+        switch (enterState)
+        {
+            case HybridState.HybridFlying:
+                hybridsFlying.Add(newEntry);
+                break;
+            case HybridState.HybridFlocking:
+                hybridsSwimming.Add(newEntry);
+                break;
+            default:
+                hybridsSwimming.Add(newEntry);
+                break;
+        }
+
+
 
     }
 
@@ -269,7 +286,7 @@ private IEnumerator UpdateHybridFlying()
                     if (UnityEngine.Random.Range(0, rayCastCheckChance) < 1 && hybridsSwimming.Count > 1)
                     {
                         Ray hybridRay = new Ray(_Hybrid.hybridGameObject.transform.position, _Hybrid.hybridGameObject.transform.forward);
-                        float raycastDistance = 2f;
+                        float raycastDistance = 0.5f;
                         int layerMask = ~LayerMask.GetMask("Fish");
 
                         if (debug)
@@ -294,8 +311,9 @@ private IEnumerator UpdateHybridFlying()
                         }
                     }
 
-                    if (UnityEngine.Random.Range(0, applyBoidsChance) < 1 && hybridsSwimming.Count > 1)
+                    if (UnityEngine.Random.Range(0, applyBoidsChance) < 1 && hybridsSwimming.Count > 1 || _Hybrid.firstNav == true)
                     {
+                        _Hybrid.firstNav = false;
                         Vector3 separationVelocity = Vector3.zero;
                         Vector3 alignmentVelocity = Vector3.zero;
                         Vector3 cohesionVelocity = Vector3.zero;
@@ -391,7 +409,7 @@ private IEnumerator UpdateHybridFlying()
 
                     // Rotate the Hybrid toward the direction it is moving
                     Quaternion targetRotation = Quaternion.LookRotation(_Hybrid.velocity);
-                    Debug.Log($"Updating Rotation: {_Hybrid.hybridGameObject.name} Current Rotation: {_Hybrid.hybridGameObject.transform.rotation} Target Rotation: {targetRotation}");
+                    //Debug.Log($"Updating Rotation: {_Hybrid.hybridGameObject.name} Current Rotation: {_Hybrid.hybridGameObject.transform.rotation} Target Rotation: {targetRotation}");
                     _Hybrid.hybridGameObject.transform.rotation = Quaternion.Lerp(_Hybrid.hybridGameObject.transform.rotation, targetRotation, _Hybrid.rotationSpeed * Time.deltaTime);
 
                 }
@@ -523,7 +541,10 @@ private IEnumerator UpdateHybridFlying()
         }
     }
 
+    public void RemoveAllHybrids()
+    {
 
+    }
 
 }
 

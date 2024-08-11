@@ -13,6 +13,7 @@ TagManager:
   - Seed
   - Soil
   - Wall
+  - Hybrid
   layers:
   - Default
   - TransparentFX
@@ -27,12 +28,12 @@ TagManager:
   - Interactible
   - Reel
   - FarRender
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Tp
+  - Grabbing
+  - Grabbable
+  - Hand
+  - HandPlayer
+  - FOEItem
   - 
   - 
   - 
