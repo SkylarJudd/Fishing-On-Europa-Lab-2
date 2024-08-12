@@ -6,5 +6,6 @@ public class FOEItem_Food : FOEItem
 {
     public FoodType foodType;
     public FoodList foodItem;
+    public SeedsSO seedSO;
     public int happinesAdd;
 }

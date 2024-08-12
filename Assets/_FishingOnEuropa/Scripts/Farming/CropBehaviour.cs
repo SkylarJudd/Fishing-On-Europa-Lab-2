@@ -83,9 +83,9 @@ public class CropBehaviour : MonoBehaviour
     }
 
     //function to handle the state change
-    void SwitchState(CropState stateToSwitch)
+    void SwitchState(CropState _state)
     {
-        switch (stateToSwitch)
+        switch (_state)
         {
             case CropState.Sprout:
                 //Instantiate the sprout game object as child of the seed.
@@ -114,7 +114,7 @@ public class CropBehaviour : MonoBehaviour
                 //Instantiate the harvestable crop
                 //mature = Instantiate(foodProduced.gameModel, transform);
 
-                //harvestBox.UpdateHarvestValue(seedToGrow.foodProduced.foodItem, 1);
+                harvestBox.UpdateHarvestValue(seedToGrow.foodItem, 1);
 
                 //unparent to soil
                 //mature.transform.parent = null;
@@ -126,6 +126,6 @@ public class CropBehaviour : MonoBehaviour
         }
 
         //Set the current crop state to the state we're switching to
-        cropState = stateToSwitch;
+        cropState = _state;
     }
 }

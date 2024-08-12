@@ -16,6 +16,7 @@ public class SeedsSO : ScriptableObject
     public GameObject sprout;
     public GameObject adolecent;
     public GameObject mature;
+    public FoodList foodItem;
 
 
 }
