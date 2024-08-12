@@ -23,6 +23,7 @@ public class TimeService
     public event Action OnSunrise = delegate { };
     public event Action OnSunset = delegate { };
     public event Action OnHourChange = delegate { };
+    public event Action OnNewDay = delegate { };    //ADD THING HERERERERERE 
 
     //constructor
     public TimeService(TimeSettings settings) 
@@ -41,6 +42,7 @@ public class TimeService
 
         //when event is fired, make decision based on value to fire onsunrise or onsunset
         isDayTime.ValueChanged += day => (day ? OnSunrise : OnSunset)?.Invoke();
+        
         //on hour change
         currentHour.ValueChanged += _ => OnHourChange?.Invoke();
     }

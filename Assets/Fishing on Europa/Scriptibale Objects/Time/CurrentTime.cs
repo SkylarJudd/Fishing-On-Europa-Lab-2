@@ -6,5 +6,8 @@ using UnityEngine;
 public class CurrentTime : ScriptableObject
 {
     public int day;
+    public int hour;
+    public int minute;
+    public string currentTimeString;
 
 }
