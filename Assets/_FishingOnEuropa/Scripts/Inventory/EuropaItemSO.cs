@@ -4,26 +4,23 @@ using UnityEngine;
 using AutoHand;
 using Autohand;
 
-[CreateAssetMenu(fileName = "Inventory Item Scribtable Objects", menuName = "Europa/Item", order = 2)]
+[CreateAssetMenu(fileName = "Inventory Item Scribtable Objects", menuName = "Europa/Items/Item", order = 1)]
 public class EuropaItemSO : ScriptableObject
 {
+
+    [Header("SaveData")]
+    public int itemID;
+
     [Header("Europa Item")]
     public FOEItem worldObject;
+    public GameObject itemPrefab;
     public string itemName;
     public string itemDescription;
-    public Rarity rarity = Rarity.Common;
 
     [Header("Componets")]
     public Rigidbody ItemRB;
     public Grabbable ItemGrabbable;
-
-
-    [Header("SaveData")]
-    public int itemID;
     public Transform itemTransform;
-
-
-
 
 
 }

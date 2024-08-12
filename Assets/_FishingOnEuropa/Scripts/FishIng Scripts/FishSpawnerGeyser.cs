@@ -9,7 +9,7 @@ using static FishSpawnerGeyser;
 
 public class FishSpawnerGeyser : GameBehaviour
 {
-    [SerializeField] FishToSpawn fishToSpawn;
+    [SerializeField] FishToSpawnSO fishToSpawn;
     [SerializeField] Transform spawnPos;
     [SerializeField] Transform targetPos;
     [SerializeField] Transform randomLocation;
@@ -39,10 +39,10 @@ public class FishSpawnerGeyser : GameBehaviour
         for (int i = 0; i < fishToSpawn.FishToSpawnList.Count; i++)
         {
             HybridsToSpawn newEntry = new HybridsToSpawn();
-            newEntry.spawnChance = fishToSpawn.FishToSpawnList[i].spawnChance;
-            newEntry.hybridGameObject = fishToSpawn.FishToSpawnList[i].hybridPrefab;
-            newEntry.poolType = fishToSpawn.FishToSpawnList[i].poolType;
-            total += fishToSpawn.FishToSpawnList[i].spawnChance;
+            newEntry.spawnChance = fishToSpawn.FishToSpawnList[i].hybridSO.spawnChance;
+            newEntry.hybridGameObject = fishToSpawn.FishToSpawnList[i].europaItemSO.itemPrefab;
+            newEntry.poolType = fishToSpawn.FishToSpawnList[i].hybridSO.hybridPoolType;
+            total += fishToSpawn.FishToSpawnList[i].hybridSO.spawnChance;
             fishList.Add(newEntry);
         }
 
