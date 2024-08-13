@@ -16,7 +16,7 @@ public class FarmHybridData
     public Vector3 lastLocation;
 
     [Header("Hybrid GameObject")]
-    public GameObject hybridGameObjectPrefab;
+    public FOEItem hybridGameObjectPrefab;
     public GameObject hybridGameObjectSpawnned;
     public PoolType poolType;
 
@@ -25,7 +25,7 @@ public class FarmHybridData
     public float hybridRotationSpeed;
 
     [Header("Hybrid Diet")]
-    public FoodType foodEaten;
+    public FoodType[] foodEaten;
     public FoodList favFood;
     public ToyList favToy;
 
@@ -57,7 +57,7 @@ public class FarmMannager : GameBehaviour
 
     private void LoadHybrids()
     {
-        for (int i = 0; i < _TSM.saveDatas[0].HybridsInFarm.Count; i++)
+        for (int i = 0; i < _TSM.currentSave.HybridsInFarm.Count; i++)
         {
             foreach (FOEItem_Hybrid _HI in hybridInfos)
             {
@@ -83,7 +83,7 @@ public class FarmMannager : GameBehaviour
     /// <returns></returns>
     private FarmHybridData GetDataFromScrptibleObject(FarmHybridData _farmHybridData, FOEItem_Hybrid _HybridInfo )
     {
-        _farmHybridData.hybridGameObjectPrefab = _HybridInfo.europaItemSO.itemPrefab;
+        _farmHybridData.hybridGameObjectPrefab = _HybridInfo.europaItemSO.worldObject;
         _farmHybridData.poolType = _HybridInfo.hybridSO.hybridPoolType;
 
 
@@ -153,7 +153,7 @@ public class FarmMannager : GameBehaviour
         }
 
 
-        GameObject hybridFromManager = ObjectPoolManager._OPM.spawnObject(_farmHybridData.hybridGameObjectPrefab, spawnTransform, new Quaternion(0, UnityEngine.Random.Range(0, 360), 0, 0), PoolType.ZoneFarmHybrids);
+        GameObject hybridFromManager = ObjectPoolManager._OPM.spawnObject(_farmHybridData.hybridGameObjectPrefab.gameObject, spawnTransform, new Quaternion(0, UnityEngine.Random.Range(0, 360), 0, 0), PoolType.ZoneFarmHybrids);
         _farmHybridData.hybridGameObjectSpawnned = hybridFromManager;
         fishNavigationManager.addHybridToPondList(hybridFromManager, HybridState.HybridFlying);
     }

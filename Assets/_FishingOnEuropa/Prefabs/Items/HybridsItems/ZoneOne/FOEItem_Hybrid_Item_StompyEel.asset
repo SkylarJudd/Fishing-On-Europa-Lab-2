@@ -13,11 +13,12 @@ MonoBehaviour:
   m_Name: FOEItem_Hybrid_Item_StompyEel
   m_EditorClassIdentifier: 
   itemID: 100010
-  worldObject: {fileID: 0}
+  worldObject: {fileID: 8235945337240472755, guid: 3df93d2dc6b69e74ea5bd29d6039051e,
+    type: 3}
+  itemPrefab: {fileID: 113598577132029567, guid: 7cc4ba5405534ea4782b35573c6df9b9,
+    type: 3}
   itemName: StompyEel
   itemDescription: 
-  rarity: 0
-  happinesAdd: 0
   ItemRB: {fileID: 0}
   ItemGrabbable: {fileID: 0}
   itemTransform: {fileID: 0}

@@ -13,11 +13,12 @@ MonoBehaviour:
   m_Name: FOEItem_Hybrid_Item_BunnyBlob
   m_EditorClassIdentifier: 
   itemID: 100003
-  worldObject: {fileID: 0}
+  worldObject: {fileID: 8235945337240472755, guid: 5a778a398b407644b9f04c64ecf9ebf8,
+    type: 3}
+  itemPrefab: {fileID: 224917526755603837, guid: a3bbf64426e413c47a4ba5a0db793a5e,
+    type: 3}
   itemName: Bunny Blob
   itemDescription: 
-  rarity: 0
-  happinesAdd: 0
   ItemRB: {fileID: 0}
   ItemGrabbable: {fileID: 0}
   itemTransform: {fileID: 0}

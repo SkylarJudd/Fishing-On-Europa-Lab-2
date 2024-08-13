@@ -13,11 +13,12 @@ MonoBehaviour:
   m_Name: FOEItem_Hybrid_Item_BouncyBass
   m_EditorClassIdentifier: 
   itemID: 100002
-  worldObject: {fileID: 0}
+  worldObject: {fileID: 8235945337240472755, guid: 092bade61f32b7c48bfe07f758d36a2f,
+    type: 3}
+  itemPrefab: {fileID: 8215944545911543828, guid: 4b778ca109bca684eac1d5687f15fe32,
+    type: 3}
   itemName: Bouncy Bass
   itemDescription: 
-  rarity: 0
-  happinesAdd: 0
   ItemRB: {fileID: 0}
   ItemGrabbable: {fileID: 0}
   itemTransform: {fileID: 0}

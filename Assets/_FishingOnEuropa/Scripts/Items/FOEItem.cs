@@ -19,17 +19,20 @@ public class FOEItem : GameBehaviour, IEropaItemable , ISellable
     public EuropaItemSO europaItemSO;
    
     ItemType itemType;
+
     
+    public BubbleMovement bubbleMovement;
+
     
 
     public void OnDrop()
     {
-        throw new System.NotImplementedException();
+        bubbleMovement.Release();
     }
 
     public void OnPickUp()
     {
-        throw new System.NotImplementedException();
+        bubbleMovement.PickUp();
     }
 
     public void OnPlaceInInventory()

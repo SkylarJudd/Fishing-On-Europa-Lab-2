@@ -13,11 +13,12 @@ MonoBehaviour:
   m_Name: FOEItem_Hybrid_Item_RainbowBeakerFish
   m_EditorClassIdentifier: 
   itemID: 100004
-  worldObject: {fileID: 0}
+  worldObject: {fileID: 8235945337240472755, guid: d9862188a420aac498f4004947a75d39,
+    type: 3}
+  itemPrefab: {fileID: 5124686827279370238, guid: 8105af756e5722043bf3f6b1b50ea9c9,
+    type: 3}
   itemName: Rainbow Beaker Fish
   itemDescription: 
-  rarity: 0
-  happinesAdd: 0
   ItemRB: {fileID: 0}
   ItemGrabbable: {fileID: 0}
   itemTransform: {fileID: 0}

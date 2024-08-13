@@ -81,7 +81,7 @@ public class TempSaveMannager : Singleton<TempSaveMannager>
     [SerializeField, Tooltip("The subdirectory for the save file")]
     private string subDir = "Save";
     [SerializeField, Tooltip("Do we want to use encryption")]
-    private bool useEncryption = true;
+    private bool useEncryption;
     [SerializeField, Tooltip("The array of bytes we will use for our encryption key")]
     private byte[] cryptoKey = { 0xF7, 0x24, 0x94, 0x08, 0x71, 0xE9, 0x64, 0x51, 0xC3, 0x5B, 0x84, 0x60, 0xCC, 0x55, 0x12, 0x76 };
     [SerializeField, Tooltip("Date format")]
@@ -99,7 +99,7 @@ public class TempSaveMannager : Singleton<TempSaveMannager>
 
     public void StartGame()
     {
-        base.Awake();
+        //base.Awake();
         FindAllSaves();
     }
 
@@ -141,6 +141,7 @@ public class TempSaveMannager : Singleton<TempSaveMannager>
     /// </summary>
     private void InitializeNewSave()
     {
+        print("InitializingSave");
         currentSave.saveName = fileName + currentSaveIndex;
         currentSave.saveDate = MakeTimestampNow();
 
@@ -219,6 +220,7 @@ public class TempSaveMannager : Singleton<TempSaveMannager>
     {
         if (File.Exists(GetPath(saveIndex)))
         {
+            print("FileFound");
             using (FileStream stream = new FileStream(GetPath(saveIndex), FileMode.Open))
             {
                 StreamReader reader;

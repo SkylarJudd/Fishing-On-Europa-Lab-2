@@ -13,11 +13,12 @@ MonoBehaviour:
   m_Name: FOEItem_Hybrid_Item_SpottedProwlFin
   m_EditorClassIdentifier: 
   itemID: 100007
-  worldObject: {fileID: 0}
+  worldObject: {fileID: 8235945337240472755, guid: 5f24ca5cc06483e45b0a5c600c633f2b,
+    type: 3}
+  itemPrefab: {fileID: 1673533686132058831, guid: 8e75e5077e4fab245a6620e856c067b2,
+    type: 3}
   itemName: Spotted Prowlfin
   itemDescription: 
-  rarity: 0
-  happinesAdd: 0
   ItemRB: {fileID: 0}
   ItemGrabbable: {fileID: 0}
   itemTransform: {fileID: 0}

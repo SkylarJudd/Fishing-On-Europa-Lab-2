@@ -4,7 +4,7 @@ public class BubbleMovement : MonoBehaviour
 {
     private Rigidbody rb;
 
-    [SerializeField] private bool isFloating = true; // Default to true
+    public bool isFloating = true; // Default to true
     [SerializeField] private float targetHeight = 1.0f; // Target height above the ground
     [SerializeField] private float springForce = 5.0f; // Force applied to reach the target height
     [SerializeField] private float damping = 1.0f; // Damping factor to control oscillation

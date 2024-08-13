@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.1784746, g: 0.2234723, b: 0.30546555, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -740,7 +740,7 @@ MonoBehaviour:
   ignoreMe: 0
   showPlaceSettings: 1
   startPlaced: {fileID: 0}
-  placedOffset: {fileID: 0}
+  placedOffset: {fileID: 97008979}
   shapeType: 0
   placeRadius: 0.7
   placeSize: {x: 0.1, y: 0.1, z: 0.1}
@@ -1708,7 +1708,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &414810697
 Transform:
   m_ObjectHideFlags: 0
@@ -23976,6 +23976,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 1459160000}
   playerController: {fileID: 1459159999}
+  leftHandIFood: {fileID: 0}
+  rightHandFood: {fileID: 0}
+  leftHandPlushie: {fileID: 0}
+  rightHandPlushie: {fileID: 0}
+  hasItem: 0
 --- !u!1 &1055150264
 GameObject:
   m_ObjectHideFlags: 0
@@ -24832,7 +24837,7 @@ MonoBehaviour:
   ignoreMe: 0
   showPlaceSettings: 1
   startPlaced: {fileID: 0}
-  placedOffset: {fileID: 0}
+  placedOffset: {fileID: 1195197990}
   shapeType: 0
   placeRadius: 0.7
   placeSize: {x: 0.1, y: 0.1, z: 0.1}

@@ -9,6 +9,12 @@ public class PlayerControllerSingletonLink : Singleton<PlayerControllerSingleton
     public Rigidbody player;
     public AutoHandPlayer playerController;
 
+    public FOEItem_Food leftHandIFood;
+    public FOEItem_Food rightHandFood;
+    public FOEItem_Plushie leftHandPlushie;
+    public FOEItem_Plushie rightHandPlushie;
+    public bool hasItem;
+
 
 
     public void UpdatePlayerTransform(Transform playerTransform)

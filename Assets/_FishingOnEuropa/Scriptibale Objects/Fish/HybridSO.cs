@@ -14,15 +14,16 @@ public class HybridSO : ScriptableObject
     public ItemRarity rarity;
     public SpawnLocation spawnLocation;
     public int spawnChance;
+    public GameObject inWorldVisuals;
 
     [Header("Fishing MiniGame")]
     public float damageToRod;
     public int catchChance;
-
+     
     [Header("Hybrid AI")]
     public float fishSpeed;
     public float rotationSpeed;
-    public FoodType foodEaten;
+    public FoodType[] foodEaten;
     public FoodList favFood;
     public ToyList favToy;
 

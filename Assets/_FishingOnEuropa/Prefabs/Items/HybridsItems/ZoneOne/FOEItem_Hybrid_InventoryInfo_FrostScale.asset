@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab708761c0bbd374991b5b23944e9eec, type: 3}
   m_Name: FOEItem_Hybrid_InventoryInfo_FrostScale
   m_EditorClassIdentifier: 
-  itemStackSize: 0
+  itemStackSize: 1
   icon: {fileID: 0}
