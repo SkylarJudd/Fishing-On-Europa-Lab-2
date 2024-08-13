@@ -70,6 +70,8 @@ public class FishNavigationManager : GameBehaviour
     private Coroutine updateHitWaterCoroutine;
     private Coroutine updateSwimmingCoroutine;
     private Coroutine updateSwimToLure;
+    private Coroutine UpdateHybridStatesCoroutine;
+    private Coroutine UpdateHybridReactCoroutine;
 
     private GameObject lureLocation;
 
@@ -93,6 +95,8 @@ public class FishNavigationManager : GameBehaviour
         public bool arrivedAtLure = false;
         public bool firstNav;
         public float distanceToPlayer;
+        public float distanceToLeftHand;
+        public float distanceToRightHand;
         public FoodType[] foodEaten;
         public Transform itemTarget;
         public ToyList favToy;
@@ -106,10 +110,8 @@ public class FishNavigationManager : GameBehaviour
     [SerializeField] float playerHandReactionDistance;
     [SerializeField] float playerHandReactionDistanceReset;
 
-    [SerializeField] float moveToPlayerSpeed;
     [SerializeField] float moveToPlayerStoppingDistance;
 
-    [SerializeField] float lookAtPlayerRotationSpeed;
 
 
 
@@ -122,6 +124,8 @@ public class FishNavigationManager : GameBehaviour
         updateHitWaterCoroutine = StartCoroutine(UpdateHitWater());
         updateSwimmingCoroutine = StartCoroutine(UpdateSwimming());
         updateSwimToLure = StartCoroutine(UpdateHybridToLure());
+        UpdateHybridStatesCoroutine = StartCoroutine(UpdateHybridStates());
+        UpdateHybridReactCoroutine = StartCoroutine(UpdateHybridReact());
     }
 
     public void addHybridToPondList(GameObject go, HybridState enterState)
@@ -183,17 +187,17 @@ public class FishNavigationManager : GameBehaviour
                     {
                         if(hybridReactToPlayer.Contains(_Hybrid) == false)
                         {
-                            removeHybrid(_Hybrid.hybridGameObject);
+                            removeHybrid(_Hybrid.hybridGameObject, false);
                             hybridReactToPlayer.Add(_Hybrid);
                         }
-                        
-                        if (_PLAYER.hasItem == true && (_PLAYER.rightHandFood != null || _PLAYER.leftHandIFood != null))
+
+                        if (_PLAYER.hasItem == true && (_PLAYER.rightHandFood != null || _PLAYER.leftHandFood != null))
                         {
                             foreach (FoodType _food in _Hybrid.foodEaten)
                             {
-                                if (_food == _PLAYER.leftHandIFood.foodType)
+                                if (_food == _PLAYER.leftHandFood.foodType)
                                 {
-                                    _Hybrid.itemTarget = _PLAYER.leftHandIFood.gameObject.transform;
+                                    _Hybrid.itemTarget = _PLAYER.leftHandFood.gameObject.transform;
                                     _Hybrid.HybridState = HybridState.HybridSwimToItem;
                                     if (_Hybrid.distanceToPlayer < moveToPlayerStoppingDistance)
                                     {
@@ -231,6 +235,10 @@ public class FishNavigationManager : GameBehaviour
                                     _Hybrid.HybridState = HybridState.HybridLookAtHand;
                                 }
                             }
+                        }
+                        else if (_PLAYER.hasItem == false && (Vector3.Distance(_Hybrid.hybridGameObject.transform.position, _PLAYER.rightHand.transform.position) < playerHandReactionDistance || Vector3.Distance(_Hybrid.hybridGameObject.transform.position, _PLAYER.leftHand.transform.position) < playerHandReactionDistance))
+                        {
+                            _Hybrid.HybridState = HybridState.HybridLookAtHand;
                         }
                         else
                         {
@@ -642,8 +650,12 @@ private IEnumerator UpdateHybridFlying()
                 for (int i = hybridReactToPlayer.Count - 1; i >= 0; i--)
                 {
                     hybridNavData _hybridd = hybridReactToPlayer[i];
+                    if(_hybridd.HybridState == HybridState.HybridAvoidingWall)
+                    {
+                        _hybridd.HybridState = HybridState.HybridWatchPlayer;
+                    }
 
-                    switch( _hybridd.HybridState )
+                    switch ( _hybridd.HybridState )
                     {
                         case HybridState.HybridWatchPlayer:
                             // Rotate the Hybrid toward the Player
@@ -686,7 +698,7 @@ private IEnumerator UpdateHybridFlying()
         }
     }
 
-    public void removeHybrid(GameObject go)
+    public void removeHybrid(GameObject go, bool _RemoveFromPond)
     {
         foreach (hybridNavData _hybrid in hybridsInPond)
         {
@@ -710,6 +722,7 @@ private IEnumerator UpdateHybridFlying()
                         removeHybridSwimToLure.Add(_hybrid);
                         break;
                 }
+                if (_RemoveFromPond)
                 removeHybridsInPond.Add(_hybrid);
             }
         }
@@ -718,7 +731,7 @@ private IEnumerator UpdateHybridFlying()
     public void OnPickUp(FOEItem_Hybrid _hybridInfo)
     {
         _hybridInfo.SetVisuals(HybridVisualsState.Bubble);
-        removeHybrid(_hybridInfo.gameObject);
+        removeHybrid(_hybridInfo.gameObject , true);
     }
 
     public void OnDrop(FOEItem_Hybrid _hybridInfo)

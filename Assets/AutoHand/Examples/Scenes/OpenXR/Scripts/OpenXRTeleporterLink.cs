@@ -28,7 +28,7 @@ namespace Autohand.Demo{
         void StartTeleportAction(InputAction.CallbackContext a)
         {
             var axis = a.ReadValue<Vector2>();
-            print(axis);
+            //print(axis);
             if (!teleporting && axis.y > 0.5)
             {
                 hand.StartTeleport();

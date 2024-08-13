@@ -1,3 +1,4 @@
+using Autohand;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -25,12 +26,12 @@ public class FOEItem : GameBehaviour, IEropaItemable , ISellable
 
     
 
-    public void OnDrop()
+    public virtual void OnDrop(Hand _Hand, Grabbable _Grabbable)
     {
         bubbleMovement.Release();
     }
 
-    public void OnPickUp()
+    public virtual void OnPickUp(Hand _Hand , Grabbable _Grabbable)
     {
         bubbleMovement.PickUp();
     }

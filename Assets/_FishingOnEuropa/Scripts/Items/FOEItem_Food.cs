@@ -1,3 +1,4 @@
+using Autohand;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,4 +8,28 @@ public class FOEItem_Food : FOEItem
     public FoodType foodType;
     public FoodList foodItem;
     public int happinesAdd;
+
+    public override void OnDrop(Hand _Hand, Grabbable _Grabbable)
+    {
+        // Call the base class's OnDrop method
+        base.OnDrop(_Hand, _Grabbable);
+
+        _PLAYER.OnFoodDrop(_Hand.left);
+    }
+
+    public override void OnPickUp(Hand _Hand, Grabbable _Grabbable)
+    {
+        // Call the base class's OnPickUp method
+        base.OnPickUp(_Hand, _Grabbable);
+
+        FOEItem_Food foodItemComponent = _Grabbable.gameObject.GetComponent<FOEItem_Food>();
+        if (foodItemComponent != null)
+        {
+            _PLAYER.OnFoodPickUp(_Hand.left, foodItemComponent);
+        }
+        else
+        {
+            Debug.LogWarning("The object does not have a FOEItem_Food component.");
+        }
+    }
 }

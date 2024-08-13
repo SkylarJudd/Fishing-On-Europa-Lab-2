@@ -167,7 +167,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inventoryItemSO: {fileID: 0}
   europaItemSO: {fileID: 0}
-  BubbleMovement: {fileID: 3351590936846040844}
+  bubbleMovement: {fileID: 3351590936846040844}
   foodType: 0
   foodItem: 0
   happinesAdd: 0
