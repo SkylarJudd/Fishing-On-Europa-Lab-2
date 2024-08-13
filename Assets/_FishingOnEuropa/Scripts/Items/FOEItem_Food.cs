@@ -7,6 +7,7 @@ public class FOEItem_Food : FOEItem
 {
     public FoodType foodType;
     public FoodList foodItem;
+    public SeedsSO seedSO;
     public int happinesAdd;
 
     public override void OnDrop(Hand _Hand, Grabbable _Grabbable)
