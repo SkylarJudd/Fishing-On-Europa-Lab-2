@@ -2,10 +2,9 @@ Shader "Skybox/NightDay"
 {
     Properties
     {
-        _Texture1("Sunrise", 2D) = "white" {}
-        _Texture2("Day", 2D) = "white" {}
-        _Texture3("Sunset", 2D) = "white" {}
-        _Texture4("Night", 2D) = "white" {}
+        _Texture1("Day", 2D) = "white" {}
+        _Texture2("Sunrise/Sunset", 2D) = "white" {}
+        _Texture3("Night", 2D) = "white" {}
         _Blend("Blend", Range(0, 1)) = 0.5
     }
     SubShader
@@ -59,9 +58,9 @@ Shader "Skybox/NightDay"
                 fixed4 tex3 = tex2D(_Texture3, tc);
                 fixed4 tex4 = tex2D(_Texture4, tc);
 
-                if(_Blend <=0.25) return lerp(tex1, tex2, _Blend);
-                else if(_Blend > 0.25 && _Blend <= 0.75) return lerp(tex2, tex3, _Blend);
-                else return lerp(tex3, tex4, _Blend);
+                if(_Blend <=0.5) return lerp(tex1, tex2, _Blend);
+                else return lerp(tex2, tex3, _Blend);
+                
 
                 
             }
