@@ -205,6 +205,4 @@ public class CropFarmingMannager : GameBehaviour
         }
 
     }
-
-
 }

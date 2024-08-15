@@ -213,6 +213,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3643110053305357456, guid: 2ffada7c597f64d4495892d2d0e5269d,
         type: 3}
+      propertyPath: seedsSO
+      value: 
+      objectReference: {fileID: 11400000, guid: 77a7e2979aff5df47bc2e09013619127,
+        type: 2}
+    - target: {fileID: 3643110053305357456, guid: 2ffada7c597f64d4495892d2d0e5269d,
+        type: 3}
       propertyPath: europaItemSO
       value: 
       objectReference: {fileID: 11400000, guid: 95652e55ff97ea841b900cf22b14b85d,
