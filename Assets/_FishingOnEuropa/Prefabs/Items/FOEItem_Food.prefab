@@ -1,5 +1,67 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2609599786851974834
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2540819839549343751}
+  m_Layer: 0
+  m_Name: OnPlantVisuals
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2540819839549343751
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2609599786851974834}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8502820267954017017}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &4321691627531258048
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8845435427711691079}
+  m_Layer: 0
+  m_Name: InUIVisuals
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8845435427711691079
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4321691627531258048}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8502820267954017017}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7896180496871015787
 GameObject:
   m_ObjectHideFlags: 0
@@ -10,7 +72,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1126198388068002252}
   m_Layer: 0
-  m_Name: FoodVisuals
+  m_Name: FoodWorldVisuals
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -39,6 +101,16 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 972115237386750891, guid: 43fb700f02b00b046b82d8ecda0ba12e,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1918856657851116737, guid: 43fb700f02b00b046b82d8ecda0ba12e,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1918856657851116737, guid: 43fb700f02b00b046b82d8ecda0ba12e,
         type: 3}
       propertyPath: onGrab.m_PersistentCalls.m_Calls.Array.size
@@ -52,7 +124,7 @@ PrefabInstance:
     - target: {fileID: 1918856657851116737, guid: 43fb700f02b00b046b82d8ecda0ba12e,
         type: 3}
       propertyPath: onGrab.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1918856657851116737, guid: 43fb700f02b00b046b82d8ecda0ba12e,
         type: 3}
@@ -62,7 +134,7 @@ PrefabInstance:
     - target: {fileID: 1918856657851116737, guid: 43fb700f02b00b046b82d8ecda0ba12e,
         type: 3}
       propertyPath: onRelease.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1918856657851116737, guid: 43fb700f02b00b046b82d8ecda0ba12e,
         type: 3}
@@ -92,12 +164,12 @@ PrefabInstance:
     - target: {fileID: 1918856657851116737, guid: 43fb700f02b00b046b82d8ecda0ba12e,
         type: 3}
       propertyPath: onGrab.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: FOEItem, Assembly-CSharp
+      value: FOEItem_Food, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 1918856657851116737, guid: 43fb700f02b00b046b82d8ecda0ba12e,
         type: 3}
       propertyPath: onRelease.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: FOEItem, Assembly-CSharp
+      value: FOEItem_Food, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 1918856657851116737, guid: 43fb700f02b00b046b82d8ecda0ba12e,
         type: 3}
@@ -161,6 +233,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3911322961660261717, guid: 43fb700f02b00b046b82d8ecda0ba12e,
         type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3911322961660261717, guid: 43fb700f02b00b046b82d8ecda0ba12e,
+        type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 1e0424247ac169044b7e396a3137a005, type: 2}
@@ -176,6 +253,14 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 1126198388068002252}
+    - targetCorrespondingSourceObject: {fileID: 2564965387669434184, guid: 43fb700f02b00b046b82d8ecda0ba12e,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2540819839549343751}
+    - targetCorrespondingSourceObject: {fileID: 2564965387669434184, guid: 43fb700f02b00b046b82d8ecda0ba12e,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8845435427711691079}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 8910402524323637192, guid: 43fb700f02b00b046b82d8ecda0ba12e,
         type: 3}
@@ -206,6 +291,10 @@ MonoBehaviour:
   foodType: 0
   foodItem: 0
   happinesAdd: 0
+  inWorldVisuals: {fileID: 7896180496871015787}
+  onPlantVisuals: {fileID: 2609599786851974834}
+  inUIVisuals: {fileID: 4321691627531258048}
+  bubbleVisual: {fileID: 7196554392416798948}
 --- !u!114 &3351590936846040844 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8870892415497601725, guid: 43fb700f02b00b046b82d8ecda0ba12e,
@@ -218,4 +307,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 713c396c98ee77347ba9610113b5cb4b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-
+--- !u!23 &7196554392416798948 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 3911322961660261717, guid: 43fb700f02b00b046b82d8ecda0ba12e,
+    type: 3}
+  m_PrefabInstance: {fileID: 6167824369773018545}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &8502820267954017017 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2564965387669434184, guid: 43fb700f02b00b046b82d8ecda0ba12e,
+    type: 3}
+  m_PrefabInstance: {fileID: 6167824369773018545}
+  m_PrefabAsset: {fileID: 0}

@@ -50,8 +50,9 @@ public class SaveData
 
     [Header("Farming")]
     public List<int> itemsInFarm = new List<int>();
-    public List<Vector3> itemLocations = new List<Vector3>();
+    public List<Vector3> plantLocations = new List<Vector3>();
     public List<int> growthStage = new List<int>();
+    public List<int> farmLocatedIn = new List<int>();
 
     [Header("Toys")]
     public List<int> toysInWorld = new List<int>();
@@ -169,14 +170,15 @@ public class TempSaveMannager : Singleton<TempSaveMannager>
         currentSave.postProssessing = true;
         currentSave.bloomAmout = 0.1f;
 
-    currentSave.HybridsInInventory = new List<int>();
+        currentSave.HybridsInInventory = new List<int>();
         currentSave.ItemInInventory = new List<int>();
 
         currentSave.itemsInFarm = new List<int>();
-        currentSave.itemLocations = new List<Vector3>();
+        currentSave.plantLocations = new List<Vector3>();
         currentSave.growthStage = new List<int>();
+        currentSave.farmLocatedIn = new List<int>();
 
-        currentSave.toysInWorld = new List<int>();
+    currentSave.toysInWorld = new List<int>();
         currentSave.toysPosition = new List<Vector3>();
         currentSave.toysRotation = new List<Vector3>();
 

@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6e950a2c00c94d49998b462f64d57e7, type: 3}
+  m_Name: FOEItem_Food_Item_Watermelon
+  m_EditorClassIdentifier: 
+  itemID: 200011
+  worldObject: {fileID: 5912406539843738869, guid: 84d5a4ebd32b5344aaf82d3c44a789aa,
+    type: 3}
+  itemPrefab: {fileID: 2625746280661737934, guid: 8f08be7243a4392458fe7432453cb51b,
+    type: 3}
+  itemName: Apple
+  itemDescription: 'Apples are obtained through farming, the seeds can be bought
+    from the store after they have been found in chests fished up in zone 1. '
+  ItemRB: {fileID: 0}
+  ItemGrabbable: {fileID: 0}
+  itemTransform: {fileID: 0}

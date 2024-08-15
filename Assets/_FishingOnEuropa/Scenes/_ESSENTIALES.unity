@@ -2199,8 +2199,9 @@ MonoBehaviour:
     HybridsInInventory: 
     ItemInInventory: 
     itemsInFarm: 
-    itemLocations: []
+    plantLocations: []
     growthStage: 
+    farmLocatedIn: 
     toysInWorld: 
     toysPosition: []
     toysRotation: []
@@ -6337,6 +6338,11 @@ PrefabInstance:
       propertyPath: forwardSmoothingSpeed
       value: 20
       objectReference: {fileID: 0}
+    - target: {fileID: 978722647479649261, guid: f13bbbc9578242a44953eec81cfb27d4,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 978722647479649263, guid: f13bbbc9578242a44953eec81cfb27d4,
         type: 3}
       propertyPath: crouching
@@ -6358,6 +6364,21 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: 967b9406fa925d24398a644024babfda,
         type: 2}
+    - target: {fileID: 978722647479649263, guid: f13bbbc9578242a44953eec81cfb27d4,
+        type: 3}
+      propertyPath: groundingPenetrationOffset
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1361731894682614131, guid: f13bbbc9578242a44953eec81cfb27d4,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1361731896215635805, guid: f13bbbc9578242a44953eec81cfb27d4,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 1575735658702523898, guid: f13bbbc9578242a44953eec81cfb27d4,
         type: 3}
       propertyPath: follow
@@ -23976,7 +23997,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 1459160000}
   playerController: {fileID: 1459159999}
-  leftHandIFood: {fileID: 0}
+  playerHead: {fileID: 1289663524}
+  leftHand: {fileID: 359302187}
+  rightHand: {fileID: 1312617297}
+  leftHandFood: {fileID: 0}
   rightHandFood: {fileID: 0}
   leftHandPlushie: {fileID: 0}
   rightHandPlushie: {fileID: 0}
@@ -25802,6 +25826,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 729334279825685444, guid: 9db85b5b653474543b467fb5ce249199,
+        type: 3}
+      propertyPath: m_CurrentTrackingState
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 750922101334859504, guid: 9db85b5b653474543b467fb5ce249199,
         type: 3}

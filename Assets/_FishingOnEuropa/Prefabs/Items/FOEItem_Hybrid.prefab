@@ -114,7 +114,7 @@ PrefabInstance:
     - target: {fileID: 1918856657851116737, guid: 43fb700f02b00b046b82d8ecda0ba12e,
         type: 3}
       propertyPath: onGrab.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1918856657851116737, guid: 43fb700f02b00b046b82d8ecda0ba12e,
         type: 3}
@@ -124,7 +124,7 @@ PrefabInstance:
     - target: {fileID: 1918856657851116737, guid: 43fb700f02b00b046b82d8ecda0ba12e,
         type: 3}
       propertyPath: onRelease.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1918856657851116737, guid: 43fb700f02b00b046b82d8ecda0ba12e,
         type: 3}

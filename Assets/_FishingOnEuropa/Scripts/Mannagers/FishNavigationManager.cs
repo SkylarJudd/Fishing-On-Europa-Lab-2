@@ -185,17 +185,30 @@ public class FishNavigationManager : GameBehaviour
                     _Hybrid.distanceToPlayer = Vector3.Distance(_PLAYER.player.transform.position, _Hybrid.hybridGameObject.transform.position);
                     if (_Hybrid.distanceToPlayer < playerReactionDistance)
                     {
-                        if(hybridReactToPlayer.Contains(_Hybrid) == false)
+                        if (hybridReactToPlayer.Contains(_Hybrid) == false)
                         {
                             removeHybrid(_Hybrid.hybridGameObject, false);
                             hybridReactToPlayer.Add(_Hybrid);
                         }
 
+                        float distanceToRightHand = 0;
+                        float distanceToLeftHand = 0;
+
+                        if (_PLAYER.hasItem == false)
+                        {
+                            distanceToRightHand = Vector3.Distance(_Hybrid.hybridGameObject.transform.position, _PLAYER.rightHand.transform.position);
+                            distanceToLeftHand = Vector3.Distance(_Hybrid.hybridGameObject.transform.position, _PLAYER.leftHand.transform.position);
+                        }
+                            
+
                         if (_PLAYER.hasItem == true && (_PLAYER.rightHandFood != null || _PLAYER.leftHandFood != null))
                         {
+                            FOEItem_Food _rightFood = _PLAYER.rightHandFood;
+                            FOEItem_Food _leftFood = _PLAYER.rightHandFood;
+
                             foreach (FoodType _food in _Hybrid.foodEaten)
                             {
-                                if (_food == _PLAYER.leftHandFood.foodType)
+                                if (_food == _leftFood.foodType)
                                 {
                                     _Hybrid.itemTarget = _PLAYER.leftHandFood.gameObject.transform;
                                     _Hybrid.HybridState = HybridState.HybridSwimToItem;
@@ -204,7 +217,7 @@ public class FishNavigationManager : GameBehaviour
                                         _Hybrid.HybridState = HybridState.HybridLookAtHand;
                                     }
                                 }
-                                else if (_food == _PLAYER.rightHandFood.foodType)
+                                else if (_food == _rightFood.foodType)
                                 {
                                     _Hybrid.itemTarget = _PLAYER.rightHandFood.gameObject.transform;
                                     _Hybrid.HybridState = HybridState.HybridSwimToItem;
@@ -236,12 +249,25 @@ public class FishNavigationManager : GameBehaviour
                                 }
                             }
                         }
-                        else if (_PLAYER.hasItem == false && (Vector3.Distance(_Hybrid.hybridGameObject.transform.position, _PLAYER.rightHand.transform.position) < playerHandReactionDistance || Vector3.Distance(_Hybrid.hybridGameObject.transform.position, _PLAYER.leftHand.transform.position) < playerHandReactionDistance))
+                        else if (_PLAYER.hasItem == false && (distanceToRightHand < playerHandReactionDistance || distanceToLeftHand < playerHandReactionDistance))
                         {
+                            
+                            // Compare distances and set the target to the closer hand
+                            if (distanceToRightHand < distanceToLeftHand)
+                            {
+                                _Hybrid.itemTarget = _PLAYER.rightHand;
+                            }
+                            else
+                            {
+                                _Hybrid.itemTarget = _PLAYER.leftHand;
+                            }
+
+                            // Set the Hybrid's state to look at the selected hand
                             _Hybrid.HybridState = HybridState.HybridLookAtHand;
                         }
                         else
                         {
+                            
                             _Hybrid.HybridState = HybridState.HybridWatchPlayer;
                         }
                     }
@@ -255,11 +281,11 @@ public class FishNavigationManager : GameBehaviour
 
                 }
                 // Remove hybrids from hybridsHitWater
-                foreach (var hybrid in removeHybridsInPond)
+                foreach (var hybrid in removeHybridReact)
                 {
-                    hybridsInPond.Remove(hybrid);
+                    hybridReactToPlayer.Remove(hybrid);
                 }
-                removeHybridsInPond.Clear();
+                removeHybridReact.Clear();
             }
             yield return new WaitForFixedUpdate();
         }
@@ -659,7 +685,7 @@ private IEnumerator UpdateHybridFlying()
                     {
                         case HybridState.HybridWatchPlayer:
                             // Rotate the Hybrid toward the Player
-                            Quaternion targetRotation = Quaternion.LookRotation((_PLAYER.transform.position - _hybridd.hybridGameObject.transform.position).normalized);
+                            Quaternion targetRotation = Quaternion.LookRotation((_PLAYER.playerHead.transform.position - _hybridd.hybridGameObject.transform.position).normalized);
                             _hybridd.hybridGameObject.transform.rotation = Quaternion.Lerp(_hybridd.hybridGameObject.transform.rotation, targetRotation, _hybridd.rotationSpeed * Time.deltaTime);
                             break;
                         case HybridState.HybridSwimToItem:

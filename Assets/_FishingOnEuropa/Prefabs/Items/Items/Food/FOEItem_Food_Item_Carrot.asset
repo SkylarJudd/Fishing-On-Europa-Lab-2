@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: FOEItem_Food_Item_Carrot
   m_EditorClassIdentifier: 
   itemID: 200004
-  worldObject: {fileID: 0}
+  worldObject: {fileID: 5912406539843738869, guid: e143edce41c27484486f1f6630a839aa,
+    type: 3}
   itemPrefab: {fileID: 2625746280661737934, guid: ced78639ec4227c40861f482ba236ab5,
     type: 3}
   itemName: Carrot

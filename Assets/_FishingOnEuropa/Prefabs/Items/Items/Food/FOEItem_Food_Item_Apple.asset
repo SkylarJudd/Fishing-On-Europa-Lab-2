@@ -13,12 +13,13 @@ MonoBehaviour:
   m_Name: FOEItem_Food_Item_Apple
   m_EditorClassIdentifier: 
   itemID: 200001
-  worldObject: {fileID: 0}
-  itemPrefab: {fileID: 2625746280661737934, guid: 8f08be7243a4392458fe7432453cb51b,
+  worldObject: {fileID: 5912406539843738869, guid: ad7caa16b8be303489c89bbc55dcd5f6,
     type: 3}
-  itemName: Apple
-  itemDescription: 'Apples are obtained through farming, the seeds can be bought
-    from the store after they have been found in chests fished up in zone 1. '
+  itemPrefab: {fileID: 2625746280661737934, guid: 37e87f46c1e44ae48916f3e94d6fc9ef,
+    type: 3}
+  itemName: Banana
+  itemDescription: 'Bananas are obtained through farming, the seeds can be bought
+    from the store after they have been found in chests fished up in zone 2. '
   ItemRB: {fileID: 0}
   ItemGrabbable: {fileID: 0}
   itemTransform: {fileID: 0}

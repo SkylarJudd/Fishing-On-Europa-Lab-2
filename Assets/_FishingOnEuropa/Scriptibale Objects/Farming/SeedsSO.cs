@@ -12,10 +12,11 @@ public class SeedsSO : ScriptableObject
     public FOEItem foodProduced;
 
     [Header("Plant Stages")]
-    public GameObject seedling;
+    public GameObject seed;
     public GameObject sprout;
     public GameObject adolecent;
     public GameObject mature;
+    public GameObject harvested;
     public FoodList foodItem;
 
 
