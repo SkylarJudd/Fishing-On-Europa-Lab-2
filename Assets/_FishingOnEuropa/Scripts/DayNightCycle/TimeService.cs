@@ -18,11 +18,13 @@ public class TimeService
     //observable publishes an evevnt when the value of what it is observing changes
     readonly Observable<bool> isDayTime;
     readonly Observable<int> currentHour;
+    readonly Observable<int> currentMinute;
 
     //MOVE THESE TO GAMEEVENTS LATER
     public event Action OnSunrise = delegate { };
     public event Action OnSunset = delegate { };
     public event Action OnHourChange = delegate { };
+    public event Action OnMinuteChange = delegate { };
     public event Action OnNewDay = delegate { };    //ADD THING HERERERERERE 
 
     //constructor
@@ -39,12 +41,15 @@ public class TimeService
 
         isDayTime = new Observable<bool>(IsDayTime());
         currentHour = new Observable<int>(currentTime.Hour);
+        currentMinute = new Observable<int>(currentTime.Minute);
 
         //when event is fired, make decision based on value to fire onsunrise or onsunset
         isDayTime.ValueChanged += day => (day ? OnSunrise : OnSunset)?.Invoke();
         
         //on hour change
         currentHour.ValueChanged += _ => OnHourChange?.Invoke();
+        currentMinute.ValueChanged += _ => OnHourChange?.Invoke();
+
     }
 
     //update time as playing

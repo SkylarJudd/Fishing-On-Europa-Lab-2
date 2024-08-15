@@ -31,18 +31,20 @@ public class FarmingSoil : MonoBehaviour
     {
         RemoveCropBehaviour();
 
-        if (timer.currentTime <= dayDurationAdj)
-        {
-            foreach (CropBehaviour crop in cropsPlanted)
-            {
-                crop.Grow();
-            }
-        }
+        //skylar is changing this
 
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            Instantiate(seed, new Vector3 (0,5,0), Quaternion.identity);
-        }
+        //if (timer.currentTime <= dayDurationAdj)
+        //{
+        //    foreach (CropBehaviour crop in cropsPlanted)
+        //    {
+        //        crop.Grow();
+        //    }
+        //}
+
+        //if (Input.GetKeyDown(KeyCode.Space))
+        //{
+        //    Instantiate(seed, new Vector3 (0,5,0), Quaternion.identity);
+        //}
 
     }
 

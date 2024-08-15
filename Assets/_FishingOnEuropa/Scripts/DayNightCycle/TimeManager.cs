@@ -23,6 +23,7 @@ public class TimeManager : MonoBehaviour
 
     [SerializeField] TextMeshProUGUI timeText;
     [SerializeField] TimeSettings timeSettings;
+    [SerializeField] CurrentTime currentTimeSO;
     TimeService service;
 
     // Start is called before the first frame update
@@ -67,6 +68,7 @@ public class TimeManager : MonoBehaviour
 
     }
 
+
     void RotateSun()
     {
         float rotation = service.CalculateSunAngle();
@@ -82,7 +84,6 @@ public class TimeManager : MonoBehaviour
         service.UpdateTime(Time.deltaTime);
 
        
-
         //get hours
         int earthhours = service.CurrentTime.Hour;
 
@@ -95,16 +96,17 @@ public class TimeManager : MonoBehaviour
 
         string timeString = string.Format("{0:D2}:{1:D2}", europianTimeHour, europianTimeMin);
 
-        //print(europianTimeHour + ":" + europianTimeMin);
-        
-        //hours = Mathf.RoundToInt(hours * 3.125f);
+        //update currenttimeso
+        currentTimeSO.earthTime = service.CurrentTime;
+        currentTimeSO.hour = europianTimeHour;
+        currentTimeSO.minute = europianTimeMin;
 
 
 
         //get current time
         if (timeText != null)
         {
-
+            print(service.CurrentTime.ToString("hh:mm"));
             //timeText.text = service.CurrentTime.ToString("hh:mm"); //earth time
             timeText.text = (timeString);
         }

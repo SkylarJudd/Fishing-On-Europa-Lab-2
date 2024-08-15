@@ -7983,11 +7983,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1539084765543256285, guid: 9db85b5b653474543b467fb5ce249199,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3996828727083016135, guid: 9db85b5b653474543b467fb5ce249199,
         type: 3}
       propertyPath: waterManager
       value: 
       objectReference: {fileID: 1990845153}
+    - target: {fileID: 5768045850901543104, guid: 9db85b5b653474543b467fb5ce249199,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5983736080234721506, guid: 9db85b5b653474543b467fb5ce249199,
         type: 3}
       propertyPath: resetPointCube

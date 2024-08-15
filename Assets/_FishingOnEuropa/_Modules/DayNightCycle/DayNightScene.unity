@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 1603794956}
-  m_IndirectSpecularColor: {r: 0.019669509, g: 0.012988496, b: 0.052904986, a: 1}
+  m_IndirectSpecularColor: {r: 0.07425486, g: 0.019470753, b: 0.023988847, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -141,11 +141,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: DayNightCycle
-      objectReference: {fileID: 0}
-    - target: {fileID: 3802271532656692908, guid: 232f1d264d2e2d64eace14da916e0cda,
-        type: 3}
-      propertyPath: m_Cameras.Array.size
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6480877890758509511, guid: 232f1d264d2e2d64eace14da916e0cda,
         type: 3}
