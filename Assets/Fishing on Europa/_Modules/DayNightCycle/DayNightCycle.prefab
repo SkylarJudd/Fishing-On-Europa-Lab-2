@@ -361,11 +361,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2066046918690299811}
+  - component: {fileID: 4302177077252144510}
   - component: {fileID: 2816283829701024691}
   - component: {fileID: 3802271532656692908}
   m_Layer: 0
   m_Name: Skybox Camera
-  m_TagString: MainCamera
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -385,6 +386,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 6480877890758509511}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4302177077252144510
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4782854231764039662}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a8ea79aac6949e345a0ad07edda6a7f5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerCam: {fileID: 0}
 --- !u!20 &2816283829701024691
 Camera:
   m_ObjectHideFlags: 0
@@ -452,7 +466,8 @@ MonoBehaviour:
   m_RequiresDepthTextureOption: 2
   m_RequiresOpaqueTextureOption: 2
   m_CameraType: 0
-  m_Cameras: []
+  m_Cameras:
+  - {fileID: 0}
   m_RendererIndex: -1
   m_VolumeLayerMask:
     serializedVersion: 2
