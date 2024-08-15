@@ -15,9 +15,11 @@ MonoBehaviour:
   ItemID: 0
   growthTime: 0
   foodProduced: {fileID: 0}
-  seed: {fileID: 0}
-  sprout: {fileID: 0}
-  adolecent: {fileID: 0}
-  mature: {fileID: 0}
-  harvested: {fileID: 0}
-  foodItem: 0
+  seed: {fileID: 269061596707203210, guid: 14a7a0735b4b7104eb17a17ab9808008, type: 3}
+  sprout: {fileID: 269061596707203210, guid: 61f6527a42389434baaeed45899887f6, type: 3}
+  adolecent: {fileID: 269061596707203210, guid: 09a14b874abe6ab47be34fbfb1360aec,
+    type: 3}
+  mature: {fileID: 269061596707203210, guid: 0e2a8b2cc7bc146459ffcfdfd5b00e8d, type: 3}
+  harvested: {fileID: 269061596707203210, guid: e8e36884207588d48ba8dabbf9757c88,
+    type: 3}
+  foodItem: 10
