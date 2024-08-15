@@ -13,11 +13,15 @@ TagManager:
   - Ground
   - Lock1
   - Wall
+<<<<<<< HEAD
   - Lock2
   - Button
   - Key1
   - Key2
   - CinemachineTarget
+=======
+  - Hybrid
+>>>>>>> main
   layers:
   - Default
   - TransparentFX
@@ -32,12 +36,21 @@ TagManager:
   - Interactible
   - Reel
   - FarRender
+<<<<<<< HEAD
   - PhysicalSkyBoxRender
   - 
   - 
   - 
   - 
   - 
+=======
+  - Tp
+  - Grabbing
+  - Grabbable
+  - Hand
+  - HandPlayer
+  - FOEItem
+>>>>>>> main
   - 
   - 
   - 

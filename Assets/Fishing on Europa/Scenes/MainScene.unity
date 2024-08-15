@@ -1721,8 +1721,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3cdf75379d5dd934a93be9892e1b3991, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+<<<<<<< HEAD:Assets/Fishing on Europa/Scenes/MainScene.unity
   food: {fileID: 11400000, guid: b4a6406580893d549967294e757ececd, type: 2}
   fish: {fileID: 11400000, guid: 745894885b8b05e4e981b12d3968dd43, type: 2}
+=======
+  hybridInfo: {fileID: 0}
+>>>>>>> main:Assets/_FishingOnEuropa/_Modules/DayNight System/DayCycle System.unity
 --- !u!1 &280896146
 GameObject:
   m_ObjectHideFlags: 0
@@ -1766,8 +1770,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3cdf75379d5dd934a93be9892e1b3991, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+<<<<<<< HEAD:Assets/Fishing on Europa/Scenes/MainScene.unity
   food: {fileID: 11400000, guid: b4a6406580893d549967294e757ececd, type: 2}
   fish: {fileID: 11400000, guid: 9324671bbaa17be4986f2003aa4549d2, type: 2}
+=======
+  hybridInfo: {fileID: 0}
+>>>>>>> main:Assets/_FishingOnEuropa/_Modules/DayNight System/DayCycle System.unity
 --- !u!1 &287511764
 GameObject:
   m_ObjectHideFlags: 0
@@ -28022,6 +28030,74 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1001 &5261432193022687173
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1501468954833907631, guid: 21172fcc6a4c2134caec568c5878bc5d,
+        type: 3}
+      propertyPath: m_Name
+      value: Time Manager
+      objectReference: {fileID: 0}
+    - target: {fileID: 4984630619707041180, guid: 21172fcc6a4c2134caec568c5878bc5d,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4984630619707041180, guid: 21172fcc6a4c2134caec568c5878bc5d,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4984630619707041180, guid: 21172fcc6a4c2134caec568c5878bc5d,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4984630619707041180, guid: 21172fcc6a4c2134caec568c5878bc5d,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4984630619707041180, guid: 21172fcc6a4c2134caec568c5878bc5d,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4984630619707041180, guid: 21172fcc6a4c2134caec568c5878bc5d,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4984630619707041180, guid: 21172fcc6a4c2134caec568c5878bc5d,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4984630619707041180, guid: 21172fcc6a4c2134caec568c5878bc5d,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4984630619707041180, guid: 21172fcc6a4c2134caec568c5878bc5d,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4984630619707041180, guid: 21172fcc6a4c2134caec568c5878bc5d,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 21172fcc6a4c2134caec568c5878bc5d, type: 3}
 --- !u!1 &5322507049331207957
 GameObject:
   m_ObjectHideFlags: 0
@@ -28261,6 +28337,18 @@ MeshRenderer:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
+<<<<<<< HEAD:Assets/Fishing on Europa/Scenes/MainScene.unity
+=======
+  - {fileID: 5261432193022687173}
+  - {fileID: 988326979}
+  - {fileID: 1686344668}
+  - {fileID: 600641133}
+  - {fileID: 652327640}
+  - {fileID: 1632368672}
+  - {fileID: 2123848470}
+  - {fileID: 1598004147}
+  - {fileID: 988445280}
+>>>>>>> main:Assets/_FishingOnEuropa/_Modules/DayNight System/DayCycle System.unity
   - {fileID: 1747763263}
   - {fileID: 580322831}
   - {fileID: 410087041}

@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6e950a2c00c94d49998b462f64d57e7, type: 3}
+  m_Name: FOEItem_Hybrid_Item_WiskerFish
+  m_EditorClassIdentifier: 
+  itemID: 100008
+  worldObject: {fileID: 8235945337240472755, guid: f474f599c7ee25e47bacc32a51fb1a89,
+    type: 3}
+  itemPrefab: {fileID: 3928281344754751941, guid: 89de44bbcc799f743807bed7b34b7aa2,
+    type: 3}
+  itemName: WiskerFish
+  itemDescription: 
+  ItemRB: {fileID: 0}
+  ItemGrabbable: {fileID: 0}
+  itemTransform: {fileID: 0}

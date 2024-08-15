@@ -62,7 +62,11 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
+<<<<<<< HEAD:Assets/Fishing on Europa/Fish/FishingNodes/Fish Prefabs/Models/Lake/Fish 10 Prefab.prefab
   - {fileID: 2100000, guid: f5eefd101b9f1de438a5572949e69a59, type: 2}
+=======
+  - {fileID: 2100000, guid: 3171a74ff0bf6444cace933708512a85, type: 2}
+>>>>>>> main:Assets/_FishingOnEuropa/Prefabs/Farming Seeds/Mature/BananaMaturePlaceholder.prefab
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
