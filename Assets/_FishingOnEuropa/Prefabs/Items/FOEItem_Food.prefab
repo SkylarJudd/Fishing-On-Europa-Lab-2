@@ -267,6 +267,12 @@ PrefabInstance:
       insertIndex: 1
       addedObject: {fileID: 5912406539843738869}
   m_SourcePrefab: {fileID: 100100000, guid: 43fb700f02b00b046b82d8ecda0ba12e, type: 3}
+--- !u!1 &209128815298609148 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6304610777659245133, guid: 43fb700f02b00b046b82d8ecda0ba12e,
+    type: 3}
+  m_PrefabInstance: {fileID: 6167824369773018545}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &3328327761518172793 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8910402524323637192, guid: 43fb700f02b00b046b82d8ecda0ba12e,
@@ -287,6 +293,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inventoryItemSO: {fileID: 0}
   europaItemSO: {fileID: 0}
+  held: 0
+  nameTextGO: {fileID: 209128815298609148}
+  nameText: {fileID: 4308199779249126729}
   bubbleMovement: {fileID: 3351590936846040844}
   foodType: 0
   foodItem: 0
@@ -305,6 +314,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 713c396c98ee77347ba9610113b5cb4b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &4308199779249126729 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7949221998190526712, guid: 43fb700f02b00b046b82d8ecda0ba12e,
+    type: 3}
+  m_PrefabInstance: {fileID: 6167824369773018545}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!23 &7196554392416798948 stripped

@@ -118,7 +118,7 @@ public class TimeManager : MonoBehaviour
         //increase rotation by 4.8 every in game hour
         if (rotation >= 360) rotation = 0;
 
-        sun.transform.rotation = Quaternion.Lerp(sun.transform.rotation, Quaternion.AngleAxis(rotation, Vector3.right),1);
+        sun.transform.rotation = Quaternion.Lerp(sun.transform.rotation, Quaternion.AngleAxis(rotation, Vector3.right),1 * Time.deltaTime);
 
     }
 

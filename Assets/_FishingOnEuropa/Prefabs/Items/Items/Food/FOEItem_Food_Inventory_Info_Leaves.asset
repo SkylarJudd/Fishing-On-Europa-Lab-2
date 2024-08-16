@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ab708761c0bbd374991b5b23944e9eec, type: 3}
-  m_Name: FOEItem_Food_Inventory_Info_Flowers 1
+  m_Name: FOEItem_Food_Inventory_Info_Leaves
   m_EditorClassIdentifier: 
   itemStackSize: 10
   icon: {fileID: 0}

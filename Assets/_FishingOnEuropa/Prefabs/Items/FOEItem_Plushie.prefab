@@ -147,6 +147,18 @@ PrefabInstance:
       insertIndex: 1
       addedObject: {fileID: 5719794587531483382}
   m_SourcePrefab: {fileID: 100100000, guid: 43fb700f02b00b046b82d8ecda0ba12e, type: 3}
+--- !u!114 &4803608372739053623 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7949221998190526712, guid: 43fb700f02b00b046b82d8ecda0ba12e,
+    type: 3}
+  m_PrefabInstance: {fileID: 3240506057669875919}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6291683667087982343 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8910402524323637192, guid: 43fb700f02b00b046b82d8ecda0ba12e,
@@ -167,6 +179,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inventoryItemSO: {fileID: 0}
   europaItemSO: {fileID: 0}
-  bubbleMovement: {fileID: 0}
+  held: 0
+  nameTextGO: {fileID: 8901062359851768450}
+  nameText: {fileID: 4803608372739053623}
+  bubbleMovement: {fileID: 6332952444093012594}
   ToyItem: 0
   happinesAdd: 0
+--- !u!114 &6332952444093012594 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8870892415497601725, guid: 43fb700f02b00b046b82d8ecda0ba12e,
+    type: 3}
+  m_PrefabInstance: {fileID: 3240506057669875919}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6291683667087982343}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 713c396c98ee77347ba9610113b5cb4b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1 &8901062359851768450 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6304610777659245133, guid: 43fb700f02b00b046b82d8ecda0ba12e,
+    type: 3}
+  m_PrefabInstance: {fileID: 3240506057669875919}
+  m_PrefabAsset: {fileID: 0}

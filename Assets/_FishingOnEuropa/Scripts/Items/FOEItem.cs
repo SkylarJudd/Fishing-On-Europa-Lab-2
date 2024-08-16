@@ -3,6 +3,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
+using Unity.VisualScripting;
 
 public enum StackType { UIStack, WorldStack, }
 public enum ItemType { Error, Hybrid, Food, Seed, Plushie}
@@ -19,13 +21,18 @@ public class FOEItem : GameBehaviour, IEropaItemable , ISellable
     public InventoryItemSO inventoryItemSO;
     public EuropaItemSO europaItemSO;
     public bool held;
+    public GameObject nameTextGO;
+    public TMP_Text nameText;
 
     ItemType itemType;
 
     
     public BubbleMovement bubbleMovement;
 
-    
+    private void Start()
+    {
+        nameText.text = europaItemSO.name;
+    }
 
     public virtual void OnDrop(Hand _Hand, Grabbable _Grabbable)
     {

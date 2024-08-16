@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Autohand;
 
-public class SkyboxCamera : MonoBehaviour
+public class SkyboxCamera : GameBehaviour
 {
     [SerializeField] private Transform playerCam;
     [SerializeField] float skyboxScale;
@@ -11,14 +11,14 @@ public class SkyboxCamera : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        playerCam = Camera.main.transform;
+        
     }
 
     // Update is called once per frame
-    void Update()
+    void LateUpdate()
     {
         //transform.localPosition = playerCam.position / skyboxScale;
-        transform.rotation = playerCam.rotation;
+        transform.rotation = _PLAYER.playerHead.transform.rotation;
     }
 
 }

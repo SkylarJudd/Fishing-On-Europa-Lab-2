@@ -155,7 +155,10 @@ public class CropFarmingMannager : GameBehaviour
 
     private void loadPlants()
     {
-        for(int index = 0; index < _TSM.currentSave.itemsInFarm.Count; index++) 
+         if(_TSM.currentSave.itemsInFarm == null)
+            return;
+
+        for (int index = 0; index < _TSM.currentSave.itemsInFarm.Count; index++) 
         {
             Crop loadItem = new Crop();
 
@@ -197,6 +200,9 @@ public class CropFarmingMannager : GameBehaviour
     [ContextMenu("Save")]
     private void SavePlants()
     {
+        if(_TSM.currentSave.itemsInFarm == null)
+            return;
+
         _TSM.currentSave.itemsInFarm.Clear();
         _TSM.currentSave.plantLocations.Clear();
         _TSM.currentSave.growthStage.Clear();

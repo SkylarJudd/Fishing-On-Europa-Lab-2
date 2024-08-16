@@ -11,17 +11,17 @@ PrefabInstance:
     - target: {fileID: 3328327761518172793, guid: 7d1286f754fb8c04bb2e2a7775fafe5a,
         type: 3}
       propertyPath: m_Name
-      value: FOEItem_Food Potato
+      value: FOEItem_Food WhiteMeat
       objectReference: {fileID: 0}
     - target: {fileID: 5912406539843738869, guid: 7d1286f754fb8c04bb2e2a7775fafe5a,
         type: 3}
       propertyPath: foodItem
-      value: 8
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5912406539843738869, guid: 7d1286f754fb8c04bb2e2a7775fafe5a,
         type: 3}
       propertyPath: foodType
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5912406539843738869, guid: 7d1286f754fb8c04bb2e2a7775fafe5a,
         type: 3}
@@ -32,13 +32,13 @@ PrefabInstance:
         type: 3}
       propertyPath: europaItemSO
       value: 
-      objectReference: {fileID: 11400000, guid: 2ed74d220434b134da5f6eea41018da9,
+      objectReference: {fileID: 11400000, guid: e81c75cab4e6ef543b4bc5b616522627,
         type: 2}
     - target: {fileID: 5912406539843738869, guid: 7d1286f754fb8c04bb2e2a7775fafe5a,
         type: 3}
       propertyPath: inventoryItemSO
       value: 
-      objectReference: {fileID: 11400000, guid: 0750833bdf24ab14ba7123cd9767350d,
+      objectReference: {fileID: 11400000, guid: 0b4e27337fd0f334c967391a09b655c4,
         type: 2}
     - target: {fileID: 8502820267954017017, guid: 7d1286f754fb8c04bb2e2a7775fafe5a,
         type: 3}
@@ -96,7 +96,7 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1126198388068002252, guid: 7d1286f754fb8c04bb2e2a7775fafe5a,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 6500310650210034675}
+      addedObject: {fileID: 5251785675999781034}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7d1286f754fb8c04bb2e2a7775fafe5a, type: 3}
 --- !u!4 &4880366860181004851 stripped
@@ -105,7 +105,7 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 5484122908903361535}
   m_PrefabAsset: {fileID: 0}
---- !u!1001 &8013757042958197287
+--- !u!1001 &9070597874748252542
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -117,7 +117,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: a3f1d5998d66cec45b5796aaf0fe3955, type: 2}
+      objectReference: {fileID: 2100000, guid: 003a2925a7d0c4e47870389376e37fdd, type: 2}
     - target: {fileID: 3819944783979987412, guid: 327253dec8f4b834db84f5a2c0098d6c,
         type: 3}
       propertyPath: m_LocalScale.x
@@ -193,9 +193,9 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 327253dec8f4b834db84f5a2c0098d6c, type: 3}
---- !u!4 &6500310650210034675 stripped
+--- !u!4 &5251785675999781034 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3819944783979987412, guid: 327253dec8f4b834db84f5a2c0098d6c,
     type: 3}
-  m_PrefabInstance: {fileID: 8013757042958197287}
+  m_PrefabInstance: {fileID: 9070597874748252542}
   m_PrefabAsset: {fileID: 0}

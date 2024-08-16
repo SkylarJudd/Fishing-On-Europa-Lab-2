@@ -17,11 +17,11 @@ public class TimeService
     readonly Observable<int> currentDay;
 
     //MOVE THESE TO GAMEEVENTS LATER
-    public event Action OnSunrise = delegate { };
-    public event Action OnSunset = delegate { };
-    public event Action OnHourChange = delegate { };
-    public event Action OnMinuteChange = delegate { };
-    public event Action OnNewDay = delegate { };    //ADD THING HERERERERERE 
+    //public event Action OnSunrise = delegate { };
+    //public event Action OnSunset = delegate { };
+    //public event Action OnHourChange = delegate { };
+    //public event Action OnMinuteChange = delegate { };
+    //public event Action OnNewDay = delegate { };    //ADD THING HERERERERERE 
 
     ////date time struct
     readonly TimeSettings settings;
@@ -30,7 +30,7 @@ public class TimeService
     readonly int sunriseTime; //duration
     readonly int sunsetime;
 
-   // bool IsDayTime() => currentTimeSO.hour > sunriseTime && currentTimeSO.hour < sunsetime;
+    // bool IsDayTime() => currentTimeSO.hour > sunriseTime && currentTimeSO.hour < sunsetime;
 
     public TimeService(TimeSettings settings, CurrentTime currentTime)
     {
@@ -50,10 +50,15 @@ public class TimeService
         //isDayTime.ValueChanged += day => (day ? OnSunrise : OnSunset)?.Invoke();
 
         //on hour change
-        currentHour.ValueChanged += _ => OnHourChange?.Invoke();
-        currentMinute.ValueChanged += _ => OnHourChange?.Invoke();
-        currentDay.ValueChanged += _ => OnNewDay?.Invoke();
+        currentHour.ValueChanged += _ => UpdateTime();
+        currentMinute.ValueChanged += _ => UpdateTime();
+        currentDay.ValueChanged += _ => UpdateTime();
 
+    }
+
+    private void UpdateTime()
+    {
+        GameEvents.UpdateTime(currentHour, currentMinute, currentDay);
     }
 
     ////check if its daytime or nighttime, if true daytime
