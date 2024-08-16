@@ -18,11 +18,11 @@ public class FOEItem_Seed : FOEItem
     {
         base.OnDrop(_Hand, _Grabbable);
 
-        ToggleHandVisuals(true);
+        ToggleHandVisuals(false);
     }
     public override void OnPickUp(Hand _Hand, Grabbable _Grabbable)
     {
-        ToggleHandVisuals(false);
+        ToggleHandVisuals(true);
     }
     private void ToggleHandVisuals(bool _Toggle)
     {
