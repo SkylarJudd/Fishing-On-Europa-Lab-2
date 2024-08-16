@@ -18,7 +18,8 @@ public class FOEItem : GameBehaviour, IEropaItemable , ISellable
     [Header("Scriptible Object Data")]
     public InventoryItemSO inventoryItemSO;
     public EuropaItemSO europaItemSO;
-   
+    public bool held;
+
     ItemType itemType;
 
     
@@ -29,11 +30,13 @@ public class FOEItem : GameBehaviour, IEropaItemable , ISellable
     public virtual void OnDrop(Hand _Hand, Grabbable _Grabbable)
     {
         bubbleMovement.Release();
+        held = false;
     }
 
     public virtual void OnPickUp(Hand _Hand , Grabbable _Grabbable)
     {
         bubbleMovement.PickUp();
+        held = true;
     }
 
     public void OnPlaceInInventory()

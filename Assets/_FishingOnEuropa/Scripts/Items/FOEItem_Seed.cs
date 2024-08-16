@@ -1,4 +1,5 @@
 using Autohand;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,6 +14,19 @@ public class FOEItem_Seed : FOEItem
     private GameObject inHandVisuals;
     [SerializeField]
     private MeshRenderer bubbleVisuals;
+
+    private void Update()
+    {
+        checkRotation();
+    }
+
+    private void checkRotation()
+    {
+        if(!held)
+            return;
+
+
+    }
 
     public override void OnDrop(Hand _Hand, Grabbable _Grabbable)
     {
