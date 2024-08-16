@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.InputSystem.LowLevel;
 
 
 public static class GameEvents
@@ -7,7 +8,9 @@ public static class GameEvents
     public static event Action<String> OnExsampleEventString = null;
     public static event Action<GameObject> OnExsampleEventGameObject = null;
 
+
     public static event Action<int,int,int,int> OnTempMorningEvent = null;
+
 
     public static void ExsampleGameEventString(String _ExsampleText)
     {
