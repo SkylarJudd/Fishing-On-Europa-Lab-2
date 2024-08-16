@@ -7,6 +7,16 @@ using System.Security.Cryptography;
 using UnityEditor.SearchService;
 using UnityEngine;
 
+public class Audio
+{
+    [Header("Audio Settings")]
+    public float masterVolume;
+    public float musicVolume;
+    public float sFXVolume;
+    public float hybridVolume;
+    public float voicesVolume;
+}
+
 [Serializable]
 public class SaveData
 {

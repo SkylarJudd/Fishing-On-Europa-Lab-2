@@ -48,9 +48,12 @@ public class BubbleMovement : MonoBehaviour
             if (Physics.Raycast(transform.position, Vector3.down, out hit, Mathf.Infinity, groundLayerMask))
             {
                 distanceToGround = hit.distance;
+                Debug.LogWarning(hit.collider);
 
                 // Calculate the target position with sine wave offset
-                targetPosition = new Vector3(transform.position.x, ( targetHeight - distanceToGround) + sineWave, transform.position.z);
+                targetPosition = new Vector3(transform.position.x, ( targetHeight - distanceToGround) /*+ sineWave*/, transform.position.z);
+
+                //targetPosition = new Vector3(transform.position.x, -1f /*+ sineWave*/, transform.position.z);
 
                 // Calculate the force to apply
                 Vector3 forceDirection = targetPosition - transform.position;
@@ -61,6 +64,7 @@ public class BubbleMovement : MonoBehaviour
 
                 // Apply the force to the Rigidbody
                 rb.AddForce(force);
+
 
                 // Ensure the Rigidbody doesn’t have unwanted rotation
                 rb.angularVelocity = Vector3.zero;

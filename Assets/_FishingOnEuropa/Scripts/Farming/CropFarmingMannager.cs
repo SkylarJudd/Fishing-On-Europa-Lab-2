@@ -55,7 +55,13 @@ public class CropFarmingMannager : GameBehaviour
         GrowPlants();
     }
 
-  
+    [ContextMenu("GrowPlants")]
+    public void TempGrowPlants()
+    {
+        GameEvents.TempMorningEvent(1, 1, 1, 1);
+       
+    }
+
     public IEnumerator PlantCrop(FOEItem_Seed _Seed, int index)
     {
         ableToPlant = false;
