@@ -10,7 +10,9 @@ public class CurrentTime : ScriptableObject
     public int day = 0;
     public int hour;
     public int minute;
-    [Header("Earth Time")]
-    public DateTime earthTime;
+    [Header("Total Time")]
+
+    public int totalHours;
+    public int totalMinutes;
 
 }

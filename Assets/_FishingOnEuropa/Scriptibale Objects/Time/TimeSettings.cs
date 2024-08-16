@@ -6,8 +6,10 @@ using UnityEngine;
 
 public class TimeSettings : ScriptableObject
 {
-    public float timeMultipler = 2000;
-    public float startHour = 12;
-    public float sunriseHour = 6;
-    public float sunsetHour = 12;
+    //0.5s = 1min results in a day length of 37.5 IRL minutes
+    public float lengthOfMinute = 0.5f;//seconds
+
+    public int startHour = 12;
+    public int sunriseHour = 6;
+    public int sunsetHour = 12;
 }

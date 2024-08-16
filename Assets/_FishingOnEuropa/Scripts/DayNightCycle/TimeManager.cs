@@ -22,21 +22,64 @@ public class TimeManager : MonoBehaviour
     ColorAdjustments colorAdjustments;
 
     [SerializeField] TextMeshProUGUI timeText;
+    [SerializeField] TextMeshProUGUI dayText;
     [SerializeField] TimeSettings timeSettings;
     [SerializeField] CurrentTime currentTimeSO;
     TimeService service;
 
-    // Start is called before the first frame update
+
+    private void Awake()
+    {
+        currentTimeSO.hour = timeSettings.startHour;
+
+        service = new TimeService(timeSettings, currentTimeSO);
+        //start time
+
+        //start time by incrementing minute
+        InvokeRepeating("IncrementMinute", 0, timeSettings.lengthOfMinute);
+    }
+
     void Start()
     {
-        service = new TimeService(timeSettings);
+        currentTimeSO.totalHours += timeSettings.startHour;
+        currentTimeSO.totalMinutes += timeSettings.startHour * 60;
         volume.profile.TryGet(out colorAdjustments);
     }
+
+    #region Calculate Time
+    //increment minute
+    void IncrementMinute()
+    {
+        currentTimeSO.minute++;
+        currentTimeSO.totalMinutes++;
+
+        if (currentTimeSO.minute == 60)
+        {
+            currentTimeSO.minute = 0;
+            IncrementHour();
+
+        }
+    }
+
+    void IncrementHour()
+    {
+        currentTimeSO.hour++;
+        currentTimeSO.totalHours++;
+
+        //day has passed
+        if (currentTimeSO.hour == 75)
+        {
+            currentTimeSO.day++;
+            currentTimeSO.hour = 0;
+
+        }
+    }
+    #endregion
 
     private void Update()
     {
         UpdateTimeOfDay();
-        RotateSun();
+        RotateSun(); //can chane to sub to on hour change clock
         UpdateLightSettings();
         UpdateSkyBlend();
 
@@ -65,51 +108,31 @@ public class TimeManager : MonoBehaviour
         //lerp colour values
         colorAdjustments.colorFilter.value = Color.Lerp(nightAmbientLight, dayAmbientLight, lightIntensityCurve.Evaluate(dotProduct));
 
-
     }
 
 
     void RotateSun()
     {
-        float rotation = service.CalculateSunAngle();
-        sun.transform.rotation = Quaternion.AngleAxis(rotation, Vector3.right);
+        float rotation = currentTimeSO.hour * 4.8f;
+
+        //increase rotation by 4.8 every in game hour
+        if (rotation >= 360) rotation = 0;
+
+        sun.transform.rotation = Quaternion.Lerp(sun.transform.rotation, Quaternion.AngleAxis(rotation, Vector3.right),1);
 
     }
 
     private void UpdateTimeOfDay()
     {
 
-        //multiply 3.125hr or 187.5 mins
-
-        service.UpdateTime(Time.deltaTime);
-
-       
-        //get hours
-        int earthhours = service.CurrentTime.Hour;
-
-        //get current minutes plus hours converted to minutes
-        int earthminutes = service.CurrentTime.Minute;
-
-        //times by 187.5
-        int europianTimeMin = Mathf.RoundToInt((earthminutes * 187.5f) % 60);
-        int europianTimeHour = Mathf.RoundToInt((earthhours * 3.125f) % 75);
-
-        string timeString = string.Format("{0:D2}:{1:D2}", europianTimeHour, europianTimeMin);
-
-        //update currenttimeso
-        currentTimeSO.earthTime = service.CurrentTime;
-        currentTimeSO.hour = europianTimeHour;
-        currentTimeSO.minute = europianTimeMin;
-
+        string timeString = string.Format("{0:D2}:{1:D2}", currentTimeSO.hour, currentTimeSO.minute);
 
 
         //get current time
         if (timeText != null)
         {
-            print(service.CurrentTime.ToString("hh:mm"));
-            //timeText.text = service.CurrentTime.ToString("hh:mm"); //earth time
             timeText.text = (timeString);
+            dayText.text = "Day " + currentTimeSO.day;
         }
     }
-
 }
