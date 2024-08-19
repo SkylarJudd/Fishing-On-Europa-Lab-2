@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="AudioFile" id="{891c7d9e-f928-4c40-9d47-4e14bc35981f}">
+		<property name="assetPath">
+			<value>FOE farm_01.wav</value>
+		</property>
+		<property name="isStreaming">
+			<value>true</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>48</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>180</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{99dc134c-81e7-47a0-8f6e-cb0fc638c171}</destination>
+		</relationship>
+	</object>
+</objects>

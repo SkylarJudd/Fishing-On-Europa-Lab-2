@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="AudioFile" id="{bdfabab2-b3e6-49fc-b926-b528587689bf}">
+		<property name="assetPath">
+			<value>FOE menu_02.wav</value>
+		</property>
+		<property name="isStreaming">
+			<value>true</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>48</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>86.571416666666664</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{99dc134c-81e7-47a0-8f6e-cb0fc638c171}</destination>
+		</relationship>
+	</object>
+</objects>
