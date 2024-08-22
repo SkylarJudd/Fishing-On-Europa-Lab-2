@@ -8,7 +8,16 @@ public static class GameEvents
     public static event Action<String> OnExsampleEventString = null;
     public static event Action<GameObject> OnExsampleEventGameObject = null;
     public static event Action<int, int , int> OnUpdateTime = null;
-    
+
+    #region Day/Night Cycle Events
+
+    public static event Action OnSunrise;
+    public static event Action OnSunset;
+    public static event Action OnHourChange;
+    public static event Action OnMinuteChange;
+    public static event Action OnNewDay;    
+
+    #endregion
 
 
     public static event Action<int, int, int, int> OnTempMorningEvent = null;
@@ -24,16 +33,26 @@ public static class GameEvents
         OnExsampleEventGameObject?.Invoke(_ExsampleGO);
     }
 
+
+
+
     public static void TempMorningEvent(int _Day, int _Hour, int _Minute, int _Second)
     {
         OnTempMorningEvent?.Invoke(_Day, _Hour, _Minute, _Second);
     }
 
+    #region Day/Night Event Invokes
     public static void UpdateTime(int _hour, int _min, int _day)
     {
         OnUpdateTime?.Invoke(_hour,_min,_day);
     }
 
-   
+    public static void SunriseEvent()
+    { OnSunrise?.Invoke(); }
+
+    public static void SunsetEvent() {  OnSunset?.Invoke(); }
+
+    #endregion
+
 
 }
