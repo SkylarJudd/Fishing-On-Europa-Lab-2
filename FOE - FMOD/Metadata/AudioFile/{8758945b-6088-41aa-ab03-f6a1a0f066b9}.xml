@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="AudioFile" id="{8758945b-6088-41aa-ab03-f6a1a0f066b9}">
+		<property name="assetPath">
+			<value>slow munch_01.ogg</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>48</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>2.9444583333333334</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{0dfda8a9-2a6a-4469-be30-608b2c20159f}</destination>
+		</relationship>
+	</object>
+</objects>

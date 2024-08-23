@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="AudioFile" id="{4a2b6ed7-d659-4b42-ad35-3ea5c07a8f02}">
+		<property name="assetPath">
+			<value>hybrid caught.ogg</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>44.0999985</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>3.9574603174603173</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{0dfda8a9-2a6a-4469-be30-608b2c20159f}</destination>
+		</relationship>
+	</object>
+</objects>
