@@ -16,12 +16,6 @@ public class TimeService
     readonly Observable<int> currentMinute;
     readonly Observable<int> currentDay;
 
-    //MOVE THESE TO GAMEEVENTS LATER
-    //public event Action OnSunrise = delegate { };
-    //public event Action OnSunset = delegate { };
-    //public event Action OnHourChange = delegate { };
-    //public event Action OnMinuteChange = delegate { };
-    //public event Action OnNewDay = delegate { };    //ADD THING HERERERERERE 
 
     ////date time struct
     readonly TimeSettings settings;
