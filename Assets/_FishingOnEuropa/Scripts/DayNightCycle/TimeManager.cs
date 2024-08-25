@@ -24,7 +24,7 @@ public class TimeManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI timeText;
     [SerializeField] TextMeshProUGUI dayText;
     [SerializeField] TimeSettings timeSettings;
-    [SerializeField] CurrentTime currentTimeSO;
+    [SerializeField] CurrentTimeSO currentTimeSO;
     TimeService service;
 
 
@@ -113,13 +113,21 @@ public class TimeManager : MonoBehaviour
 
     void RotateSun()
     {
+        // Calculate y-axis rotation based on the current hour
         float rotation = currentTimeSO.hour * 4.8f;
 
-        //increase rotation by 4.8 every in game hour
-        if (rotation >= 360) rotation = 0;
+        // Reset rotation if it exceeds 360 degrees
+        if (rotation >= 360) rotation -= 360;
 
-        sun.transform.rotation = Quaternion.Lerp(sun.transform.rotation, Quaternion.AngleAxis(rotation, Vector3.right),1 * Time.deltaTime);
+        // Calculate the x-axis rotation based on the y-axis rotation
+        // Use Mathf.Sin to smoothly transition between -10 and +10 as y moves from 0 to 360
+        float xRotation = Mathf.Sin(rotation * Mathf.Deg2Rad) * 10;
 
+        // Set the target rotation with the calculated x and y rotation
+        Quaternion targetRotation = Quaternion.Euler(xRotation, rotation, 0);
+
+        // Smoothly transition to the target rotation
+        sun.transform.rotation = Quaternion.Lerp(sun.transform.rotation, targetRotation, 1 * Time.deltaTime);
     }
 
     private void UpdateTimeOfDay()

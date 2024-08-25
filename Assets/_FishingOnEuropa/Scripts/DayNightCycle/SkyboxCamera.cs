@@ -2,23 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Autohand;
+using UnityEngine.PlayerLoop;
 
 public class SkyboxCamera : GameBehaviour
 {
-    [SerializeField] private Transform playerCam;
-    [SerializeField] float skyboxScale;
+    [SerializeField] private Transform skyboxCamTransform;
+    [SerializeField] private Transform trackedDriverTransform;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
-    void LateUpdate()
+
+
+    void Update()
     {
-        //transform.localPosition = playerCam.position / skyboxScale;
-        transform.rotation = _PLAYER.playerHead.transform.rotation;
+
+        // transform.rotation = skyboxCamTransform.rotation * trackedDriverTransform.rotation;
+        transform.localRotation = _PLAYER.TrackedOffset.localRotation * trackedDriverTransform.localRotation;
     }
 
 }

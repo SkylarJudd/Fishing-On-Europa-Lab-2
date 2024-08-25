@@ -98,7 +98,7 @@ public class FishNavigationManager : GameBehaviour
         public float distanceToLeftHand;
         public float distanceToRightHand;
         public FoodType[] foodEaten;
-        public Transform itemTarget;
+        public Transform itemTarget; // this is used for the item target you can set the lure, 
         public ToyList favToy;
 
     }

@@ -11,7 +11,8 @@ public class PlayerControllerSingletonLink : Singleton<PlayerControllerSingleton
     public Transform playerHead;
     public Transform leftHand;
     public Transform rightHand;
-    
+    public Transform TrackedOffset;
+
 
     public FOEItem_Food leftHandFood;
     public FOEItem_Food rightHandFood;

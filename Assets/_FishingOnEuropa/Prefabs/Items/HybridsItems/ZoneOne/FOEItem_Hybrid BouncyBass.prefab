@@ -245,6 +245,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 691235661682154682, guid: 180e5c9d245eb934d873859121e99796,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2941688891302965289, guid: 180e5c9d245eb934d873859121e99796,
         type: 3}
       propertyPath: hybridSO

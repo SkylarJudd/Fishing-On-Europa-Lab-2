@@ -8,7 +8,7 @@ using UnityEngine;
 
 public class TimeService
 {
-    CurrentTime currentTimeSO;
+    CurrentTimeSO currentTimeSO;
 
     //observable publishes an evevnt when the value of what it is observing changes
     readonly Observable<bool> isDayTime;
@@ -32,7 +32,7 @@ public class TimeService
 
     // bool IsDayTime() => currentTimeSO.hour > sunriseTime && currentTimeSO.hour < sunsetime;
 
-    public TimeService(TimeSettings settings, CurrentTime currentTime)
+    public TimeService(TimeSettings settings, CurrentTimeSO currentTime)
     {
         this.settings = settings; //initalise
         this.currentTimeSO = currentTime; //initalise

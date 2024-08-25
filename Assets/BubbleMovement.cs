@@ -61,7 +61,7 @@ public class BubbleMovement : MonoBehaviour
                 rb.AddForce(force);
 
                 // Ensure the Rigidbody doesn’t have unwanted rotation
-                rb.angularVelocity = Vector3.zero;
+                //rb.angularVelocity = Vector3.zero;
             }
         }
     }
