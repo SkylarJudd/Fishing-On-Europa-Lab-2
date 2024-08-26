@@ -50,13 +50,13 @@ public class FishNavigationScript : MonoBehaviour
 
         GameObject playerObject = GameObject.FindWithTag("Player");
         if (playerObject != null)
-    {
-        centerOfRotation = playerObject.transform;
-    }
-    else
-    {
-        Debug.LogError("Player object not found. Make sure the tag is correct.");
-    }
+        {
+            centerOfRotation = playerObject.transform;
+        }
+        else
+        {
+            Debug.LogError("Player object not found. Make sure the tag is correct.");
+        }
 
     }
 
@@ -66,7 +66,7 @@ public class FishNavigationScript : MonoBehaviour
     {
         switch (fishBehaviorState)
         {
-            case FishStates.FishIdel:
+            case FishStates.FishIdle:
                 
                 break;
 
@@ -230,7 +230,7 @@ public class FishNavigationScript : MonoBehaviour
         {
 
             //Debug.Log("Object has reached the target!");
-            fishBehaviorState = FishStates.FishIdel;
+            fishBehaviorState = FishStates.FishIdle;
             arrived = true;
             closestObjectFinder.ArrivedUpdate();
         }

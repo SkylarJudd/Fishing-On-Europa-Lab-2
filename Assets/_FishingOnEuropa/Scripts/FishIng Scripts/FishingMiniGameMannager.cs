@@ -3,16 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
+/// <summary>
+/// Fish navigation states
+/// </summary>
 public enum FishStates
 {
-    FishIdel,
+    FishIdle,
     FishFlocking,
     FishMoveToLure,
     FishTiredPull,
     FishPullingFight,
     FishCaught
-
-
 
 }
 
@@ -163,7 +164,7 @@ public class FishingMiniGameMannager : MonoBehaviour
         if (!isMoving)
         {
             isMoving = true;
-            ChangeState(FishStates.FishIdel);
+            ChangeState(FishStates.FishIdle);
             
 
             while (!FishReachedTarget())

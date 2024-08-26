@@ -214,7 +214,7 @@ public class ClosestObjectsFinder : MonoBehaviour
                         FishNavigationScript FishNavScript = closestObject.GetComponent<FishNavigationScript>();
                         //FishNavScript.fishBehaviorState = 4;
                         //print("Fish Set To Idel");
-                        FishNavScript.ToggleToCatch(FishStates.FishIdel);
+                        FishNavScript.ToggleToCatch(FishStates.FishIdle);
 
                         net.SetActive(true);
                         fishingMiniGameMannager.ToggleTimer(true);
