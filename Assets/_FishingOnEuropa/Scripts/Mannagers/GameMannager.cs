@@ -27,7 +27,7 @@ public class GameMannager : Singleton<GameMannager>
     {
         _TSM.StartGame();
         yield return new WaitForEndOfFrame();
-        _SETM.LoadSettings();
+        //_SETM.LoadSettings();
     }
 }
 

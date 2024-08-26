@@ -47,7 +47,7 @@ public class FarmMannager : GameBehaviour
 
     private void Start()
     {
-        Invoke( "LoadHybrids" , 0.1f);
+        //Invoke( "LoadHybrids" , 0.1f);
     }
 
     private void OnDisable()
@@ -164,7 +164,7 @@ public class FarmMannager : GameBehaviour
     private void DespawnHybrids()
     {
         int Index = 0;
-        ClearSaveLists();
+        //ClearSaveLists();
 
         foreach (FarmHybridData _farmHybridData in hybridInFarm)
         {
