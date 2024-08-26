@@ -40,7 +40,7 @@ public class CropFarmingMannager : GameBehaviour
     private void OnEnable()
     {
         GameEvents.OnTempMorningEvent += GameEvents_OnTempMorningEvent;
-        //loadPlants();
+        loadPlants();
     }
 
     private void OnDisable()

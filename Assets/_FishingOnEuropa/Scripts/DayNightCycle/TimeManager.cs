@@ -33,6 +33,7 @@ public class TimeManager : Singleton<TimeManager>
         //Save data here
 
 
+        //Commented out while testing
         CurrentTime lastSavedCurrentTime = new();
         lastSavedCurrentTime = GetDataFromSaveManager(currentTimeSO);
         LoadTimeFromSave(lastSavedCurrentTime);
