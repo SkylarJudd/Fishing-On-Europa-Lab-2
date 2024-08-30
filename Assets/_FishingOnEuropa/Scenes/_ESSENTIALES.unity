@@ -1346,6 +1346,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: DayNightCycle
       objectReference: {fileID: 0}
+    - target: {fileID: 2773840998112354868, guid: 232f1d264d2e2d64eace14da916e0cda,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2816283829701024691, guid: 232f1d264d2e2d64eace14da916e0cda,
         type: 3}
       propertyPath: m_Depth
@@ -25199,7 +25204,7 @@ MonoBehaviour:
   m_RenderShadows: 1
   m_RequiresDepthTextureOption: 2
   m_RequiresOpaqueTextureOption: 2
-  m_CameraType: 1
+  m_CameraType: 0
   m_Cameras: []
   m_RendererIndex: -1
   m_VolumeLayerMask:
@@ -25888,7 +25893,7 @@ PrefabInstance:
     - target: {fileID: 436246832402947929, guid: 9db85b5b653474543b467fb5ce249199,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 579037150696839632, guid: 9db85b5b653474543b467fb5ce249199,
         type: 3}
