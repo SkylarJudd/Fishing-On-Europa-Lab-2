@@ -2652,9 +2652,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   IgnoreScenes: 02000000
-  currentEnviromentScene: 0
+  currentEnviromentScene: 4
   defaultTransform: {fileID: 0}
   debug: 1
+  starterScene: 4
 --- !u!1001 &950231093
 PrefabInstance:
   m_ObjectHideFlags: 0
