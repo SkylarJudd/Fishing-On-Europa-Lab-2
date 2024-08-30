@@ -33,7 +33,7 @@ public class TimeManager : Singleton<TimeManager>
         //Save data here
 
 
-        CurrentTimeSO lastSavedCurrentTime = new();
+        CurrentTime lastSavedCurrentTime = new();
         lastSavedCurrentTime = GetDataFromSaveManager(currentTimeSO);
         LoadTimeFromSave(lastSavedCurrentTime);
 
@@ -195,7 +195,7 @@ public class TimeManager : Singleton<TimeManager>
     /// Update CurrentTimeSO with last saved time
     /// </summary>
     /// <param name="_savedTime"></param>
-    private void LoadTimeFromSave(CurrentTimeSO _savedTime)
+    private void LoadTimeFromSave(CurrentTime _savedTime)
     {
         currentTimeSO.day = _savedTime.day;
         currentTimeSO.hour = _savedTime.hour;
@@ -227,7 +227,7 @@ public class TimeManager : Singleton<TimeManager>
     /// <param name="_currentTimeData"></param>
     /// <param name="_index"></param>
     /// <returns></returns>
-    private CurrentTimeSO GetDataFromSaveManager(CurrentTimeSO _currentTimeData)
+    private CurrentTime GetDataFromSaveManager(CurrentTime _currentTimeData)
     {
         _currentTimeData.day = _TSM.currentSave.Days;
         _currentTimeData.hour = _TSM.currentSave.Hours;
@@ -240,7 +240,7 @@ public class TimeManager : Singleton<TimeManager>
     /// Save current time to save file
     /// </summary>
     /// <param name="_currentTime"></param>
-    private void AddTimeToSave(CurrentTimeSO _currentTime)
+    private void AddTimeToSave(CurrentTime _currentTime)
     {
         _TSM.currentSave.Days = _currentTime.day;
         _TSM.currentSave.Hours = _currentTime.hour;
