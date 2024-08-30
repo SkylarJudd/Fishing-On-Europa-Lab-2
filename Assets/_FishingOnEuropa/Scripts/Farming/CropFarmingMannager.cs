@@ -208,6 +208,9 @@ public class CropFarmingMannager : GameBehaviour
         _TSM.currentSave.growthStage.Clear();
         _TSM.currentSave.farmLocatedIn.Clear();
 
+        if (cropsPlanted == null)
+            return;
+
         for (int i = 0; i < cropsPlanted.Count; i++)
         {
             _TSM.currentSave.itemsInFarm.Add(cropsPlanted[i].ItemID);

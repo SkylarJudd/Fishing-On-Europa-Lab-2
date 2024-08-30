@@ -4242,6 +4242,11 @@ PrefabInstance:
       propertyPath: playerHandReactionDistanceReset
       value: 1.5
       objectReference: {fileID: 0}
+    - target: {fileID: 5167755883121791319, guid: 21be8ba837fc08a4aa7b74103e715381,
+        type: 3}
+      propertyPath: _startSpawnAmout
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 5966201001171314599, guid: 21be8ba837fc08a4aa7b74103e715381,
         type: 3}
       propertyPath: m_Name
