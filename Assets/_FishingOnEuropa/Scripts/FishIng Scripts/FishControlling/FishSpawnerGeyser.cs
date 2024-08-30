@@ -40,7 +40,7 @@ public class FishSpawnerGeyser : GameBehaviour
         {
             HybridsToSpawn newEntry = new HybridsToSpawn();
             newEntry.spawnChance = fishToSpawn.FishToSpawnList[i].hybridSO.spawnChance;
-            newEntry.hybridGameObject = fishToSpawn.FishToSpawnList[i].europaItemSO.itemPrefab;
+            newEntry.hybridGameObject = fishToSpawn.FishToSpawnList[i].europaItemSO.worldObject.gameObject;
             newEntry.poolType = fishToSpawn.FishToSpawnList[i].hybridSO.hybridPoolType;
             total += fishToSpawn.FishToSpawnList[i].hybridSO.spawnChance;
             fishList.Add(newEntry);

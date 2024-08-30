@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "CurrentTime", menuName = "Europa/Time", order = 1)]
-public class CurrentTime : ScriptableObject
+public class CurrentTimeSO : ScriptableObject
 {
     [Header("Europian Time")]
     public int day = 0;

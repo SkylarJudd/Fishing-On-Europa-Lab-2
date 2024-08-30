@@ -115,7 +115,7 @@ public class SceneController : Singleton<SceneController>
         }
         else
         {
-            SwitchScene(scenes);
+            StartCoroutine(SwitchScene(scenes));
         }
     }
 
@@ -125,10 +125,15 @@ public class SceneController : Singleton<SceneController>
     /// <param name="_sceneName"></param>
     public void ChangeScene(Scenes _sceneName)
     {
-        Debug.LogWarning("Change Scenes Is deprecated, Use Start StartCoroutine(SwitchScene(Scenes.SceneNameEnum)");
-        SceneManager.UnloadSceneAsync(currentEnviromentScene.ToString());
-        SceneManager.LoadSceneAsync(_sceneName.ToString(), LoadSceneMode.Additive);
-        currentEnviromentScene = _sceneName;
+        if (_sceneName == Scenes._ERROR)
+        {
+            Debug.LogError($"Count not find {_sceneName} Check you're using the right name, or add the scene to the scene controller Enum and switch statment");
+            return;
+        }
+        else
+        {
+            StartCoroutine(SwitchScene(_sceneName));
+        }
     }
 
     /// <summary>

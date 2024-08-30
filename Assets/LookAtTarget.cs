@@ -8,7 +8,7 @@ public class LookAtTarget : MonoBehaviour
     [SerializeField] private bool useYAxis = true;
     [SerializeField] private bool useZAxis = true;
 
-    void Update()
+    void LateUpdate()
     {
         if (target != null)
         {
@@ -25,4 +25,6 @@ public class LookAtTarget : MonoBehaviour
             }
         }
     }
+
+    
 }

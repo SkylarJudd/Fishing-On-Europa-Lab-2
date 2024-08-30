@@ -24,7 +24,7 @@ public class TimeManager : Singleton<TimeManager>
     [SerializeField] TextMeshProUGUI timeText;
     [SerializeField] TextMeshProUGUI dayText;
     [SerializeField] TimeSettings timeSettings;
-    [SerializeField] CurrentTime currentTimeSO;
+    [SerializeField] CurrentTimeSO currentTimeSO;
     TimeService service;
 
 
@@ -33,8 +33,8 @@ public class TimeManager : Singleton<TimeManager>
         //Save data here
 
 
-        //Commented out while testing
-        CurrentTime lastSavedCurrentTime = new();
+
+        CurrentTimeSO lastSavedCurrentTime = new();
         lastSavedCurrentTime = GetDataFromSaveManager(currentTimeSO);
         LoadTimeFromSave(lastSavedCurrentTime);
 
@@ -158,13 +158,21 @@ public class TimeManager : Singleton<TimeManager>
     /// </summary>
     void RotateSun()
     {
+        // Calculate y-axis rotation based on the current hour
         float rotation = currentTimeSO.hour * 4.8f;
 
-        //increase rotation by 4.8 every in game hour
-        if (rotation >= 360) rotation = 0;
+        // Reset rotation if it exceeds 360 degrees
+        if (rotation >= 360) rotation -= 360;
 
-        sun.transform.rotation = Quaternion.Lerp(sun.transform.rotation, Quaternion.AngleAxis(rotation, Vector3.right),1 * Time.deltaTime);
+        // Calculate the x-axis rotation based on the y-axis rotation
+        // Use Mathf.Sin to smoothly transition between -10 and +10 as y moves from 0 to 360
+        float xRotation = Mathf.Sin(rotation * Mathf.Deg2Rad) * 10;
 
+        // Set the target rotation with the calculated x and y rotation
+        Quaternion targetRotation = Quaternion.Euler(xRotation, rotation, 0);
+
+        // Smoothly transition to the target rotation
+        sun.transform.rotation = Quaternion.Lerp(sun.transform.rotation, targetRotation, 1 * Time.deltaTime);
     }
 
     /// <summary>
@@ -188,7 +196,7 @@ public class TimeManager : Singleton<TimeManager>
     /// Update CurrentTimeSO with last saved time
     /// </summary>
     /// <param name="_savedTime"></param>
-    private void LoadTimeFromSave(CurrentTime _savedTime)
+    private void LoadTimeFromSave(CurrentTimeSO _savedTime)
     {
         currentTimeSO.day = _savedTime.day;
         currentTimeSO.hour = _savedTime.hour;
@@ -220,7 +228,7 @@ public class TimeManager : Singleton<TimeManager>
     /// <param name="_currentTimeData"></param>
     /// <param name="_index"></param>
     /// <returns></returns>
-    private CurrentTime GetDataFromSaveManager(CurrentTime _currentTimeData)
+    private CurrentTimeSO GetDataFromSaveManager(CurrentTimeSO _currentTimeData)
     {
         _currentTimeData.day = _TSM.currentSave.Days;
         _currentTimeData.hour = _TSM.currentSave.Hours;
@@ -233,7 +241,7 @@ public class TimeManager : Singleton<TimeManager>
     /// Save current time to save file
     /// </summary>
     /// <param name="_currentTime"></param>
-    private void AddTimeToSave(CurrentTime _currentTime)
+    private void AddTimeToSave(CurrentTimeSO _currentTime)
     {
         _TSM.currentSave.Days = _currentTime.day;
         _TSM.currentSave.Hours = _currentTime.hour;

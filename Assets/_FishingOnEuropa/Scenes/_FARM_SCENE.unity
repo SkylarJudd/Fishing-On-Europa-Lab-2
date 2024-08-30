@@ -4214,6 +4214,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1353610535653204931, guid: 21be8ba837fc08a4aa7b74103e715381,
         type: 3}
+      propertyPath: alignmentFactor
+      value: 0.41
+      objectReference: {fileID: 0}
+    - target: {fileID: 1353610535653204931, guid: 21be8ba837fc08a4aa7b74103e715381,
+        type: 3}
       propertyPath: playerReactionDistance
       value: 2
       objectReference: {fileID: 0}
