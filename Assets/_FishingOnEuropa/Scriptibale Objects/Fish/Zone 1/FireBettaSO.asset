@@ -18,7 +18,7 @@ MonoBehaviour:
   spawnChance: 8
   inWorldVisuals: {fileID: 0}
   damageToRod: 0
-  catchChance: 0
+  catchChance: 8
   fishSpeed: 0
   rotationSpeed: 0
   foodEaten: 

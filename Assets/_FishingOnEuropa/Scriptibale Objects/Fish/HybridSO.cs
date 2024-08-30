@@ -19,6 +19,7 @@ public class HybridSO : ScriptableObject
     [Header("Fishing MiniGame")]
     public float damageToRod;
     public int catchChance;
+    public int restMinTime, restMaxTime;
      
     [Header("Hybrid AI")]
     public float fishSpeed;

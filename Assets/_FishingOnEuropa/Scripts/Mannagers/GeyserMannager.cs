@@ -50,7 +50,7 @@ public class GeyserMannager : MonoBehaviour
         {
             _spawnCooldown = UnityEngine.Random.Range(0.1f, 0.5f);
             yield return new WaitForSeconds(_spawnCooldown);
-            print($"Spawn Amout = {_startSpawnAmout} i = {i}");
+            //print($"Spawn Amout = {_startSpawnAmout} i = {i}");
             SpawnAHybrid();
         }
     }
