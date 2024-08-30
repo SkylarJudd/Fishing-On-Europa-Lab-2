@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 249582693}
-  m_IndirectSpecularColor: {r: 0.07613008, g: 0.046928115, b: 0.03984009, a: 1}
+  m_IndirectSpecularColor: {r: 0.07637861, g: 0.046455365, b: 0.03950575, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1349,7 +1349,7 @@ PrefabInstance:
     - target: {fileID: 2773840998112354868, guid: 232f1d264d2e2d64eace14da916e0cda,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2816283829701024691, guid: 232f1d264d2e2d64eace14da916e0cda,
         type: 3}
@@ -1399,6 +1399,11 @@ PrefabInstance:
     - target: {fileID: 3802271532656692908, guid: 232f1d264d2e2d64eace14da916e0cda,
         type: 3}
       propertyPath: m_Cameras.Array.data[0]
+      value: 
+      objectReference: {fileID: 1234190542}
+    - target: {fileID: 3802271532656692908, guid: 232f1d264d2e2d64eace14da916e0cda,
+        type: 3}
+      propertyPath: m_Cameras.Array.data[1]
       value: 
       objectReference: {fileID: 1234190542}
     - target: {fileID: 3802271532656692908, guid: 232f1d264d2e2d64eace14da916e0cda,
@@ -1836,7 +1841,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &414810697
 Transform:
   m_ObjectHideFlags: 0
@@ -22194,7 +22199,7 @@ PrefabInstance:
     - target: {fileID: 7668830299185360540, guid: f13bbbc9578242a44953eec81cfb27d4,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.742
       objectReference: {fileID: 0}
     - target: {fileID: 7668830299185360540, guid: f13bbbc9578242a44953eec81cfb27d4,
         type: 3}
@@ -25205,7 +25210,7 @@ MonoBehaviour:
   m_RenderShadows: 1
   m_RequiresDepthTextureOption: 2
   m_RequiresOpaqueTextureOption: 2
-  m_CameraType: 0
+  m_CameraType: 1
   m_Cameras: []
   m_RendererIndex: -1
   m_VolumeLayerMask:
