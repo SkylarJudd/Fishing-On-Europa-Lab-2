@@ -25,11 +25,7 @@ public class FishSpawnerGeyser : GameBehaviour
         public GameObject hybridGameObject;
     }
 
-
-    [SerializeField] FishNavigationManager fishNavigationManager;
     [SerializeField] GeyserMannager geyserMannager;
-
-
 
     private void Start()
     {
@@ -67,10 +63,10 @@ public class FishSpawnerGeyser : GameBehaviour
         Quaternion lookRotation = Quaternion.LookRotation(direction);
 
         //Debug.Log($"Spawning {hybridToSpawn.hybridGameObject.name} at {spawnPos.position} looking towards {targetPos.position} with rotation {lookRotation.eulerAngles}");
-        GameObject hybridFromManager = ObjectPoolManager._OPM.spawnObject(hybridToSpawn.hybridGameObject, spawnPos.transform.position, lookRotation, hybridToSpawn.poolType);
+        GameObject hybridFromManager = _OPM.spawnObject(hybridToSpawn.hybridGameObject, spawnPos.transform.position, lookRotation, hybridToSpawn.poolType);
         //Debug.Log($"Spawned object {hybridFromManager.name} with rotation {hybridFromManager.transform.rotation.eulerAngles}");
 
-        fishNavigationManager.addHybridToPondList(hybridFromManager, HybridState.HybridFlying);
+        _FNAVM.addHybridToPondList(hybridFromManager, HybridState.HybridFlying, geyserMannager.waterHight.position.y, geyserMannager.pondType);
 
         MoveToTarget(hybridFromManager, GetRandomPositionAround( targetPos));
 
