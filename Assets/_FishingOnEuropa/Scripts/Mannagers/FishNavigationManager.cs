@@ -199,7 +199,7 @@ public class FishNavigationManager : GameBehaviour
                             distanceToRightHand = Vector3.Distance(_Hybrid.hybridGameObject.transform.position, _PLAYER.rightHand.transform.position);
                             distanceToLeftHand = Vector3.Distance(_Hybrid.hybridGameObject.transform.position, _PLAYER.leftHand.transform.position);
                         }
-                            
+
 
                         if (_PLAYER.hasItem == true && (_PLAYER.rightHandFood != null || _PLAYER.leftHandFood != null))
                         {
@@ -251,7 +251,7 @@ public class FishNavigationManager : GameBehaviour
                         }
                         else if (_PLAYER.hasItem == false && (distanceToRightHand < playerHandReactionDistance || distanceToLeftHand < playerHandReactionDistance))
                         {
-                            
+
                             // Compare distances and set the target to the closer hand
                             if (distanceToRightHand < distanceToLeftHand)
                             {
@@ -267,7 +267,7 @@ public class FishNavigationManager : GameBehaviour
                         }
                         else
                         {
-                            
+
                             _Hybrid.HybridState = HybridState.HybridWatchPlayer;
                         }
                     }
@@ -309,15 +309,15 @@ public class FishNavigationManager : GameBehaviour
                 removeHybridsIdel.Clear();
             }
             yield return new WaitForFixedUpdate();
-        } 
+        }
     }
 
 
-/// <summary>
-/// loops though the list of Flying Hybrids and updates their rigid body values and check when they hit the water. 
-/// </summary>
-/// <returns></returns>
-private IEnumerator UpdateHybridFlying()
+    /// <summary>
+    /// loops though the list of Flying Hybrids and updates their rigid body values and check when they hit the water. 
+    /// </summary>
+    /// <returns></returns>
+    private IEnumerator UpdateHybridFlying()
     {
         while (true)
         {
@@ -371,7 +371,7 @@ private IEnumerator UpdateHybridFlying()
         {
             if (hybridsHitWater.Count > 0)
             {
-                
+
 
                 for (int i = hybridsHitWater.Count - 1; i >= 0; i--)
                 {
@@ -667,7 +667,7 @@ private IEnumerator UpdateHybridFlying()
 
     private IEnumerator UpdateHybridReact()
     {
-         while (true)
+        while (true)
         {
             if (hybridReactToPlayer.Count > 0)
             {
@@ -676,12 +676,12 @@ private IEnumerator UpdateHybridFlying()
                 for (int i = hybridReactToPlayer.Count - 1; i >= 0; i--)
                 {
                     hybridNavData _hybridd = hybridReactToPlayer[i];
-                    if(_hybridd.HybridState == HybridState.HybridAvoidingWall)
+                    if (_hybridd.HybridState == HybridState.HybridAvoidingWall)
                     {
                         _hybridd.HybridState = HybridState.HybridWatchPlayer;
                     }
 
-                    switch ( _hybridd.HybridState )
+                    switch (_hybridd.HybridState)
                     {
                         case HybridState.HybridWatchPlayer:
                             // Rotate the Hybrid toward the Player
@@ -703,7 +703,7 @@ private IEnumerator UpdateHybridFlying()
 
                             transform.position = Vector3.Lerp(_hybridd.hybridGameObject.transform.position, targetPosition, Time.deltaTime * _hybridd.maxSpeed);
                             break;
-                         case HybridState.HybridLookAtHand:
+                        case HybridState.HybridLookAtHand:
                             // Rotate the Hybrid toward the Player
                             Quaternion targetRotation3 = Quaternion.LookRotation((_hybridd.itemTarget.transform.position - _hybridd.hybridGameObject.transform.position).normalized);
                             _hybridd.hybridGameObject.transform.rotation = Quaternion.Lerp(_hybridd.hybridGameObject.transform.rotation, targetRotation3, _hybridd.rotationSpeed * Time.deltaTime);
@@ -749,7 +749,7 @@ private IEnumerator UpdateHybridFlying()
                         break;
                 }
                 if (_RemoveFromPond)
-                removeHybridsInPond.Add(_hybrid);
+                    removeHybridsInPond.Add(_hybrid);
             }
         }
     }
@@ -757,18 +757,56 @@ private IEnumerator UpdateHybridFlying()
     public void OnPickUp(FOEItem_Hybrid _hybridInfo)
     {
         _hybridInfo.SetVisuals(HybridVisualsState.Bubble);
-        removeHybrid(_hybridInfo.gameObject , true);
+        removeHybrid(_hybridInfo.gameObject, true);
     }
 
     public void OnDrop(FOEItem_Hybrid _hybridInfo)
     {
         _hybridInfo.SetVisuals(HybridVisualsState.World);
-        addHybridToPondList(_hybridInfo.europaItemSO.worldObject.gameObject , HybridState.HybridFlying);
+        addHybridToPondList(_hybridInfo.europaItemSO.worldObject.gameObject, HybridState.HybridFlying);
     }
 
     public void RemoveAllHybrids()
     {
 
+    }
+
+    /// <summary>
+    /// update the hybrid state Using a gameObject
+    /// </summary>
+    /// <param name="_hybridGO"></param>
+    /// <param name="_HybridState"></param>
+    public void UpdateHybridState(GameObject _hybridGO, HybridState _HybridState)
+    {
+        hybridNavData _hybrid = GetHybridFromGO(_hybridGO);
+        _hybrid.HybridState = _HybridState;
+    }
+
+    /// <summary>
+    /// Update the Hybrid State Using the HybridNavData
+    /// </summary>
+    /// <param name="_hybridGO"></param>
+    /// <param name="_HybridState"></param>
+    public void UpdateHybridState(hybridNavData _hybridGO, HybridState _HybridState)
+    {
+        _hybridGO.HybridState = _HybridState;
+    }
+
+    /// <summary>
+    /// HelperFuction to find a hybrid NavData Using a GameObject
+    /// </summary>
+    /// <param name="go"></param>
+    /// <returns></returns>
+    private hybridNavData GetHybridFromGO(GameObject go)
+    {
+        foreach (hybridNavData _hybrid in hybridsInPond)
+        {
+            if (_hybrid.hybridGameObject == go)
+            {
+                return _hybrid;
+            }
+        }
+        return null;
     }
 
 }
