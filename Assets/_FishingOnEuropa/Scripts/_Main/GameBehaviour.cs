@@ -12,6 +12,7 @@ public class GameBehaviour : MonoBehaviour
     protected static SceneController _SC { get { return SceneController.instance; } }
     protected static PlayerControllerSingletonLink _PLAYER { get { return PlayerControllerSingletonLink.instance; } }
     protected static SettingsMannager _SETM { get { return SettingsMannager.instance; } }
+    protected static FishingMiniGameManager _FMGM { get { return FishingMiniGameManager.instance; } }
 
 
     public Transform getClosestEnermy(Transform _origin, List<GameObject> _objects)

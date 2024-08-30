@@ -15,10 +15,10 @@ MonoBehaviour:
   hybridPoolType: 0
   rarity: 0
   spawnLocation: 0
-  spawnChance: 59
+  spawnChance: 0
   inWorldVisuals: {fileID: 0}
   damageToRod: 0
-  catchChance: 0
+  catchChance: 59
   fishSpeed: 0
   rotationSpeed: 0
   foodEaten: 

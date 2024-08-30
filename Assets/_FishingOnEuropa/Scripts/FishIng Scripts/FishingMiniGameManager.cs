@@ -9,7 +9,7 @@ public class FishingMiniGameManager : Singleton<FishingMiniGameManager>
     [Header("Bobber")]
     [SerializeField] float bobberRange = 3; //detection range of nearby hybrids when cast
     [SerializeField] float minBobberReelDistance; //how close the bobber needs to be before reeling is complete
-    [SerializeField] GameObject bobberGameObject;
+    public GameObject bobberGameObject;
 
     public enum BobberState { Withdrawn, Cast, AttachedFish }
     public BobberState bobberState;
@@ -18,18 +18,18 @@ public class FishingMiniGameManager : Singleton<FishingMiniGameManager>
     GameObject targetHybrid; //hybrid used for fishing encounter
     HybridSO targetHybridSO;
     [SerializeField] LayerMask fishMask;
+    public Collider[] nearbyHybrids;
 
     [Header("Handle")]
     [SerializeField] float handleVelocity; //speed fishing rod handle is moving
     [SerializeField] float minPullAngle; //min rod angle to count as pulling in corrrect direction
+    Rigidbody rb_reelHandle;
 
 
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    //[Header("Fish Encounter")]
+    public enum FishEncounterState { None, Resting, Fighting, Caught}
+    public FishEncounterState fishEncounterState;
+    float hybridRestTime;
 
     // Update is called once per frame
     void Update()
@@ -42,25 +42,80 @@ public class FishingMiniGameManager : Singleton<FishingMiniGameManager>
                 if(targetHybrid == null)
                 {
                     //Get nearby hybrids
-                    var nearbyHybrids = Physics.OverlapSphere(bobberGameObject.transform.position, bobberRange, fishMask);
+                    nearbyHybrids = Physics.OverlapSphere(bobberGameObject.transform.position, bobberRange, fishMask);
 
                     if (nearbyHybrids.Length >= 5)
                     {
                         //Determine 5 closest hybrids
                         nearbyHybrids = ReturnClosestHybrids(nearbyHybrids, 5);
 
+                    }
 
+                    //CHANGE INPUT HERE
+                    if(Input.GetKey(KeyCode.Space))
+                    {
+                        targetHybrid = CalculateHybridWithHighestCatchChance(nearbyHybrids);
+
+                        targetHybridSO = targetHybrid.GetComponent<HybridInfo>().hybridInfo;
+                        //change fish state here
+
+                        print(targetHybrid.name);
                     }
                 }
                 
 
                 break;
             case BobberState.AttachedFish:
+
+                switch(fishEncounterState)
+                {
+                    case FishEncounterState.Resting:
+
+                        hybridRestTime -= Time.deltaTime;
+
+                        if(hybridRestTime <= 0.0f)
+                        {
+                            //rest time is over
+
+                        }
+                        else
+                        {
+                            //if handle is moving. Handle should be clamped to only move in circular motion
+                            if(rb_reelHandle.velocity.magnitude > 0)
+                            {
+                                //dont know how Skylar will do reeling so cand do this 
+                            }
+                        }
+
+                        break;
+                }
+
+
                 break;
         }
 
 
     }
+
+
+    /// <summary>
+    /// Set rest period time and change fishEncounterState
+    /// </summary>
+    void BeginRestingPeriod()
+    {
+        hybridRestTime = Random.Range(targetHybridSO.restMinTime, targetHybridSO.restMaxTime);
+        fishEncounterState = FishEncounterState.Resting;
+
+    }
+
+    /// <summary>
+    /// Reset variables to null or default to prepare for next catch
+    /// </summary>
+    void ResetVariables()
+    {
+        hybridRestTime = 0;
+    }
+
     /// <summary>
     /// Return a given amount of hybrids which are closest to the bobber
     /// </summary>
@@ -119,29 +174,64 @@ public class FishingMiniGameManager : Singleton<FishingMiniGameManager>
 
     }
 
-    //GameObject CalculateHybridWithHighestCatchChance(Collider[] _hybridColliderArray)
-    //{
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="_hybridColliderArray"></param>
+    /// <returns></returns>
+    GameObject CalculateHybridWithHighestCatchChance(Collider[] _hybridColliderArray)
+    {
 
-    //    //get all hybrid catch chances
-    //    List<int> hybridCatchChances = new();
+        //get all hybrid catch chances
+        List<float> hybridCatchChances = new();
 
-    //    //percentage to spawn in this group
-    //    List<int> hybridCatchChancePercentage = new();
+        //percentage to spawn in this group
+        List<float> hybridCatchChancePercentage = new();
 
-    //    //total of all catch chances
-    //    int catchChanceTotal = 0;
+        //number generation list
+        List<int> generateNumber100List = new();
+
+        //total of all catch chances
+        int catchChanceTotal = 0;
 
 
-    //    foreach (var hybrid in _hybridColliderArray)
-    //    {
-    //        hybridCatchChances.Add(hybrid.GetComponent<HybridInfo>().hybridInfo.catchChance);
-    //        catchChanceTotal += hybrid.GetComponent<HybridInfo>().hybridInfo.catchChance;
-    //    }
+        foreach (var hybrid in _hybridColliderArray)
+        {
+            hybridCatchChances.Add(hybrid.GetComponent<HybridInfo>().hybridInfo.catchChance);
+            //print("hybrid catch chance is " + hybrid.GetComponent<HybridInfo>().hybridInfo.catchChance);
+            catchChanceTotal += hybrid.GetComponent<HybridInfo>().hybridInfo.catchChance;
+        }
 
-    //    //calculate percentage
-    //    foreach (var item in collection)
-    //    {
+        //calculate percentage
+        foreach (var catchChance in hybridCatchChances)
+        {
+            float result = catchChance / catchChanceTotal;
+            print(result);
+            result = result * 100;
+            hybridCatchChancePercentage.Add(Mathf.RoundToInt(result));
 
-    //    }
-    //}
+        }
+
+        for (int i = 0; i < hybridCatchChances.Count; i++)
+        {
+            //add hybridCatchChance number to generateNumber100List hybridCatchChancePercentage amount of times
+            for (int j = 0; j < hybridCatchChancePercentage[i]; j++)
+            {
+                generateNumber100List.Add((int)hybridCatchChances[i]);
+            }
+        }
+
+        //generate number
+        int hybridCatchChanceChosen = generateNumber100List[Random.Range(0, generateNumber100List.Count)];
+
+        GameObject chosenHybrid = _hybridColliderArray[hybridCatchChances.IndexOf(hybridCatchChanceChosen)].gameObject;
+
+        return chosenHybrid;
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(bobberGameObject.transform.position, bobberRange);
+    }
 }

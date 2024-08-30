@@ -256,7 +256,7 @@ PrefabInstance:
         type: 3}
       propertyPath: hybridInfo
       value: 
-      objectReference: {fileID: 11400000, guid: 11b9830542c4d264fbbee450aa971683,
+      objectReference: {fileID: 11400000, guid: ca195c68283d4cc4f9bc0275c9e18a7d,
         type: 2}
     - target: {fileID: 9196630054490211768, guid: cf5949429d9f4124dacf18057d9c903c,
         type: 3}
@@ -285,8 +285,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 5479858474548457253, guid: cf5949429d9f4124dacf18057d9c903c, type: 3}
-    - {fileID: 7475558278636915969, guid: cf5949429d9f4124dacf18057d9c903c, type: 3}
-    - {fileID: 9196630054490211768, guid: cf5949429d9f4124dacf18057d9c903c, type: 3}
     - {fileID: -3047688088263603448, guid: cf5949429d9f4124dacf18057d9c903c, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects:

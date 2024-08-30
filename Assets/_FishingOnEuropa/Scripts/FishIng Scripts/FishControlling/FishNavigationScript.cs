@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FishNavigationScript : MonoBehaviour
+public class FishNavigationScript : GameBehaviour
 {
     //from old FishingMiniGameManager script
     public enum FishStates
@@ -89,8 +89,11 @@ public class FishNavigationScript : MonoBehaviour
                 break;
 
             case FishStates.FishMoveToLure:
-                //Catch();
+                AttachToLure();
                 break;
+
+
+
 
             case FishStates.FishTiredPull:
                 LineAttach();
@@ -215,6 +218,41 @@ public class FishNavigationScript : MonoBehaviour
         }
     }
 
+    void AttachToLure()
+    {
+
+        Vector3 directionToTarget = _FMGM.bobberGameObject.transform.position - transform.position;
+        float yOffset = 0.5f;
+        directionToTarget = new Vector3(directionToTarget.x, directionToTarget.y - yOffset, directionToTarget.z);
+
+        // Rotate towards the target
+        Quaternion targetRotation = Quaternion.LookRotation(directionToTarget);
+        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * rotationSpeed);
+
+        // Move towards the target
+        Vector3 targetPosition = _FMGM.bobberGameObject.transform.position;
+
+        if (targetPosition.y > waterLevel)
+        {
+            targetPosition.y = waterLevel;
+        }
+
+        transform.position = Vector3.Lerp(transform.position, new Vector3(targetPosition.x, targetPosition.y - yOffset, targetPosition.z), Time.deltaTime * (speed * 2));
+
+        // Check if the object has reached the target position
+        float distanceToTarget = Vector3.Distance(transform.position, targetPosition);
+        float threshold = 1f; // Adjust the threshold as needed
+
+        if (distanceToTarget < threshold && arrived == false)
+        {
+
+            arrived = true;
+
+            //change bobber state
+            _FMGM.bobberState = FishingMiniGameManager.BobberState.AttachedFish;
+
+        }
+    }
 
     //void Catch()
     //{
