@@ -1,11 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static FishNavigationManager;
 
 public class FishingMiniGameManager : Singleton<FishingMiniGameManager>
 {
- 
-
     [Header("Bobber")]
     [SerializeField] float bobberRange = 3; //detection range of nearby hybrids when cast
     [SerializeField] float minBobberReelDistance; //how close the bobber needs to be before reeling is complete
@@ -17,6 +16,7 @@ public class FishingMiniGameManager : Singleton<FishingMiniGameManager>
     [Header("Hybrids")]
     GameObject targetHybrid; //hybrid used for fishing encounter
     HybridSO targetHybridSO;
+    hybridNavData targetHybridNavData;
     [SerializeField] LayerMask fishMask;
     public Collider[] nearbyHybrids;
 
@@ -51,13 +51,15 @@ public class FishingMiniGameManager : Singleton<FishingMiniGameManager>
 
                     }
 
-                    //CHANGE INPUT HERE
+                    //CHANGE INPUT HERE - commit to catching fish (or pull rod)
                     if(Input.GetKey(KeyCode.Space))
                     {
                         targetHybrid = CalculateHybridWithHighestCatchChance(nearbyHybrids);
 
                         targetHybridSO = targetHybrid.GetComponent<HybridInfo>().hybridInfo;
                         //change fish state here
+
+                        targetHybridNavData = _FNAVM.UpdateHybridState(targetHybrid, HybridState.)
 
                         print(targetHybrid.name);
                     }
@@ -92,6 +94,13 @@ public class FishingMiniGameManager : Singleton<FishingMiniGameManager>
 
 
                 break;
+
+                /*  1. make sure updteMiniGame is called in start
+                 *  2. set _FNAVM.caughtHyrbid = targetHybridNavData
+                 *  3. to change fish state _FNVAM.caughtHybrid.hybrid state > update that state
+                 *  4. caught fish movement for fish encounter is in _FNAVM.UpdateMiniGame
+                 */
+
         }
 
 

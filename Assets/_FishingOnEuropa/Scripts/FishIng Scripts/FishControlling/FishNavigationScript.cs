@@ -43,7 +43,8 @@ public class FishNavigationScript : GameBehaviour
 
     public bool fishCatchable = false;
     [SerializeField] FishStates fishBehaviorState;
-
+    [SerializeField] HybridState hybridState;
+    
 
     public Transform closestLand;
 
@@ -78,32 +79,32 @@ public class FishNavigationScript : GameBehaviour
     // Update is called once per frame
     private void LateUpdate()
     {
-        switch (fishBehaviorState)
+        switch (hybridState)
         {
-            case FishStates.FishIdle:
+            case HybridState.HybridIdle:
                 
                 break;
 
-            case FishStates.FishFlocking:
+            case HybridState.HybridFlocking:
                 Swim();
                 break;
 
-            case FishStates.FishMoveToLure:
+            case HybridState.HybridSwimToLure:
                 AttachToLure();
                 break;
 
 
 
 
-            case FishStates.FishTiredPull:
+            case HybridState.HybridMiniGame_Tired:
                 LineAttach();
                 break;
 
-            case FishStates.FishPullingFight:
+            case HybridState.HybridMiniGame_Pulling:
                 FishPulling();
                 break;
 
-            case FishStates.FishCaught:
+            case HybridState.HybridMiniGame_Caught:
                 FishCaught();
                 break;
         }

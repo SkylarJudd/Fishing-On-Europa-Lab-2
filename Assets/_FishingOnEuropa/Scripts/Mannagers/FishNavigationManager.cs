@@ -5,15 +5,18 @@ using UnityEngine;
 
 public enum HybridState
 {
-    HybridIdel,
+    HybridIdle,
     HybridFlying,
     HybridHitWater,
     HybridFlocking,
     HybridAvoidingWall,
+
     HybridSwimToLure,
     HybridWaitForMiniGame,
     HybridMiniGame_Pulling,
     HybridMiniGame_Tired,
+    HybridMiniGame_Caught,
+
     HybridOnLand_Sitting,
     HybridOnLand_Walking,
     HybridSwimToItem,
@@ -32,20 +35,27 @@ public class FishNavigationManager : Singleton<FishNavigationManager>
 
     #region Hybrid Nav Lists
     [Header("Hybrids Doing Diffrent Tasks")] // Lists for each of the hybrids doing diffrent things so we dont have to loop over them all. 
+    
     [Tooltip("a list that contains all the hybrids that are Idel.")]
     [SerializeField] List<hybridNavData> hybridsIdel = new List<hybridNavData>();
+    
     [Tooltip("a list that contains all the hybrids that are Flying.")]
     [SerializeField] List<hybridNavData> hybridsFlying = new List<hybridNavData>();
+    
     [Tooltip("a list that contains all the hybrids that are Hitting the water.")]
     [SerializeField] List<hybridNavData> hybridsHitWater = new List<hybridNavData>();
+    
     [Tooltip("a list that contains all the hybrids that are Swimming.")]
     [SerializeField] List<hybridNavData> hybridsSwimming = new List<hybridNavData>();
+    
     [Tooltip("a list that contains all the hybrids that are Swimming To the Lure or an item in the players hand.")]
     [SerializeField] List<hybridNavData> hybridSwimToPoint = new List<hybridNavData>();
+    
     [Tooltip("a list that contains all the hybrids that are reacting to the player.")]
     [SerializeField] List<hybridNavData> hybridReactToPlayer = new List<hybridNavData>();
+
     [Tooltip("Holds the info about he Hybrid that has Been Caught")]
-    [SerializeField] hybridNavData caughtHybrid;
+    public hybridNavData caughtHybrid;
     #endregion
 
     #region RemoveHybridLists
@@ -93,8 +103,10 @@ public class FishNavigationManager : Singleton<FishNavigationManager>
     [Serializable]
     public class hybridNavData
     {
-        [Header("Hybrid Info")]
+        [Header("Hybrid States")]
 
+
+        [Header("Hybrid Info")]
         public GameObject hybridGameObject;
         public Rigidbody hybridRigidbody;
         public PondType pondType;
@@ -116,7 +128,6 @@ public class FishNavigationManager : Singleton<FishNavigationManager>
         public bool firstNav;
 
         [Header("Hybrid Player Interact")]
-
         public float distanceToPlayer;
         public float distanceToLeftHand;
         public float distanceToRightHand;
@@ -316,7 +327,7 @@ public class FishNavigationManager : Singleton<FishNavigationManager>
         }
     }
 
-    private IEnumerator UpdateIdel()
+    private IEnumerator UpdateIdle()
     {
         while (true)
         {
@@ -386,6 +397,7 @@ public class FishNavigationManager : Singleton<FishNavigationManager>
             yield return new WaitForFixedUpdate();
         }
     }
+    
     /// <summary>
     /// Loops though the list of hybrids that have hit the water and updates their rigid bodies and corrects their rotation
     /// </summary>
@@ -634,7 +646,7 @@ public class FishNavigationManager : Singleton<FishNavigationManager>
                     if (distanceToTarget < threshold && _hybrid.arrivedAtLure == false)
                     {
                         //Debug.Log("Object has reached the target!");
-                        _hybrid.HybridState = HybridState.HybridIdel;
+                        _hybrid.HybridState = HybridState.HybridIdle;
                         _hybrid.arrivedAtLure = true;
                         hybridsIdel.Add(_hybrid);
                         removeHybridSwimToLure.Add(_hybrid);
@@ -757,7 +769,7 @@ public class FishNavigationManager : Singleton<FishNavigationManager>
             {
                 switch (_hybrid.HybridState)
                 {
-                    case HybridState.HybridIdel:
+                    case HybridState.HybridIdle:
                         removeHybridsIdel.Add(_hybrid);
                         break;
                     case HybridState.HybridFlying:
@@ -819,6 +831,7 @@ public class FishNavigationManager : Singleton<FishNavigationManager>
         _hybridGO.HybridState = _HybridState;
     }
 
+    //dont call, called updateHybridState
     /// <summary>
     /// HelperFuction to find a hybrid NavData Using a GameObject
     /// </summary>
