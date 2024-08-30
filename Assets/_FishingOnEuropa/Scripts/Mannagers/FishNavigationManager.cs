@@ -26,7 +26,7 @@ public enum HybridState
 
 }
 
-public class FishNavigationManager : GameBehaviour
+public class FishNavigationManager : Singleton<FishNavigationManager>
 {
     [Header("All Hybrids In Pond")] // a list that contains all the hybrids that has been spawnned into this pond. 
     public List<hybridNavData> hybridsInPond = new List<hybridNavData>();
