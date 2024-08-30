@@ -45,7 +45,7 @@ public class FollowFish : MonoBehaviour
     public void UpdateLureFollowFish(bool doFollow)
     {
         follow = doFollow;
-        caughtFish = closestObjectsFinder.caughtFish;
+        //caughtFish = closestObjectsFinder.caughtFish; //REMOVED SINCE ClosestObjectsFinder IS BEING REMOVED
         fish = caughtFish.transform;
     }
 }

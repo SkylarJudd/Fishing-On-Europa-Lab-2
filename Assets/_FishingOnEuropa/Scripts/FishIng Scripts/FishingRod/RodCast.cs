@@ -82,11 +82,11 @@ public class RodCast : MonoBehaviour
        //print("Trigger Down");
         castprime = true;
 
-        if (casted == true && cloestObjectScript.fishCaught == true) 
-        {
-            resetScript.StartLerp();
-            //print("LerpCalled");
-        }
+        //if (casted == true && cloestObjectScript.fishCaught == true) 
+        //{
+        //    resetScript.StartLerp();
+        //    //print("LerpCalled");
+        //}
     }
 
     
@@ -122,7 +122,8 @@ public class RodCast : MonoBehaviour
         }
         else
         {
-            cloestObjectScript.FindClosestObjects();
+            //cloestObjectScript.FindClosestObjects(); //REMOVED SINCE ClosestObjectsFinder IS BEING REMOVED
+
             //print("Calling Find Closest objects after delay");
         }
 

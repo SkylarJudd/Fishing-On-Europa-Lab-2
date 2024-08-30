@@ -4,6 +4,20 @@ using UnityEngine;
 
 public class FishNavigationScript : MonoBehaviour
 {
+    //from old FishingMiniGameManager script
+    public enum FishStates
+    {
+        FishIdle,
+        FishFlocking,
+        FishMoveToLure,
+        FishTiredPull,
+        FishPullingFight,
+        FishCaught
+
+
+
+    }
+
     //public int fishBehaviorState; // 1 idel, 2 flock, 3 catch
     public float speed = 0.1f;
     [SerializeField] float rotationSpeed = 8.0f;
@@ -75,7 +89,7 @@ public class FishNavigationScript : MonoBehaviour
                 break;
 
             case FishStates.FishMoveToLure:
-                Catch();
+                //Catch();
                 break;
 
             case FishStates.FishTiredPull:
@@ -91,10 +105,10 @@ public class FishNavigationScript : MonoBehaviour
                 break;
         }
 
-        if (closestObjectFinder.fishCaught == true && canCatch.canCatch == true && closestObjectFinder.caughtFish == gameObject)
-        {
-            fishBehaviorState = FishStates.FishCaught;
-        }
+        //if (closestObjectFinder.fishCaught == true && canCatch.canCatch == true && closestObjectFinder.caughtFish == gameObject)
+        //{
+        //    fishBehaviorState = FishStates.FishCaught;
+        //}
 
     }
 
@@ -202,39 +216,39 @@ public class FishNavigationScript : MonoBehaviour
     }
 
 
-    void Catch()
-    {
-        Vector3 directionToTarget = Lure.transform.position - transform.position;
-        float yOffset = 0.5f;
-        directionToTarget = new Vector3(directionToTarget.x, directionToTarget.y - yOffset, directionToTarget.z);
+    //void Catch()
+    //{
+    //    Vector3 directionToTarget = Lure.transform.position - transform.position;
+    //    float yOffset = 0.5f;
+    //    directionToTarget = new Vector3(directionToTarget.x, directionToTarget.y - yOffset, directionToTarget.z);
 
-        // Rotate towards the target
-        Quaternion targetRotation = Quaternion.LookRotation(directionToTarget);
-        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * rotationSpeed);
+    //    // Rotate towards the target
+    //    Quaternion targetRotation = Quaternion.LookRotation(directionToTarget);
+    //    transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * rotationSpeed);
 
-        // Move towards the target
-        Vector3 targetPosition = Lure.transform.position;
+    //    // Move towards the target
+    //    Vector3 targetPosition = Lure.transform.position;
 
-        if (targetPosition.y > waterLevel)
-        {
-            targetPosition.y = waterLevel;
-        }
+    //    if (targetPosition.y > waterLevel)
+    //    {
+    //        targetPosition.y = waterLevel;
+    //    }
 
-        transform.position = Vector3.Lerp(transform.position, new Vector3(targetPosition.x, targetPosition.y - yOffset, targetPosition.z), Time.deltaTime * (speed * 2));
+    //    transform.position = Vector3.Lerp(transform.position, new Vector3(targetPosition.x, targetPosition.y - yOffset, targetPosition.z), Time.deltaTime * (speed * 2));
 
-        // Check if the object has reached the target position
-        float distanceToTarget = Vector3.Distance(transform.position, targetPosition);
-        float threshold = 1f; // Adjust the threshold as needed
+    //    // Check if the object has reached the target position
+    //    float distanceToTarget = Vector3.Distance(transform.position, targetPosition);
+    //    float threshold = 1f; // Adjust the threshold as needed
 
-        if (distanceToTarget < threshold && arrived == false)
-        {
+    //    if (distanceToTarget < threshold && arrived == false)
+    //    {
 
-            //Debug.Log("Object has reached the target!");
-            fishBehaviorState = FishStates.FishIdle;
-            arrived = true;
-            closestObjectFinder.ArrivedUpdate();
-        }
-    }
+    //        //Debug.Log("Object has reached the target!");
+    //        //fishBehaviorState = FishStates.FishIdle;
+    //        arrived = true;
+    //        closestObjectFinder.ArrivedUpdate();
+    //    }
+    //}
 
     public void ToggleToCatch(FishStates changeStateTo)
     {
@@ -323,7 +337,7 @@ public class FishNavigationScript : MonoBehaviour
             fishSpawnerScript.RemoveFishFromList(gameObject);
             findCloestLand();
             gameObject.transform.position = closestLand.position;
-            closestObjectFinder.FullFishReset();
+            //closestObjectFinder.FullFishReset(); //REMOVED SINCE ClosestObjectsFinder IS BEING REMOVED
             done = true;
             resetTimerActive = true;
         }
@@ -339,7 +353,7 @@ public class FishNavigationScript : MonoBehaviour
                 fishBehaviorState = FishStates.FishFlocking;
                 currentResetTime = 0;
                 fishSpawnerScript.AddFishToDespwnList(gameObject);
-                closestObjectFinder.RemoveFromFishCaughtList(gameObject);
+                //closestObjectFinder.RemoveFromFishCaughtList(gameObject); //REMOVED SINCE ClosestObjectsFinder IS BEING REMOVED
 
                 Vector3 currentPosition = transform.position;
 

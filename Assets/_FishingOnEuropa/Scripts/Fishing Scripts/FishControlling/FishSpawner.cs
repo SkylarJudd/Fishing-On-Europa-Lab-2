@@ -46,7 +46,7 @@ public class FishSpawner : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Time.time > nextSpawn && fishcaught.fishCaught == false) 
+        if (Time.time > nextSpawn) //&& fishcaught.fishCaught == false (REMOVED AS ClosestObjectsFinder IS BEING REMOVED)
         {
             SpawnFish();
             

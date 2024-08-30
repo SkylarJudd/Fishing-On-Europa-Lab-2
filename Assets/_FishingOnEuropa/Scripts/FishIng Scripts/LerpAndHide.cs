@@ -50,7 +50,7 @@ public class LerpAndHide : MonoBehaviour
        
         gameObject.SetActive(false);
         fishingLine.SetActive(false);
-        resetfishscript.FishReset();
+        //resetfishscript.FishReset(); //REMOVED SINCE ClosestObjectsFinder IS BEING REMOVED
 
         isMoving = false;
         rodCastScript.casted = false;
