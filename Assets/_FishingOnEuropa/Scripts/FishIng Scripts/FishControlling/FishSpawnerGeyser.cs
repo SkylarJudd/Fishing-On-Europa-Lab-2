@@ -66,7 +66,7 @@ public class FishSpawnerGeyser : GameBehaviour
         GameObject hybridFromManager = _OPM.spawnObject(hybridToSpawn.hybridGameObject, spawnPos.transform.position, lookRotation, hybridToSpawn.poolType);
         //Debug.Log($"Spawned object {hybridFromManager.name} with rotation {hybridFromManager.transform.rotation.eulerAngles}");
 
-        _FNAVM.addHybridToPondList(hybridFromManager, HybridState.HybridFlying, geyserMannager.waterHight.position.y, geyserMannager.pondType);
+        _FNAVM.addHybridToPondList(hybridFromManager, HybridState.HybridFlying, geyserMannager.waterHeight.position.y, geyserMannager.pondType);
 
         MoveToTarget(hybridFromManager, GetRandomPositionAround( targetPos));
 

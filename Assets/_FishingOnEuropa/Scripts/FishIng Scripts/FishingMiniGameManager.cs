@@ -14,6 +14,7 @@ public class FishingMiniGameManager : Singleton<FishingMiniGameManager>
     public BobberState bobberState;
 
     [Header("Hybrids")]
+    [SerializeField]
     GameObject targetHybrid; //hybrid used for fishing encounter
     HybridSO targetHybridSO;
     hybridNavData targetHybridNavData;
@@ -59,7 +60,14 @@ public class FishingMiniGameManager : Singleton<FishingMiniGameManager>
                         targetHybridSO = targetHybrid.GetComponent<HybridInfo>().hybridInfo;
                         //change fish state here
 
-                        targetHybridNavData = _FNAVM.UpdateHybridState(targetHybrid, HybridState.)
+                        //need to get parent / FOE Item
+                        targetHybrid = targetHybrid.GetComponentInParent<FOEItem_Hybrid>().gameObject;
+
+                        _FNAVM.UpdateHybridState(targetHybrid, HybridState.HybridMiniGame_SwimToLure);
+
+                        //remove from swim list and put in swimToPoint list
+                        _FNAVM.removeHybrid(targetHybrid, false);
+                        _FNAVM.AddHybridTolist(targetHybrid);
 
                         print(targetHybrid.name);
                     }

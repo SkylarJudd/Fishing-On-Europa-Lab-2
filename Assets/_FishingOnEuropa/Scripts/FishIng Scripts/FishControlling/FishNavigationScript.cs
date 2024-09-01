@@ -89,7 +89,8 @@ public class FishNavigationScript : GameBehaviour
                 Swim();
                 break;
 
-            case HybridState.HybridSwimToLure:
+            case HybridState.HybridMiniGame_SwimToLure:
+                print("Hybrid swim to lure");
                 AttachToLure();
                 break;
 

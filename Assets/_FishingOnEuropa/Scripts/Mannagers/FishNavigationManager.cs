@@ -11,7 +11,7 @@ public enum HybridState
     HybridFlocking,
     HybridAvoidingWall,
 
-    HybridSwimToLure,
+    HybridMiniGame_SwimToLure,
     HybridWaitForMiniGame,
     HybridMiniGame_Pulling,
     HybridMiniGame_Tired,
@@ -37,7 +37,7 @@ public class FishNavigationManager : Singleton<FishNavigationManager>
     [Header("Hybrids Doing Diffrent Tasks")] // Lists for each of the hybrids doing diffrent things so we dont have to loop over them all. 
     
     [Tooltip("a list that contains all the hybrids that are Idel.")]
-    [SerializeField] List<hybridNavData> hybridsIdel = new List<hybridNavData>();
+    [SerializeField] List<hybridNavData> hybridsIdle = new List<hybridNavData>();
     
     [Tooltip("a list that contains all the hybrids that are Flying.")]
     [SerializeField] List<hybridNavData> hybridsFlying = new List<hybridNavData>();
@@ -59,7 +59,7 @@ public class FishNavigationManager : Singleton<FishNavigationManager>
     #endregion
 
     #region RemoveHybridLists
-    List<hybridNavData> removeHybridsIdel = new List<hybridNavData>();
+    List<hybridNavData> removeHybridsIdle = new List<hybridNavData>();
     List<hybridNavData> removeHybridsFlying = new List<hybridNavData>();
     List<hybridNavData> removeHybridsHitWater = new List<hybridNavData>();
     List<hybridNavData> removeHybridsSwimming = new List<hybridNavData>();
@@ -152,6 +152,9 @@ public class FishNavigationManager : Singleton<FishNavigationManager>
 
     private void Start()
     {
+        //TESTING ONLY REMOVE LATER!!!!!!!!!
+        lureLocation = _FMGM.bobberGameObject;
+
         StartCoroutines();
     }
 
@@ -331,18 +334,18 @@ public class FishNavigationManager : Singleton<FishNavigationManager>
     {
         while (true)
         {
-            if (hybridsIdel.Count > 0)
+            if (hybridsIdle.Count > 0)
             {
-                foreach (hybridNavData _hybrid in hybridsIdel)
+                foreach (hybridNavData _hybrid in hybridsIdle)
                 {
 
                 }
                 // Remove hybrids from hybridsHitWater
-                foreach (var _hybrid in removeHybridsIdel)
+                foreach (var _hybrid in removeHybridsIdle)
                 {
-                    hybridsIdel.Remove(_hybrid);
+                    hybridsIdle.Remove(_hybrid);
                 }
-                removeHybridsIdel.Clear();
+                removeHybridsIdle.Clear();
             }
             yield return new WaitForFixedUpdate();
         }
@@ -648,7 +651,7 @@ public class FishNavigationManager : Singleton<FishNavigationManager>
                         //Debug.Log("Object has reached the target!");
                         _hybrid.HybridState = HybridState.HybridIdle;
                         _hybrid.arrivedAtLure = true;
-                        hybridsIdel.Add(_hybrid);
+                        hybridsIdle.Add(_hybrid);
                         removeHybridSwimToLure.Add(_hybrid);
 
                         //send an update to minigame Mannager that the Hybrid has arrived
@@ -770,7 +773,7 @@ public class FishNavigationManager : Singleton<FishNavigationManager>
                 switch (_hybrid.HybridState)
                 {
                     case HybridState.HybridIdle:
-                        removeHybridsIdel.Add(_hybrid);
+                        removeHybridsIdle.Add(_hybrid);
                         break;
                     case HybridState.HybridFlying:
                         removeHybridsFlying.Add(_hybrid);
@@ -781,12 +784,38 @@ public class FishNavigationManager : Singleton<FishNavigationManager>
                     case HybridState.HybridFlocking or HybridState.HybridAvoidingWall:
                         removeHybridsSwimming.Add(_hybrid);
                         break;
-                    case HybridState.HybridSwimToLure:
+                    case HybridState.HybridMiniGame_SwimToLure:
                         removeHybridSwimToLure.Add(_hybrid);
                         break;
                 }
                 if (_RemoveFromPond)
                     removeHybridsInPond.Add(_hybrid);
+            }
+        }
+    }
+
+    public void AddHybridTolist(GameObject go)
+    {
+        var _hybrid = GetHybridFromGO(go);
+        if (_hybrid.hybridGameObject == go)
+        {
+            switch (_hybrid.HybridState)
+            {
+                case HybridState.HybridIdle:
+                    hybridsIdle.Add(_hybrid);
+                    break;
+                case HybridState.HybridFlying:
+                    hybridsFlying.Add(_hybrid);
+                    break;
+                case HybridState.HybridHitWater:
+                    hybridsHitWater.Add(_hybrid);
+                    break;
+                case HybridState.HybridFlocking or HybridState.HybridAvoidingWall:
+                    hybridsSwimming.Add(_hybrid);
+                    break;
+                case HybridState.HybridMiniGame_SwimToLure:
+                    hybridSwimToPoint.Add(_hybrid);
+                    break;
             }
         }
     }
@@ -819,6 +848,7 @@ public class FishNavigationManager : Singleton<FishNavigationManager>
     {
         hybridNavData _hybrid = GetHybridFromGO(_hybridGO);
         _hybrid.HybridState = _HybridState;
+        print(_hybrid.HybridState);
     }
 
     /// <summary>

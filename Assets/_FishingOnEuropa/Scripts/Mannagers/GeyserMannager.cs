@@ -10,7 +10,7 @@ public enum PondType
 public class GeyserMannager : MonoBehaviour
 {
     [Header("Pond Data")]
-    public Transform waterHight;
+    public Transform waterHeight;
     public PondType pondType;
 
     [Header("Geyser List")]
