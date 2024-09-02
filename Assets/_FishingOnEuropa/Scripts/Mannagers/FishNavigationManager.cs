@@ -149,11 +149,17 @@ public class FishNavigationManager : Singleton<FishNavigationManager>
 
     [SerializeField] float moveToPlayerStoppingDistance;
 
+    [Header("Fishing Mini-Game")]
+    [SerializeField] float minRotation, maxRotation;
+    public enum PullDirections { Left, Right, Middle}
+    PullDirections pullDirections;
+
+
 
     private void Start()
     {
         //TESTING ONLY REMOVE LATER!!!!!!!!!
-        lureLocation = _FMGM.bobberGameObject;
+        lureLocation = _FMGM.bobberTipGO;
 
         StartCoroutines();
     }
@@ -226,7 +232,7 @@ public class FishNavigationManager : Singleton<FishNavigationManager>
                     {
                         if (hybridReactToPlayer.Contains(_hybrid) == false)
                         {
-                            removeHybrid(_hybrid.hybridGameObject, false);
+                            RemoveHybrid(_hybrid.hybridGameObject, false);
                             hybridReactToPlayer.Add(_hybrid);
                         }
 
@@ -624,14 +630,13 @@ public class FishNavigationManager : Singleton<FishNavigationManager>
             {
                 foreach (hybridNavData _hybrid in hybridSwimToPoint)
                 {
-                    print("swim part 2" + lureLocation.transform.position);
                     Vector3 directionToTarget = lureLocation.transform.position - _hybrid.hybridGameObject.transform.position;
-                    float yOffset = 0.5f;
+                    float yOffset = 0.1f;
                     directionToTarget = new Vector3(directionToTarget.x, directionToTarget.y - yOffset, directionToTarget.z);
 
                     // Rotate towards the target
                     Quaternion targetRotation = Quaternion.LookRotation(directionToTarget);
-                    transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * _hybrid.rotationSpeed);
+                    _hybrid.hybridGameObject.transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * _hybrid.rotationSpeed);
 
                     // Move towards the target
                     Vector3 targetPosition = lureLocation.transform.position;
@@ -640,12 +645,13 @@ public class FishNavigationManager : Singleton<FishNavigationManager>
                     {
                         targetPosition.y = _hybrid.waterHeight;
                     }
-                    print(_hybrid.hybridGameObject.transform.position);
                     _hybrid.hybridGameObject.transform.position = Vector3.Lerp(_hybrid.hybridGameObject.transform.position, new Vector3(targetPosition.x, targetPosition.y - yOffset, targetPosition.z), Time.deltaTime * (_hybrid.maxSpeed * 2));
 
                     // Check if the object has reached the target position
-                    float distanceToTarget = Vector3.Distance(transform.position, targetPosition);
-                    float threshold = 1f; // Adjust the threshold as needed
+                    float distanceToTarget = Vector3.Distance(_hybrid.hybridGameObject.transform.position, targetPosition);
+                    float threshold = 0.5f; // Adjust the threshold as needed
+
+                    print(distanceToTarget);
 
                     if (distanceToTarget < threshold && _hybrid.arrivedAtLure == false)
                     {
@@ -656,6 +662,15 @@ public class FishNavigationManager : Singleton<FishNavigationManager>
                         removeHybridSwimToLure.Add(_hybrid);
 
                         //send an update to minigame Manager that the Hybrid has arrived
+                        _FMGM.bobberState = FishingMiniGameManager.BobberState.AttachedFish;
+
+                        //TEMP
+                        _FMGM.BeginFightingPeriod();
+
+                        caughtHybrid = GetHybridFromGO(_FMGM.targetHybrid);
+
+                        //start minigame ienumerator
+                        StartCoroutine(UpdateMiniGame());
                     }
 
                 }
@@ -677,12 +692,25 @@ public class FishNavigationManager : Singleton<FishNavigationManager>
             {
                 if (caughtHybrid.HybridState == HybridState.HybridMiniGame_Pulling)
                 {
+                    print("Fighintg");
+                    //set pivot point
+                    Vector3 rotatePivot = lureLocation.transform.position;
+
+                    Quaternion targetRotation = Quaternion.LookRotation(rotatePivot);
+                    transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * caughtHybrid.rotationSpeed);
+
+                    //select pull direction
+                    var direction = (PullDirections)UnityEngine.Random.Range(0, System.Enum.GetValues(typeof(PullDirections)).Length);
+
+                    print(direction);
+
+                    //transform.RotateAround(rotatePivot, Vector3.forward, 20*Time.deltaTime);
 
                 }
                 else if (caughtHybrid.HybridState == HybridState.HybridMiniGame_Tired)
                 {
 
-                    //print("Attached to line");
+                    print("Attached to line");
                     Vector3 directionToTarget = lureLocation.transform.position - transform.position;
                     float yOffset = 0.5f;
                     directionToTarget = new Vector3(directionToTarget.x, directionToTarget.y - yOffset, directionToTarget.z);
@@ -765,7 +793,7 @@ public class FishNavigationManager : Singleton<FishNavigationManager>
         }
     }
 
-    public void removeHybrid(GameObject go, bool _RemoveFromPond)
+    public void RemoveHybrid(GameObject go, bool _RemoveFromPond)
     {
         foreach (hybridNavData _hybrid in hybridsInPond)
         {
@@ -826,7 +854,7 @@ public class FishNavigationManager : Singleton<FishNavigationManager>
     public void OnPickUp(FOEItem_Hybrid _hybridInfo)
     {
         _hybridInfo.SetVisuals(HybridVisualsState.Bubble);
-        removeHybrid(_hybridInfo.gameObject, true);
+        RemoveHybrid(_hybridInfo.gameObject, true);
     }
 
     public void OnDrop(FOEItem_Hybrid _hybridInfo)
@@ -862,6 +890,16 @@ public class FishNavigationManager : Singleton<FishNavigationManager>
     public void UpdateHybridState(hybridNavData _hybridGO, HybridState _HybridState)
     {
         _hybridGO.HybridState = _HybridState;
+    }
+    /// <summary>
+    /// Check current HybridState of gameobject
+    /// </summary>
+    /// <param name="_hybridGO"></param>
+    /// <param name="_HybridState"></param>
+    public bool CheckHybridState(GameObject _hybridGO, HybridState _HybridState)
+    {
+        if (GetHybridFromGO(_hybridGO).HybridState == _HybridState) return true;
+        else return false;
     }
 
     //dont call, called updateHybridState
