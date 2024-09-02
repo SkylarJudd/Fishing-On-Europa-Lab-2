@@ -8,7 +8,7 @@ public class FishingMiniGameManager : Singleton<FishingMiniGameManager>
     [Header("Bobber")]
     [SerializeField] float bobberRange = 3; //detection range of nearby hybrids when cast
     [SerializeField] float minBobberReelDistance; //how close the bobber needs to be before reeling is complete
-    public GameObject bobberGameObject, bobberTipGO;
+    public GameObject bobberGameObject, bobberTipGO, bobberFishSpot;
 
     public enum BobberState { Withdrawn, Cast, AttachedFish }
     public BobberState bobberState;
@@ -26,16 +26,23 @@ public class FishingMiniGameManager : Singleton<FishingMiniGameManager>
     Rigidbody rb_reelHandle;
 
 
-    //[Header("Fish Encounter")]
-    public enum FishEncounterState { None, Resting, Fighting, Caught}
+    [Header("Fish Encounter")]
+    [SerializeField] LayerMask terrainLayerMask;
+
+    [SerializeField] float hybridRestTime;
+    public float fishRotationSpeed, maxAngle;
+    public enum FishEncounterState { None, Resting, Fighting, Caught }
     public FishEncounterState fishEncounterState;
-    [SerializeField]
-    float hybridRestTime;
+    public enum PullDirections { NotSet, Left, Right, Middle }
+    public PullDirections currentPullDirection;
+
+
 
     void Update()
     {
-        
-        switch(bobberState)
+        //bobberGameObject.transform.RotateAround(_PLAYER.transform.position, Vector3.up, bobberRotationSpeed * Time.deltaTime);
+
+        switch (bobberState)
         {
             case BobberState.Cast:
 
@@ -81,6 +88,7 @@ public class FishingMiniGameManager : Singleton<FishingMiniGameManager>
                 {
                     case FishEncounterState.Resting:
 
+                        //add to return to middle
                         
                         hybridRestTime -= Time.deltaTime;
 
@@ -127,6 +135,8 @@ public class FishingMiniGameManager : Singleton<FishingMiniGameManager>
                             {
                                 //CAUGHT
                                 fishEncounterState = FishEncounterState.Caught;
+
+
                             }
                             
                         }
@@ -137,8 +147,10 @@ public class FishingMiniGameManager : Singleton<FishingMiniGameManager>
                         if (!_FNAVM.CheckHybridState(targetHybrid, HybridState.HybridMiniGame_Pulling))
                             _FNAVM.UpdateHybridState(targetHybrid, HybridState.HybridMiniGame_Pulling);
 
-                        //bobber look at fish
-                        bobberGameObject.transform.LookAt(targetHybrid.transform.position);
+                        //determine pull direction
+                        if (currentPullDirection == PullDirections.NotSet) currentPullDirection = GetDirection();
+
+                        
 
 
                         break;
@@ -172,11 +184,48 @@ public class FishingMiniGameManager : Singleton<FishingMiniGameManager>
 
     }
 
-
     public void BeginFightingPeriod()
     {
         fishEncounterState = FishEncounterState.Fighting;
 
+    }
+
+    /// <summary>
+    /// Generate pull direction which does not collide with terrain
+    /// </summary>
+    /// <returns></returns>
+    public PullDirections GetDirection()
+    {
+        List<PullDirections> viableDirection = new();
+
+        viableDirection.Add(PullDirections.Right);
+        viableDirection.Add(PullDirections.Middle);
+        viableDirection.Add(PullDirections.Left);
+
+
+        ////check middle for collision with raycast
+        //if (!Physics.Raycast(bobberTipGO.transform.position, Vector3.back, 3f, terrainLayerMask))
+        //    viableDirection.Add(PullDirections.Middle);
+
+        ////check left for collision with raycast
+        //if (!Physics.Raycast(bobberTipGO.transform.position, Vector3.right, 3f, terrainLayerMask))
+        //    viableDirection.Add(PullDirections.Left);
+        
+        ////check left for collision with raycast
+        //if (!Physics.Raycast(bobberTipGO.transform.position, Vector3.left, 3f, terrainLayerMask))
+        //    viableDirection.Add(PullDirections.Right);
+
+        return viableDirection[Random.Range(0, viableDirection.Count)];
+
+    }
+
+    public bool CheckForHybridCollision(Vector3 direction)
+    {
+        if (!Physics.Raycast(bobberTipGO.transform.position, direction, 3f, terrainLayerMask))
+        {
+            return true; //no collsion
+        }
+        else return false; //there is a collision
     }
 
     /// <summary>
@@ -185,6 +234,7 @@ public class FishingMiniGameManager : Singleton<FishingMiniGameManager>
     void ResetVariables()
     {
         hybridRestTime = 0;
+        currentPullDirection = PullDirections.NotSet;
     }
 
     /// <summary>
@@ -304,8 +354,9 @@ public class FishingMiniGameManager : Singleton<FishingMiniGameManager>
     {
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(bobberGameObject.transform.position, bobberRange);
+
         
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(bobberTipGO.transform.position, 0.5f);
+
+
     }
 }

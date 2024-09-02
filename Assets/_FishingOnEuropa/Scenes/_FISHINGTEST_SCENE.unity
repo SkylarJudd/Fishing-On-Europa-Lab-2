@@ -253,7 +253,7 @@ GameObject:
   - component: {fileID: 111652612}
   - component: {fileID: 111652611}
   - component: {fileID: 111652610}
-  m_Layer: 0
+  m_Layer: 22
   m_Name: Cube (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -370,7 +370,7 @@ GameObject:
   - component: {fileID: 323925026}
   - component: {fileID: 323925025}
   - component: {fileID: 323925024}
-  m_Layer: 0
+  m_Layer: 22
   m_Name: Cube (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -524,7 +524,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: e8da455f4f0931d478befb8984dc0a0f,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
+      value: 90
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: e8da455f4f0931d478befb8984dc0a0f,
         type: 3}
@@ -534,7 +534,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: e8da455f4f0931d478befb8984dc0a0f,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
+      value: -53.969
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: e8da455f4f0931d478befb8984dc0a0f,
         type: 3}
@@ -567,7 +567,7 @@ GameObject:
   - component: {fileID: 460274319}
   - component: {fileID: 460274318}
   - component: {fileID: 460274317}
-  m_Layer: 0
+  m_Layer: 22
   m_Name: Cube (6)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -714,6 +714,7 @@ MonoBehaviour:
   minBobberReelDistance: 0
   bobberGameObject: {fileID: 1922368397}
   bobberTipGO: {fileID: 2098644238}
+  bobberFishSpot: {fileID: 1930276233}
   bobberState: 0
   targetHybrid: {fileID: 0}
   fishMask:
@@ -722,8 +723,14 @@ MonoBehaviour:
   nearbyHybrids: []
   handleVelocity: 0
   minPullAngle: 0
-  fishEncounterState: 0
+  terrainLayerMask:
+    serializedVersion: 2
+    m_Bits: 4194304
   hybridRestTime: 0
+  fishRotationSpeed: 20
+  maxAngle: 50
+  fishEncounterState: 0
+  currentPullDirection: 0
 --- !u!4 &818140337 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: e8da455f4f0931d478befb8984dc0a0f,
@@ -756,6 +763,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 218083367}
     m_Modifications:
+    - target: {fileID: 2269280573903691426, guid: 16bfaf496f290d34aa4024ae51ee1add,
+        type: 3}
+      propertyPath: fishCollisionLayerMask.m_Bits
+      value: 5242880
+      objectReference: {fileID: 0}
     - target: {fileID: 6863086000082951395, guid: 16bfaf496f290d34aa4024ae51ee1add,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -877,7 +889,7 @@ GameObject:
   - component: {fileID: 1411985458}
   - component: {fileID: 1411985457}
   - component: {fileID: 1411985456}
-  m_Layer: 0
+  m_Layer: 22
   m_Name: Cube (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -982,7 +994,7 @@ GameObject:
   - component: {fileID: 1444202827}
   - component: {fileID: 1444202826}
   - component: {fileID: 1444202825}
-  m_Layer: 0
+  m_Layer: 22
   m_Name: Cube (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1087,7 +1099,7 @@ GameObject:
   - component: {fileID: 1613700489}
   - component: {fileID: 1613700488}
   - component: {fileID: 1613700487}
-  m_Layer: 0
+  m_Layer: 22
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1489,15 +1501,47 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1922368397}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.14, y: -0.23428418, z: 6.1860614}
+  m_LocalRotation: {x: 0.70710677, y: 0, z: 0, w: 0.70710677}
+  m_LocalPosition: {x: 0.17, y: -0.23428418, z: 6.1860614}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 818140337}
   - {fileID: 2098644239}
+  - {fileID: 1930276234}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 63.22, y: -52.978, z: -49.81}
+--- !u!1 &1930276233
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1930276234}
+  m_Layer: 0
+  m_Name: FishSpot
+  m_TagString: Untagged
+  m_Icon: {fileID: 2488908585195742037, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1930276234
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1930276233}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.793, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1922368399}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1952466916
 GameObject:
   m_ObjectHideFlags: 0
@@ -1510,7 +1554,7 @@ GameObject:
   - component: {fileID: 1952466919}
   - component: {fileID: 1952466918}
   - component: {fileID: 1952466917}
-  m_Layer: 0
+  m_Layer: 22
   m_Name: Cube (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}

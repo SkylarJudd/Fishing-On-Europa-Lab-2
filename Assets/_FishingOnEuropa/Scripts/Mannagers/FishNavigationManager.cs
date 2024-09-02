@@ -100,6 +100,8 @@ public class FishNavigationManager : Singleton<FishNavigationManager>
     private float waterDrag = 5.0f;
     private float airDrag = 0.0f;
 
+    [SerializeField] LayerMask fishCollisionLayerMask;
+
     [Serializable]
     public class hybridNavData
     {
@@ -149,10 +151,7 @@ public class FishNavigationManager : Singleton<FishNavigationManager>
 
     [SerializeField] float moveToPlayerStoppingDistance;
 
-    [Header("Fishing Mini-Game")]
-    [SerializeField] float minRotation, maxRotation;
-    public enum PullDirections { Left, Right, Middle}
-    PullDirections pullDirections;
+ 
 
 
 
@@ -484,12 +483,11 @@ public class FishNavigationManager : Singleton<FishNavigationManager>
                     {
                         Ray hybridRay = new Ray(_hybrid.hybridGameObject.transform.position, _hybrid.hybridGameObject.transform.forward);
                         float raycastDistance = 0.5f;
-                        int layerMask = ~LayerMask.GetMask("Fish");
 
                         if (debug)
                             Debug.DrawRay(hybridRay.origin, hybridRay.direction * raycastDistance, Color.red);
 
-                        if (Physics.Raycast(hybridRay, out RaycastHit hit, raycastDistance, layerMask))
+                        if (Physics.Raycast(hybridRay, out RaycastHit hit, raycastDistance, fishCollisionLayerMask))
                         {
                             if (hit.collider.gameObject.CompareTag("Wall"))
                             {
@@ -649,7 +647,7 @@ public class FishNavigationManager : Singleton<FishNavigationManager>
 
                     // Check if the object has reached the target position
                     float distanceToTarget = Vector3.Distance(_hybrid.hybridGameObject.transform.position, targetPosition);
-                    float threshold = 0.5f; // Adjust the threshold as needed
+                    float threshold = 0.2f; // Adjust the threshold as needed
 
                     print(distanceToTarget);
 
@@ -693,18 +691,68 @@ public class FishNavigationManager : Singleton<FishNavigationManager>
                 if (caughtHybrid.HybridState == HybridState.HybridMiniGame_Pulling)
                 {
                     print("Fighintg");
-                    //set pivot point
-                    Vector3 rotatePivot = lureLocation.transform.position;
+                    
+                    caughtHybrid.hybridGameObject.transform.LookAt(lureLocation.transform.position);
 
-                    Quaternion targetRotation = Quaternion.LookRotation(rotatePivot);
-                    transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * caughtHybrid.rotationSpeed);
+                    // Move towards the target
+                    //Vector3 targetPosition = _FMGM.bobberFishSpot.transform.position;
 
-                    //select pull direction
-                    var direction = (PullDirections)UnityEngine.Random.Range(0, System.Enum.GetValues(typeof(PullDirections)).Length);
+                    //if (targetPosition.y > caughtHybrid.waterHeight)
+                    //{
+                    //    targetPosition.y = caughtHybrid.waterHeight;
+                    //}
+                    //caughtHybrid.hybridGameObject.transform.position = Vector3.Lerp(caughtHybrid.hybridGameObject.transform.position, new Vector3(targetPosition.x, targetPosition.y-yOffset, targetPosition.z), Time.deltaTime * (caughtHybrid.maxSpeed * 2));
 
-                    print(direction);
+                    if (_FMGM.currentPullDirection == FishingMiniGameManager.PullDirections.NotSet) _FMGM.currentPullDirection = _FMGM.GetDirection();
 
-                    //transform.RotateAround(rotatePivot, Vector3.forward, 20*Time.deltaTime);
+
+                    Vector3 rotationAxis = new();
+                    Vector3 direction = new();
+                    
+                    switch (_FMGM.currentPullDirection)
+                    {
+                        case FishingMiniGameManager.PullDirections.Left:
+
+                            //set bobber rotation
+                            rotationAxis = Vector3.down;
+                            direction = Vector3.right;
+                            //reset temp
+
+                            break;
+                        case FishingMiniGameManager.PullDirections.Right:
+                            rotationAxis = Vector3.up;
+                            direction = Vector3.left;
+
+
+                            break;
+                        case FishingMiniGameManager.PullDirections.Middle:
+                            rotationAxis = Vector3.zero;
+                            direction = Vector3.zero;
+
+
+                            break;
+                    }
+
+                    print(rotationAxis);
+
+                    float deltaAngle = _FMGM.fishRotationSpeed * Time.deltaTime;
+                    var targetDir = _PLAYER.transform.position - caughtHybrid.hybridGameObject.transform.position;
+
+                    float currentAngle = Vector3.Angle(targetDir, _PLAYER.transform.forward);
+                    print("angle " + currentAngle);
+
+                    if (currentAngle < _FMGM.maxAngle && !Physics.CheckSphere(caughtHybrid.hybridGameObject.transform.position, 1, fishCollisionLayerMask))
+                    {
+                        caughtHybrid.hybridGameObject.transform.RotateAround(_PLAYER.transform.position, rotationAxis, deltaAngle);
+
+
+                    }
+                    //right rotation
+
+                    //left rotation
+
+
+
 
                 }
                 else if (caughtHybrid.HybridState == HybridState.HybridMiniGame_Tired)
@@ -712,12 +760,12 @@ public class FishNavigationManager : Singleton<FishNavigationManager>
 
                     print("Attached to line");
                     Vector3 directionToTarget = lureLocation.transform.position - transform.position;
-                    float yOffset = 0.5f;
+                    float yOffset = 0.1f;
                     directionToTarget = new Vector3(directionToTarget.x, directionToTarget.y - yOffset, directionToTarget.z);
                     // Rotate towards the target
 
                     Quaternion targetRotation = Quaternion.LookRotation(directionToTarget);
-                    transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * caughtHybrid.rotationSpeed);
+                    caughtHybrid.hybridGameObject.transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * caughtHybrid.rotationSpeed);
 
                     // Move towards the target
                     Vector3 targetPosition = lureLocation.transform.position;
@@ -727,7 +775,7 @@ public class FishNavigationManager : Singleton<FishNavigationManager>
                         targetPosition.y = caughtHybrid.waterHeight;
                     }
 
-                    transform.position = Vector3.Lerp(transform.position, new Vector3(targetPosition.x, targetPosition.y - yOffset, targetPosition.z), Time.deltaTime * 100);
+                    caughtHybrid.hybridGameObject.transform.position = Vector3.Lerp(transform.position, new Vector3(targetPosition.x, targetPosition.y - yOffset, targetPosition.z), Time.deltaTime * 100);
                 }
             }
             yield return new WaitForFixedUpdate();
