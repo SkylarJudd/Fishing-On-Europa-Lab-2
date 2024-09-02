@@ -121,7 +121,7 @@ public class FishNavigationManager : Singleton<FishNavigationManager>
         public float minSpeed;
         public float maxSpeed;
         public float rotationSpeed;
-        public float waterHight;
+        public float waterHeight;
 
         public bool isTurning;
         public bool aboutToHitWall = false;
@@ -188,7 +188,7 @@ public class FishNavigationManager : Singleton<FishNavigationManager>
         newEntry.rotationSpeed = hybridInfo.hybridSO.rotationSpeed;
         newEntry.firstNav = true;
         newEntry.foodEaten = hybridInfo.hybridSO.foodEaten;
-        newEntry.waterHight = _waterHight;
+        newEntry.waterHeight = _waterHight;
         newEntry.pondType = _pondType;
 
         if (newEntry.hybridRigidbody == null)
@@ -381,7 +381,7 @@ public class FishNavigationManager : Singleton<FishNavigationManager>
 
                     //print($"{_hybridd} has a y value of {_hybridd.hybridGameObject.transform.position.y} and the water hight is {waterHight}.y ");
                     // Check if the Hybrids have hit the water
-                    if (_hybrid.hybridGameObject.transform.position.y <= _hybrid.waterHight)
+                    if (_hybrid.hybridGameObject.transform.position.y <= _hybrid.waterHeight)
                     {
                         hybridsHitWater.Add(_hybrid);
                         //hybridsFlying.RemoveAt(i);
@@ -469,7 +469,7 @@ public class FishNavigationManager : Singleton<FishNavigationManager>
                 {
                     bool outofWater = false;
 
-                    if (_hybrid.hybridGameObject.transform.position.y > _hybrid.waterHight)
+                    if (_hybrid.hybridGameObject.transform.position.y > _hybrid.waterHeight)
                     {
                         outofWater = true;
                     }
@@ -624,6 +624,7 @@ public class FishNavigationManager : Singleton<FishNavigationManager>
             {
                 foreach (hybridNavData _hybrid in hybridSwimToPoint)
                 {
+                    print("swim part 2" + lureLocation.transform.position);
                     Vector3 directionToTarget = lureLocation.transform.position - _hybrid.hybridGameObject.transform.position;
                     float yOffset = 0.5f;
                     directionToTarget = new Vector3(directionToTarget.x, directionToTarget.y - yOffset, directionToTarget.z);
@@ -635,12 +636,12 @@ public class FishNavigationManager : Singleton<FishNavigationManager>
                     // Move towards the target
                     Vector3 targetPosition = lureLocation.transform.position;
 
-                    if (targetPosition.y > _hybrid.waterHight)
+                    if (targetPosition.y > _hybrid.waterHeight)
                     {
-                        targetPosition.y = _hybrid.waterHight;
+                        targetPosition.y = _hybrid.waterHeight;
                     }
-
-                    transform.position = Vector3.Lerp(_hybrid.hybridGameObject.transform.position, new Vector3(targetPosition.x, targetPosition.y - yOffset, targetPosition.z), Time.deltaTime * (_hybrid.maxSpeed * 2));
+                    print(_hybrid.hybridGameObject.transform.position);
+                    _hybrid.hybridGameObject.transform.position = Vector3.Lerp(_hybrid.hybridGameObject.transform.position, new Vector3(targetPosition.x, targetPosition.y - yOffset, targetPosition.z), Time.deltaTime * (_hybrid.maxSpeed * 2));
 
                     // Check if the object has reached the target position
                     float distanceToTarget = Vector3.Distance(transform.position, targetPosition);
@@ -648,13 +649,13 @@ public class FishNavigationManager : Singleton<FishNavigationManager>
 
                     if (distanceToTarget < threshold && _hybrid.arrivedAtLure == false)
                     {
-                        //Debug.Log("Object has reached the target!");
+                        Debug.Log("Object has reached the target!");
                         _hybrid.HybridState = HybridState.HybridIdle;
                         _hybrid.arrivedAtLure = true;
                         hybridsIdle.Add(_hybrid);
                         removeHybridSwimToLure.Add(_hybrid);
 
-                        //send an update to minigame Mannager that the Hybrid has arrived
+                        //send an update to minigame Manager that the Hybrid has arrived
                     }
 
                 }
@@ -693,9 +694,9 @@ public class FishNavigationManager : Singleton<FishNavigationManager>
                     // Move towards the target
                     Vector3 targetPosition = lureLocation.transform.position;
 
-                    if (targetPosition.y > caughtHybrid.waterHight)
+                    if (targetPosition.y > caughtHybrid.waterHeight)
                     {
-                        targetPosition.y = caughtHybrid.waterHight;
+                        targetPosition.y = caughtHybrid.waterHeight;
                     }
 
                     transform.position = Vector3.Lerp(transform.position, new Vector3(targetPosition.x, targetPosition.y - yOffset, targetPosition.z), Time.deltaTime * 100);
@@ -736,9 +737,9 @@ public class FishNavigationManager : Singleton<FishNavigationManager>
                             // Move towards the target
                             Vector3 targetPosition = _hybrid.itemTarget.transform.position;
 
-                            if (targetPosition.y > _hybrid.waterHight)
+                            if (targetPosition.y > _hybrid.waterHeight)
                             {
-                                targetPosition.y = _hybrid.waterHight;
+                                targetPosition.y = _hybrid.waterHeight;
                             }
 
                             transform.position = Vector3.Lerp(_hybrid.hybridGameObject.transform.position, targetPosition, Time.deltaTime * _hybrid.maxSpeed);
@@ -799,6 +800,7 @@ public class FishNavigationManager : Singleton<FishNavigationManager>
         var _hybrid = GetHybridFromGO(go);
         if (_hybrid.hybridGameObject == go)
         {
+            print(_hybrid.HybridState);
             switch (_hybrid.HybridState)
             {
                 case HybridState.HybridIdle:
@@ -814,6 +816,7 @@ public class FishNavigationManager : Singleton<FishNavigationManager>
                     hybridsSwimming.Add(_hybrid);
                     break;
                 case HybridState.HybridMiniGame_SwimToLure:
+                    print("SWIM");
                     hybridSwimToPoint.Add(_hybrid);
                     break;
             }
