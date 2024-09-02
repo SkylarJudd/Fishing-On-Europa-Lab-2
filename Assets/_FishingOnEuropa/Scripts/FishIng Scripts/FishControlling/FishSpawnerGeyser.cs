@@ -55,7 +55,7 @@ public class FishSpawnerGeyser : GameBehaviour
 
     public void spawnHybrid()
     {
-        print("Spawn Hybrid Called");
+        //print("Spawn Hybrid Called");
 
         HybridsToSpawn hybridToSpawn = GetFishToSpawn();
 
@@ -125,7 +125,7 @@ public class FishSpawnerGeyser : GameBehaviour
 
     private HybridsToSpawn GetFishToSpawn()
     {
-        print("GetFishToSpawn Called");
+        //print("GetFishToSpawn Called");
 
         if ( 100 == UnityEngine.Random.Range(0, 100))
         {

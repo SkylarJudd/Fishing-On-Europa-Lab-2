@@ -251,7 +251,7 @@ public class FishNavigationScript : GameBehaviour
             arrived = true;
 
             //change bobber state
-            _FMGM.bobberState = FishingMiniGameManager.BobberState.AttachedFish;
+            _FMGM.bobberState = BobberState.AttachedFish;
 
         }
     }
