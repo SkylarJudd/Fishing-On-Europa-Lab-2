@@ -60,12 +60,17 @@ public class OrbitController : MonoBehaviour
 
             // Apply orbit distance modifier
             var positionCenterObject = gravityCenter.position;
-            var targetX = positionCenterObject.x + Mathf.Cos(angle * Mathf.Deg2Rad) * moonData.rotDistance * rotationDistanceModifier;
-            var targetZ = positionCenterObject.z + Mathf.Sin(angle * Mathf.Deg2Rad) * moonData.rotDistance * rotationDistanceModifier;
 
-            // Lerp position for smooth orbiting
-            Vector3 targetPosition = new Vector3(targetX, moonData.moonGo.transform.position.y, targetZ);
-            moonData.moonGo.transform.position = Vector3.Lerp(moonData.moonGo.transform.position, targetPosition, Time.deltaTime * lerpSpeed);
+            if( moonData.rotSpeed > 0 )
+            {
+                var targetX = positionCenterObject.x + Mathf.Cos(angle * Mathf.Deg2Rad) * moonData.rotDistance * rotationDistanceModifier;
+                var targetZ = positionCenterObject.z + Mathf.Sin(angle * Mathf.Deg2Rad) * moonData.rotDistance * rotationDistanceModifier;
+
+                // Lerp position for smooth orbiting
+                Vector3 targetPosition = new Vector3(targetX, moonData.moonGo.transform.position.y, targetZ);
+                moonData.moonGo.transform.position = Vector3.Lerp(moonData.moonGo.transform.position, targetPosition, Time.deltaTime * lerpSpeed);
+            }
+           
 
             if(moonData.applyScaleModifier)
             // Apply scale modifier based on the moon's original scale

@@ -14,7 +14,8 @@ public class GameBehaviour : MonoBehaviour
     protected static SettingsMannager _SETM { get { return SettingsMannager.instance; } }
 
     protected static FishNavigationManager _FNAVM { get { return FishNavigationManager.instance; } }
-    protected static FishingMiniGameManager _FMGM { get { return FishingMiniGameManager.instance; } }
+
+    //protected static FishingMiniGameManager _FMGM { get { return FishingMiniGameManager.instance; } }
 
 
     public Transform getClosestEnermy(Transform _origin, List<GameObject> _objects)

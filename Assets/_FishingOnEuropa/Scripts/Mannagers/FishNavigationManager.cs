@@ -24,6 +24,45 @@ public enum HybridState
     HybridWatchPlayer,
 
 }
+[Serializable]
+public class hybridNavData
+{
+    [Header("Hybrid States")]
+
+
+    [Header("Hybrid Info")]
+    public GameObject hybridGameObject;
+    public Rigidbody hybridRigidbody;
+    public PondType pondType;
+    public FoodType[] foodEaten;
+    public ToyList favToy;
+
+    [Header("Hybrid Nav")]
+
+    public HybridState HybridState;
+    public Vector3 velocity;
+
+    public float minSpeed;
+    public float maxSpeed;
+    public float rotationSpeed;
+    public float waterHeight;
+
+    public bool isTurning;
+    public bool aboutToHitWall = false;
+    public bool firstNav;
+
+    [Header("Hybrid Player Interact")]
+    public float distanceToPlayer;
+    public float distanceToLeftHand;
+    public float distanceToRightHand;
+
+    [Header("Hybrid MiniGame")]
+    public bool arrivedAtLure = false;
+
+
+    public Transform itemTarget; // this is used for the item target you can set the lure, 
+
+}
 
 public class FishNavigationManager : Singleton<FishNavigationManager>
 {
@@ -102,45 +141,8 @@ public class FishNavigationManager : Singleton<FishNavigationManager>
 
     [SerializeField] LayerMask fishCollisionLayerMask;
 
-    [Serializable]
-    public class hybridNavData
-    {
-        [Header("Hybrid States")]
-
-
-        [Header("Hybrid Info")]
-        public GameObject hybridGameObject;
-        public Rigidbody hybridRigidbody;
-        public PondType pondType;
-        public FoodType[] foodEaten;
-        public ToyList favToy;
-
-        [Header("Hybrid Nav")]
-
-        public HybridState HybridState;
-        public Vector3 velocity;
-
-        public float minSpeed;
-        public float maxSpeed;
-        public float rotationSpeed;
-        public float waterHeight;
-
-        public bool isTurning;
-        public bool aboutToHitWall = false;
-        public bool firstNav;
-
-        [Header("Hybrid Player Interact")]
-        public float distanceToPlayer;
-        public float distanceToLeftHand;
-        public float distanceToRightHand;
-
-        [Header("Hybrid MiniGame")]
-        public bool arrivedAtLure = false;
-
-
-        public Transform itemTarget; // this is used for the item target you can set the lure, 
-        
-    }
+    
+   
 
     [Header("Player Interaction Settings")]
     [SerializeField] float playerReactionDistance;

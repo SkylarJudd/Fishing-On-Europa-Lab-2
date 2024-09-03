@@ -14,8 +14,6 @@ public class FishNavigationScript : GameBehaviour
         FishPullingFight,
         FishCaught
 
-
-
     }
 
     //public int fishBehaviorState; // 1 idel, 2 flock, 3 catch

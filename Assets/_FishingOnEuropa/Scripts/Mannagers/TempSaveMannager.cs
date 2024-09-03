@@ -1,10 +1,8 @@
-using NaughtyAttributes;
+
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Security.Cryptography;
-//using UnityEditor.SearchService;
 using UnityEngine;
 
 public class Audio
@@ -117,6 +115,11 @@ public class TempSaveMannager : Singleton<TempSaveMannager>
     private void OnApplicationQuit()
     {
         Save();
+    }
+
+    private void Update()
+    {
+        print("Im not dead!");
     }
 
     private void OnApplicationFocus(bool appInFocus)

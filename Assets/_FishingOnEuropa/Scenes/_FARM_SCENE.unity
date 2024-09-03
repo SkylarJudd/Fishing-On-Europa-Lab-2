@@ -4242,6 +4242,21 @@ PrefabInstance:
       propertyPath: playerHandReactionDistanceReset
       value: 1.5
       objectReference: {fileID: 0}
+    - target: {fileID: 2440176440504778084, guid: 21be8ba837fc08a4aa7b74103e715381,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4492535365511778157, guid: 21be8ba837fc08a4aa7b74103e715381,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5167755883121791319, guid: 21be8ba837fc08a4aa7b74103e715381,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5167755883121791319, guid: 21be8ba837fc08a4aa7b74103e715381,
         type: 3}
       propertyPath: _startSpawnAmout
@@ -4251,6 +4266,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Updated_FishingNodePackage
+      objectReference: {fileID: 0}
+    - target: {fileID: 5966201001171314599, guid: 21be8ba837fc08a4aa7b74103e715381,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7141842904516259445, guid: 21be8ba837fc08a4aa7b74103e715381,
         type: 3}
