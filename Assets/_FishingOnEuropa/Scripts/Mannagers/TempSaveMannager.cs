@@ -4,7 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Security.Cryptography;
-using UnityEditor.SearchService;
+//using UnityEditor.SearchService;
 using UnityEngine;
 
 public class Audio
@@ -39,6 +39,9 @@ public class SaveData
     public int turnType;
     public int turnAngle;
     public float turnSpeed;
+
+    [Header("Language")]
+    public int language;
 
     [Header("Audio Settings")]
     public float masterVolume;

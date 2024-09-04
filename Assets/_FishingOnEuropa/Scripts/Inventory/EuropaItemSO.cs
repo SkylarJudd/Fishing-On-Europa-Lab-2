@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using AutoHand;
 using Autohand;
 
 [CreateAssetMenu(fileName = "Inventory Item Scribtable Objects", menuName = "Europa/Items/Item", order = 1)]

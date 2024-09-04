@@ -1,7 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.SearchService;
+//using UnityEditor.SearchService;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -13,6 +13,7 @@ public enum Scenes
     _MAINMENU_SCENE,
     _FARM_SCENE,
     _DOME_SCENE,
+    _FISHINGTEST_SCENE
 }
 
 public class SceneController : Singleton<SceneController>
@@ -27,6 +28,7 @@ public class SceneController : Singleton<SceneController>
 
     [Header("Debug")]
     [SerializeField] bool debug;
+    [SerializeField] Scenes starterScene;
 
     private void Start()
     {
@@ -35,7 +37,13 @@ public class SceneController : Singleton<SceneController>
         if (currentEnviromentScene == Scenes._ERROR)
             Debug.LogError("Was unable to find Scene, check the name and ensure the scene exists");
 
-        if (currentEnviromentScene != Scenes._MAINMENU_SCENE && !debug)
+        if(debug)
+        {
+            Debug.LogWarning($"Switching to {starterScene} from {currentEnviromentScene} If this is not what you wanted toggle on Debug");
+            StartCoroutine(SwitchScene(starterScene));
+        }
+
+        else if (currentEnviromentScene != Scenes._MAINMENU_SCENE && !debug)
         {
             Debug.LogWarning($"Switching to Main Menu from {currentEnviromentScene} If this is not what you wanted toggle on Debug");
             StartCoroutine(SwitchScene(Scenes._MAINMENU_SCENE));
@@ -94,6 +102,10 @@ public class SceneController : Singleton<SceneController>
             case "_TUTORIAL":
                 _Scene = Scenes._TUTORIAL;
                 break;
+            case "_FISHINGTEST_SCENE":
+                _Scene = Scenes._FISHINGTEST_SCENE;
+                break;
+
             default:
                 _Scene = Scenes._ERROR;
                 break;
@@ -143,14 +155,21 @@ public class SceneController : Singleton<SceneController>
     /// <returns></returns>
     IEnumerator SwitchScene(Scenes _sceneName)
     {
-        AsyncOperation unload = SceneManager.UnloadSceneAsync(currentEnviromentScene.ToString());
+        AsyncOperation unload;
+        if (currentEnviromentScene != Scenes._ERROR)
+        {
+            unload = SceneManager.UnloadSceneAsync(currentEnviromentScene.ToString());
+            while (!unload.isDone)
+            {
+                yield return new WaitForEndOfFrame();
+            }
+
+        }
+
         AsyncOperation load = SceneManager.LoadSceneAsync(_sceneName.ToString(), LoadSceneMode.Additive);
         currentEnviromentScene = _sceneName;
 
-        while (!unload.isDone)
-        {
-            yield return new WaitForEndOfFrame();
-        }
+        
         while (!load.isDone)
         {
             yield return new WaitForEndOfFrame();
