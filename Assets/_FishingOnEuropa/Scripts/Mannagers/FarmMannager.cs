@@ -39,7 +39,7 @@ public class FarmMannager : GameBehaviour
     [SerializeField] Transform[] tankOneSpawnPoints;
     [SerializeField] Transform[] tankTwoSpawnPoints;
     [SerializeField] Transform[] defaultGroundSpawnPoints;
-    [SerializeField] FishNavigationManager fishNavigationManager;
+    
 
 
 
@@ -155,7 +155,7 @@ public class FarmMannager : GameBehaviour
 
         GameObject hybridFromManager = ObjectPoolManager._OPM.SpawnObject(_farmHybridData.hybridGameObjectPrefab.gameObject, spawnTransform, new Quaternion(0, UnityEngine.Random.Range(0, 360), 0, 0), PoolType.ZoneFarmHybrids);
         _farmHybridData.hybridGameObjectSpawnned = hybridFromManager;
-        fishNavigationManager.addHybridToPondList(hybridFromManager, HybridState.HybridFlying, 0 , PondType.Farm);
+        _FNAVM.addHybridToPondList(hybridFromManager, HybridState.HybridFlying, 0 , PondType.Farm);
     }
 
     /// <summary>
