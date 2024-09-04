@@ -153,7 +153,7 @@ public class FarmMannager : GameBehaviour
         }
 
 
-        GameObject hybridFromManager = ObjectPoolManager._OPM.spawnObject(_farmHybridData.hybridGameObjectPrefab.gameObject, spawnTransform, new Quaternion(0, UnityEngine.Random.Range(0, 360), 0, 0), PoolType.ZoneFarmHybrids);
+        GameObject hybridFromManager = ObjectPoolManager._OPM.SpawnObject(_farmHybridData.hybridGameObjectPrefab.gameObject, spawnTransform, new Quaternion(0, UnityEngine.Random.Range(0, 360), 0, 0), PoolType.ZoneFarmHybrids);
         _farmHybridData.hybridGameObjectSpawnned = hybridFromManager;
         fishNavigationManager.addHybridToPondList(hybridFromManager, HybridState.HybridFlying, 0 , PondType.Farm);
     }

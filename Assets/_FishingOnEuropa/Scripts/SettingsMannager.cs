@@ -11,13 +11,6 @@ public class SettingsMannager : Singleton<SettingsMannager>
     private int snapTurnAmout;
     [SerializeField]
     private RotationType Type;
-
-
-    public void Update()
-    {
-        
-    }
-
     public SettingsSO playerSettings;
 
         /// <summary>
@@ -108,6 +101,14 @@ public class SettingsMannager : Singleton<SettingsMannager>
         {
             playerSettings.bloomAmout = _bloomAmout;
         }
+        /// <summary>
+        /// Updates the Language
+        /// </summary>
+        /// <param name="_language"></param>
+        public void UpdateLanguage(Language _language)
+        {
+            playerSettings.language = _language;
+        }
 
 
         /// <summary>
@@ -118,6 +119,8 @@ public class SettingsMannager : Singleton<SettingsMannager>
             playerSettings.turnType = (RotationType)_TSM.currentSave.turnType;
             playerSettings.turnAngle = _TSM.currentSave.turnAngle;
             playerSettings.turnSpeed = _TSM.currentSave.turnSpeed;
+
+            playerSettings.language = (Language)_TSM.currentSave.language;
 
             playerSettings.masterVolume = _TSM.currentSave.masterVolume;
             playerSettings.musicVolume = _TSM.currentSave.musicVolume;
@@ -139,6 +142,8 @@ public class SettingsMannager : Singleton<SettingsMannager>
             _TSM.currentSave.turnType =  (int)playerSettings.turnType;
             _TSM.currentSave.turnAngle = playerSettings.turnAngle;
             _TSM.currentSave.turnSpeed = playerSettings.turnSpeed;
+
+            _TSM.currentSave.language = (int)playerSettings.language;
 
             _TSM.currentSave.masterVolume = playerSettings.masterVolume;
             _TSM.currentSave.musicVolume = playerSettings.musicVolume;

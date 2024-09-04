@@ -150,7 +150,7 @@ public class CropFarmingMannager : GameBehaviour
     private void SpawnNewObject(GameObject _go , Crop _crop)
     {
         _OPM.ReturnObjectToPool(_crop.go);
-        _crop.go = _OPM.spawnObject(_go, _crop.seedTransform.position, _crop.seedTransform.rotation, PoolType.Plants);
+        _crop.go = _OPM.SpawnObject(_go, _crop.seedTransform.position, _crop.seedTransform.rotation, PoolType.Plants);
     }
 
     private void loadPlants()
@@ -177,19 +177,19 @@ public class CropFarmingMannager : GameBehaviour
                     switch (loadItem.cropState)
                     {
                         case CropState.Seed:
-                            loadItem.go = _OPM.spawnObject(loadItem.seedSO.seed, loadItem.seedTransform.position, loadItem.seedTransform.rotation, PoolType.Seeds);
+                            loadItem.go = _OPM.SpawnObject(loadItem.seedSO.seed, loadItem.seedTransform.position, loadItem.seedTransform.rotation, PoolType.Seeds);
                             break;
                         case CropState.Sprout:
-                            loadItem.go = _OPM.spawnObject(loadItem.seedSO.sprout, loadItem.seedTransform.position, loadItem.seedTransform.rotation, PoolType.Plants);
+                            loadItem.go = _OPM.SpawnObject(loadItem.seedSO.sprout, loadItem.seedTransform.position, loadItem.seedTransform.rotation, PoolType.Plants);
                             break;
                         case CropState.Adolecent:
-                            loadItem.go = _OPM.spawnObject(loadItem.seedSO.adolecent, loadItem.seedTransform.position, loadItem.seedTransform.rotation, PoolType.Plants);
+                            loadItem.go = _OPM.SpawnObject(loadItem.seedSO.adolecent, loadItem.seedTransform.position, loadItem.seedTransform.rotation, PoolType.Plants);
                             break;
                         case CropState.Mature:
-                            loadItem.go = _OPM.spawnObject(loadItem.seedSO.mature, loadItem.seedTransform.position, loadItem.seedTransform.rotation, PoolType.Plants);
+                            loadItem.go = _OPM.SpawnObject(loadItem.seedSO.mature, loadItem.seedTransform.position, loadItem.seedTransform.rotation, PoolType.Plants);
                             break;
                         case CropState.Harvested:
-                            loadItem.go = _OPM.spawnObject(loadItem.seedSO.harvested, loadItem.seedTransform.position, loadItem.seedTransform.rotation, PoolType.Plants);
+                            loadItem.go = _OPM.SpawnObject(loadItem.seedSO.harvested, loadItem.seedTransform.position, loadItem.seedTransform.rotation, PoolType.Plants);
                             break;
                     }
                 }

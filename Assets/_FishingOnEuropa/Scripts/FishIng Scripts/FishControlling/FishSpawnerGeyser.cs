@@ -63,7 +63,7 @@ public class FishSpawnerGeyser : GameBehaviour
         Quaternion lookRotation = Quaternion.LookRotation(direction);
 
         //Debug.Log($"Spawning {hybridToSpawn.hybridGameObject.name} at {spawnPos.position} looking towards {targetPos.position} with rotation {lookRotation.eulerAngles}");
-        GameObject hybridFromManager = _OPM.spawnObject(hybridToSpawn.hybridGameObject, spawnPos.transform.position, lookRotation, hybridToSpawn.poolType);
+        GameObject hybridFromManager = _OPM.SpawnObject(hybridToSpawn.hybridGameObject, spawnPos.transform.position, lookRotation, hybridToSpawn.poolType);
         //Debug.Log($"Spawned object {hybridFromManager.name} with rotation {hybridFromManager.transform.rotation.eulerAngles}");
 
         _FNAVM.addHybridToPondList(hybridFromManager, HybridState.HybridFlying, geyserMannager.waterHeight.position.y, geyserMannager.pondType);
