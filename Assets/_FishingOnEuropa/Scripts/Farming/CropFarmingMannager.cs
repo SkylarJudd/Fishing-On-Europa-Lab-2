@@ -120,7 +120,7 @@ public class CropFarmingMannager : GameBehaviour
         }
     }
 
-    private void GrowPlants()
+    private void GrowPlants()   //change to an Enumarator so each for loop is spaced out by a few seconds
     {
         foreach (Crop _crop in cropsPlanted)
         {
