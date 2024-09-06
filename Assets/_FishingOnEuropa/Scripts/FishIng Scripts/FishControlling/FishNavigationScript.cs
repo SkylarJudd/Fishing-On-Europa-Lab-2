@@ -90,7 +90,6 @@ public class FishNavigationScript : GameBehaviour
                 break;
 
             case HybridState.HybridMiniGame_SwimToLure:
-                print("Hybrid swim to lure");
                 AttachToLure();
                 break;
 
@@ -299,8 +298,6 @@ public class FishNavigationScript : GameBehaviour
     {
         return fishBehaviorState;
     }
-
-
 
     void LineAttach()
     {

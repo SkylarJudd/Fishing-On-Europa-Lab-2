@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public enum HybridState
@@ -115,6 +116,9 @@ public class FishNavigationManager : Singleton<FishNavigationManager>
         public FoodType[] foodEaten;
         public ToyList favToy;
 
+        public bool isTamed = true; //TESTING PURPOSES
+
+
         [Header("Hybrid Nav")]
 
         public HybridState HybridState;
@@ -151,7 +155,8 @@ public class FishNavigationManager : Singleton<FishNavigationManager>
 
     [SerializeField] float moveToPlayerStoppingDistance;
 
- 
+    enum PlayerItemState { FoodItem, PlushieItem, NoItem}
+    PlayerItemState playerItemState;
 
 
 
@@ -226,115 +231,136 @@ public class FishNavigationManager : Singleton<FishNavigationManager>
             {
                 foreach (hybridNavData _hybrid in hybridsInPond)
                 {
-                    _hybrid.distanceToPlayer = Vector3.Distance(_PLAYER.player.transform.position, _hybrid.hybridGameObject.transform.position);
-                    if (_hybrid.distanceToPlayer < playerReactionDistance)
+                    if(!_hybrid.isTamed)
                     {
-                        if (hybridReactToPlayer.Contains(_hybrid) == false)
-                        {
-                            RemoveHybrid(_hybrid.hybridGameObject, false);
-                            hybridReactToPlayer.Add(_hybrid);
-                        }
-
-                        float distanceToRightHand = 0;
-                        float distanceToLeftHand = 0;
-
-                        if (_PLAYER.hasItem == false)
-                        {
-                            distanceToRightHand = Vector3.Distance(_hybrid.hybridGameObject.transform.position, _PLAYER.rightHand.transform.position);
-                            distanceToLeftHand = Vector3.Distance(_hybrid.hybridGameObject.transform.position, _PLAYER.leftHand.transform.position);
-                        }
-
-
-                        if (_PLAYER.hasItem == true && (_PLAYER.rightHandFood != null || _PLAYER.leftHandFood != null))
-                        {
-                            FOEItem_Food _rightFood = _PLAYER.rightHandFood;
-                            FOEItem_Food _leftFood = _PLAYER.rightHandFood;
-
-                            foreach (FoodType _food in _hybrid.foodEaten)
-                            {
-                                if (_food == _leftFood.foodType)
-                                {
-                                    _hybrid.itemTarget = _PLAYER.leftHandFood.gameObject.transform;
-                                    _hybrid.HybridState = HybridState.HybridSwimToItem;
-                                    if (_hybrid.distanceToPlayer < moveToPlayerStoppingDistance)
-                                    {
-                                        _hybrid.HybridState = HybridState.HybridLookAtHand;
-                                    }
-                                }
-                                else if (_food == _rightFood.foodType)
-                                {
-                                    _hybrid.itemTarget = _PLAYER.rightHandFood.gameObject.transform;
-                                    _hybrid.HybridState = HybridState.HybridSwimToItem;
-                                    if (_hybrid.distanceToPlayer < moveToPlayerStoppingDistance)
-                                    {
-                                        _hybrid.HybridState = HybridState.HybridLookAtHand;
-                                    }
-                                }
-                            }
-                        }
-                        else if (_PLAYER.hasItem == true && (_PLAYER.rightHandPlushie != null || _PLAYER.leftHandPlushie != null))
-                        {
-                            if (_hybrid.favToy == _PLAYER.leftHandPlushie.ToyItem)
-                            {
-                                _hybrid.itemTarget = _PLAYER.leftHandPlushie.gameObject.transform;
-                                _hybrid.HybridState = HybridState.HybridSwimToItem;
-                                if (_hybrid.distanceToPlayer < moveToPlayerStoppingDistance)
-                                {
-                                    _hybrid.HybridState = HybridState.HybridLookAtHand;
-                                }
-                            }
-                            else if (_hybrid.favToy == _PLAYER.rightHandPlushie.ToyItem)
-                            {
-                                _hybrid.itemTarget = _PLAYER.rightHandPlushie.gameObject.transform;
-                                _hybrid.HybridState = HybridState.HybridSwimToItem;
-                                if (_hybrid.distanceToPlayer < moveToPlayerStoppingDistance)
-                                {
-                                    _hybrid.HybridState = HybridState.HybridLookAtHand;
-                                }
-                            }
-                        }
-                        else if (_PLAYER.hasItem == false && (distanceToRightHand < playerHandReactionDistance || distanceToLeftHand < playerHandReactionDistance))
-                        {
-
-                            // Compare distances and set the target to the closer hand
-                            if (distanceToRightHand < distanceToLeftHand)
-                            {
-                                _hybrid.itemTarget = _PLAYER.rightHand;
-                            }
-                            else
-                            {
-                                _hybrid.itemTarget = _PLAYER.leftHand;
-                            }
-
-                            // Set the Hybrid's state to look at the selected hand
-                            _hybrid.HybridState = HybridState.HybridLookAtHand;
-                        }
-                        else
-                        {
-
-                            _hybrid.HybridState = HybridState.HybridWatchPlayer;
-                        }
+                        break;
                     }
-                    else if (_hybrid.distanceToPlayer > playerReactionDistanceReset && _hybrid.HybridState == HybridState.HybridWatchPlayer)
+                    else
                     {
-                        _hybrid.HybridState = HybridState.HybridFlocking;
+                        //Check if player is in range to interact with hybrid
+                        _hybrid.distanceToPlayer = Vector3.Distance(_PLAYER.player.transform.position, _hybrid.hybridGameObject.transform.position);
 
-                        removeHybridReact.Add(_hybrid);
-                        hybridsSwimming.Add(_hybrid);
+
+                        if (_hybrid.distanceToPlayer < playerReactionDistance)
+                        {
+                            //Add to react to player list
+                            if (!hybridReactToPlayer.Contains(_hybrid))
+                            {
+                                RemoveHybrid(_hybrid.hybridGameObject, false);
+                                hybridReactToPlayer.Add(_hybrid);
+                            }
+
+
+                            //set player item state
+
+                            if (!_PLAYER.hasItem) playerItemState = PlayerItemState.NoItem;
+                            if (_PLAYER.hasItem && (_PLAYER.rightHandFood != null || _PLAYER.leftHandFood != null)) playerItemState = PlayerItemState.FoodItem;
+                            else if (_PLAYER.hasItem && (_PLAYER.rightHandPlushie != null || _PLAYER.leftHandPlushie != null)) playerItemState = PlayerItemState.PlushieItem;
+
+
+
+                            switch (playerItemState)
+                            {
+                                #region Food item
+                                case PlayerItemState.FoodItem:
+
+                                    FOEItem_Food _rightFood = _PLAYER.rightHandFood;
+                                    FOEItem_Food _leftFood = _PLAYER.rightHandFood;
+
+                                    //Check if hybrid eats that food, then look at hand holding the food if true
+                                    if (_hybrid.foodEaten.ToList().Contains(_leftFood.foodType))
+                                    {
+                                        SwimToHand(_PLAYER.leftHandFood.gameObject.transform, _hybrid);
+                                    }
+                                    else if (_hybrid.foodEaten.ToList().Contains(_rightFood.foodType))
+                                    {
+                                        SwimToHand(_PLAYER.rightHandFood.gameObject.transform, _hybrid);
+                                    }
+
+                                    break;
+                                #endregion
+
+                                #region Plushie Item
+                                case PlayerItemState.PlushieItem:
+
+                                    //if its their favourite plushie
+                                    if (_hybrid.favToy == _PLAYER.leftHandPlushie.ToyItem)
+                                    {
+                                        SwimToHand(_PLAYER.leftHandPlushie.gameObject.transform, _hybrid);
+                                    }
+                                    else if (_hybrid.favToy == _PLAYER.rightHandPlushie.ToyItem)
+                                    {
+                                        SwimToHand(_PLAYER.rightHandPlushie.gameObject.transform, _hybrid);
+                                    }
+
+                                    break;
+                                #endregion
+
+                                #region No item
+                                case PlayerItemState.NoItem:
+                                    //Set distance to each hand
+                                    float distanceToRightHand = Vector3.Distance(_hybrid.hybridGameObject.transform.position, _PLAYER.rightHand.transform.position);
+                                    float distanceToLeftHand = Vector3.Distance(_hybrid.hybridGameObject.transform.position, _PLAYER.leftHand.transform.position);
+
+
+
+                                    if (distanceToRightHand < playerHandReactionDistance || distanceToLeftHand < playerHandReactionDistance)
+                                    {
+                                        // Compare distances and set the target to the closer hand
+                                        if (distanceToRightHand < distanceToLeftHand)
+                                        {
+                                            _hybrid.itemTarget = _PLAYER.rightHand;
+                                        }
+                                        else
+                                        {
+                                            _hybrid.itemTarget = _PLAYER.leftHand;
+                                        }
+
+                                        // Set the Hybrid's state to look at the selected hand
+                                        _hybrid.HybridState = HybridState.HybridLookAtHand;
+
+                                    }
+                                    else _hybrid.HybridState = HybridState.HybridWatchPlayer;
+
+
+                                    break;
+                            }
+                            #endregion
+
+
+
+                        }
+                        else if (_hybrid.distanceToPlayer > playerReactionDistanceReset && _hybrid.HybridState == HybridState.HybridWatchPlayer)
+                        {
+                            _hybrid.HybridState = HybridState.HybridFlocking;
+
+                            removeHybridReact.Add(_hybrid);
+                            hybridsSwimming.Add(_hybrid);
+                        }
+
                     }
-
+                    // Remove hybrids from hybridsHitWater
+                    foreach (var _hybridInReact in removeHybridReact)
+                    {
+                        hybridReactToPlayer.Remove(_hybridInReact);
+                    }
+                    removeHybridReact.Clear();
                 }
-                // Remove hybrids from hybridsHitWater
-                foreach (var _hybrid in removeHybridReact)
-                {
-                    hybridReactToPlayer.Remove(_hybrid);
-                }
-                removeHybridReact.Clear();
+                    
             }
             yield return new WaitForFixedUpdate();
         }
     }
 
+    void SwimToHand(Transform _swimObject, hybridNavData _hybrid)
+    {
+        _hybrid.itemTarget = _swimObject;
+        _hybrid.HybridState = HybridState.HybridSwimToItem;
+        if (_hybrid.distanceToPlayer < moveToPlayerStoppingDistance)
+        {
+            _hybrid.HybridState = HybridState.HybridLookAtHand;
+        }
+    }
     private IEnumerator UpdateIdle()
     {
         while (true)
@@ -763,7 +789,7 @@ public class FishNavigationManager : Singleton<FishNavigationManager>
                     float yOffset = 0.1f;
                     directionToTarget = new Vector3(directionToTarget.x, directionToTarget.y - yOffset, directionToTarget.z);
                     // Rotate towards the target
-
+    
                     Quaternion targetRotation = Quaternion.LookRotation(directionToTarget);
                     caughtHybrid.hybridGameObject.transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * caughtHybrid.rotationSpeed);
 
