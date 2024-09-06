@@ -451,7 +451,7 @@ public class FishNavigationManager : Singleton<FishNavigationManager>
     /// </summary>
     private void ProcessPlayerWithItem(hybridNavData _hybrid)
     {
-        // Assume player could hold food in either hand
+        
         FOEItem_Food _rightFood = _PLAYER.rightHandFood;
         FOEItem_Food _leftFood = _PLAYER.leftHandFood;
 
@@ -1043,7 +1043,7 @@ public class FishNavigationManager : Singleton<FishNavigationManager>
 
     public void AddHybridTolist(GameObject go)
     {
-        var _hybrid = GetHybridFromGO(go);  // wont this crash if the inputted object dose not have a hybrid nav data?
+        var _hybrid = GetHybridFromGO(go);  
         if (_hybrid.hybridGameObject == go)
         {
             print(_hybrid.HybridState);
