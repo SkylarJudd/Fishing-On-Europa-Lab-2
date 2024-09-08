@@ -178,37 +178,56 @@ public class FishNavigationManager : Singleton<FishNavigationManager>
         UpdateHybridReactCoroutine = StartCoroutine(UpdateHybridReact());
     }
 
-    public void addHybridToPondList(GameObject go, HybridState enterState , float _waterHight, PondType _pondType)
+    /// <summary>
+    /// Adds a new hybrid GameObject to the pond list, setting its initial state and other parameters.
+    /// </summary>
+    /// <param name="go">The GameObject representing the hybrid.</param>
+    /// <param name="enterState">Initial state of the hybrid when added to the pond.</param>
+    /// <param name="_waterHight">The water height for the hybrid to maintain.</param>
+    /// <param name="_pondType">The type of pond the hybrid belongs to.</param>
+    public void addHybridToPondList(GameObject go, HybridState enterState, float _waterHight, PondType _pondType)
     {
-        hybridNavData newEntry = new hybridNavData();
-        newEntry.hybridGameObject = go;
+        // Create a new hybrid navigation data entry
+        hybridNavData newEntry = new hybridNavData
+        {
+            hybridGameObject = go,
+            waterHeight = _waterHight,
+            pondType = _pondType
+        };
+
+        // Retrieve hybrid specific information from the GameObject
         FOEItem_Hybrid hybridInfo = go.GetComponent<FOEItem_Hybrid>();
         if (hybridInfo == null)
         {
-            Debug.LogError($"{go} dose not have Hybrid Info attached");
+            // Log error if the hybrid info is not attached to the GameObject
+            Debug.LogError($"{go.name} does not have Hybrid Info attached");
+            return;
         }
 
+        // Set initial visual state for the hybrid in the world
         hybridInfo.SetVisuals(HybridVisualsState.World);
 
+        // Initialize movement and state parameters from hybrid info
         newEntry.minSpeed = hybridInfo.hybridSO.fishSpeed;
         newEntry.maxSpeed = hybridInfo.hybridSO.fishSpeed * 2;
-        newEntry.HybridState = HybridState.HybridFlying;
-        newEntry.hybridRigidbody = go.GetComponent<Rigidbody>();
+        newEntry.HybridState = enterState;
         newEntry.velocity = Vector3.forward * hybridInfo.hybridSO.fishSpeed;
         newEntry.rotationSpeed = hybridInfo.hybridSO.rotationSpeed;
-        newEntry.firstNav = true;
+        newEntry.firstNav = true;  // Indicates this is the first navigation update
         newEntry.foodEaten = hybridInfo.hybridSO.foodEaten;
-        newEntry.waterHeight = _waterHight;
-        newEntry.pondType = _pondType;
 
+        // Assign Rigidbody to hybrid, or add one if it is missing
+        newEntry.hybridRigidbody = go.GetComponent<Rigidbody>();
         if (newEntry.hybridRigidbody == null)
         {
-            Debug.LogWarning($"{go} Dose not have a rigid body, so one has been assinged");
-            newEntry.hybridGameObject.AddComponent<Rigidbody>();
+            Debug.LogWarning($"{go.name} does not have a Rigidbody; one has been assigned");
+            newEntry.hybridRigidbody = newEntry.hybridGameObject.AddComponent<Rigidbody>();
         }
 
+        // Add the new hybrid to the main pond list
         hybridsInPond.Add(newEntry);
 
+        // Add the new hybrid to the appropriate state-specific list based on the entry state
         switch (enterState)
         {
             case HybridState.HybridFlying:
@@ -218,25 +237,211 @@ public class FishNavigationManager : Singleton<FishNavigationManager>
                 hybridsSwimming.Add(newEntry);
                 break;
             default:
-                hybridsSwimming.Add(newEntry);
+                hybridsSwimming.Add(newEntry);  // Default to swimming if state is not specified
                 break;
         }
     }
 
+    #region OldUpdateHybridState
+    //private IEnumerator UpdateHybridStates()
+    //{
+    //    while (true)
+    //    {
+    //        if (hybridsInPond.Count > 0)
+    //        {
+    //            foreach (hybridNavData _hybrid in hybridsInPond)
+    //            {
+    //                _hybrid.distanceToPlayer = Vector3.Distance(_PLAYER.player.transform.position, _hybrid.hybridGameObject.transform.position);
+    //                if (_hybrid.distanceToPlayer < playerReactionDistance)
+    //                {
+    //                    if (hybridReactToPlayer.Contains(_hybrid) == false)
+    //                    {
+    //                        removeHybrid(_hybrid.hybridGameObject, false);
+    //                        hybridReactToPlayer.Add(_hybrid);
+    //                    }
+
+    //                    float distanceToRightHand = 0;
+    //                    float distanceToLeftHand = 0;
+
+    //                    if (_PLAYER.hasItem == false)
+    //                    {
+    //                        distanceToRightHand = Vector3.Distance(_hybrid.hybridGameObject.transform.position, _PLAYER.rightHand.transform.position);
+    //                        distanceToLeftHand = Vector3.Distance(_hybrid.hybridGameObject.transform.position, _PLAYER.leftHand.transform.position);
+    //                    }
+
+
+    //                    if (_PLAYER.hasItem == true && (_PLAYER.rightHandFood != null || _PLAYER.leftHandFood != null))
+    //                    {
+    //                        FOEItem_Food _rightFood = _PLAYER.rightHandFood;
+    //                        FOEItem_Food _leftFood = _PLAYER.rightHandFood;
+
+    //                        foreach (FoodType _food in _hybrid.foodEaten)
+    //                        {
+    //                            if (_food == _leftFood.foodType)
+    //                            {
+    //                                _hybrid.itemTarget = _PLAYER.leftHandFood.gameObject.transform;
+    //                                _hybrid.HybridState = HybridState.HybridSwimToItem;
+    //                                if (_hybrid.distanceToPlayer < moveToPlayerStoppingDistance)
+    //                                {
+    //                                    //swim to hand then look at hand
+    //                                    _hybrid.HybridState = HybridState.HybridLookAtHand;
+    //                                }
+    //                            }
+    //                            else if (_food == _rightFood.foodType)
+    //                            {
+    //                                _hybrid.itemTarget = _PLAYER.rightHandFood.gameObject.transform;
+    //                                _hybrid.HybridState = HybridState.HybridSwimToItem;
+    //                                if (_hybrid.distanceToPlayer < moveToPlayerStoppingDistance)
+    //                                {
+    //                                    _hybrid.HybridState = HybridState.HybridLookAtHand;
+    //                                }
+    //                            }
+    //                        }
+    //                    }
+    //                    else if (_PLAYER.hasItem == true && (_PLAYER.rightHandPlushie != null || _PLAYER.leftHandPlushie != null))
+    //                    {
+    //                        if (_hybrid.favToy == _PLAYER.leftHandPlushie.ToyItem)
+    //                        {
+    //                            _hybrid.itemTarget = _PLAYER.leftHandPlushie.gameObject.transform;
+    //                            _hybrid.HybridState = HybridState.HybridSwimToItem;
+    //                            if (_hybrid.distanceToPlayer < moveToPlayerStoppingDistance)
+    //                            {
+    //                                // swim to until close enough then look at it
+    //                                _hybrid.HybridState = HybridState.HybridLookAtHand;
+    //                            }
+    //                        }
+    //                        else if (_hybrid.favToy == _PLAYER.rightHandPlushie.ToyItem)
+    //                        {
+    //                            _hybrid.itemTarget = _PLAYER.rightHandPlushie.gameObject.transform;
+    //                            _hybrid.HybridState = HybridState.HybridSwimToItem;
+    //                            if (_hybrid.distanceToPlayer < moveToPlayerStoppingDistance)
+    //                            {
+    //                                _hybrid.HybridState = HybridState.HybridLookAtHand;
+    //                            }
+    //                        }
+    //                    }
+    //                    else if (_PLAYER.hasItem == false && (distanceToRightHand < playerHandReactionDistance || distanceToLeftHand < playerHandReactionDistance))
+    //                    {
+
+    //                        // Compare distances and set the target to the closer hand
+    //                        if (distanceToRightHand < distanceToLeftHand)
+    //                        {
+    //                            _hybrid.itemTarget = _PLAYER.rightHand;
+    //                        }
+    //                        else
+    //                        {
+    //                            _hybrid.itemTarget = _PLAYER.leftHand;
+    //                        }
+
+    //                        // Set the Hybrid's state to look at the selected hand
+    //                        _hybrid.HybridState = HybridState.HybridLookAtHand;
+    //                    }
+    //                    else
+    //                    {
+
+    //                        _hybrid.HybridState = HybridState.HybridWatchPlayer;
+    //                    }
+    //                }
+    //                else if (_hybrid.distanceToPlayer > playerReactionDistanceReset && _hybrid.HybridState == HybridState.HybridWatchPlayer)
+    //                {
+    //                    _hybrid.HybridState = HybridState.HybridFlocking;
+
+    //                    removeHybridReact.Add(_hybrid);
+    //                    hybridsSwimming.Add(_hybrid);
+    //                }
+
+    //            }
+    //            // Remove hybrids from hybridsHitWater
+    //            foreach (var _hybrid in removeHybridReact)
+    //            {
+    //                hybridReactToPlayer.Remove(_hybrid);
+    //            }
+    //            removeHybridReact.Clear();
+    //        }
+    //        yield return new WaitForFixedUpdate();
+    //    }
+    //}
+    #endregion
+
+    /// <summary>
+    /// Continuously updates the state of each hybrid in the pond, reacting to the player's proximity and actions.
+    /// This coroutine runs in a loop and processes interactions between the player and hybrids based on distance and held items.
+    /// </summary>
     private IEnumerator UpdateHybridStates()
     {
+        // Continuously update hybrid states runs in a while loop so its not creating garbage creating new Corutines each time
         while (true)
         {
+            // check to see if there are any hybrids in the pond and only if there are hybrids in the pond will continue
             if (hybridsInPond.Count > 0)
             {
+                // Iterate through each hybrid in the pond
                 foreach (hybridNavData _hybrid in hybridsInPond)
                 {
+
                     if(!_hybrid.isTamed)
                     {
                         break;
+
+                    // Update distance the hybrid is to the player
+                    _hybrid.distanceToPlayer = Vector3.Distance(_PLAYER.player.transform.position, _hybrid.hybridGameObject.transform.position);
+
+                    // Check if the hybrid is within the player's reaction distance
+                    if (_hybrid.distanceToPlayer < playerReactionDistance)
+                    {
+                        // Add the hybrid to the react list if it's not already included
+                        if (!hybridReactToPlayer.Contains(_hybrid))
+                        {
+                            removeHybrid(_hybrid.hybridGameObject, false);
+                            hybridReactToPlayer.Add(_hybrid);
+
+                            //Note For Lilli ( Make Hybrid Swim to player set their state to something like swim to player then in UpdateHybridReact have a loop that will make them swim towards the player until
+                            //they reach a wall, you can do this with a ray cast simmilar to the one below that was used in the flocking corutine. 
+
+                            #region Notes For Lilli
+                            //if (UnityEngine.Random.Range(0, rayCastCheckChance) < 1 && hybridsSwimming.Count > 1)
+                            //{
+                            //    Ray hybridRay = new Ray(_hybrid.hybridGameObject.transform.position, _hybrid.hybridGameObject.transform.forward);
+                            //    float raycastDistance = 0.5f;
+                            //    int layerMask = ~LayerMask.GetMask("Fish");
+
+                            //    if (debug)
+                            //        Debug.DrawRay(hybridRay.origin, hybridRay.direction * raycastDistance, Color.red);
+
+                            //    if (Physics.Raycast(hybridRay, out RaycastHit hit, raycastDistance, layerMask))
+                            //    {
+                            //        if (hit.collider.gameObject.CompareTag("Wall"))
+                            //        {
+                            //            _hybrid.aboutToHitWall = true;
+                            //        }
+                            //        else
+                            //        {
+                            //            _hybrid.aboutToHitWall = false;
+                            //            _hybrid.HybridState = HybridState.HybridFlocking;
+                            //        }
+                            //    }
+                            //    else
+                            //    {
+                            //        _hybrid.aboutToHitWall = false;
+                            //        _hybrid.HybridState = HybridState.HybridFlocking;
+                            //    }
+                            //}
+                            #endregion
+                        }
+
+                        // Check if player is holding an item
+                        if (_PLAYER.hasItem)
+                        {
+                            ProcessPlayerWithItem(_hybrid);
+                        }
+                        else
+                        {
+                            ProcessPlayerWithoutItem(_hybrid);
+                        }
                     }
                     else
                     {
+
                         //Check if player is in range to interact with hybrid
                         _hybrid.distanceToPlayer = Vector3.Distance(_PLAYER.player.transform.position, _hybrid.hybridGameObject.transform.position);
 
@@ -347,20 +552,121 @@ public class FishNavigationManager : Singleton<FishNavigationManager>
                     removeHybridReact.Clear();
                 }
                     
+
+                        // Reset hybrid state to flocking when the player moves away beyond reset distance
+                        _hybrid.HybridState = HybridState.HybridFlocking;
+                        removeHybridReact.Add(_hybrid);
+                        hybridsSwimming.Add(_hybrid);
+                    }
+                }
+
+                // Clean up hybrids that are no longer reacting
+                foreach (var _hybrid in removeHybridReact)
+                {
+                    hybridReactToPlayer.Remove(_hybrid);
+                }
+                removeHybridReact.Clear();
+
             }
+
+            // Wait until the next physics update
             yield return new WaitForFixedUpdate();
         }
     }
 
-    void SwimToHand(Transform _swimObject, hybridNavData _hybrid)
+
+    /// <summary>
+    /// Handles hybrid interactions when the player is holding an item, checking for specific reactions based on the type of item held.
+    /// </summary>
+    private void ProcessPlayerWithItem(hybridNavData _hybrid)
     {
-        _hybrid.itemTarget = _swimObject;
+        
+        FOEItem_Food _rightFood = _PLAYER.rightHandFood;
+        FOEItem_Food _leftFood = _PLAYER.leftHandFood;
+
+        // Check for food interactions
+        if (_PLAYER.rightHandFood != null || _PLAYER.leftHandFood != null)
+        {
+            CheckFoodInteraction(_hybrid, _rightFood, _leftFood);
+        }
+        // Check for plushie interactions
+        else if (_PLAYER.rightHandPlushie != null || _PLAYER.leftHandPlushie != null)
+        {
+            CheckPlushieInteraction(_hybrid);
+        }
+    }
+
+    /// <summary>
+    /// Processes hybrid interactions when the player is not holding any item, determining reactions based on proximity to the player's hands.
+    /// </summary>
+    private void ProcessPlayerWithoutItem(hybridNavData _hybrid)
+    {
+        // Calculate distances to player's hands
+        float distanceToRightHand = Vector3.Distance(_hybrid.hybridGameObject.transform.position, _PLAYER.rightHand.transform.position);
+        float distanceToLeftHand = Vector3.Distance(_hybrid.hybridGameObject.transform.position, _PLAYER.leftHand.transform.position);
+
+        // Determine which hand is closer, or default to watching the player
+        if (distanceToRightHand < playerHandReactionDistance || distanceToLeftHand < playerHandReactionDistance)
+        {
+            _hybrid.itemTarget = (distanceToRightHand < distanceToLeftHand) ? _PLAYER.rightHand : _PLAYER.leftHand;
+            _hybrid.HybridState = HybridState.HybridLookAtHand;
+        }
+        else
+        {
+            _hybrid.HybridState = HybridState.HybridWatchPlayer;
+        }
+    }
+
+    /// <summary>
+    /// Checks for food interactions between the player's held items and the hybrid's preferences, setting the target and state accordingly.
+    /// </summary>
+    private void CheckFoodInteraction(hybridNavData _hybrid, FOEItem_Food _rightFood, FOEItem_Food _leftFood)
+    {
+        // Interact with the type of food the hybrid eats
+        foreach (FoodType _food in _hybrid.foodEaten)
+        {
+            if (_food == _leftFood.foodType)
+            {
+                SetHybridTargetState(_hybrid, _PLAYER.leftHandFood.gameObject.transform);
+            }
+            else if (_food == _rightFood.foodType)
+            {
+                SetHybridTargetState(_hybrid, _PLAYER.rightHandFood.gameObject.transform);
+            }
+        }
+    }
+
+    /// <summary>
+    /// Checks plushie interactions based on the hybrid's favorite toy and the player's held plushies.
+    /// </summary>
+    private void CheckPlushieInteraction(hybridNavData _hybrid)
+    {
+        // Interact with the favorite toy
+        if (_hybrid.favToy == _PLAYER.leftHandPlushie.ToyItem)
+        {
+            SetHybridTargetState(_hybrid, _PLAYER.leftHandPlushie.gameObject.transform);
+        }
+        else if (_hybrid.favToy == _PLAYER.rightHandPlushie.ToyItem)
+        {
+            SetHybridTargetState(_hybrid, _PLAYER.rightHandPlushie.gameObject.transform);
+        }
+    }
+
+    /// <summary>
+    /// Sets the hybrid's target and updates its state based on its proximity to the target and current behavior parameters.
+    /// </summary>
+    private void SetHybridTargetState(hybridNavData _hybrid, Transform targetTransform)
+    {
+        // Set target and update state based on proximity to the player
+        _hybrid.itemTarget = targetTransform;
+
         _hybrid.HybridState = HybridState.HybridSwimToItem;
         if (_hybrid.distanceToPlayer < moveToPlayerStoppingDistance)
         {
             _hybrid.HybridState = HybridState.HybridLookAtHand;
         }
     }
+
     private IEnumerator UpdateIdle()
     {
         while (true)
@@ -369,7 +675,7 @@ public class FishNavigationManager : Singleton<FishNavigationManager>
             {
                 foreach (hybridNavData _hybrid in hybridsIdle)
                 {
-
+                    //Play Idel animation
                 }
                 // Remove hybrids from hybridsHitWater
                 foreach (var _hybrid in removeHybridsIdle)
@@ -404,9 +710,7 @@ public class FishNavigationManager : Singleton<FishNavigationManager>
                     // Check if Hybrid has left the water
                     if (_hybrid.HybridState != HybridState.HybridFlying)
                     {
-                        _hybrid.hybridRigidbody.useGravity = true;
-                        _hybrid.hybridRigidbody.drag = airDrag;
-                        _hybrid.hybridRigidbody.angularDrag = airDrag;
+                        UpdateRB(_hybrid.hybridRigidbody, true, airDrag, airDrag);
                         _hybrid.HybridState = HybridState.HybridFlying;
                     }
 
@@ -431,52 +735,45 @@ public class FishNavigationManager : Singleton<FishNavigationManager>
             yield return new WaitForFixedUpdate();
         }
     }
-    
+
     /// <summary>
-    /// Loops though the list of hybrids that have hit the water and updates their rigid bodies and corrects their rotation
+    /// Loops through the list of hybrids that have hit the water and updates their rigid bodies and corrects their rotation
+    /// to ensure they align properly with the water surface. Hybrids are moved to the swimming state once their rotation is corrected.
     /// </summary>
-    /// <returns></returns>
     private IEnumerator UpdateHitWater()
     {
         while (true)
         {
             if (hybridsHitWater.Count > 0)
             {
-
-
                 for (int i = hybridsHitWater.Count - 1; i >= 0; i--)
                 {
                     hybridNavData _hybrid = hybridsHitWater[i];
 
+                    // Initialize hybrid's physics when they first hit the water
                     if (_hybrid.HybridState != HybridState.HybridHitWater)
                     {
-                        _hybrid.hybridRigidbody.useGravity = false;
-                        _hybrid.hybridRigidbody.drag = waterDrag;
-                        _hybrid.hybridRigidbody.angularDrag = waterDrag;
+                        // Disable gravity and adjust drag to simulate water resistance
+                        UpdateRB(_hybrid.hybridRigidbody, false, waterDrag, waterDrag);
                         _hybrid.HybridState = HybridState.HybridHitWater;
                     }
 
-                    // Define the target rotation
+                    // Define and interpolate towards the target rotation to align with the water surface
                     Quaternion targetRotation = Quaternion.Euler(0, _hybrid.hybridGameObject.transform.rotation.eulerAngles.y, 0);
-
-                    // Lerp towards the target rotation
                     _hybrid.hybridGameObject.transform.rotation = Quaternion.Lerp(_hybrid.hybridGameObject.transform.rotation, targetRotation, Time.deltaTime * correctRotationSpeed);
 
-                    // Convert rotation to Euler angles
+                    // Check if the hybrid is aligned within acceptable thresholds to transition to swimming
                     Vector3 currentRotation = _hybrid.hybridGameObject.transform.rotation.eulerAngles;
-
-                    // Check if the rotation is within the desired range
-                    if ((currentRotation.x < 0.5f || currentRotation.x > 359.5f) &&
-                        (currentRotation.z < 0.5f || currentRotation.z > 359.5f))
+                    if (IsRotationWithinRange(currentRotation))
                     {
-                        //print($"{_hybridd} is within the range to make swim");
+                        // Mark for transition to swimming state
                         hybridsSwimming.Add(_hybrid);
                         removeHybridsHitWater.Add(_hybrid);
                         _hybrid.velocity = _hybrid.hybridGameObject.transform.position;
                     }
                 }
 
-                // Remove hybrids from hybridsHitWater
+                // Remove processed hybrids from the hit water list
                 foreach (var hybrid in removeHybridsHitWater)
                 {
                     hybridsHitWater.Remove(hybrid);
@@ -486,6 +783,31 @@ public class FishNavigationManager : Singleton<FishNavigationManager>
             yield return new WaitForFixedUpdate();
         }
     }
+
+    /// <summary>
+    /// Checks if the given rotation is within the acceptable range to be considered aligned with the water.
+    /// </summary>
+    /// <param name="rotation">The current rotation as Euler angles.</param>
+    /// <returns>True if within range, otherwise false.</returns>
+    private bool IsRotationWithinRange(Vector3 rotation)
+    {
+        return (rotation.x < 0.5f || rotation.x > 359.5f) && (rotation.z < 0.5f || rotation.z > 359.5f);
+    }
+
+    /// <summary>
+    /// A helper fuction to updates the properties of a inputed Rigid Body. 
+    /// </summary>
+    /// <param name="_rb">The Rigid Body you want to update the values of</param>
+    /// <param name="_gravity">To use Gravity or not</param>
+    /// <param name="_drag">The drag of the Rigid body</param>
+    /// <param name="_angularDrag">The agular drag of the Rigid body</param>
+    private void UpdateRB(Rigidbody _rb, bool _gravity, float _drag, float _angularDrag)
+    {
+        _rb.useGravity = _gravity;
+        _rb.drag = _drag;
+        _rb.angularDrag = _angularDrag;
+    }
+
     /// <summary>
     /// loops though the list of hybrids that are swimming and calls the fuctions that are needed for each hybrid to move. 
     /// </summary>
@@ -808,66 +1130,91 @@ public class FishNavigationManager : Singleton<FishNavigationManager>
         }
     }
 
+    /// <summary>
+    /// Continuously updates the behavior of hybrids that are reacting to the player, handling state transitions and movements based on the hybrid's current state.
+    /// </summary>
     private IEnumerator UpdateHybridReact()
     {
         while (true)
         {
+            // Only process if there are hybrids currently reacting to the player
             if (hybridReactToPlayer.Count > 0)
             {
-
-
+                // Iterate backwards through the list to safely remove elements if needed
                 for (int i = hybridReactToPlayer.Count - 1; i >= 0; i--)
                 {
                     hybridNavData _hybrid = hybridReactToPlayer[i];
+
+                    // Reset hybrids avoiding wall back to watching player ( This is a bug, Needs to be fixed, The Hybrid should not have a state of avoiding walls while in here I have no idea why it dose.) 
                     if (_hybrid.HybridState == HybridState.HybridAvoidingWall)
                     {
                         _hybrid.HybridState = HybridState.HybridWatchPlayer;
                     }
 
+                    // Handle behavior based on current state
                     switch (_hybrid.HybridState)
                     {
                         case HybridState.HybridWatchPlayer:
-                            // Rotate the Hybrid toward the Player
-                            Quaternion targetRotation = Quaternion.LookRotation((_PLAYER.playerHead.transform.position - _hybrid.hybridGameObject.transform.position).normalized);
-                            _hybrid.hybridGameObject.transform.rotation = Quaternion.Lerp(_hybrid.hybridGameObject.transform.rotation, targetRotation, _hybrid.rotationSpeed * Time.deltaTime);
+                            RotateHybridTowards(_hybrid, _PLAYER.playerHead.transform.position);
                             break;
                         case HybridState.HybridSwimToItem:
-
-                            Quaternion targetRotation2 = Quaternion.LookRotation((_hybrid.itemTarget.transform.position - _hybrid.hybridGameObject.transform.position).normalized);
-                            _hybrid.hybridGameObject.transform.rotation = Quaternion.Lerp(_hybrid.hybridGameObject.transform.rotation, targetRotation2, _hybrid.rotationSpeed * Time.deltaTime);
-
-                            // Move towards the target
-                            Vector3 targetPosition = _hybrid.itemTarget.transform.position;
-
-                            if (targetPosition.y > _hybrid.waterHeight)
-                            {
-                                targetPosition.y = _hybrid.waterHeight;
-                            }
-
-                            transform.position = Vector3.Lerp(_hybrid.hybridGameObject.transform.position, targetPosition, Time.deltaTime * _hybrid.maxSpeed);
+                            RotateAndMoveHybridTowards(_hybrid, _hybrid.itemTarget.transform.position);
                             break;
                         case HybridState.HybridLookAtHand:
-                            // Rotate the Hybrid toward the Player
-                            Quaternion targetRotation3 = Quaternion.LookRotation((_hybrid.itemTarget.transform.position - _hybrid.hybridGameObject.transform.position).normalized);
-                            _hybrid.hybridGameObject.transform.rotation = Quaternion.Lerp(_hybrid.hybridGameObject.transform.rotation, targetRotation3, _hybrid.rotationSpeed * Time.deltaTime);
+                            RotateHybridTowards(_hybrid, _hybrid.itemTarget.transform.position);
                             break;
                     }
-
-
                 }
 
-                // Remove hybrids from hybridsHitWater
+                // Clear the list of hybrids to remove after processing
                 foreach (var hybrid in removeHybridReact)
                 {
                     hybridReactToPlayer.Remove(hybrid);
                 }
                 removeHybridReact.Clear();
             }
+
+            // Wait until the next physics update
             yield return new WaitForFixedUpdate();
         }
     }
 
+
     public void RemoveHybrid(GameObject go, bool _RemoveFromPond)
+
+    /// <summary>
+    /// Rotates the hybrid towards a target position.
+    /// </summary>
+    /// <param name="_hybrid">Hybrid to rotate.</param>
+    /// <param name="_targetPos">Position to face.</param>
+    private void RotateHybridTowards(hybridNavData _hybrid, Vector3 _targetPos)
+    {
+        Vector3 direction = (_targetPos - _hybrid.hybridGameObject.transform.position).normalized;
+        Quaternion targetRotation = Quaternion.LookRotation(direction);
+        _hybrid.hybridGameObject.transform.rotation = Quaternion.Lerp(_hybrid.hybridGameObject.transform.rotation, targetRotation, _hybrid.rotationSpeed * Time.deltaTime);
+    }
+
+    /// <summary>
+    /// Rotates and moves the hybrid towards a target position.
+    /// </summary>
+    /// <param name="_hybrid">Hybrid to move.</param>
+    /// <param name="_targetPos">Position to move to and face.</param>
+    private void RotateAndMoveHybridTowards(hybridNavData _hybrid, Vector3 _targetPos)
+    {
+        RotateHybridTowards(_hybrid, _targetPos);
+
+        // Clamp target position to water height
+        if (_targetPos.y > _hybrid.waterHeight)
+        {
+            _targetPos.y = _hybrid.waterHeight;
+        }
+
+        // Move towards the target
+        _hybrid.hybridGameObject.transform.position = Vector3.Lerp(_hybrid.hybridGameObject.transform.position, _targetPos, Time.deltaTime * _hybrid.maxSpeed);
+    }
+
+    public void removeHybrid(GameObject go, bool _RemoveFromPond)
+
     {
         foreach (hybridNavData _hybrid in hybridsInPond)
         {
@@ -899,7 +1246,7 @@ public class FishNavigationManager : Singleton<FishNavigationManager>
 
     public void AddHybridTolist(GameObject go)
     {
-        var _hybrid = GetHybridFromGO(go);
+        var _hybrid = GetHybridFromGO(go);  
         if (_hybrid.hybridGameObject == go)
         {
             print(_hybrid.HybridState);

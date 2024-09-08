@@ -12,7 +12,9 @@ namespace Autohand.Demo {
         [Header("Input")]
         public InputActionProperty moveAxis;
         public InputActionProperty turnAxis;
-        
+        public InputActionProperty LeftTrigger;
+        public InputAction leftTrigger;
+
         private void OnEnable() {
             if (moveAxis.action != null) moveAxis.action.Enable();
             if (moveAxis.action != null) moveAxis.action.performed += MoveAction;

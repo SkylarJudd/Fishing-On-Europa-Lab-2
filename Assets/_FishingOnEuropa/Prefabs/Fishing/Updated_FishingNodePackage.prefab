@@ -1226,7 +1226,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &3010996462890327732
 Transform:
   m_ObjectHideFlags: 0
@@ -3313,7 +3313,7 @@ PrefabInstance:
     - target: {fileID: 2576565187027953458, guid: bdab25ecbae4b5248ba0bd2aaf934e8c,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4860697896351928860, guid: bdab25ecbae4b5248ba0bd2aaf934e8c,
         type: 3}
@@ -3325,41 +3325,6 @@ PrefabInstance:
       propertyPath: fishMannager
       value: 
       objectReference: {fileID: 8390491979092721068}
-    - target: {fileID: 5020244134716820225, guid: bdab25ecbae4b5248ba0bd2aaf934e8c,
-        type: 3}
-      propertyPath: geysers.Array.size
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 5020244134716820225, guid: bdab25ecbae4b5248ba0bd2aaf934e8c,
-        type: 3}
-      propertyPath: geysers.Array.data[0]
-      value: 
-      objectReference: {fileID: 5911639316855259167}
-    - target: {fileID: 5020244134716820225, guid: bdab25ecbae4b5248ba0bd2aaf934e8c,
-        type: 3}
-      propertyPath: geysers.Array.data[1]
-      value: 
-      objectReference: {fileID: 7782916634035547779}
-    - target: {fileID: 5020244134716820225, guid: bdab25ecbae4b5248ba0bd2aaf934e8c,
-        type: 3}
-      propertyPath: geysers.Array.data[2]
-      value: 
-      objectReference: {fileID: 5817488382106900680}
-    - target: {fileID: 5020244134716820225, guid: bdab25ecbae4b5248ba0bd2aaf934e8c,
-        type: 3}
-      propertyPath: geysers.Array.data[3]
-      value: 
-      objectReference: {fileID: 3691043473657910925}
-    - target: {fileID: 5020244134716820225, guid: bdab25ecbae4b5248ba0bd2aaf934e8c,
-        type: 3}
-      propertyPath: geysers.Array.data[4]
-      value: 
-      objectReference: {fileID: 1106378003847977713}
-    - target: {fileID: 5020244134716820225, guid: bdab25ecbae4b5248ba0bd2aaf934e8c,
-        type: 3}
-      propertyPath: geysers.Array.data[5]
-      value: 
-      objectReference: {fileID: 23800587950433247}
     - target: {fileID: 8077518203180803918, guid: bdab25ecbae4b5248ba0bd2aaf934e8c,
         type: 3}
       propertyPath: fishNavigationManager
@@ -3375,45 +3340,9 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bdab25ecbae4b5248ba0bd2aaf934e8c, type: 3}
---- !u!1 &23800587950433247 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 164519287512054153, guid: bdab25ecbae4b5248ba0bd2aaf934e8c,
-    type: 3}
-  m_PrefabInstance: {fileID: 152264672377051734}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &202369035403531421 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 59116863617240779, guid: bdab25ecbae4b5248ba0bd2aaf934e8c,
-    type: 3}
-  m_PrefabInstance: {fileID: 152264672377051734}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &1106378003847977713 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 956547660289540263, guid: bdab25ecbae4b5248ba0bd2aaf934e8c,
-    type: 3}
-  m_PrefabInstance: {fileID: 152264672377051734}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &3691043473657910925 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3541460510275226843, guid: bdab25ecbae4b5248ba0bd2aaf934e8c,
-    type: 3}
-  m_PrefabInstance: {fileID: 152264672377051734}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &5817488382106900680 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5955778741510701726, guid: bdab25ecbae4b5248ba0bd2aaf934e8c,
-    type: 3}
-  m_PrefabInstance: {fileID: 152264672377051734}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &5911639316855259167 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5770992707526990409, guid: bdab25ecbae4b5248ba0bd2aaf934e8c,
-    type: 3}
-  m_PrefabInstance: {fileID: 152264672377051734}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &7782916634035547779 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7934931982214690005, guid: bdab25ecbae4b5248ba0bd2aaf934e8c,
     type: 3}
   m_PrefabInstance: {fileID: 152264672377051734}
   m_PrefabAsset: {fileID: 0}
@@ -3433,7 +3362,7 @@ PrefabInstance:
     - target: {fileID: 2269280573903691426, guid: 16bfaf496f290d34aa4024ae51ee1add,
         type: 3}
       propertyPath: separationFactor
-      value: 1.48
+      value: 1.65
       objectReference: {fileID: 0}
     - target: {fileID: 6863086000082951395, guid: 16bfaf496f290d34aa4024ae51ee1add,
         type: 3}
