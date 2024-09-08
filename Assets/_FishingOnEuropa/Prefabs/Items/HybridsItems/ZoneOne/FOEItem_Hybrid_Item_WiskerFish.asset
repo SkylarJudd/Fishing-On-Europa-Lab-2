@@ -15,7 +15,7 @@ MonoBehaviour:
   itemID: 100008
   worldObject: {fileID: 8235945337240472755, guid: f474f599c7ee25e47bacc32a51fb1a89,
     type: 3}
-  itemPrefab: {fileID: 3928281344754751941, guid: 89de44bbcc799f743807bed7b34b7aa2,
+  itemPrefab: {fileID: 4371199503245582105, guid: f474f599c7ee25e47bacc32a51fb1a89,
     type: 3}
   itemName: WiskerFish
   itemDescription: 

@@ -15,7 +15,7 @@ MonoBehaviour:
   itemID: 100009
   worldObject: {fileID: 8235945337240472755, guid: afc5f0cf86f3fca49a41ddcecdb91d8a,
     type: 3}
-  itemPrefab: {fileID: 8410365432979560448, guid: 1c1d57968cc88894dba3696a27423985,
+  itemPrefab: {fileID: 4371199503245582105, guid: afc5f0cf86f3fca49a41ddcecdb91d8a,
     type: 3}
   itemName: FireBetta
   itemDescription: 
