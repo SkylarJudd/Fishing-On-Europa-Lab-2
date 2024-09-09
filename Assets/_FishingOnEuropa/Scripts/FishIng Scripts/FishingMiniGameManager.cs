@@ -3,25 +3,30 @@ using System.Collections.Generic;
 using UnityEngine;
 using static FishNavigationManager;
 
-public enum BobberState { Withdrawn, Cast, HitWater, AttachedFish }
 
 public class FishingMiniGameManager : Singleton<FishingMiniGameManager>
 {
     [Header("Bobber")]
     [SerializeField] float bobberRange = 3; //detection range of nearby hybrids when cast
     [SerializeField] float minBobberReelDistance; //how close the bobber needs to be before reeling is complete
-    public GameObject bobberGameObject;
+    public GameObject bobberGameObject, bobberTipGO;
 
-   
+    public enum BobberState { Withdrawn, Cast, HitWater, AttachedFish }
+
     public BobberState bobberState;
+
+    public enum PullDirections { Left, Middle, Right, NotSet}
+
+    public PullDirections currentPullDirection;
 
     [Header("Hybrids")]
     [SerializeField]
-    GameObject targetHybrid; //hybrid used for fishing encounter
+    public GameObject targetHybrid; //hybrid used for fishing encounter
     HybridSO targetHybridSO;
     hybridNavData targetHybridNavData;
     [SerializeField] LayerMask fishMask;
     public Collider[] nearbyHybrids;
+
 
     [Header("Handle")]
     [SerializeField] float handleVelocity; //speed fishing rod handle is moving
@@ -65,7 +70,7 @@ public class FishingMiniGameManager : Singleton<FishingMiniGameManager>
                         //need to get parent / FOE Item
                         targetHybrid = targetHybrid.GetComponentInParent<FOEItem_Hybrid>().gameObject;
 
-                        _FNAVM.removeHybrid(targetHybrid, false);
+                        _FNAVM.RemoveHybrid(targetHybrid, false);
 
                         _FNAVM.UpdateHybridState(targetHybrid, HybridState.HybridMiniGame_SwimToLure);
 
@@ -125,6 +130,18 @@ public class FishingMiniGameManager : Singleton<FishingMiniGameManager>
     {
         hybridRestTime = Random.Range(targetHybridSO.restMinTime, targetHybridSO.restMaxTime);
         fishEncounterState = FishEncounterState.Resting;
+
+    }
+
+    //look in old fishing manger branch to find what i wrote
+
+    public PullDirections GetDirection()
+    {
+        return PullDirections.Left;
+    }
+
+    public void BeginFightingPeriod()
+    {
 
     }
 
