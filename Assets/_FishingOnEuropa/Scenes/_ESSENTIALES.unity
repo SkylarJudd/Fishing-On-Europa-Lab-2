@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 249582693}
-  m_IndirectSpecularColor: {r: 0.07425486, g: 0.019470753, b: 0.023988847, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1942,6 +1942,26 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1102718914}
     m_Modifications:
+    - target: {fileID: 2269280573903691426, guid: 16bfaf496f290d34aa4024ae51ee1add,
+        type: 3}
+      propertyPath: playerReactionDistance
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2269280573903691426, guid: 16bfaf496f290d34aa4024ae51ee1add,
+        type: 3}
+      propertyPath: playerHandReactionDistance
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2269280573903691426, guid: 16bfaf496f290d34aa4024ae51ee1add,
+        type: 3}
+      propertyPath: moveToPlayerStoppingDistance
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2269280573903691426, guid: 16bfaf496f290d34aa4024ae51ee1add,
+        type: 3}
+      propertyPath: fishCollisionLayerMask.m_Bits
+      value: 5242880
+      objectReference: {fileID: 0}
     - target: {fileID: 6863086000082951395, guid: 16bfaf496f290d34aa4024ae51ee1add,
         type: 3}
       propertyPath: m_LocalPosition.x

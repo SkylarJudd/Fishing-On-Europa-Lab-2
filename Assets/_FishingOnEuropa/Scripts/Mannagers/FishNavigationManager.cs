@@ -390,10 +390,10 @@ public class FishNavigationManager : Singleton<FishNavigationManager>
                     // Update distance the hybrid is to the player
                     _hybrid.distanceToPlayer = Vector3.Distance(_PLAYER.player.transform.position, _hybrid.hybridGameObject.transform.position);
 
-
                     // Check if the hybrid is within the player's reaction distance
                     if (_hybrid.distanceToPlayer < playerReactionDistance)
                     {
+                        print("Distance in range");
                         // Add the hybrid to the react list if it's not already included
                         if (!hybridReactToPlayer.Contains(_hybrid))
                         {
@@ -1129,7 +1129,6 @@ public class FishNavigationManager : Singleton<FishNavigationManager>
         }
     }
 
-    //public void RemoveHybrid(GameObject go, bool _RemoveFromPond)
 
     /// <summary>
     /// Rotates the hybrid towards a target position.
