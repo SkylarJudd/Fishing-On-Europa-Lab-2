@@ -1278,7 +1278,7 @@ PrefabInstance:
     - target: {fileID: 2576565187027953458, guid: bdab25ecbae4b5248ba0bd2aaf934e8c,
         type: 3}
       propertyPath: m_Name
-      value: GeyserMannager
+      value: GeyserMannager_
       objectReference: {fileID: 0}
     - target: {fileID: 2712239004282075610, guid: bdab25ecbae4b5248ba0bd2aaf934e8c,
         type: 3}
