@@ -2764,7 +2764,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71bcf4faa8c64b647acd6d386771e3c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Soil: {fileID: 0}
+  Soil: {fileID: 20133503}
   seedRadius: 0.3
   seedSOS:
   - {fileID: 11400000, guid: 0c39c1fa0638c0342b4bf4ab17b1e14c, type: 2}
