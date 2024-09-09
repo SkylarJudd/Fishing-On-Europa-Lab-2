@@ -1,38 +1,33 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Europa.GameEvents;
+using System;
+using NaughtyAttributes;
 
 public class GameEventsExsample : MonoBehaviour
 {
+    [Button("Call Game Events Exsmaple")]
     public void CallGameEventsExsmaple()
     {
-        GameEvents.ExsampleGameEventString("Hello World");
+        GameEvents.InvokeDailyEvent(DailyEvents.Sunrise, true, 1);
     }
     public void CallGameEventsExsample2()
     {
-        GameEvents.ExsampleGameEventGO(gameObject);
+        GameEvents.InvokeDailyEvent(DailyEvents.MiddayEclipse, false, 3);
     }
 
     private void OnEnable()
     {
-        GameEvents.OnExsampleEventString += GameEvents_OnExsampleEventString;
-        GameEvents.OnExsampleEventGameObject += GameEvents_OnExsampleEventGameObject;
+        GameEvents.SubscribeDailyEvent(DailyEvents.Sunrise, LogSunriseCount);
     }
     private void OnDisable()
     {
-        GameEvents.OnExsampleEventString -= GameEvents_OnExsampleEventString;
-        GameEvents.OnExsampleEventGameObject -= GameEvents_OnExsampleEventGameObject;
+        GameEvents.UnsubscribeDailyEvent(DailyEvents.Sunrise, LogSunriseCount);
     }
 
-    private void GameEvents_OnExsampleEventGameObject(GameObject _gameObject)
+    private void LogSunriseCount(bool wasObserved, int cycles)
     {
-        print(_gameObject.ToString());
+        Debug.Log($"Sunrise Debug! Was Observed: {wasObserved}, Cycles: {cycles}.");
     }
-
-    private void GameEvents_OnExsampleEventString(string _string)
-    {
-        print(_string);
-    }
-
-   
 }

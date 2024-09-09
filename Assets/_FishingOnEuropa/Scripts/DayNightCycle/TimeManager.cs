@@ -4,13 +4,15 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
+using Europa.GameEvents;
 
-public class TimeManager : Singleton<TimeManager> 
+
+public class TimeManager : Singleton<TimeManager>
 {
     [SerializeReference] Light sun;
     [SerializeReference] Light moon_temp; //will need to change as you can see two moons from Europa (Io and Ganymede)
     [SerializeField] AnimationCurve lightIntensityCurve;
-    [SerializeField] float maxSunIntensity =1;
+    [SerializeField] float maxSunIntensity = 1;
     [SerializeField] float maxMoonIntensity = 0.5f;
 
 
@@ -32,8 +34,6 @@ public class TimeManager : Singleton<TimeManager>
     {
         //Save data here
 
-
-
         CurrentTimeSO lastSavedCurrentTime = new();
         lastSavedCurrentTime = GetDataFromSaveManager(currentTimeSO);
         LoadTimeFromSave(lastSavedCurrentTime);
@@ -50,28 +50,27 @@ public class TimeManager : Singleton<TimeManager>
     #region Enable/Disable
     private void OnEnable()
     {
-        GameEvents.OnUpdateTime += GameEvents_OnUpdateTime;
-
-
+        throw new System.NotImplementedException(); // need to set up time stuff
+        // GameEvents.OnUpdateTime += GameEvents_OnUpdateTime;
     }
 
     private void OnDisable()
     {
-        GameEvents.OnUpdateTime -= GameEvents_OnUpdateTime;
-
+        throw new System.NotImplementedException(); // need to set up time stuff
+        // GameEvents.OnUpdateTime -= GameEvents_OnUpdateTime;
     }
     #endregion
 
     #region Add Event Listeners
     private void GameEvents_OnUpdateTime(int arg1, int arg2, int arg3)
     {
-        UpdateTimeFromInt(arg1,arg2,arg3);
+        UpdateTimeFromInt(arg1, arg2, arg3);
     }
 
 
     #endregion
-    
-    
+
+
     void Start()
     {
         currentTimeSO.totalHours += timeSettings.startHour;
@@ -99,16 +98,21 @@ public class TimeManager : Singleton<TimeManager>
         currentTimeSO.hour++;
         currentTimeSO.totalHours++;
 
-        if(currentTimeSO.hour == timeSettings.sunriseHour) GameEvents.SunriseEvent();
-        if(currentTimeSO.hour == timeSettings.sunsetHour) GameEvents.SunsetEvent();
-
+        switch (currentTimeSO.hour)
+        {
+            case var time when time == timeSettings.sunriseHour:
+                GameEvents.InvokeDailyEvent(DailyEvents.Sunrise, true);
+                break;
+            case var time when time == timeSettings.sunsetHour:
+                GameEvents.InvokeDailyEvent(DailyEvents.Sunset, true);
+                break;
+        }
 
         //day has passed
         if (currentTimeSO.hour == 75)
         {
             currentTimeSO.day++;
             currentTimeSO.hour = 0;
-
         }
     }
     #endregion
@@ -121,7 +125,7 @@ public class TimeManager : Singleton<TimeManager>
         UpdateSkyBlend();
 
     }
-    
+
     /// <summary>
     /// Update skybox material based on current time
     /// </summary>
@@ -130,7 +134,7 @@ public class TimeManager : Singleton<TimeManager>
         //how far accross the sky the sun has travelled
         float dotProduct = Vector3.Dot(sun.transform.forward, Vector3.up);
 
-        float blend = Mathf.Lerp(0,1, lightIntensityCurve.Evaluate(dotProduct));
+        float blend = Mathf.Lerp(0, 1, lightIntensityCurve.Evaluate(dotProduct));
 
         skyboxMaterial.SetFloat("_Blend", blend);
     }
@@ -202,8 +206,8 @@ public class TimeManager : Singleton<TimeManager>
         currentTimeSO.hour = _savedTime.hour;
         currentTimeSO.minute = _savedTime.minute;
 
-        currentTimeSO.totalMinutes = _savedTime.minute + (_savedTime.hour*60) + (_savedTime.day*1440);
-        currentTimeSO.totalHours = _savedTime.hour + (_savedTime.day*24);
+        currentTimeSO.totalMinutes = _savedTime.minute + (_savedTime.hour * 60) + (_savedTime.day * 1440);
+        currentTimeSO.totalHours = _savedTime.hour + (_savedTime.day * 24);
     }
 
     /// <summary>
@@ -236,7 +240,7 @@ public class TimeManager : Singleton<TimeManager>
 
         return _currentTimeData;
     }
-    
+
     /// <summary>
     /// Save current time to save file
     /// </summary>

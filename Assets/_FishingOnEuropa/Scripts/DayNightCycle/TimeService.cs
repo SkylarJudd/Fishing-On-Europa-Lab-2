@@ -52,7 +52,7 @@ public class TimeService
 
     private void UpdateTime()
     {
-        GameEvents.UpdateTime(currentHour, currentMinute, currentDay);
+       Europa.GameEvents.GameEvents.UpdateTimeTemp(currentHour, currentMinute, currentDay);
     }
 
     ////check if its daytime or nighttime, if true daytime

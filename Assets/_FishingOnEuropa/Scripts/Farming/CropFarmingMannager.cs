@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using UnityEngine;
-
+using Europa.GameEvents;
 public enum CropState
 {
     Seed, Sprout, Adolecent, Mature, Harvested
@@ -39,27 +39,29 @@ public class CropFarmingMannager : GameBehaviour
 
     private void OnEnable()
     {
-        GameEvents.OnTempMorningEvent += GameEvents_OnTempMorningEvent;
+        GameEvents.SubscribeDailyEvent(DailyEvents.Sunrise, GameEvents_OnTempMorningEvent);
         loadPlants();
     }
 
     private void OnDisable()
     {
-        GameEvents.OnTempMorningEvent -= GameEvents_OnTempMorningEvent;
+        GameEvents.UnsubscribeDailyEvent(DailyEvents.Sunrise, GameEvents_OnTempMorningEvent);
         SavePlants();
     }
 
-
-    private void GameEvents_OnTempMorningEvent(int _Day, int _Hour, int _Min, int _Seconds)
+    private void GameEvents_OnTempMorningEvent(bool wasObserved, int cycles)
     {
-        GrowPlants();
+        for (int i = 0; i < cycles; i++)
+        {
+            GrowPlants();
+        }
     }
 
     [ContextMenu("GrowPlants")]
     public void TempGrowPlants()
     {
-        GameEvents.TempMorningEvent(1, 1, 1, 1);
-       
+        GameEvents.InvokeDailyEvent(DailyEvents.Sunrise, true, 1);
+
     }
 
     public IEnumerator PlantCrop(FOEItem_Seed _Seed, int index)
@@ -151,7 +153,7 @@ public class CropFarmingMannager : GameBehaviour
         }
     }
 
-    private void SpawnNewObject(GameObject _go , Crop _crop)
+    private void SpawnNewObject(GameObject _go, Crop _crop)
     {
         _OPM.ReturnObjectToPool(_crop.go);
         _crop.go = _OPM.SpawnObject(_go, _crop.seedTransform.position, _crop.seedTransform.rotation, PoolType.Plants);
@@ -159,14 +161,14 @@ public class CropFarmingMannager : GameBehaviour
 
     private void loadPlants()
     {
-         if(_TSM.currentSave.itemsInFarm == null)
+        if (_TSM.currentSave.itemsInFarm == null)
             return;
 
-        for (int index = 0; index < _TSM.currentSave.itemsInFarm.Count; index++) 
+        for (int index = 0; index < _TSM.currentSave.itemsInFarm.Count; index++)
         {
             Crop loadItem = new Crop();
 
-            foreach(SeedsSO seedID in seedSOS)
+            foreach (SeedsSO seedID in seedSOS)
             {
                 if (seedID.ItemID == _TSM.currentSave.itemsInFarm[index])
                 {
@@ -204,7 +206,7 @@ public class CropFarmingMannager : GameBehaviour
     [ContextMenu("Save")]
     private void SavePlants()
     {
-        if(_TSM.currentSave.itemsInFarm == null)
+        if (_TSM.currentSave.itemsInFarm == null)
             return;
 
         _TSM.currentSave.itemsInFarm.Clear();
