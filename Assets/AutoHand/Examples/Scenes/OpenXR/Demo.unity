@@ -57096,6 +57096,11 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+    - target: {fileID: 2708247276070289421, guid: 5e50eba45ef63694ab6dad66efcbb007,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2879960779618861468, guid: 5e50eba45ef63694ab6dad66efcbb007,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -200023,12 +200028,11 @@ MonoBehaviour:
   targetHeight: 1
   springForce: 5
   damping: 1
-  smoothTime: 0.3
+  sineWaveAmplitude: 0.1
+  sineWaveFrequency: 1
   groundLayerMask:
     serializedVersion: 2
     m_Bits: 1
-  sineWaveAmplitude: 0.1
-  sineWaveFrequency: 1
 --- !u!1 &2097769180
 GameObject:
   m_ObjectHideFlags: 0

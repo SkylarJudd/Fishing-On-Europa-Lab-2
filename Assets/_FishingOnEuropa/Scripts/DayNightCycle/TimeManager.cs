@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 
-public class TimeManager : MonoBehaviour
+public class TimeManager : Singleton<TimeManager> 
 {
     [SerializeReference] Light sun;
     [SerializeReference] Light moon_temp; //will need to change as you can see two moons from Europa (Io and Ganymede)
@@ -24,12 +24,21 @@ public class TimeManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI timeText;
     [SerializeField] TextMeshProUGUI dayText;
     [SerializeField] TimeSettings timeSettings;
-    [SerializeField] CurrentTime currentTimeSO;
+    [SerializeField] CurrentTimeSO currentTimeSO;
     TimeService service;
 
 
     private void Awake()
     {
+        //Save data here
+
+
+
+        CurrentTimeSO lastSavedCurrentTime = new();
+        lastSavedCurrentTime = GetDataFromSaveManager(currentTimeSO);
+        LoadTimeFromSave(lastSavedCurrentTime);
+
+
         currentTimeSO.hour = timeSettings.startHour;
 
         service = new TimeService(timeSettings, currentTimeSO);
@@ -38,7 +47,31 @@ public class TimeManager : MonoBehaviour
         //start time by incrementing minute
         InvokeRepeating("IncrementMinute", 0, timeSettings.lengthOfMinute);
     }
+    #region Enable/Disable
+    private void OnEnable()
+    {
+        GameEvents.OnUpdateTime += GameEvents_OnUpdateTime;
 
+
+    }
+
+    private void OnDisable()
+    {
+        GameEvents.OnUpdateTime -= GameEvents_OnUpdateTime;
+
+    }
+    #endregion
+
+    #region Add Event Listeners
+    private void GameEvents_OnUpdateTime(int arg1, int arg2, int arg3)
+    {
+        UpdateTimeFromInt(arg1,arg2,arg3);
+    }
+
+
+    #endregion
+    
+    
     void Start()
     {
         currentTimeSO.totalHours += timeSettings.startHour;
@@ -66,6 +99,10 @@ public class TimeManager : MonoBehaviour
         currentTimeSO.hour++;
         currentTimeSO.totalHours++;
 
+        if(currentTimeSO.hour == timeSettings.sunriseHour) GameEvents.SunriseEvent();
+        if(currentTimeSO.hour == timeSettings.sunsetHour) GameEvents.SunsetEvent();
+
+
         //day has passed
         if (currentTimeSO.hour == 75)
         {
@@ -85,6 +122,9 @@ public class TimeManager : MonoBehaviour
 
     }
     
+    /// <summary>
+    /// Update skybox material based on current time
+    /// </summary>
     void UpdateSkyBlend()
     {
         //how far accross the sky the sun has travelled
@@ -95,6 +135,9 @@ public class TimeManager : MonoBehaviour
         skyboxMaterial.SetFloat("_Blend", blend);
     }
 
+    /// <summary>
+    /// Update directional lights based on current time
+    /// </summary>
     void UpdateLightSettings()
     {
         float dotProduct = Vector3.Dot(sun.transform.forward, Vector3.down);
@@ -110,18 +153,31 @@ public class TimeManager : MonoBehaviour
 
     }
 
-
+    /// <summary>
+    /// Rotate sun based on current time
+    /// </summary>
     void RotateSun()
     {
+        // Calculate y-axis rotation based on the current hour
         float rotation = currentTimeSO.hour * 4.8f;
 
-        //increase rotation by 4.8 every in game hour
-        if (rotation >= 360) rotation = 0;
+        // Reset rotation if it exceeds 360 degrees
+        if (rotation >= 360) rotation -= 360;
 
-        sun.transform.rotation = Quaternion.Lerp(sun.transform.rotation, Quaternion.AngleAxis(rotation, Vector3.right),1 * Time.deltaTime);
+        // Calculate the x-axis rotation based on the y-axis rotation
+        // Use Mathf.Sin to smoothly transition between -10 and +10 as y moves from 0 to 360
+        float xRotation = Mathf.Sin(rotation * Mathf.Deg2Rad) * 10;
 
+        // Set the target rotation with the calculated x and y rotation
+        Quaternion targetRotation = Quaternion.Euler(xRotation, rotation, 0);
+
+        // Smoothly transition to the target rotation
+        sun.transform.rotation = Quaternion.Lerp(sun.transform.rotation, targetRotation, 1 * Time.deltaTime);
     }
 
+    /// <summary>
+    /// Update UI with current time of day
+    /// </summary>
     private void UpdateTimeOfDay()
     {
 
@@ -134,5 +190,61 @@ public class TimeManager : MonoBehaviour
             timeText.text = (timeString);
             dayText.text = "Day " + currentTimeSO.day;
         }
+    }
+
+    /// <summary>
+    /// Update CurrentTimeSO with last saved time
+    /// </summary>
+    /// <param name="_savedTime"></param>
+    private void LoadTimeFromSave(CurrentTimeSO _savedTime)
+    {
+        currentTimeSO.day = _savedTime.day;
+        currentTimeSO.hour = _savedTime.hour;
+        currentTimeSO.minute = _savedTime.minute;
+
+        currentTimeSO.totalMinutes = _savedTime.minute + (_savedTime.hour*60) + (_savedTime.day*1440);
+        currentTimeSO.totalHours = _savedTime.hour + (_savedTime.day*24);
+    }
+
+    /// <summary>
+    /// Update time from UpdateTime event using integers
+    /// </summary>
+    /// <param name="_hour"></param>
+    /// <param name="_min"></param>
+    /// <param name="_day"></param>
+    void UpdateTimeFromInt(int _hour, int _min, int _day)
+    {
+        currentTimeSO.day = _day;
+        currentTimeSO.hour = _hour;
+        currentTimeSO.minute = _min;
+
+        currentTimeSO.totalMinutes = _min + (_hour * 60) + (_day * 1440);
+        currentTimeSO.totalHours = _hour + (_day * 24);
+    }
+
+    /// <summary>
+    /// Retrive last saved time from save file
+    /// </summary>
+    /// <param name="_currentTimeData"></param>
+    /// <param name="_index"></param>
+    /// <returns></returns>
+    private CurrentTimeSO GetDataFromSaveManager(CurrentTimeSO _currentTimeData)
+    {
+        _currentTimeData.day = _TSM.currentSave.Days;
+        _currentTimeData.hour = _TSM.currentSave.Hours;
+        _currentTimeData.minute = _TSM.currentSave.Minuites;
+
+        return _currentTimeData;
+    }
+    
+    /// <summary>
+    /// Save current time to save file
+    /// </summary>
+    /// <param name="_currentTime"></param>
+    private void AddTimeToSave(CurrentTimeSO _currentTime)
+    {
+        _TSM.currentSave.Days = _currentTime.day;
+        _TSM.currentSave.Hours = _currentTime.hour;
+        _TSM.currentSave.Minuites = _currentTime.minute;
     }
 }

@@ -11,17 +11,17 @@ PrefabInstance:
     - target: {fileID: 248712186289892607, guid: cf5949429d9f4124dacf18057d9c903c,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.25
+      value: 0.06
       objectReference: {fileID: 0}
     - target: {fileID: 248712186289892607, guid: cf5949429d9f4124dacf18057d9c903c,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.25
+      value: 0.06
       objectReference: {fileID: 0}
     - target: {fileID: 248712186289892607, guid: cf5949429d9f4124dacf18057d9c903c,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.25
+      value: 0.06
       objectReference: {fileID: 0}
     - target: {fileID: 255241378296189822, guid: cf5949429d9f4124dacf18057d9c903c,
         type: 3}
@@ -88,11 +88,16 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 8
       objectReference: {fileID: 0}
+    - target: {fileID: 5479858474548457253, guid: cf5949429d9f4124dacf18057d9c903c,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7475558278636915969, guid: cf5949429d9f4124dacf18057d9c903c,
         type: 3}
       propertyPath: hybridInfo
       value: 
-      objectReference: {fileID: 11400000, guid: 9324671bbaa17be4986f2003aa4549d2,
+      objectReference: {fileID: 11400000, guid: 950dd1b5665f1024cb9bbdfdf0be40fe,
         type: 2}
     - target: {fileID: 9196630054490211768, guid: cf5949429d9f4124dacf18057d9c903c,
         type: 3}
@@ -124,11 +129,7 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 8
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 5479858474548457253, guid: cf5949429d9f4124dacf18057d9c903c, type: 3}
-    - {fileID: 7475558278636915969, guid: cf5949429d9f4124dacf18057d9c903c, type: 3}
-    - {fileID: 9196630054490211768, guid: cf5949429d9f4124dacf18057d9c903c, type: 3}
-    - {fileID: -3047688088263603448, guid: cf5949429d9f4124dacf18057d9c903c, type: 3}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 248712186289892607, guid: cf5949429d9f4124dacf18057d9c903c,

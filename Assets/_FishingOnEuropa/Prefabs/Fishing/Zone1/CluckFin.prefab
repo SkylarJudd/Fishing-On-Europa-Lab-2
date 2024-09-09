@@ -68,6 +68,11 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 04406acf736edc74684b8d47c86c8df0, type: 2}
+    - target: {fileID: -387791374223531583, guid: 5fc9e166edc2b2141ad41b724ece0354,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 04406acf736edc74684b8d47c86c8df0, type: 2}
     - target: {fileID: 919132149155446097, guid: 5fc9e166edc2b2141ad41b724ece0354,
         type: 3}
       propertyPath: m_Name
@@ -105,17 +110,17 @@ PrefabInstance:
     - target: {fileID: 248712186289892607, guid: cf5949429d9f4124dacf18057d9c903c,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.25
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 248712186289892607, guid: cf5949429d9f4124dacf18057d9c903c,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.25
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 248712186289892607, guid: cf5949429d9f4124dacf18057d9c903c,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.25
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 255241378296189822, guid: cf5949429d9f4124dacf18057d9c903c,
         type: 3}
@@ -186,7 +191,7 @@ PrefabInstance:
         type: 3}
       propertyPath: hybridInfo
       value: 
-      objectReference: {fileID: 11400000, guid: fc8355f0a1f2668438f22f2240d9d8b1,
+      objectReference: {fileID: 11400000, guid: 79f338f75b2ea314b83ca36e6624cd0d,
         type: 2}
     - target: {fileID: 9196630054490211768, guid: cf5949429d9f4124dacf18057d9c903c,
         type: 3}
@@ -220,8 +225,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 5479858474548457253, guid: cf5949429d9f4124dacf18057d9c903c, type: 3}
-    - {fileID: 7475558278636915969, guid: cf5949429d9f4124dacf18057d9c903c, type: 3}
-    - {fileID: 9196630054490211768, guid: cf5949429d9f4124dacf18057d9c903c, type: 3}
     - {fileID: -3047688088263603448, guid: cf5949429d9f4124dacf18057d9c903c, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects:

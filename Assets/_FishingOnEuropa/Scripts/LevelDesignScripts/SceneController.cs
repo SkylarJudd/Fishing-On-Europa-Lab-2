@@ -1,7 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.SearchService;
+//using UnityEditor.SearchService;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -13,6 +13,7 @@ public enum Scenes
     _MAINMENU_SCENE,
     _FARM_SCENE,
     _DOME_SCENE,
+    _FISHINGTEST_SCENE
 }
 
 public class SceneController : Singleton<SceneController>
@@ -27,6 +28,7 @@ public class SceneController : Singleton<SceneController>
 
     [Header("Debug")]
     [SerializeField] bool debug;
+    [SerializeField] Scenes starterScene;
 
     private void Start()
     {
@@ -35,7 +37,13 @@ public class SceneController : Singleton<SceneController>
         if (currentEnviromentScene == Scenes._ERROR)
             Debug.LogError("Was unable to find Scene, check the name and ensure the scene exists");
 
-        if (currentEnviromentScene != Scenes._MAINMENU_SCENE && !debug)
+        if(debug)
+        {
+            Debug.LogWarning($"Switching to {starterScene} from {currentEnviromentScene} If this is not what you wanted toggle on Debug");
+            StartCoroutine(SwitchScene(starterScene));
+        }
+
+        else if (currentEnviromentScene != Scenes._MAINMENU_SCENE && !debug)
         {
             Debug.LogWarning($"Switching to Main Menu from {currentEnviromentScene} If this is not what you wanted toggle on Debug");
             StartCoroutine(SwitchScene(Scenes._MAINMENU_SCENE));
@@ -94,6 +102,10 @@ public class SceneController : Singleton<SceneController>
             case "_TUTORIAL":
                 _Scene = Scenes._TUTORIAL;
                 break;
+            case "_FISHINGTEST_SCENE":
+                _Scene = Scenes._FISHINGTEST_SCENE;
+                break;
+
             default:
                 _Scene = Scenes._ERROR;
                 break;
@@ -115,7 +127,7 @@ public class SceneController : Singleton<SceneController>
         }
         else
         {
-            SwitchScene(scenes);
+            StartCoroutine(SwitchScene(scenes));
         }
     }
 
@@ -125,10 +137,15 @@ public class SceneController : Singleton<SceneController>
     /// <param name="_sceneName"></param>
     public void ChangeScene(Scenes _sceneName)
     {
-        Debug.LogWarning("Change Scenes Is deprecated, Use Start StartCoroutine(SwitchScene(Scenes.SceneNameEnum)");
-        SceneManager.UnloadSceneAsync(currentEnviromentScene.ToString());
-        SceneManager.LoadSceneAsync(_sceneName.ToString(), LoadSceneMode.Additive);
-        currentEnviromentScene = _sceneName;
+        if (_sceneName == Scenes._ERROR)
+        {
+            Debug.LogError($"Count not find {_sceneName} Check you're using the right name, or add the scene to the scene controller Enum and switch statment");
+            return;
+        }
+        else
+        {
+            StartCoroutine(SwitchScene(_sceneName));
+        }
     }
 
     /// <summary>
@@ -138,32 +155,62 @@ public class SceneController : Singleton<SceneController>
     /// <returns></returns>
     IEnumerator SwitchScene(Scenes _sceneName)
     {
-        AsyncOperation unload = SceneManager.UnloadSceneAsync(currentEnviromentScene.ToString());
+        AsyncOperation unload;
+        if (currentEnviromentScene != Scenes._ERROR)
+        {
+            unload = SceneManager.UnloadSceneAsync(currentEnviromentScene.ToString());
+            while (!unload.isDone)
+            {
+                yield return new WaitForEndOfFrame();
+            }
+
+        }
+
         AsyncOperation load = SceneManager.LoadSceneAsync(_sceneName.ToString(), LoadSceneMode.Additive);
         currentEnviromentScene = _sceneName;
 
-        while (!unload.isDone)
-        {
-            yield return new WaitForEndOfFrame();
-        }
+
         while (!load.isDone)
         {
             yield return new WaitForEndOfFrame();
         }
         yield return new WaitForEndOfFrame();
 
-        Transform waypoint = FindObjectOfType<SceneInfoContainer>().entranceWaypoints[0];
-        if (waypoint != null)
+        Transform waypoint = GetWaypointTransform();
+        
+        _PLAYER.UpdatePlayerTransform(waypoint);
+       
+
+        yield return null;
+    }
+
+    private Transform GetWaypointTransform()
+    {
+        // Try to find the SceneInfoContainer
+        SceneInfoContainer sceneInfoContainer = FindObjectOfType<SceneInfoContainer>();
+
+        // Check if SceneInfoContainer exists and has waypoints
+        if (sceneInfoContainer != null && sceneInfoContainer.entranceWaypoints.Count > 0)
         {
-            _PLAYER.UpdatePlayerTransform(waypoint);
+            // Get the first waypoint
+            Transform waypoint = sceneInfoContainer.entranceWaypoints[0];
+
+            // Check if the first waypoint is not null
+            if (waypoint != null)
+            {
+                return waypoint;
+            }
+            else
+            {
+                Debug.LogError("The first waypoint in the list is null. Using default transform.");
+                return defaultTransform; // Return defaultTransform if the waypoint is null
+            }
         }
         else
         {
-            _PLAYER.UpdatePlayerTransform(defaultTransform);
-            Debug.LogError("Was Not Able To Find WayPoint Please Make sure a SceneInfoContainer Is active in each Environment Scene and has a waypoint within its list");
+            Debug.LogError("SceneInfoContainer is either missing or has no waypoints. Using default transform.");
+            return defaultTransform; // Return defaultTransform if no valid SceneInfoContainer or waypoint
         }
-
-        yield return null;
     }
 
     /// <summary>

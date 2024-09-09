@@ -13,13 +13,13 @@ MonoBehaviour:
   m_Name: ZoneOneHybrids
   m_EditorClassIdentifier: 
   FishToSpawnList:
-  - {fileID: 11400000, guid: 776caf4cc4ccdba4cb9fa5ecf383e743, type: 2}
-  - {fileID: 11400000, guid: d0a9f39952c8dd54a988d57caa969c5e, type: 2}
-  - {fileID: 11400000, guid: fc8355f0a1f2668438f22f2240d9d8b1, type: 2}
-  - {fileID: 11400000, guid: 9324671bbaa17be4986f2003aa4549d2, type: 2}
-  - {fileID: 11400000, guid: b5bffd5595ec26e48b841f2a784e1235, type: 2}
-  - {fileID: 11400000, guid: 11b9830542c4d264fbbee450aa971683, type: 2}
-  - {fileID: 11400000, guid: 8498973ca9613a14197874a007333231, type: 2}
-  - {fileID: 11400000, guid: 745894885b8b05e4e981b12d3968dd43, type: 2}
-  - {fileID: 11400000, guid: 62f2201882b826a4eaeea487b409f0c5, type: 2}
-  - {fileID: 11400000, guid: 3cf2b0dc153bc9d4987319f845fad268, type: 2}
+  - {fileID: 8235945337240472755, guid: 092bade61f32b7c48bfe07f758d36a2f, type: 3}
+  - {fileID: 8235945337240472755, guid: 5a778a398b407644b9f04c64ecf9ebf8, type: 3}
+  - {fileID: 8235945337240472755, guid: 8f9be6ae80de9644a8363bc77ffb038f, type: 3}
+  - {fileID: 8235945337240472755, guid: afc5f0cf86f3fca49a41ddcecdb91d8a, type: 3}
+  - {fileID: 8235945337240472755, guid: 450f2e8df91ec244d8c709245080b555, type: 3}
+  - {fileID: 8235945337240472755, guid: d9862188a420aac498f4004947a75d39, type: 3}
+  - {fileID: 8235945337240472755, guid: 5f24ca5cc06483e45b0a5c600c633f2b, type: 3}
+  - {fileID: 8235945337240472755, guid: 3df93d2dc6b69e74ea5bd29d6039051e, type: 3}
+  - {fileID: 8235945337240472755, guid: 85444673a7d7dc64c9d6a270087f8d62, type: 3}
+  - {fileID: 8235945337240472755, guid: f474f599c7ee25e47bacc32a51fb1a89, type: 3}

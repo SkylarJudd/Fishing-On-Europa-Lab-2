@@ -8,7 +8,7 @@ using UnityEngine;
 
 public class TimeService
 {
-    CurrentTime currentTimeSO;
+    CurrentTimeSO currentTimeSO;
 
     //observable publishes an evevnt when the value of what it is observing changes
     readonly Observable<bool> isDayTime;
@@ -16,12 +16,6 @@ public class TimeService
     readonly Observable<int> currentMinute;
     readonly Observable<int> currentDay;
 
-    //MOVE THESE TO GAMEEVENTS LATER
-    //public event Action OnSunrise = delegate { };
-    //public event Action OnSunset = delegate { };
-    //public event Action OnHourChange = delegate { };
-    //public event Action OnMinuteChange = delegate { };
-    //public event Action OnNewDay = delegate { };    //ADD THING HERERERERERE 
 
     ////date time struct
     readonly TimeSettings settings;
@@ -32,7 +26,7 @@ public class TimeService
 
     // bool IsDayTime() => currentTimeSO.hour > sunriseTime && currentTimeSO.hour < sunsetime;
 
-    public TimeService(TimeSettings settings, CurrentTime currentTime)
+    public TimeService(TimeSettings settings, CurrentTimeSO currentTime)
     {
         this.settings = settings; //initalise
         this.currentTimeSO = currentTime; //initalise

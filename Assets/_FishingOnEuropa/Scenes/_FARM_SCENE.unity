@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.12731107, g: 0.13414314, b: 0.12108324, a: 1}
+  m_IndirectSpecularColor: {r: 0.12731749, g: 0.13414757, b: 0.1210787, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1445,7 +1445,7 @@ Light:
   m_Cookie: {fileID: 0}
   m_DrawHalo: 0
   m_Flare: {fileID: 0}
-  m_RenderMode: 0
+  m_RenderMode: 1
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -2759,7 +2759,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 783739751}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 71bcf4faa8c64b647acd6d386771e3c0, type: 3}
   m_Name: 
@@ -4214,6 +4214,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1353610535653204931, guid: 21be8ba837fc08a4aa7b74103e715381,
         type: 3}
+      propertyPath: alignmentFactor
+      value: 0.41
+      objectReference: {fileID: 0}
+    - target: {fileID: 1353610535653204931, guid: 21be8ba837fc08a4aa7b74103e715381,
+        type: 3}
       propertyPath: playerReactionDistance
       value: 2
       objectReference: {fileID: 0}
@@ -4236,6 +4241,11 @@ PrefabInstance:
         type: 3}
       propertyPath: playerHandReactionDistanceReset
       value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5167755883121791319, guid: 21be8ba837fc08a4aa7b74103e715381,
+        type: 3}
+      propertyPath: _startSpawnAmout
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 5966201001171314599, guid: 21be8ba837fc08a4aa7b74103e715381,
         type: 3}

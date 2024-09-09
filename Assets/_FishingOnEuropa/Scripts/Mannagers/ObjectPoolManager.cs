@@ -155,7 +155,7 @@ public class ObjectPoolManager : Singleton<ObjectPoolManager>
 
 
 
-    public GameObject spawnObject(GameObject objectToSpawn, Vector3 spawnPosition, Quaternion spawnRotation, PoolType poolType = PoolType.None)
+    public GameObject SpawnObject(GameObject objectToSpawn, Vector3 spawnPosition, Quaternion spawnRotation, PoolType poolType = PoolType.None)
     {
         //Debug.Log("SpawnObject Called");
         PooledObjectInfo pool = objectPools.Find(p => p.LookUpString == objectToSpawn.name);
