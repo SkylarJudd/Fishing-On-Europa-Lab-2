@@ -235,9 +235,11 @@ public class FishNavigationManager : Singleton<FishNavigationManager>
                 break;
             case HybridState.HybridFlocking:
                 hybridsSwimming.Add(newEntry);
+                print("Adding Hybrid to Swim List");
                 break;
             default:
                 hybridsSwimming.Add(newEntry);  // Default to swimming if state is not specified
+                print("Adding Hybrid to Swim List");
                 break;
         }
     }
@@ -451,14 +453,20 @@ public class FishNavigationManager : Singleton<FishNavigationManager>
                         }
                         removeHybridReact.Clear();
 
-
-                        // Reset hybrid state to flocking when the player moves away beyond reset distance
-                        _hybrid.HybridState = HybridState.HybridFlocking;
-                        removeHybridReact.Add(_hybrid);
-                        hybridsSwimming.Add(_hybrid);
+                        if (_hybrid.HybridState == HybridState.HybridFlocking)
+                        {
+                            
+                        }
+                        if(hybridReactToPlayer.Contains(_hybrid))  
+                        {
+                            // Reset hybrid state to flocking when the player moves away beyond reset distance
+                            _hybrid.HybridState = HybridState.HybridFlocking;
+                            removeHybridReact.Add(_hybrid);
+                            hybridsSwimming.Add(_hybrid);
+                        }
                     }
 
-                    
+
                 }
 
             }
