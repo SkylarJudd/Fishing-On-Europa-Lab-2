@@ -399,39 +399,6 @@ public class FishNavigationManager : Singleton<FishNavigationManager>
                         {
                             RemoveHybrid(_hybrid.hybridGameObject, false);
                             hybridReactToPlayer.Add(_hybrid);
-
-                            //Note For Lilli ( Make Hybrid Swim to player, set their state to something like swim to player then in UpdateHybridReact have a loop that will make them swim towards the player until
-                            //they reach a wall, you can do this with a ray cast simmilar to the one below that was used in the flocking corutine. 
-
-                            #region Notes For Lilli
-                            //if (UnityEngine.Random.Range(0, rayCastCheckChance) < 1 && hybridsSwimming.Count > 1)
-                            //{
-                            //    Ray hybridRay = new Ray(_hybrid.hybridGameObject.transform.position, _hybrid.hybridGameObject.transform.forward);
-                            //    float raycastDistance = 0.5f;
-                            //    int layerMask = ~LayerMask.GetMask("Fish");
-
-                            //    if (debug)
-                            //        Debug.DrawRay(hybridRay.origin, hybridRay.direction * raycastDistance, Color.red);
-
-                            //    if (Physics.Raycast(hybridRay, out RaycastHit hit, raycastDistance, layerMask))
-                            //    {
-                            //        if (hit.collider.gameObject.CompareTag("Wall"))
-                            //        {
-                            //            _hybrid.aboutToHitWall = true;
-                            //        }
-                            //        else
-                            //        {
-                            //            _hybrid.aboutToHitWall = false;
-                            //            _hybrid.HybridState = HybridState.HybridFlocking;
-                            //        }
-                            //    }
-                            //    else
-                            //    {
-                            //        _hybrid.aboutToHitWall = false;
-                            //        _hybrid.HybridState = HybridState.HybridFlocking;
-                            //    }
-                            //}
-                            #endregion
                         }
 
                         // Check if player is holding an item
@@ -444,30 +411,20 @@ public class FishNavigationManager : Singleton<FishNavigationManager>
                             ProcessPlayerWithoutItem(_hybrid);
                         }
                     }
-                    else
+                    else if ( _hybrid.distanceToPlayer > playerReactionDistance && hybridReactToPlayer.Contains(_hybrid))
                     {
-                        // Clean up hybrids that are no longer reacting
-                        foreach (var _hybridInReact in removeHybridReact)
-                        {
-                            hybridReactToPlayer.Remove(_hybridInReact);
-                        }
-                        removeHybridReact.Clear();
-
-                        if (_hybrid.HybridState == HybridState.HybridFlocking)
-                        {
-                            
-                        }
-                        if(hybridReactToPlayer.Contains(_hybrid))  
-                        {
-                            // Reset hybrid state to flocking when the player moves away beyond reset distance
-                            _hybrid.HybridState = HybridState.HybridFlocking;
-                            removeHybridReact.Add(_hybrid);
-                            hybridsSwimming.Add(_hybrid);
-                        }
+                        // Reset hybrid state to flocking when the player moves away beyond reset distance
+                        _hybrid.HybridState = HybridState.HybridFlocking;
+                        removeHybridReact.Add(_hybrid);
+                        hybridsSwimming.Add(_hybrid);
                     }
-
-
                 }
+                // Clean up hybrids that are no longer reacting
+                foreach (var _hybridInReact in removeHybridReact)
+                {
+                    hybridReactToPlayer.Remove(_hybridInReact);
+                }
+                removeHybridReact.Clear();
 
             }
 
