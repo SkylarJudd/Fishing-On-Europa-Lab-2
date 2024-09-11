@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using FMODUnity;
 
 public enum HybridState
 {
@@ -148,6 +149,10 @@ public class FishNavigationManager : Singleton<FishNavigationManager>
     [SerializeField] float playerHandReactionDistanceReset;
 
     [SerializeField] float moveToPlayerStoppingDistance;
+
+    [Header("Sound")]
+    public StudioEventEmitter movementSoundEvent;
+    public StudioEventEmitter idleSoundEvent;
 
 
     private void Start()
@@ -548,6 +553,7 @@ public class FishNavigationManager : Singleton<FishNavigationManager>
                 foreach (hybridNavData _hybrid in hybridsIdle)
                 {
                     //Play Idel animation
+                    idleSoundEvent.Play();
                 }
                 // Remove hybrids from hybridsHitWater
                 foreach (var _hybrid in removeHybridsIdle)

@@ -5,7 +5,7 @@
 			<value>swim</value>
 		</property>
 		<property name="outputFormat">
-			<value>1</value>
+			<value>2</value>
 		</property>
 		<relationship name="folder">
 			<destination>{0ff1aa52-064b-4290-9d43-ca34a3ce65f6}</destination>
@@ -97,6 +97,9 @@
 		</relationship>
 	</object>
 	<object class="EventMixerGroup" id="{14e51c79-8dfe-4122-85d2-a69e3ee798e3}">
+		<property name="volume">
+			<value>-10</value>
+		</property>
 		<property name="name">
 			<value>Audio 1</value>
 		</property>
@@ -120,9 +123,11 @@
 	<object class="MixerBusEffectChain" id="{b2ef863a-eb8b-4fac-ac18-5ec0b77f6fa6}">
 		<relationship name="effects">
 			<destination>{a75e0731-a763-4ff1-8c56-f0c9680ecdf1}</destination>
+			<destination>{7a72a41b-4c0b-4d2a-891b-f1262ab00d26}</destination>
 		</relationship>
 	</object>
 	<object class="MixerBusPanner" id="{302cecee-beea-457e-9ef7-30f32b9af00d}" />
 	<object class="MixerBusFader" id="{d4109f96-4135-405c-8cef-ff323f69648e}" />
 	<object class="MixerBusFader" id="{a75e0731-a763-4ff1-8c56-f0c9680ecdf1}" />
+	<object class="SpatialiserEffect" id="{7a72a41b-4c0b-4d2a-891b-f1262ab00d26}" />
 </objects>

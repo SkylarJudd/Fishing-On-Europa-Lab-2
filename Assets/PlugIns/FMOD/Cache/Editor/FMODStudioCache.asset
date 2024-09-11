@@ -1,26 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-8823160992595397676
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
-  m_Name: bank:/Master.strings.bank
-  m_EditorClassIdentifier: 
-  Path: ../../../Downloads/FOE - FMOD/Build/Desktop/Master.strings.bank
-  Name: Master.strings
-  StudioPath: bank:/Master.strings
-  lastModified: 638596678284896234
-  FileSizes:
-  - Name: Desktop
-    Value: 754
-  Exists: 1
---- !u!114 &-4517907759680853190
+--- !u!114 &-8780096640903026189
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -30,23 +10,543 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
-  m_Name: event:/Test
+  m_Name: event:/Background Music/FOE alien_01
   m_EditorClassIdentifier: 
-  Path: event:/Test
+  Path: event:/Background Music/FOE alien_01
   Guid:
-    Data1: -954638070
-    Data2: 1237994144
-    Data3: -182376817
-    Data4: -1473692017
+    Data1: 1624171137
+    Data2: 1204321511
+    Data3: 1190440868
+    Data4: 567236206
   Banks:
-  - {fileID: 4391663086274764919}
+  - {fileID: 2281390264868754947}
+  IsStream: 1
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 106105
+--- !u!114 &-8379855758295055600
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/Chomp/Size - Chomp
+  m_EditorClassIdentifier: 
+  Name: Size - Chomp
+  StudioPath: 
+  Min: 0
+  Max: 2
+  Default: 0
+  ID:
+    data1: 2409559825
+    data2: 277820461
+  Type: 2
+  IsGlobal: 0
+  Labels:
+  - Big
+  - Medium
+  - Small
+  Exists: 1
+--- !u!114 &-7884859912561947293
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Sound Effects/UI/ui select + charm dropped
+  m_EditorClassIdentifier: 
+  Path: event:/Sound Effects/UI/ui select + charm dropped
+  Guid:
+    Data1: -1210454550
+    Data2: 1092395028
+    Data3: -2053215606
+    Data4: -1969233875
+  Banks:
+  - {fileID: 2281390264868754947}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &-7710592880974366449
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Sound Effects/Fishing/fish capture
+  m_EditorClassIdentifier: 
+  Path: event:/Sound Effects/Fishing/fish capture
+  Guid:
+    Data1: 377544122
+    Data2: 1333944725
+    Data3: -1818617432
+    Data4: -919813568
+  Banks:
+  - {fileID: 2281390264868754947}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
   Parameters: []
   MinDistance: 1
   MaxDistance: 20
-  Length: 8310
+  Length: 0
+--- !u!114 &-7709234099672608096
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Sound Effects/UI/ui hover
+  m_EditorClassIdentifier: 
+  Path: event:/Sound Effects/UI/ui hover
+  Guid:
+    Data1: -1905603530
+    Data2: 1231905232
+    Data3: -1970954333
+    Data4: -511184214
+  Banks:
+  - {fileID: 2281390264868754947}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &-7535311244470204961
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Sound Effects/Chomp/active munch_01
+  m_EditorClassIdentifier: 
+  Path: event:/Sound Effects/Chomp/active munch_01
+  Guid:
+    Data1: -419297471
+    Data2: 1296202045
+    Data3: -1181018984
+    Data4: 1255716085
+  Banks:
+  - {fileID: 2281390264868754947}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &-6644581900117133666
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Sound Effects/Water/splash
+  m_EditorClassIdentifier: 
+  Path: event:/Sound Effects/Water/splash
+  Guid:
+    Data1: 310906086
+    Data2: 1149098476
+    Data3: 23358884
+    Data4: 2053275082
+  Banks:
+  - {fileID: 2281390264868754947}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters:
+  - {fileID: -2424092841801243728}
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &-5877843969177873663
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Sound Effects/Water/dive
+  m_EditorClassIdentifier: 
+  Path: event:/Sound Effects/Water/dive
+  Guid:
+    Data1: -1214441804
+    Data2: 1182876032
+    Data3: -1937525086
+    Data4: -1779626151
+  Banks:
+  - {fileID: 2281390264868754947}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &-5001189456355158031
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Sound Effects/Fishing/Hybrid Caught
+  m_EditorClassIdentifier: 
+  Path: event:/Sound Effects/Fishing/Hybrid Caught
+  Guid:
+    Data1: -1149893216
+    Data2: 1278788166
+    Data3: 1259947409
+    Data4: -1442505220
+  Banks:
+  - {fileID: 2281390264868754947}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &-4576546456680523701
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Sound Effects/Tech Button
+  m_EditorClassIdentifier: 
+  Path: event:/Sound Effects/Tech Button
+  Guid:
+    Data1: -1852446892
+    Data2: 1326151047
+    Data3: 1391614909
+    Data4: -1821530812
+  Banks:
+  - {fileID: 2281390264868754947}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &-4192319916476481987
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/splash 2/Size
+  m_EditorClassIdentifier: 
+  Name: Size
+  StudioPath: 
+  Min: 0
+  Max: 4
+  Default: 4
+  ID:
+    data1: 2532916194
+    data2: 1774259118
+  Type: 2
+  IsGlobal: 0
+  Labels:
+  - Long
+  - Big
+  - Small
+  - Tiny
+  - Tinier
+  Exists: 1
+--- !u!114 &-4175593706396667330
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Sound Effects/Chomp/Slow Munch
+  m_EditorClassIdentifier: 
+  Path: event:/Sound Effects/Chomp/Slow Munch
+  Guid:
+    Data1: 1387111209
+    Data2: 1300255458
+    Data3: 1110201264
+    Data4: 217875623
+  Banks:
+  - {fileID: 2281390264868754947}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &-3648373834237595019
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Sound Effects/Water/submerge etc
+  m_EditorClassIdentifier: 
+  Path: event:/Sound Effects/Water/submerge etc
+  Guid:
+    Data1: 1558647550
+    Data2: 1331496300
+    Data3: 1323035026
+    Data4: -1479231447
+  Banks:
+  - {fileID: 2281390264868754947}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 6455
+--- !u!114 &-3401278260621885771
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Sound Effects/Fishing/line throw
+  m_EditorClassIdentifier: 
+  Path: event:/Sound Effects/Fishing/line throw
+  Guid:
+    Data1: 1604551751
+    Data2: 1177624239
+    Data3: -1873401156
+    Data4: -1201796870
+  Banks:
+  - {fileID: 2281390264868754947}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &-2872088546583958105
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Background Music/FOE valley_01
+  m_EditorClassIdentifier: 
+  Path: event:/Background Music/FOE valley_01
+  Guid:
+    Data1: 963771343
+    Data2: 1191167513
+    Data3: 592774552
+    Data4: -1154570367
+  Banks:
+  - {fileID: 2281390264868754947}
+  IsStream: 1
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 126942
+--- !u!114 &-2424092841801243728
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/splash/Size
+  m_EditorClassIdentifier: 
+  Name: Size
+  StudioPath: 
+  Min: 0
+  Max: 4
+  Default: 4
+  ID:
+    data1: 2532916194
+    data2: 1774259118
+  Type: 2
+  IsGlobal: 0
+  Labels:
+  - Long
+  - Big
+  - Small
+  - Tiny
+  - Tinier
+  Exists: 1
+--- !u!114 &-2117174667508590942
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Sound Effects/Fishing/lure drop
+  m_EditorClassIdentifier: 
+  Path: event:/Sound Effects/Fishing/lure drop
+  Guid:
+    Data1: -1521456645
+    Data2: 1158767727
+    Data3: -740585046
+    Data4: 193280321
+  Banks:
+  - {fileID: 2281390264868754947}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &-1842007625644339044
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Sound Effects/Water/splash 2
+  m_EditorClassIdentifier: 
+  Path: event:/Sound Effects/Water/splash 2
+  Guid:
+    Data1: -1218501308
+    Data2: 1101584857
+    Data3: -1508247146
+    Data4: 1825247267
+  Banks:
+  - {fileID: 2281390264868754947}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters:
+  - {fileID: -4192319916476481987}
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 977
+--- !u!114 &-1176862345768735123
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Sound Effects/Items/puchase sold
+  m_EditorClassIdentifier: 
+  Path: event:/Sound Effects/Items/puchase sold
+  Guid:
+    Data1: 1427196691
+    Data2: 1236513780
+    Data3: 224501396
+    Data4: -388474797
+  Banks:
+  - {fileID: 2281390264868754947}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &-664102668439929068
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/Footsteps/Material
+  m_EditorClassIdentifier: 
+  Name: Material
+  StudioPath: 
+  Min: 0
+  Max: 3
+  Default: 0
+  ID:
+    data1: 2156227348
+    data2: 686397141
+  Type: 2
+  IsGlobal: 0
+  Labels:
+  - Basic
+  - Grass
+  - Gravel
+  - Stone
+  Exists: 1
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -60,18 +560,183 @@ MonoBehaviour:
   m_Name: FMODStudioCache
   m_EditorClassIdentifier: 
   EditorBanks:
-  - {fileID: -8823160992595397676}
-  - {fileID: 4391663086274764919}
+  - {fileID: 8626480734235735409}
+  - {fileID: 2281390264868754947}
   EditorEvents:
-  - {fileID: -4517907759680853190}
+  - {fileID: -1176862345768735123}
+  - {fileID: 7293546088655261468}
+  - {fileID: 1545088219147570955}
+  - {fileID: -4175593706396667330}
+  - {fileID: 4660752034240594052}
+  - {fileID: 519395875925617788}
+  - {fileID: 5112455099382663549}
+  - {fileID: -7709234099672608096}
+  - {fileID: -7535311244470204961}
+  - {fileID: 3479421451485368227}
+  - {fileID: -3401278260621885771}
+  - {fileID: -4576546456680523701}
+  - {fileID: 185991491330303944}
+  - {fileID: 4991789881725833691}
+  - {fileID: 4115932147381862751}
+  - {fileID: -8780096640903026189}
+  - {fileID: 7836643358213597988}
+  - {fileID: -5001189456355158031}
+  - {fileID: 5225018776406989689}
+  - {fileID: -5877843969177873663}
+  - {fileID: -7710592880974366449}
+  - {fileID: -2872088546583958105}
+  - {fileID: 743364603883606117}
+  - {fileID: 1015560968791655615}
+  - {fileID: -6644581900117133666}
+  - {fileID: -7884859912561947293}
+  - {fileID: 6309554071498646530}
+  - {fileID: -2117174667508590942}
+  - {fileID: -3648373834237595019}
+  - {fileID: -1842007625644339044}
   EditorParameters: []
   MasterBanks:
-  - {fileID: 4391663086274764919}
+  - {fileID: 2281390264868754947}
   StringsBanks:
-  - {fileID: -8823160992595397676}
-  cacheTime: 638596678284896234
+  - {fileID: 8626480734235735409}
+  cacheTime: 638615178388774377
   cacheVersion: 131619
---- !u!114 &4391663086274764919
+--- !u!114 &185991491330303944
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Sound Effects/Chomp/Chomp
+  m_EditorClassIdentifier: 
+  Path: event:/Sound Effects/Chomp/Chomp
+  Guid:
+    Data1: 1573817702
+    Data2: 1305332680
+    Data3: -727254092
+    Data4: 1367506361
+  Banks:
+  - {fileID: 2281390264868754947}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters:
+  - {fileID: -8379855758295055600}
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &519395875925617788
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Sound Effects/Water/swim
+  m_EditorClassIdentifier: 
+  Path: event:/Sound Effects/Water/swim
+  Guid:
+    Data1: -317466326
+    Data2: 1111331925
+    Data3: -1606219594
+    Data4: -1839460294
+  Banks:
+  - {fileID: 2281390264868754947}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 1104
+--- !u!114 &743364603883606117
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Sound Effects/Fishing/reel fast
+  m_EditorClassIdentifier: 
+  Path: event:/Sound Effects/Fishing/reel fast
+  Guid:
+    Data1: 1889927639
+    Data2: 1225410898
+    Data3: -666646655
+    Data4: 858663565
+  Banks:
+  - {fileID: 2281390264868754947}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &1015560968791655615
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Sound Effects/Items/charm gifted
+  m_EditorClassIdentifier: 
+  Path: event:/Sound Effects/Items/charm gifted
+  Guid:
+    Data1: 798110943
+    Data2: 1283629885
+    Data3: 18807941
+    Data4: -1085907216
+  Banks:
+  - {fileID: 2281390264868754947}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &1545088219147570955
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Sound Effects/Fishing/line break_03
+  m_EditorClassIdentifier: 
+  Path: event:/Sound Effects/Fishing/line break_03
+  Guid:
+    Data1: 833123875
+    Data2: 1094350440
+    Data3: 52875144
+    Data4: 124490789
+  Banks:
+  - {fileID: 2281390264868754947}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &2281390264868754947
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -83,11 +748,302 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
   m_Name: bank:/Master.bank
   m_EditorClassIdentifier: 
-  Path: ../../../Downloads/FOE - FMOD/Build/Desktop/Master.bank
+  Path: FOE - FMOD/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638596678284886008
+  lastModified: 638615178388734265
   FileSizes:
   - Name: Desktop
-    Value: 98016
+    Value: 9085856
+  Exists: 1
+--- !u!114 &3098235587531520734
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/Footsteps/Speed Switch
+  m_EditorClassIdentifier: 
+  Name: Speed Switch
+  StudioPath: 
+  Min: 0
+  Max: 1
+  Default: 0
+  ID:
+    data1: 4172858240
+    data2: 3828996599
+  Type: 2
+  IsGlobal: 0
+  Labels:
+  - Walk
+  - Run
+  Exists: 1
+--- !u!114 &3479421451485368227
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Sound Effects/Items/item drop
+  m_EditorClassIdentifier: 
+  Path: event:/Sound Effects/Items/item drop
+  Guid:
+    Data1: 1125424451
+    Data2: 1256639828
+    Data3: 1579576718
+    Data4: -62893
+  Banks:
+  - {fileID: 2281390264868754947}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &4115932147381862751
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Sound Effects/Footsteps
+  m_EditorClassIdentifier: 
+  Path: event:/Sound Effects/Footsteps
+  Guid:
+    Data1: -1981645972
+    Data2: 1126942252
+    Data3: 1991009152
+    Data4: 150059475
+  Banks:
+  - {fileID: 2281390264868754947}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters:
+  - {fileID: -664102668439929068}
+  - {fileID: 3098235587531520734}
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &4660752034240594052
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Background Music/FOE tropical_02
+  m_EditorClassIdentifier: 
+  Path: event:/Background Music/FOE tropical_02
+  Guid:
+    Data1: 175657770
+    Data2: 1333772160
+    Data3: -856844665
+    Data4: -1359445012
+  Banks:
+  - {fileID: 2281390264868754947}
+  IsStream: 1
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 90280
+--- !u!114 &4991789881725833691
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Background Music/FOE menu_02
+  m_EditorClassIdentifier: 
+  Path: event:/Background Music/FOE menu_02
+  Guid:
+    Data1: -1821584791
+    Data2: 1277815121
+    Data3: -1706948971
+    Data4: -1192300474
+  Banks:
+  - {fileID: 2281390264868754947}
+  IsStream: 1
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 86571
+--- !u!114 &5112455099382663549
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Sound Effects/Fishing/reel
+  m_EditorClassIdentifier: 
+  Path: event:/Sound Effects/Fishing/reel
+  Guid:
+    Data1: -1853991378
+    Data2: 1304173345
+    Data3: 2087188387
+    Data4: 1964970611
+  Banks:
+  - {fileID: 2281390264868754947}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &5225018776406989689
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Sound Effects/UI/ui cancel
+  m_EditorClassIdentifier: 
+  Path: event:/Sound Effects/UI/ui cancel
+  Guid:
+    Data1: -785671519
+    Data2: 1152043217
+    Data3: 51498916
+    Data4: 726801389
+  Banks:
+  - {fileID: 2281390264868754947}
+  IsStream: 0
+  Is3D: 1
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &6309554071498646530
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Sound Effects/Items/item throw
+  m_EditorClassIdentifier: 
+  Path: event:/Sound Effects/Items/item throw
+  Guid:
+    Data1: 555686382
+    Data2: 1109164678
+    Data3: -2055595846
+    Data4: 1365775352
+  Banks:
+  - {fileID: 2281390264868754947}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
+--- !u!114 &7293546088655261468
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Background Music/FOE farm_01
+  m_EditorClassIdentifier: 
+  Path: event:/Background Music/FOE farm_01
+  Guid:
+    Data1: 273957660
+    Data2: 1179042309
+    Data3: 1921819837
+    Data4: -1827540728
+  Banks:
+  - {fileID: 2281390264868754947}
+  IsStream: 1
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 180000
+--- !u!114 &7836643358213597988
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Background Music/FOE waterfall cave_01
+  m_EditorClassIdentifier: 
+  Path: event:/Background Music/FOE waterfall cave_01
+  Guid:
+    Data1: -1831919457
+    Data2: 1291396887
+    Data3: -405909830
+    Data4: 1510569962
+  Banks:
+  - {fileID: 2281390264868754947}
+  IsStream: 1
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 56470
+--- !u!114 &8626480734235735409
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Master.strings.bank
+  m_EditorClassIdentifier: 
+  Path: FOE - FMOD/Build/Desktop/Master.strings.bank
+  Name: Master.strings
+  StudioPath: bank:/Master.strings
+  lastModified: 638615178388774377
+  FileSizes:
+  - Name: Desktop
+    Value: 2360
   Exists: 1
