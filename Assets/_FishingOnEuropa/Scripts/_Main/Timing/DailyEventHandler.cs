@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Timers;
 using UnityEngine;
 
 namespace Europa.GameEvents
@@ -10,7 +11,7 @@ namespace Europa.GameEvents
     /// <see cref="DailyEvents"/> to add more events.
     /// - Modified a shit ton by: Jayden (cozitime)
     /// </summary>
-    public static class GameEvents
+    public static class DailyEventHandler
     {
         // not set up yet.. Need to check with Skylar on this
         internal static void UpdateTimeTemp(Observable<int> currentHour, Observable<int> currentMinute, Observable<int> currentDay)
@@ -27,7 +28,7 @@ namespace Europa.GameEvents
         /// <summary>
         /// Constructor for the GameEvents static class.
         /// </summary>
-        static GameEvents()
+        static DailyEventHandler()
         {
             ClearDailyEvents();
         }

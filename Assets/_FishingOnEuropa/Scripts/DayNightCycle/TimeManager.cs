@@ -101,10 +101,10 @@ public class TimeManager : Singleton<TimeManager>
         switch (currentTimeSO.hour)
         {
             case var time when time == timeSettings.sunriseHour:
-                GameEvents.InvokeDailyEvent(DailyEvents.Sunrise, true);
+                DailyEventHandler.InvokeDailyEvent(DailyEvents.Sunrise, true);
                 break;
             case var time when time == timeSettings.sunsetHour:
-                GameEvents.InvokeDailyEvent(DailyEvents.Sunset, true);
+                DailyEventHandler.InvokeDailyEvent(DailyEvents.Sunset, true);
                 break;
         }
 
