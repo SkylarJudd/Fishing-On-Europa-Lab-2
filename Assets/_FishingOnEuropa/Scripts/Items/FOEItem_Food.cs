@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FOEItem_Food : FOEItem
+public class FOEItem_Food : FOEItem , ISellable
 {
     public FoodType foodType;
     public FoodList foodItem;
