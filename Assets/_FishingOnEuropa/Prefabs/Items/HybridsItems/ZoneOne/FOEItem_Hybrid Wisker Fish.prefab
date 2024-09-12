@@ -363,7 +363,19 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 3182966058894833330}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7363543831746356099, guid: 180e5c9d245eb934d873859121e99796,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -3463430867032149001}
+    - targetCorrespondingSourceObject: {fileID: 7363543831746356099, guid: 180e5c9d245eb934d873859121e99796,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2039125925289183150}
+    - targetCorrespondingSourceObject: {fileID: 7363543831746356099, guid: 180e5c9d245eb934d873859121e99796,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -7406149794171006238}
   m_SourcePrefab: {fileID: 100100000, guid: 180e5c9d245eb934d873859121e99796, type: 3}
 --- !u!1 &2272104949460083475 stripped
 GameObject:
@@ -377,6 +389,90 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 6528265421535296666}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &4371199503245582105 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7363543831746356099, guid: 180e5c9d245eb934d873859121e99796,
+    type: 3}
+  m_PrefabInstance: {fileID: 6528265421535296666}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &-3463430867032149001
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4371199503245582105}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a38fe9184b621994889691c29f1b2764, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  movementSoundEvent: {fileID: 0}
+  idleSoundEvent: {fileID: 0}
+--- !u!114 &2039125925289183150
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4371199503245582105}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollisionTag: 
+  EventReference:
+    Guid:
+      Data1: -317466326
+      Data2: 1111331925
+      Data3: -1606219594
+      Data4: -1839460294
+    Path: event:/Sound Effects/Water/swim
+  Event: 
+  PlayEvent: 0
+  StopEvent: 0
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  NonRigidbodyVelocity: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 1
+  OverrideMaxDistance: 20
+--- !u!114 &-7406149794171006238
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4371199503245582105}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollisionTag: 
+  EventReference:
+    Guid:
+      Data1: 310906086
+      Data2: 1149098476
+      Data3: 23358884
+      Data4: 2053275082
+    Path: event:/Sound Effects/Water/splash
+  Event: 
+  PlayEvent: 0
+  StopEvent: 0
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  NonRigidbodyVelocity: 0
+  Params:
+  - Name: Size
+    Value: 4
+  OverrideAttenuation: 0
+  OverrideMinDistance: 1
+  OverrideMaxDistance: 20
 --- !u!1 &4508500174433467897 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7208125370497171811, guid: 180e5c9d245eb934d873859121e99796,

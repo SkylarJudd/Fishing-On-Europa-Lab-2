@@ -149,12 +149,6 @@ public class FishNavigationManager : Singleton<FishNavigationManager>
     [SerializeField] float playerHandReactionDistanceReset;
 
     [SerializeField] float moveToPlayerStoppingDistance;
-
-    [Header("Sound")]
-    public StudioEventEmitter movementSoundEvent;
-    public StudioEventEmitter idleSoundEvent;
-
-
     private void Start()
     {
         //TESTING ONLY REMOVE LATER!!!!!!!!!
@@ -553,7 +547,6 @@ public class FishNavigationManager : Singleton<FishNavigationManager>
                 foreach (hybridNavData _hybrid in hybridsIdle)
                 {
                     //Play Idel animation
-                    idleSoundEvent.Play();
                 }
                 // Remove hybrids from hybridsHitWater
                 foreach (var _hybrid in removeHybridsIdle)

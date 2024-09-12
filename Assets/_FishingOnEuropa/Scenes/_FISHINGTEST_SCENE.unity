@@ -806,12 +806,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &830105098 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8775232215500538061, guid: 16bfaf496f290d34aa4024ae51ee1add,
-    type: 3}
-  m_PrefabInstance: {fileID: 1309895808}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &868762595 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5955778741510701726, guid: bdab25ecbae4b5248ba0bd2aaf934e8c,
@@ -842,12 +836,12 @@ PrefabInstance:
         type: 3}
       propertyPath: idleSoundEvent
       value: 
-      objectReference: {fileID: 1309895811}
+      objectReference: {fileID: 0}
     - target: {fileID: 2269280573903691426, guid: 16bfaf496f290d34aa4024ae51ee1add,
         type: 3}
       propertyPath: movementSoundEvent
       value: 
-      objectReference: {fileID: 1309895812}
+      objectReference: {fileID: 0}
     - target: {fileID: 6863086000082951395, guid: 16bfaf496f290d34aa4024ae51ee1add,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -906,15 +900,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 8775232215500538061, guid: 16bfaf496f290d34aa4024ae51ee1add,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1309895812}
-    - targetCorrespondingSourceObject: {fileID: 8775232215500538061, guid: 16bfaf496f290d34aa4024ae51ee1add,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1309895811}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 16bfaf496f290d34aa4024ae51ee1add, type: 3}
 --- !u!114 &1309895809 stripped
 MonoBehaviour:
@@ -922,7 +908,7 @@ MonoBehaviour:
     type: 3}
   m_PrefabInstance: {fileID: 1309895808}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 830105098}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f376aaee8c34e7049b2a1010a45ea6d4, type: 3}
@@ -934,68 +920,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1309895808}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1309895811
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 830105098}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  CollisionTag: 
-  EventReference:
-    Guid:
-      Data1: 310906086
-      Data2: 1149098476
-      Data3: 23358884
-      Data4: 2053275082
-    Path: event:/Sound Effects/Water/splash
-  Event: 
-  PlayEvent: 0
-  StopEvent: 0
-  AllowFadeout: 1
-  TriggerOnce: 1
-  Preload: 0
-  NonRigidbodyVelocity: 0
-  Params: []
-  OverrideAttenuation: 0
-  OverrideMinDistance: 1
-  OverrideMaxDistance: 20
---- !u!114 &1309895812
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 830105098}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  CollisionTag: 
-  EventReference:
-    Guid:
-      Data1: -317466326
-      Data2: 1111331925
-      Data3: -1606219594
-      Data4: -1839460294
-    Path: event:/Sound Effects/Water/swim
-  Event: 
-  PlayEvent: 0
-  StopEvent: 0
-  AllowFadeout: 1
-  TriggerOnce: 1
-  Preload: 0
-  NonRigidbodyVelocity: 0
-  Params: []
-  OverrideAttenuation: 0
-  OverrideMinDistance: 1
-  OverrideMaxDistance: 20
 --- !u!1 &1407631249
 GameObject:
   m_ObjectHideFlags: 0
