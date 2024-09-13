@@ -169,25 +169,48 @@ public class SceneController : Singleton<SceneController>
         AsyncOperation load = SceneManager.LoadSceneAsync(_sceneName.ToString(), LoadSceneMode.Additive);
         currentEnviromentScene = _sceneName;
 
-        
+
         while (!load.isDone)
         {
             yield return new WaitForEndOfFrame();
         }
         yield return new WaitForEndOfFrame();
 
-        Transform waypoint = FindObjectOfType<SceneInfoContainer>().entranceWaypoints[0];
-        if (waypoint != null)
+        Transform waypoint = GetWaypointTransform();
+        
+        _PLAYER.UpdatePlayerTransform(waypoint);
+       
+
+        yield return null;
+    }
+
+    private Transform GetWaypointTransform()
+    {
+        // Try to find the SceneInfoContainer
+        SceneInfoContainer sceneInfoContainer = FindObjectOfType<SceneInfoContainer>();
+
+        // Check if SceneInfoContainer exists and has waypoints
+        if (sceneInfoContainer != null && sceneInfoContainer.entranceWaypoints.Count > 0)
         {
-            _PLAYER.UpdatePlayerTransform(waypoint);
+            // Get the first waypoint
+            Transform waypoint = sceneInfoContainer.entranceWaypoints[0];
+
+            // Check if the first waypoint is not null
+            if (waypoint != null)
+            {
+                return waypoint;
+            }
+            else
+            {
+                Debug.LogError("The first waypoint in the list is null. Using default transform.");
+                return defaultTransform; // Return defaultTransform if the waypoint is null
+            }
         }
         else
         {
-            _PLAYER.UpdatePlayerTransform(defaultTransform);
-            Debug.LogError("Was Not Able To Find WayPoint Please Make sure a SceneInfoContainer Is active in each Environment Scene and has a waypoint within its list");
+            Debug.LogError("SceneInfoContainer is either missing or has no waypoints. Using default transform.");
+            return defaultTransform; // Return defaultTransform if no valid SceneInfoContainer or waypoint
         }
-
-        yield return null;
     }
 
     /// <summary>

@@ -23,6 +23,6 @@ MonoBehaviour:
   restMaxTime: 5
   fishSpeed: 0
   rotationSpeed: 0
-  foodEaten: 
-  favFood: 0
+  foodEaten: 03000000
+  favFood: 3
   favToy: 0

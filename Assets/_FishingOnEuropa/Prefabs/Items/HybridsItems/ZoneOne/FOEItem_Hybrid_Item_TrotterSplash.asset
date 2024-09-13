@@ -15,7 +15,7 @@ MonoBehaviour:
   itemID: 100005
   worldObject: {fileID: 8235945337240472755, guid: 85444673a7d7dc64c9d6a270087f8d62,
     type: 3}
-  itemPrefab: {fileID: 3486279173215007155, guid: b929009a1e406ab4ea63131a7266dcc3,
+  itemPrefab: {fileID: 4371199503245582105, guid: 85444673a7d7dc64c9d6a270087f8d62,
     type: 3}
   itemName: Trotter Splash
   itemDescription: 

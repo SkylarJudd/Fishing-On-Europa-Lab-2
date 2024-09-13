@@ -15,7 +15,7 @@ MonoBehaviour:
   itemID: 100001
   worldObject: {fileID: 8235945337240472755, guid: 8f9be6ae80de9644a8363bc77ffb038f,
     type: 3}
-  itemPrefab: {fileID: 8267993753747670083, guid: a658ccac28258b440a9128cd15af0c79,
+  itemPrefab: {fileID: 4371199503245582105, guid: 8f9be6ae80de9644a8363bc77ffb038f,
     type: 3}
   itemName: Cluckfin
   itemDescription: 

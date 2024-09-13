@@ -15,7 +15,7 @@ MonoBehaviour:
   itemID: 100002
   worldObject: {fileID: 8235945337240472755, guid: 092bade61f32b7c48bfe07f758d36a2f,
     type: 3}
-  itemPrefab: {fileID: 8215944545911543828, guid: 4b778ca109bca684eac1d5687f15fe32,
+  itemPrefab: {fileID: 4371199503245582105, guid: 092bade61f32b7c48bfe07f758d36a2f,
     type: 3}
   itemName: Bouncy Bass
   itemDescription: 

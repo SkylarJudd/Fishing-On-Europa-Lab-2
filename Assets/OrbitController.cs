@@ -58,14 +58,18 @@ public class OrbitController : MonoBehaviour
             float totalDaysPassed = currentTimeSO.totalHours / 75f; // Convert total hours to days
             float angle = totalDaysPassed * (360f / moonData.orbitDays); // Full orbit takes 'orbitDays'
 
-            // Apply orbit distance modifier
-            var positionCenterObject = gravityCenter.position;
-            var targetX = positionCenterObject.x + Mathf.Cos(angle * Mathf.Deg2Rad) * moonData.rotDistance * rotationDistanceModifier;
-            var targetZ = positionCenterObject.z + Mathf.Sin(angle * Mathf.Deg2Rad) * moonData.rotDistance * rotationDistanceModifier;
+            if(moonData.rotDistance != 0)
+            {
+                // Apply orbit distance modifier
+                var positionCenterObject = gravityCenter.position;
+                var targetX = positionCenterObject.x + Mathf.Cos(angle * Mathf.Deg2Rad) * moonData.rotDistance * rotationDistanceModifier;
+                var targetZ = positionCenterObject.z + Mathf.Sin(angle * Mathf.Deg2Rad) * moonData.rotDistance * rotationDistanceModifier;
 
-            // Lerp position for smooth orbiting
-            Vector3 targetPosition = new Vector3(targetX, moonData.moonGo.transform.position.y, targetZ);
-            moonData.moonGo.transform.position = Vector3.Lerp(moonData.moonGo.transform.position, targetPosition, Time.deltaTime * lerpSpeed);
+                // Lerp position for smooth orbiting
+                Vector3 targetPosition = new Vector3(targetX, moonData.moonGo.transform.position.y, targetZ);
+                moonData.moonGo.transform.position = Vector3.Lerp(moonData.moonGo.transform.position, targetPosition, Time.deltaTime * lerpSpeed);
+            }
+            
 
             if(moonData.applyScaleModifier)
             // Apply scale modifier based on the moon's original scale

@@ -15,7 +15,7 @@ MonoBehaviour:
   itemID: 100006
   worldObject: {fileID: 8235945337240472755, guid: 450f2e8df91ec244d8c709245080b555,
     type: 3}
-  itemPrefab: {fileID: 5008421055324423510, guid: 6946779f18dbbd64c9f5b834ba4c73a4,
+  itemPrefab: {fileID: 4371199503245582105, guid: 450f2e8df91ec244d8c709245080b555,
     type: 3}
   itemName: FrostScale
   itemDescription: 

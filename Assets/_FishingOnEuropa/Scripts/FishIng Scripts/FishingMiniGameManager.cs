@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using static FishNavigationManager;
 
-public enum BobberState { Withdrawn, Cast, HitWater, AttachedFish }
 
 public class FishingMiniGameManager : Singleton<FishingMiniGameManager>
 {
@@ -12,7 +11,8 @@ public class FishingMiniGameManager : Singleton<FishingMiniGameManager>
     [SerializeField] float minBobberReelDistance; //how close the bobber needs to be before reeling is complete
     public GameObject bobberGameObject, bobberTipGO, bobberFishSpot;
 
-   
+    public enum BobberState { Withdrawn, Cast, HitWater, AttachedFish }
+
     public BobberState bobberState;
 
     [Header("Hybrids")]

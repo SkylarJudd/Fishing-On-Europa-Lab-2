@@ -98,7 +98,6 @@
 
 
 
-
 //            case HybridState.HybridMiniGame_Tired:
 //                LineAttach();
 //                break;
@@ -307,7 +306,6 @@
 
 //    void LineAttach()
 //    {
-
 
 //        //print("Attached to line");
 //        Vector3 directionToTarget = Lure.transform.position - transform.position;

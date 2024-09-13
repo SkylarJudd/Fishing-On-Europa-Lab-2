@@ -127,15 +127,19 @@ public class CropFarmingMannager : GameBehaviour
             switch (_crop.cropState)
             {
                 case CropState.Seed:
+                    _crop.cropState = CropState.Sprout;
                     SpawnNewObject(_crop.seedSO.sprout, _crop);
                     break;
                 case CropState.Sprout:
                     SpawnNewObject(_crop.seedSO.adolecent, _crop);
+                    _crop.cropState = CropState.Adolecent;
                     break;
                 case CropState.Adolecent:
+                    _crop.cropState = CropState.Mature;
                     SpawnNewObject(_crop.seedSO.mature, _crop);
                     break;
                 case CropState.Mature:
+                    _crop.cropState = CropState.Harvested;
                     SpawnNewObject(_crop.seedSO.harvested, _crop);
                     break;
                 case CropState.Harvested:
