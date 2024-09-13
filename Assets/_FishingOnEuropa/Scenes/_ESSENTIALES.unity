@@ -1942,6 +1942,21 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1102718914}
     m_Modifications:
+    - target: {fileID: 2269280573903691426, guid: 16bfaf496f290d34aa4024ae51ee1add,
+        type: 3}
+      propertyPath: playerReactionDistance
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2269280573903691426, guid: 16bfaf496f290d34aa4024ae51ee1add,
+        type: 3}
+      propertyPath: playerReactionDistanceReset
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2269280573903691426, guid: 16bfaf496f290d34aa4024ae51ee1add,
+        type: 3}
+      propertyPath: playerHandReactionDistanceReset
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 6863086000082951395, guid: 16bfaf496f290d34aa4024ae51ee1add,
         type: 3}
       propertyPath: m_LocalPosition.x

@@ -16,7 +16,7 @@ public class HybridHeadPatTrigger : GameBehaviour
         if (objectInTrigger.tag == "LeftHandTag")
         {
             return _PLAYER.leftHand;
-
+            
         }
         else if (objectInTrigger.tag == "RightHandTag")
         {

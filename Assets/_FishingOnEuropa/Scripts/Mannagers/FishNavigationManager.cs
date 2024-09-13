@@ -411,13 +411,14 @@ public class FishNavigationManager : Singleton<FishNavigationManager>
                             ProcessPlayerWithoutItem(_hybrid);
                         }
 
-                        //Check if being pat by plater
+                        ////Check if being pat by plater
                         FOEItem_Hybrid hybridInfo = _hybrid.hybridGameObject.GetComponent<FOEItem_Hybrid>();
+                        print(_hybrid.hybridGameObject);
                         var handState = hybridInfo.hybridSO.patTrigger.GetComponent<HybridHeadPatTrigger>().ReturnHand();
                         if (handState != null)
                         {
-                            HybridPat(handState);
-                        }    
+                            HybridPat(handState, _hybrid, hybridInfo);
+                        }
                     }
                     else if ( _hybrid.distanceToPlayer > playerReactionDistance && hybridReactToPlayer.Contains(_hybrid))
                     {
@@ -444,25 +445,32 @@ public class FishNavigationManager : Singleton<FishNavigationManager>
     /// <summary>
     /// Handles hybrid pat interaction with the player
     /// </summary>
-    void HybridPat(Transform handState)
+    void HybridPat(Transform handState, hybridNavData _hybrid, FOEItem_Hybrid _hybridInfo)
     {
+
         //check if hand that is in trigger is holding an item
         if (handState == _PLAYER.leftHand && _PLAYER.leftHandFood == null && _PLAYER.leftHandPlushie == null)
         {
+            _hybrid.hybridGameObject.GetComponent<Renderer>().material.color = Color.red;
+
             //check if hand is moving
             if (_PLAYER.leftHand.GetComponent<Rigidbody>().velocity.magnitude >= 1)
             {
                 //play animation here
-                print("Happy dance");
+                Debug.Log("Happy dance");
+
             }
         }
         else if (handState == _PLAYER.rightHand && _PLAYER.rightHandFood == null && _PLAYER.rightHandPlushie == null)
         {
+            _hybrid.hybridGameObject.GetComponent<Renderer>().material.color = Color.red;
+
             //check if hand is moving
             if (_PLAYER.rightHand.GetComponent<Rigidbody>().velocity.magnitude >= 1)
             {
+
                 //play animation here
-                print("Happy dance");
+                Debug.Log("Happy dance");
             }
         }
     }
@@ -480,6 +488,7 @@ public class FishNavigationManager : Singleton<FishNavigationManager>
         if (_PLAYER.rightHandFood != null || _PLAYER.leftHandFood != null)
         {
             CheckFoodInteraction(_hybrid, _rightFood, _leftFood);
+
         }
         // Check for plushie interactions
         else if (_PLAYER.rightHandPlushie != null || _PLAYER.leftHandPlushie != null)

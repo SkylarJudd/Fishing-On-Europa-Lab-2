@@ -100,7 +100,7 @@ SphereCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -402,11 +402,11 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1294856789159449124, guid: 180e5c9d245eb934d873859121e99796,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 291241408339277831}
+      addedObject: {fileID: 6567959664947332815}
     - targetCorrespondingSourceObject: {fileID: 1294856789159449124, guid: 180e5c9d245eb934d873859121e99796,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 6567959664947332815}
+      addedObject: {fileID: 291241408339277831}
     - targetCorrespondingSourceObject: {fileID: 7643921426541660128, guid: 180e5c9d245eb934d873859121e99796,
         type: 3}
       insertIndex: -1
