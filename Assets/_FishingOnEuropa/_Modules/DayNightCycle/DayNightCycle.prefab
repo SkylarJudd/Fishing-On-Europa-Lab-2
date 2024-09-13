@@ -267,6 +267,153 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1 &2021556075846429665
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4036777384023485134}
+  - component: {fileID: 3528500278076543880}
+  - component: {fileID: 1894307705982256740}
+  - component: {fileID: 8656144235545101070}
+  m_Layer: 19
+  m_Name: PlayerController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4036777384023485134
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2021556075846429665}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3326090822857445668}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!54 &3528500278076543880
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2021556075846429665}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!136 &1894307705982256740
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2021556075846429665}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Height: 1
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &8656144235545101070
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2021556075846429665}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8a35128610d1b34892726ec96e587d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ignoreMe: 0
+  headCamera: {fileID: 2816283829701024691}
+  forwardFollow: {fileID: 0}
+  trackingContainer: {fileID: 0}
+  handRight: {fileID: 0}
+  handLeft: {fileID: 0}
+  playerSettings: {fileID: 11400000, guid: 967b9406fa925d24398a644024babfda, type: 2}
+  useMovement: 1
+  maxMoveSpeed: 2.3
+  moveAcceleration: 100000
+  rotationType: 0
+  snapTurnAngle: 30
+  smoothTurnSpeed: 180
+  bodyFollowsHead: 1
+  maxHeadDistance: 0.5
+  showHeight: 1
+  heightSmoothSpeed: 10
+  heightOffset: 0
+  crouching: 0
+  crouchHeight: 0.6
+  autoAdjustColliderHeight: 1
+  minMaxHeight: {x: 0.5, y: 2.5}
+  useHeadCollision: 1
+  headRadius: 0.15
+  useGrounding: 1
+  maxStepHeight: 0.3
+  groundingPenetrationOffset: 0.1
+  maxStepAngle: 45
+  groundLayerMask:
+    serializedVersion: 2
+    m_Bits: 0
+  groundedDrag: 10000
+  flyingDrag: 4
+  allowClimbing: 1
+  allowClimbingMovement: 1
+  climbingStrength: {x: 20, y: 20, z: 20}
+  climbingAcceleration: 30
+  climbingDrag: 5
+  climbUpStepHeightMultiplier: 3
+  allowBodyPushing: 1
+  pushingStrength: {x: 10, y: 10, z: 10}
+  pushingAcceleration: 10
+  pushingDrag: 1
+  pushUpStepHeightMultiplier: 3
+  allowPlatforms: 1
+  platformingLayerMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  movementDeadzone: 0.2
+  turnDeadzone: 0.4
+  turnResetzone: 0.3
 --- !u!1 &2773840998112354868
 GameObject:
   m_ObjectHideFlags: 0
@@ -796,7 +943,7 @@ GameObject:
   - component: {fileID: 2066046918690299811}
   - component: {fileID: 2816283829701024691}
   - component: {fileID: 3802271532656692908}
-  - component: {fileID: 123253307177753619}
+  - component: {fileID: 5079192898449248645}
   m_Layer: 21
   m_Name: Skybox Camera
   m_TagString: Untagged
@@ -914,7 +1061,7 @@ MonoBehaviour:
     mipBias: 0
     varianceClampScale: 0.9
     contrastAdaptiveSharpening: 0
---- !u!114 &123253307177753619
+--- !u!114 &5079192898449248645
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -923,11 +1070,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 4782854231764039662}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a8ea79aac6949e345a0ad07edda6a7f5, type: 3}
+  m_Script: {fileID: 11500000, guid: 5a2a9c34df4095f47b9ca8f975175f5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  skyboxCamTransform: {fileID: 3326090822857445668}
-  trackedDriverTransform: {fileID: 190393543869020633}
+  m_Device: 0
+  m_PoseSource: 2
+  m_PoseProviderComponent: {fileID: 0}
+  m_TrackingType: 0
+  m_UpdateType: 0
+  m_UseRelativeTransform: 0
 --- !u!1 &5122062091125911303
 GameObject:
   m_ObjectHideFlags: 0
@@ -1042,6 +1193,7 @@ GameObject:
   - component: {fileID: 4986222746989695888}
   - component: {fileID: 9098460456949390158}
   - component: {fileID: 2482074723352594818}
+  - component: {fileID: 8169482502984507615}
   m_Layer: 21
   m_Name: Europa
   m_TagString: Untagged
@@ -1115,6 +1267,22 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &8169482502984507615
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5856742684772924446}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8df44f998e6ea50429dfa5de6021651c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 8075309841108415632}
+  useXAxis: 1
+  useYAxis: 1
+  useZAxis: 1
 --- !u!1 &5886553566109401411
 GameObject:
   m_ObjectHideFlags: 0
@@ -1509,7 +1677,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3326090822857445668}
-  - component: {fileID: 7350513897414779730}
   m_Layer: 19
   m_Name: CamTransform
   m_TagString: Untagged
@@ -1532,21 +1699,6 @@ Transform:
   m_Children:
   - {fileID: 2066046918690299811}
   - {fileID: 190393543869020633}
+  - {fileID: 4036777384023485134}
   m_Father: {fileID: 4986222746989695888}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7350513897414779730
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8175886530335223724}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8df44f998e6ea50429dfa5de6021651c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  target: {fileID: 8075309841108415632}
-  useXAxis: 1
-  useYAxis: 1
-  useZAxis: 1

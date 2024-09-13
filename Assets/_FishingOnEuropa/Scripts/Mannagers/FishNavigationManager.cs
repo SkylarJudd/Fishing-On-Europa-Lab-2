@@ -393,7 +393,7 @@ public class FishNavigationManager : Singleton<FishNavigationManager>
                     // Check if the hybrid is within the player's reaction distance
                     if (_hybrid.distanceToPlayer < playerReactionDistance)
                     {
-                        print("Distance in range");
+                        //print("Distance in range");
                         // Add the hybrid to the react list if it's not already included
                         if (!hybridReactToPlayer.Contains(_hybrid))
                         {
@@ -413,7 +413,7 @@ public class FishNavigationManager : Singleton<FishNavigationManager>
 
                         ////Check if being pat by plater
                         FOEItem_Hybrid hybridInfo = _hybrid.hybridGameObject.GetComponent<FOEItem_Hybrid>();
-                        print(_hybrid.hybridGameObject);
+                        //print(_hybrid.hybridGameObject);
                         var handState = hybridInfo.hybridSO.patTrigger.GetComponent<HybridHeadPatTrigger>().ReturnHand();
                         if (handState != null)
                         {
