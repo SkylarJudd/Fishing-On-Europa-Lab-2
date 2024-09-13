@@ -410,6 +410,14 @@ public class FishNavigationManager : Singleton<FishNavigationManager>
                         {
                             ProcessPlayerWithoutItem(_hybrid);
                         }
+
+                        //Check if being pat by plater
+                        FOEItem_Hybrid hybridInfo = _hybrid.hybridGameObject.GetComponent<FOEItem_Hybrid>();
+                        var handState = hybridInfo.hybridSO.patTrigger.GetComponent<HybridHeadPatTrigger>().ReturnHand();
+                        if (handState != null)
+                        {
+                            HybridPat(handState);
+                        }    
                     }
                     else if ( _hybrid.distanceToPlayer > playerReactionDistance && hybridReactToPlayer.Contains(_hybrid))
                     {
@@ -433,6 +441,31 @@ public class FishNavigationManager : Singleton<FishNavigationManager>
         }
     }
 
+    /// <summary>
+    /// Handles hybrid pat interaction with the player
+    /// </summary>
+    void HybridPat(Transform handState)
+    {
+        //check if hand that is in trigger is holding an item
+        if (handState == _PLAYER.leftHand && _PLAYER.leftHandFood == null && _PLAYER.leftHandPlushie == null)
+        {
+            //check if hand is moving
+            if (_PLAYER.leftHand.GetComponent<Rigidbody>().velocity.magnitude >= 1)
+            {
+                //play animation here
+                print("Happy dance");
+            }
+        }
+        else if (handState == _PLAYER.rightHand && _PLAYER.rightHandFood == null && _PLAYER.rightHandPlushie == null)
+        {
+            //check if hand is moving
+            if (_PLAYER.rightHand.GetComponent<Rigidbody>().velocity.magnitude >= 1)
+            {
+                //play animation here
+                print("Happy dance");
+            }
+        }
+    }
 
     /// <summary>
     /// Handles hybrid interactions when the player is holding an item, checking for specific reactions based on the type of item held.

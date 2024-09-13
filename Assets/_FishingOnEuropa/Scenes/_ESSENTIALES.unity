@@ -1942,26 +1942,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1102718914}
     m_Modifications:
-    - target: {fileID: 2269280573903691426, guid: 16bfaf496f290d34aa4024ae51ee1add,
-        type: 3}
-      propertyPath: playerReactionDistance
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 2269280573903691426, guid: 16bfaf496f290d34aa4024ae51ee1add,
-        type: 3}
-      propertyPath: playerHandReactionDistance
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 2269280573903691426, guid: 16bfaf496f290d34aa4024ae51ee1add,
-        type: 3}
-      propertyPath: moveToPlayerStoppingDistance
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 2269280573903691426, guid: 16bfaf496f290d34aa4024ae51ee1add,
-        type: 3}
-      propertyPath: fishCollisionLayerMask.m_Bits
-      value: 5242880
-      objectReference: {fileID: 0}
     - target: {fileID: 6863086000082951395, guid: 16bfaf496f290d34aa4024ae51ee1add,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2015,7 +1995,7 @@ PrefabInstance:
     - target: {fileID: 8775232215500538061, guid: 16bfaf496f290d34aa4024ae51ee1add,
         type: 3}
       propertyPath: m_Name
-      value: FishNavigationMannager
+      value: FishNavigationManager
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -6693,7 +6673,7 @@ PrefabInstance:
     - target: {fileID: 4076756438714087473, guid: 910709aba09883c4485d590b4b6d8b05,
         type: 3}
       propertyPath: m_Name
-      value: InventoryMannager
+      value: InventoryManager
       objectReference: {fileID: 0}
     - target: {fileID: 7084771504286457573, guid: 910709aba09883c4485d590b4b6d8b05,
         type: 3}
@@ -6902,7 +6882,7 @@ PrefabInstance:
     - target: {fileID: 976944661687834982, guid: af4881e125dd57144a0a5580933220f1,
         type: 3}
       propertyPath: m_Name
-      value: SettingsMannager
+      value: SettingsManager
       objectReference: {fileID: 0}
     - target: {fileID: 8240501889257004166, guid: af4881e125dd57144a0a5580933220f1,
         type: 3}
@@ -7847,6 +7827,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1503171740}
     m_Modifications:
+    - target: {fileID: 502836718764100228, guid: 6f03a54d1c744a0409bd789182e0d376,
+        type: 3}
+      propertyPath: m_TagString
+      value: LeftHandTag
+      objectReference: {fileID: 0}
     - target: {fileID: 839009218241670772, guid: 6f03a54d1c744a0409bd789182e0d376,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -7896,6 +7881,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2353044450310242920, guid: 6f03a54d1c744a0409bd789182e0d376,
+        type: 3}
+      propertyPath: m_TagString
+      value: RightHandTag
       objectReference: {fileID: 0}
     - target: {fileID: 4010229238564149475, guid: 6f03a54d1c744a0409bd789182e0d376,
         type: 3}
@@ -9201,7 +9191,7 @@ PrefabInstance:
     - target: {fileID: 4248839349510876644, guid: 9a8f711610efc8849a0d96795a0fa21b,
         type: 3}
       propertyPath: m_Name
-      value: GameMannager
+      value: GameManager
       objectReference: {fileID: 0}
     - target: {fileID: 8903262946772374109, guid: 9a8f711610efc8849a0d96795a0fa21b,
         type: 3}
@@ -9337,7 +9327,7 @@ PrefabInstance:
     - target: {fileID: 2293724037855637007, guid: ec8fef564a54f05418c2b8fe7fa910ae,
         type: 3}
       propertyPath: m_Name
-      value: TempSaveMannager
+      value: TempSaveManager
       objectReference: {fileID: 0}
     - target: {fileID: 5396619862681362380, guid: ec8fef564a54f05418c2b8fe7fa910ae,
         type: 3}
