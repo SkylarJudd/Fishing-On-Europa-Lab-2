@@ -8,13 +8,13 @@ public class GameBehaviour : MonoBehaviour
 
     protected static GameMannager _GM { get { return GameMannager.instance; } }
     protected static ObjectPoolManager _OPM { get { return ObjectPoolManager.instance; } }
-    protected static TempSaveMannager _TSM { get { return TempSaveMannager.instance; } }
+    protected static SaveMannager _TSM { get { return SaveMannager.instance; } }
     protected static SceneController _SC { get { return SceneController.instance; } }
     protected static PlayerControllerSingletonLink _PLAYER { get { return PlayerControllerSingletonLink.instance; } }
     protected static SettingsMannager _SETM { get { return SettingsMannager.instance; } }
 
     protected static FishNavigationManager _FNAVM { get { return FishNavigationManager.instance; } }
-    protected static FishingMiniGameManager _FMGM { get { return FishingMiniGameManager.instance; } }
+    //protected static FishingMiniGameManager _FMGM { get { return FishingMiniGameManager.instance; } }
 
 
     public Transform getClosestEnermy(Transform _origin, List<GameObject> _objects)

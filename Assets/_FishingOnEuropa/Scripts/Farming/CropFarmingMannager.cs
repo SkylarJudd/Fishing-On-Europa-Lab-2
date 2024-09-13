@@ -9,7 +9,7 @@ public enum CropState
     Seed, Sprout, Adolecent, Mature, Harvested
 }
 
-public class Crop
+public class CropData
 {
     public GameObject go;
     public int ItemID;
@@ -31,7 +31,7 @@ public class CropFarmingMannager : GameBehaviour
 
     [Header("Crops")]
     [SerializeField]
-    private List<Crop> cropsPlanted;
+    private List<CropData> cropsPlanted;
     [SerializeField]
     private float seedRadius = 0.3f; // Minimum distance between child objects
     [SerializeField]
@@ -69,7 +69,7 @@ public class CropFarmingMannager : GameBehaviour
 
         if (ableToPlant == true)
         {
-            Crop newitem = new Crop();
+            CropData newitem = new CropData();
             newitem.go = _Seed.gameObject;
             newitem.ItemID = _Seed.europaItemSO.itemID;
             newitem.seedTransform = _Seed.europaItemSO.itemTransform;
@@ -96,7 +96,7 @@ public class CropFarmingMannager : GameBehaviour
         int attempts = 0;
         while (attempts < 4)
         {
-            foreach (Crop _Crop in cropsPlanted)
+            foreach (CropData _Crop in cropsPlanted)
             {
                 Vector3 _CropSeedPos = _Crop.seedTransform.position;
                 float _distance = Vector3.Distance(_CropSeedPos, _PlantSeedPos);
@@ -120,9 +120,9 @@ public class CropFarmingMannager : GameBehaviour
         }
     }
 
-    private void GrowPlants()   //change to an Enumarator so each for loop is spaced out by a few seconds
+    private void GrowPlants()   //change to an Enumerator so each for loop is spaced out by a few seconds
     {
-        foreach (Crop _crop in cropsPlanted)
+        foreach (CropData _crop in cropsPlanted)
         {
             switch (_crop.cropState)
             {
@@ -151,7 +151,7 @@ public class CropFarmingMannager : GameBehaviour
         }
     }
 
-    private void SpawnNewObject(GameObject _go , Crop _crop)
+    private void SpawnNewObject(GameObject _go , CropData _crop)
     {
         _OPM.ReturnObjectToPool(_crop.go);
         _crop.go = _OPM.SpawnObject(_go, _crop.seedTransform.position, _crop.seedTransform.rotation, PoolType.Plants);
@@ -159,24 +159,24 @@ public class CropFarmingMannager : GameBehaviour
 
     private void loadPlants()
     {
-         if(_TSM.currentSave.itemsInFarm == null)
+         if(_TSM.currentSave.cropPlanted == null)
             return;
 
-        for (int index = 0; index < _TSM.currentSave.itemsInFarm.Count; index++) 
+        for (int index = 0; index < _TSM.currentSave.cropPlanted.Count; index++) 
         {
-            Crop loadItem = new Crop();
+            CropData loadItem = new CropData();
 
             foreach(SeedsSO seedID in seedSOS)
             {
-                if (seedID.ItemID == _TSM.currentSave.itemsInFarm[index])
+                if (seedID.ItemID == _TSM.currentSave.cropPlanted[index].cropItem.itemID.Value)
                 {
                     loadItem.ItemID = seedID.ItemID;
                     loadItem.seedSO = seedID;
 
-                    loadItem.seedTransform.position = _TSM.currentSave.plantLocations[index];
-                    loadItem.seedTransform.rotation = new Quaternion(0, 0, 0, 0);
-                    loadItem.cropState = (CropState)_TSM.currentSave.growthStage[index];
-                    loadItem.farnIndex = _TSM.currentSave.farmLocatedIn[index];
+                    loadItem.seedTransform.position = _TSM.currentSave.cropPlanted[index].cropItem.itemPosition.Value;
+                    loadItem.seedTransform.rotation = Quaternion.Euler(_TSM.currentSave.cropPlanted[index].cropItem.itemRotation.Value);
+                    loadItem.cropState = (CropState)_TSM.currentSave.cropPlanted[index].growthStage.Value;
+                    loadItem.farnIndex = _TSM.currentSave.cropPlanted[index].cropItem.itemSaveLocation.Value;
 
                     switch (loadItem.cropState)
                     {
@@ -204,23 +204,26 @@ public class CropFarmingMannager : GameBehaviour
     [ContextMenu("Save")]
     private void SavePlants()
     {
-        if(_TSM.currentSave.itemsInFarm == null)
+        if(_TSM.currentSave.cropPlanted == null)
             return;
 
-        _TSM.currentSave.itemsInFarm.Clear();
-        _TSM.currentSave.plantLocations.Clear();
-        _TSM.currentSave.growthStage.Clear();
-        _TSM.currentSave.farmLocatedIn.Clear();
+        _TSM.currentSave.cropPlanted.Clear();
+        
 
         if (cropsPlanted == null)
             return;
 
         for (int i = 0; i < cropsPlanted.Count; i++)
         {
-            _TSM.currentSave.itemsInFarm.Add(cropsPlanted[i].ItemID);
-            _TSM.currentSave.plantLocations.Add(cropsPlanted[i].seedTransform.position);
-            _TSM.currentSave.growthStage.Add((int)cropsPlanted[i].cropState);
-            _TSM.currentSave.farmLocatedIn.Add(cropsPlanted[i].farnIndex);
+            CurrentCrop _temp = new CurrentCrop();
+            _temp.cropItem.itemID.Value = cropsPlanted[i].ItemID;
+            _temp.cropItem.itemPosition.Value = cropsPlanted[i].seedTransform.position;
+            _temp.cropItem.itemRotation.Value = cropsPlanted[i].seedTransform.rotation.eulerAngles;
+            _temp.cropItem.itemSaveLocation.Value = cropsPlanted[i].farnIndex;
+            _temp.growthStage.Value = (int)cropsPlanted[i].cropState;
+
+
+            _TSM.currentSave.cropPlanted.Add(_temp);
         }
 
     }

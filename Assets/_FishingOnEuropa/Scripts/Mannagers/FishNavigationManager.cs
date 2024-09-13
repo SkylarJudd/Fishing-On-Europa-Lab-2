@@ -152,8 +152,7 @@ public class FishNavigationManager : Singleton<FishNavigationManager>
 
     private void Start()
     {
-        //TESTING ONLY REMOVE LATER!!!!!!!!!
-        lureLocation = _FMGM.bobberGameObject;
+        
 
         StartCoroutines();
     }

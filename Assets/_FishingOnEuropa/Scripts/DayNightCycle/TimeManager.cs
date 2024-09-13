@@ -230,9 +230,9 @@ public class TimeManager : Singleton<TimeManager>
     /// <returns></returns>
     private CurrentTimeSO GetDataFromSaveManager(CurrentTimeSO _currentTimeData)
     {
-        _currentTimeData.day = _TSM.currentSave.Days;
-        _currentTimeData.hour = _TSM.currentSave.Hours;
-        _currentTimeData.minute = _TSM.currentSave.Minuites;
+        _currentTimeData.day = _TSM.currentSave.time.days.Value;
+        _currentTimeData.hour = _TSM.currentSave.time.hours.Value;
+        _currentTimeData.minute = _TSM.currentSave.time.minutes.Value;
 
         return _currentTimeData;
     }
@@ -243,8 +243,8 @@ public class TimeManager : Singleton<TimeManager>
     /// <param name="_currentTime"></param>
     private void AddTimeToSave(CurrentTimeSO _currentTime)
     {
-        _TSM.currentSave.Days = _currentTime.day;
-        _TSM.currentSave.Hours = _currentTime.hour;
-        _TSM.currentSave.Minuites = _currentTime.minute;
+        _TSM.currentSave.time.days.Value = _currentTime.day;
+        _TSM.currentSave.time.hours.Value = _currentTime.hour;
+        _TSM.currentSave.time.minutes.Value = _currentTime.minute;
     }
 }

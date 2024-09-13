@@ -48,6 +48,10 @@ public class FishingRodController : Singleton<FishingRodController>
     [Tooltip("The Minium amout the transform needs to move by for the direction to be updated")]
     private float minMoveAmount;
 
+    [SerializeField]
+    [Tooltip("The Minium amout the transform needs to move by for the direction to be updated")]
+    private FishingMiniGameManager _FMGM;
+
     float CurrentReelRotation = 0;
     private Vector3 lastRodTransform;
 

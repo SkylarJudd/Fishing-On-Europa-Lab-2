@@ -5,7 +5,7 @@ using static FishNavigationManager;
 
 public enum BobberState { Withdrawn, Cast, HitWater, AttachedFish }
 
-public class FishingMiniGameManager : Singleton<FishingMiniGameManager>
+public class FishingMiniGameManager : GameBehaviour
 {
     [Header("Bobber")]
     [SerializeField] float bobberRange = 3; //detection range of nearby hybrids when cast

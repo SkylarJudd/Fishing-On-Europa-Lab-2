@@ -86,7 +86,7 @@ public class SettingsMannager : Singleton<SettingsMannager>
             playerSettings.gameQuality = _GameQuality;
         }
         /// <summary>
-        /// Updates the Use Post Prossessing Setting
+        /// Updates the Use Post Possessing Setting
         /// </summary>
         /// <param name="_postProssessing"></param>
         public void UpdatepostProssessing(bool _postProssessing)
@@ -94,7 +94,7 @@ public class SettingsMannager : Singleton<SettingsMannager>
             playerSettings.postProssessing = _postProssessing;
         }
         /// <summary>
-        /// Updates tthe bloom Amout Setting
+        /// Updates the bloom Amount Setting
         /// </summary>
         /// <param name="_bloomAmout"></param>
         public void UpdatebloomAmout(float _bloomAmout)
@@ -112,49 +112,49 @@ public class SettingsMannager : Singleton<SettingsMannager>
 
 
         /// <summary>
-        /// Loads the curret settings from the active save
+        /// Loads the current settings from the active save
         /// </summary>
         public void LoadSettings()
         {
-            playerSettings.turnType = (RotationType)_TSM.currentSave.turnType;
-            playerSettings.turnAngle = _TSM.currentSave.turnAngle;
-            playerSettings.turnSpeed = _TSM.currentSave.turnSpeed;
+            playerSettings.turnType = (RotationType)_TSM.currentSave.settings.moveSettings.turnType.Value;
+            playerSettings.turnAngle = _TSM.currentSave.settings.moveSettings.turnAngle.Value;
+            playerSettings.turnSpeed = _TSM.currentSave.settings.moveSettings.turnSpeed.Value;
 
-            playerSettings.language = (Language)_TSM.currentSave.language;
+            playerSettings.language = (Language)_TSM.currentSave.settings.languageSettings.language.Value;
 
-            playerSettings.masterVolume = _TSM.currentSave.masterVolume;
-            playerSettings.musicVolume = _TSM.currentSave.musicVolume;
-            playerSettings.sFXVolume = _TSM.currentSave.sFXVolume;
-            playerSettings.hybridVolume = _TSM.currentSave.hybridVolume;
-            playerSettings.voicesVolume = _TSM.currentSave.voicesVolume;
+            playerSettings.masterVolume = _TSM.currentSave.settings.audioSettings.masterVolume.Value;
+            playerSettings.musicVolume = _TSM.currentSave.settings.audioSettings.musicVolume.Value;
+            playerSettings.sFXVolume = _TSM.currentSave.settings.audioSettings.sFXVolume.Value;
+            playerSettings.hybridVolume = _TSM.currentSave.settings.audioSettings.hybridVolume.Value;
+            playerSettings.voicesVolume = _TSM.currentSave.settings.audioSettings.voicesVolume.Value;
 
-            playerSettings.gameQuality = (GameQuality)_TSM.currentSave.gameQuality;
+            playerSettings.gameQuality = (GameQuality)_TSM.currentSave.settings.graphicSettings.gameQuality.Value;
 
-            playerSettings.postProssessing = _TSM.currentSave.postProssessing;
-            playerSettings.bloomAmout = _TSM.currentSave.bloomAmout;
+            playerSettings.postProssessing = _TSM.currentSave.settings.graphicSettings.postProcessing.Value; 
+            playerSettings.bloomAmout = _TSM.currentSave.settings.graphicSettings.bloomAmount.Value; 
         }
 
         /// <summary>
-        /// Saves the Curret settings to the active save
+        /// Saves the Current settings to the active save
         /// </summary>
         public void SaveSettings()
         {
-            _TSM.currentSave.turnType =  (int)playerSettings.turnType;
-            _TSM.currentSave.turnAngle = playerSettings.turnAngle;
-            _TSM.currentSave.turnSpeed = playerSettings.turnSpeed;
+            _TSM.currentSave.settings.moveSettings.turnType.Value =  (int)playerSettings.turnType;
+            _TSM.currentSave.settings.moveSettings.turnAngle.Value = playerSettings.turnAngle;
+            _TSM.currentSave.settings.moveSettings.turnSpeed.Value = playerSettings.turnSpeed;
 
-            _TSM.currentSave.language = (int)playerSettings.language;
+            _TSM.currentSave.settings.languageSettings.language.Value = (int)playerSettings.language;
 
-            _TSM.currentSave.masterVolume = playerSettings.masterVolume;
-            _TSM.currentSave.musicVolume = playerSettings.musicVolume;
-            _TSM.currentSave.sFXVolume = playerSettings.sFXVolume;
-            _TSM.currentSave.hybridVolume = playerSettings.hybridVolume;
-            _TSM.currentSave.voicesVolume = playerSettings.voicesVolume;
+            _TSM.currentSave.settings.audioSettings.masterVolume.Value = playerSettings.masterVolume;
+            _TSM.currentSave.settings.audioSettings.musicVolume.Value = playerSettings.musicVolume;
+            _TSM.currentSave.settings.audioSettings.sFXVolume.Value = playerSettings.sFXVolume;
+            _TSM.currentSave.settings.audioSettings.hybridVolume.Value = playerSettings.hybridVolume;
+            _TSM.currentSave.settings.audioSettings.voicesVolume.Value = playerSettings.voicesVolume;
 
-            _TSM.currentSave.gameQuality = (int)playerSettings.gameQuality;
+            _TSM.currentSave.settings.graphicSettings.gameQuality.Value = (int)playerSettings.gameQuality;
 
-            _TSM.currentSave.postProssessing = playerSettings.postProssessing;
-            _TSM.currentSave.bloomAmout = playerSettings.bloomAmout;
+            _TSM.currentSave.settings.graphicSettings.postProcessing.Value = playerSettings.postProssessing;
+            _TSM.currentSave.settings.graphicSettings.bloomAmount.Value = playerSettings.bloomAmout;
         }
     }
 

@@ -12,8 +12,8 @@ public class FarmHybridData
     public int hybridID;
     public string hybridName;
     public bool shiney;
-    public int tank;
-    public Vector3 lastLocation;
+    public ItemSaveLocation tank;
+    public Transform hybridTransform;
 
     [Header("Hybrid GameObject")]
     public FOEItem hybridGameObjectPrefab;
@@ -57,11 +57,11 @@ public class FarmMannager : GameBehaviour
 
     private void LoadHybrids()
     {
-        for (int i = 0; i < _TSM.currentSave.HybridsInFarm.Count; i++)
+        for (int i = 0; i < _TSM.currentSave.hybridFarmList.Count; i++)
         {
             foreach (FOEItem_Hybrid _HI in hybridInfos)
             {
-                if (_TSM.saveDatas[0].HybridsInFarm[i] == _HI.europaItemSO.itemID)
+                if (_TSM.currentSave.hybridFarmList[i].hybridItem.itemID.Value == _HI.europaItemSO.itemID)
                 {
                     FarmHybridData farmHybridData = new FarmHybridData();
 
@@ -105,11 +105,12 @@ public class FarmMannager : GameBehaviour
     /// <returns></returns>
     private FarmHybridData GetDataFromSaveMannager(FarmHybridData _farmHybridData, int _Index)
     {
-        _farmHybridData.hybridID = _TSM.currentSave.HybridsInFarm[_Index];
-        _farmHybridData.hybridName = _TSM.currentSave.HybridsNames[_Index];
-        _farmHybridData.shiney = _TSM.currentSave.HybridsShiney[_Index];
-        _farmHybridData.tank = _TSM.currentSave.HybridTank[_Index];
-        _farmHybridData.lastLocation = _TSM.currentSave.HybridLastPos[_Index];
+        _farmHybridData.hybridID = _TSM.currentSave.hybridFarmList[_Index].hybridItem.itemID.Value;
+        _farmHybridData.hybridName = _TSM.currentSave.hybridFarmList[_Index].hybridName.Value;
+        _farmHybridData.shiney = _TSM.currentSave.hybridFarmList[_Index].hybridShiny.Value;
+        _farmHybridData.tank =(ItemSaveLocation)_TSM.currentSave.hybridFarmList[_Index].hybridItem.itemSaveLocation.Value;
+        _farmHybridData.hybridTransform.position = _TSM.currentSave.hybridFarmList[_Index].hybridItem.itemPosition.Value;
+        _farmHybridData.hybridTransform.rotation = Quaternion.Euler(_TSM.currentSave.hybridFarmList[_Index].hybridItem.itemRotation.Value);
 
         return _farmHybridData;
     }
@@ -124,42 +125,45 @@ public class FarmMannager : GameBehaviour
     }
 
     /// <summary>
-    /// Gets the Hybrids From the Object pool Mannager and spawns them inside the correct tank at a random spawn Point
+    /// Gets the Hybrids From the Object pool Manager and spawns them inside the correct tank at a random spawn Point
     /// </summary>
     /// <param name="_farmHybridData"></param>
     private void spawnHybridInFarm(FarmHybridData _farmHybridData)
     {
         Transform[] spawnPoints = null;
-        Vector3 spawnTransform;
+        Transform spawnTransform;
 
         switch (_farmHybridData.tank)
         {
-            case 0:
+            case ItemSaveLocation.Tank1:
                 spawnPoints = tankOneSpawnPoints;
-                spawnTransform = spawnPoints[UnityEngine.Random.Range(0, spawnPoints.Length)].transform.position;
+                spawnTransform = spawnPoints[UnityEngine.Random.Range(0, spawnPoints.Length)].transform;
+                spawnTransform.rotation = new Quaternion(0, UnityEngine.Random.Range(0, 360), 0, 0);
                 break;
-            case 1:
+            case ItemSaveLocation.Tank2:
                 spawnPoints = tankTwoSpawnPoints;
-                spawnTransform = spawnPoints[UnityEngine.Random.Range(0, spawnPoints.Length)].transform.position;
+                spawnTransform = spawnPoints[UnityEngine.Random.Range(0, spawnPoints.Length)].transform;
+                spawnTransform.rotation = new Quaternion(0, UnityEngine.Random.Range(0, 360), 0, 0);
                 break;
-            case 2:
-                spawnTransform = _farmHybridData.lastLocation;
+            case ItemSaveLocation.World:
+                spawnTransform = _farmHybridData.hybridTransform;
                 break;
             default:
                 spawnPoints = tankOneSpawnPoints;
-                spawnTransform = spawnPoints[UnityEngine.Random.Range(0, spawnPoints.Length)].transform.position;
+                spawnTransform = spawnPoints[UnityEngine.Random.Range(0, spawnPoints.Length)].transform;
+                spawnTransform.rotation = new Quaternion(0, UnityEngine.Random.Range(0, 360), 0, 0);
                 break;
 
         }
 
 
-        GameObject hybridFromManager = ObjectPoolManager._OPM.SpawnObject(_farmHybridData.hybridGameObjectPrefab.gameObject, spawnTransform, new Quaternion(0, UnityEngine.Random.Range(0, 360), 0, 0), PoolType.ZoneFarmHybrids);
+        GameObject hybridFromManager = ObjectPoolManager._OPM.SpawnObject(_farmHybridData.hybridGameObjectPrefab.gameObject, spawnTransform.position, spawnTransform.rotation, PoolType.ZoneFarmHybrids);
         _farmHybridData.hybridGameObjectSpawnned = hybridFromManager;
         _FNAVM.addHybridToPondList(hybridFromManager, HybridState.HybridFlying, 0 , PondType.Farm);
     }
 
     /// <summary>
-    /// Despawns all of the Hybrids from the farm, Sends their Info back to the save Mannager
+    /// Despawns all of the Hybrids from the farm, Sends their Info back to the save Manager
     /// </summary>
     private void DespawnHybrids()
     {
@@ -184,11 +188,8 @@ public class FarmMannager : GameBehaviour
     /// </summary>
     private void ClearSaveLists()
     {
-        _TSM.currentSave.HybridsInFarm.Clear();
-        _TSM.currentSave.HybridsShiney.Clear();
-        _TSM.currentSave.HybridsNames.Clear();
-        _TSM.currentSave.HybridTank.Clear();
-        _TSM.currentSave.HybridLastPos.Clear();
+        _TSM.currentSave.hybridFarmList.Clear();
+
     }
 
     /// <summary>
@@ -197,11 +198,16 @@ public class FarmMannager : GameBehaviour
     /// <param name="_farmHybridData"></param>
     private void AddHybridsToSave(FarmHybridData _farmHybridData)
     {
-        _TSM.currentSave.HybridsInFarm.Add(_farmHybridData.hybridID);
-        _TSM.currentSave.HybridsShiney.Add(_farmHybridData.shiney);
-        _TSM.currentSave.HybridsNames.Add(_farmHybridData.hybridName);
-        _TSM.currentSave.HybridTank.Add(_farmHybridData.tank);
-        _TSM.currentSave.HybridLastPos.Add(_farmHybridData.hybridGameObjectSpawnned.transform.position);
+        CurrentHybrid _temp = new CurrentHybrid();
+        _temp.hybridItem.itemID.Value = _farmHybridData.hybridID;
+        _temp.hybridName.Value = _farmHybridData.hybridName;
+        _temp.hybridShiny.Value = _farmHybridData.shiney;
+        _temp.hybridItem.itemPosition.Value = _farmHybridData.hybridGameObjectSpawnned.transform.position;
+        _temp.hybridItem.itemRotation.Value = _farmHybridData.hybridGameObjectSpawnned.transform.rotation.eulerAngles;
+        _temp.hybridItem.itemSaveLocation.Value = (int)_farmHybridData.tank;
+
+        _TSM.currentSave.hybridFarmList.Add(_temp);
+        
     }
 
     private void RemoveHybridFromFarm(FarmHybridData _hybridInfo)

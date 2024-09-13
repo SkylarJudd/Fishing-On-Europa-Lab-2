@@ -9,11 +9,12 @@ public class Singleton <T> : GameBehaviour where T : GameBehaviour
         {
             if (_Instance == null)
             {
-                _Instance = GameObject.FindFirstObjectByType<T>();
+                _Instance = FindFirstObjectByType<T>();
                 if (_Instance == null)
                 {
                     GameObject singleton = new GameObject(typeof(T).Name);
-                    singleton.AddComponent<T>();
+                    _Instance = singleton.AddComponent<T>();
+                    Debug.LogError($"no Instance of {singleton.name} in scene creating this object");
                 }
             }
             return _Instance;
@@ -25,9 +26,11 @@ public class Singleton <T> : GameBehaviour where T : GameBehaviour
         if (_Instance == null)
         {
             _Instance = this as T;
+            Debug.Log($" Instance of {typeof(T).Name} Attached to {gameObject.name} being set to this");
         }
         else
         {
+            Debug.LogError($"Second Instance of {gameObject.name} in scene destroying this object");
             Destroy(gameObject);
         }
     }
