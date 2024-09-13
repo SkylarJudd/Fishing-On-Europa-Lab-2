@@ -1955,7 +1955,7 @@ PrefabInstance:
     - target: {fileID: 2269280573903691426, guid: 16bfaf496f290d34aa4024ae51ee1add,
         type: 3}
       propertyPath: playerHandReactionDistanceReset
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6863086000082951395, guid: 16bfaf496f290d34aa4024ae51ee1add,
         type: 3}

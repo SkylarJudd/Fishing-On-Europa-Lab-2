@@ -507,7 +507,7 @@ public class FishNavigationManager : Singleton<FishNavigationManager>
         float distanceToLeftHand = Vector3.Distance(_hybrid.hybridGameObject.transform.position, _PLAYER.leftHand.transform.position);
 
         // Determine which hand is closer, or default to watching the player
-        if (distanceToRightHand < playerHandReactionDistance || distanceToLeftHand < playerHandReactionDistance)
+        if (distanceToRightHand < playerHandReactionDistance || distanceToLeftHand < playerHandReactionDistance && distanceToRightHand > playerHandReactionDistanceReset || distanceToLeftHand > playerHandReactionDistanceReset)
         {
             _hybrid.itemTarget = (distanceToRightHand < distanceToLeftHand) ? _PLAYER.rightHand : _PLAYER.leftHand;
             _hybrid.HybridState = HybridState.HybridLookAtHand;
