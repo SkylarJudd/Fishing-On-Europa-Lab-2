@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 190393543869020633}
-  - component: {fileID: 2568201350897695325}
   m_Layer: 19
   m_Name: TrackedDriverReferance
   m_TagString: Untagged
@@ -32,24 +31,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 3326090822857445668}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2568201350897695325
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 62991348520885424}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5a2a9c34df4095f47b9ca8f975175f5b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Device: 0
-  m_PoseSource: 2
-  m_PoseProviderComponent: {fileID: 0}
-  m_TrackingType: 1
-  m_UpdateType: 0
-  m_UseRelativeTransform: 0
 --- !u!1 &471400959352204718
 GameObject:
   m_ObjectHideFlags: 0
@@ -278,7 +259,8 @@ GameObject:
   - component: {fileID: 4036777384023485134}
   - component: {fileID: 3528500278076543880}
   - component: {fileID: 1894307705982256740}
-  - component: {fileID: 8656144235545101070}
+  - component: {fileID: 4087072769288443926}
+  - component: {fileID: 7540018029089497812}
   m_Layer: 19
   m_Name: PlayerController
   m_TagString: Untagged
@@ -351,7 +333,7 @@ CapsuleCollider:
   m_Height: 1
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &8656144235545101070
+--- !u!114 &4087072769288443926
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -360,25 +342,23 @@ MonoBehaviour:
   m_GameObject: {fileID: 2021556075846429665}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d8a35128610d1b34892726ec96e587d0, type: 3}
+  m_Script: {fileID: 11500000, guid: 495c7d6650f5526439bd7b76f6978bf6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   ignoreMe: 0
   headCamera: {fileID: 2816283829701024691}
-  forwardFollow: {fileID: 0}
-  trackingContainer: {fileID: 0}
-  handRight: {fileID: 0}
-  handLeft: {fileID: 0}
+  forwardFollow: {fileID: 2066046918690299811}
+  trackingContainer: {fileID: 3326090822857445668}
   playerSettings: {fileID: 11400000, guid: 967b9406fa925d24398a644024babfda, type: 2}
   useMovement: 1
-  maxMoveSpeed: 2.3
+  maxMoveSpeed: 0.023
   moveAcceleration: 100000
   rotationType: 0
   snapTurnAngle: 30
   smoothTurnSpeed: 180
   bodyFollowsHead: 1
   maxHeadDistance: 0.5
-  showHeight: 1
+  showHeight: 0
   heightSmoothSpeed: 10
   heightOffset: 0
   crouching: 0
@@ -387,7 +367,7 @@ MonoBehaviour:
   minMaxHeight: {x: 0.5, y: 2.5}
   useHeadCollision: 1
   headRadius: 0.15
-  useGrounding: 1
+  useGrounding: 0
   maxStepHeight: 0.3
   groundingPenetrationOffset: 0.1
   maxStepAngle: 45
@@ -396,24 +376,98 @@ MonoBehaviour:
     m_Bits: 0
   groundedDrag: 10000
   flyingDrag: 4
-  allowClimbing: 1
+  allowClimbing: 0
   allowClimbingMovement: 1
   climbingStrength: {x: 20, y: 20, z: 20}
   climbingAcceleration: 30
   climbingDrag: 5
   climbUpStepHeightMultiplier: 3
-  allowBodyPushing: 1
+  allowBodyPushing: 0
   pushingStrength: {x: 10, y: 10, z: 10}
   pushingAcceleration: 10
   pushingDrag: 1
   pushUpStepHeightMultiplier: 3
-  allowPlatforms: 1
+  allowPlatforms: 0
   platformingLayerMask:
     serializedVersion: 2
     m_Bits: 4294967295
   movementDeadzone: 0.2
   turnDeadzone: 0.4
   turnResetzone: 0.3
+--- !u!114 &7540018029089497812
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2021556075846429665}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9bc42c667dd02040970dc32e2e45106, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 4087072769288443926}
+  moveAxis:
+    m_UseReference: 0
+    m_Action:
+      m_Name: Move Axis
+      m_Type: 0
+      m_ExpectedControlType: 
+      m_Id: d3d76a6c-9306-4d99-9c03-04a87b7c1fa6
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings:
+      - m_Name: 
+        m_Id: 2c06d4ce-8668-463d-bb7a-c283ba38f481
+        m_Path: <XRController>{LeftHand}/thumbstick
+        m_Interactions: 
+        m_Processors: 
+        m_Groups: 
+        m_Action: Move Axis
+        m_Flags: 0
+      m_Flags: 0
+    m_Reference: {fileID: 0}
+  turnAxis:
+    m_UseReference: 0
+    m_Action:
+      m_Name: Turn Axis
+      m_Type: 0
+      m_ExpectedControlType: 
+      m_Id: e4b206ab-e05f-4905-8b5a-1a4a826b6cda
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings:
+      - m_Name: 
+        m_Id: 663407a9-8a2b-40e6-9305-52ce6f595fb3
+        m_Path: <XRController>{RightHand}/thumbstick
+        m_Interactions: 
+        m_Processors: 
+        m_Groups: 
+        m_Action: Turn Axis
+        m_Flags: 0
+      m_Flags: 0
+    m_Reference: {fileID: 0}
+  LeftTrigger:
+    m_UseReference: 0
+    m_Action:
+      m_Name: Left Trigger
+      m_Type: 0
+      m_ExpectedControlType: 
+      m_Id: 6e711eb7-61c4-4a04-8641-dc35020915e9
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings: []
+      m_Flags: 0
+    m_Reference: {fileID: 0}
+  leftTrigger:
+    m_Name: Left Trigger
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 96cf97bb-6942-4b79-8d76-ef4febbe2970
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
 --- !u!1 &2773840998112354868
 GameObject:
   m_ObjectHideFlags: 0
@@ -999,7 +1053,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 60
+  field of view: 90
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -1033,14 +1087,15 @@ MonoBehaviour:
   m_RequiresDepthTextureOption: 2
   m_RequiresOpaqueTextureOption: 2
   m_CameraType: 0
-  m_Cameras: []
+  m_Cameras:
+  - {fileID: 0}
   m_RendererIndex: -1
   m_VolumeLayerMask:
     serializedVersion: 2
     m_Bits: 1
   m_VolumeTrigger: {fileID: 0}
   m_VolumeFrameworkUpdateModeOption: 2
-  m_RenderPostProcessing: 0
+  m_RenderPostProcessing: 1
   m_Antialiasing: 0
   m_AntialiasingQuality: 2
   m_StopNaN: 0
@@ -1076,7 +1131,7 @@ MonoBehaviour:
   m_Device: 0
   m_PoseSource: 2
   m_PoseProviderComponent: {fileID: 0}
-  m_TrackingType: 0
+  m_TrackingType: 2
   m_UpdateType: 0
   m_UseRelativeTransform: 0
 --- !u!1 &5122062091125911303
