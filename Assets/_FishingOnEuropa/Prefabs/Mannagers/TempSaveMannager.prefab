@@ -1,0 +1,88 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2293724037855637007
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5396619862681362380}
+  - component: {fileID: 1626593172359749012}
+  m_Layer: 0
+  m_Name: TempSaveMannager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5396619862681362380
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2293724037855637007}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 16.918156, y: 7.5654464, z: -24.081146}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1626593172359749012
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2293724037855637007}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa52f8734f1416b45b3dc2b0ba01ef5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  saveDatas: []
+  currentSave:
+    saveName: 
+    saveDate: 
+    HybridsInFarm: 
+    HybridsShiney: 
+    HybridsNames: []
+    HybridTank: 
+    HybridLastPos: []
+    currentScene: 
+    playerLocation: {x: 0, y: 0, z: 0}
+    turnType: 0
+    turnAngle: 0
+    turnSpeed: 0
+    language: 0
+    masterVolume: 0
+    musicVolume: 0
+    sFXVolume: 0
+    hybridVolume: 0
+    voicesVolume: 0
+    gameQuality: 0
+    postProssessing: 0
+    bloomAmout: 0
+    HybridsInInventory: 
+    ItemInInventory: 
+    itemsInFarm: 
+    plantLocations: []
+    growthStage: 
+    farmLocatedIn: 
+    toysInWorld: 
+    toysPosition: []
+    toysRotation: []
+    Days: 0
+    Hours: 0
+    Minuites: 0
+  currentSaveIndex: 0
+  maxSaves: 5
+  fileName: EuropaWorld
+  extension: .FOE
+  subDir: Save
+  useEncryption: 0
+  cryptoKey: f724940871e96451c35b8460cc551276

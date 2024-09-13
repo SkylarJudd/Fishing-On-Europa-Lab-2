@@ -1,3 +1,29 @@
+
+
+
+
+
+
+
+
+
+
+
+//THIS IS AN OLD SCRIPT IT NO LONGER WORKS AND IS JUST HERE FOR REFERANCE
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 //using System.Collections;
 //using System.Collections.Generic;
 //using UnityEngine;
@@ -82,11 +108,11 @@
 //       //print("Trigger Down");
 //        castprime = true;
 
-//        //if (casted == true && cloestObjectScript.fishCaught == true) 
-//        //{
-//        //    resetScript.StartLerp();
-//        //    //print("LerpCalled");
-//        //}
+//        if (casted == true && cloestObjectScript.fishCaught == true) 
+//        {
+//            resetScript.StartLerp();
+//            //print("LerpCalled");
+//        }
 //    }
 
     
@@ -122,8 +148,7 @@
 //        }
 //        else
 //        {
-//            //cloestObjectScript.FindClosestObjects(); //REMOVED SINCE ClosestObjectsFinder IS BEING REMOVED
-
+//            cloestObjectScript.FindClosestObjects();
 //            //print("Calling Find Closest objects after delay");
 //        }
 

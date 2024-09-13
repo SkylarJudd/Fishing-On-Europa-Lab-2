@@ -1,3 +1,13 @@
+
+
+
+
+//THIS IS AN OLD SCRIPT AND IS JUST HERE FOR REFERANCE WILL BE REMOVED ASAP
+
+
+
+
+
 //using System.Collections;
 //using System.Collections.Generic;
 //using UnityEngine;
@@ -50,7 +60,7 @@
        
 //        gameObject.SetActive(false);
 //        fishingLine.SetActive(false);
-//        //resetfishscript.FishReset(); //REMOVED SINCE ClosestObjectsFinder IS BEING REMOVED
+//        resetfishscript.FishReset();
 
 //        isMoving = false;
 //        rodCastScript.casted = false;

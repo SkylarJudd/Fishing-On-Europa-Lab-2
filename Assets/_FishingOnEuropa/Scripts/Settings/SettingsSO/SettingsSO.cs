@@ -14,6 +14,21 @@ namespace Europa
         smooth
     }
 
+    public enum Language
+    {
+        English,
+        Chinese,
+        Russian,
+        Spanish,
+        Portuguese,
+        German,
+        Japanses,
+        French,
+        Polish,
+        Turkish
+
+    }
+
     [CreateAssetMenu(fileName = "SettingsAsset", menuName = "Europa/Settings", order = 1)]
     public class SettingsSO : ScriptableObject
     {
@@ -21,6 +36,9 @@ namespace Europa
         public RotationType turnType;
         public int turnAngle;
         public float turnSpeed;
+
+        [Header("Language")]
+        public Language language;
 
         [Header("Audio Settings")]
         public float masterVolume;

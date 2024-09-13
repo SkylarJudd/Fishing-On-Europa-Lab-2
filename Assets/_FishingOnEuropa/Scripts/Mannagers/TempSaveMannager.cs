@@ -40,6 +40,9 @@ public class SaveData
     public int turnAngle;
     public float turnSpeed;
 
+    [Header("Language")]
+    public int language;
+
     [Header("Audio Settings")]
     public float masterVolume;
     public float musicVolume;
