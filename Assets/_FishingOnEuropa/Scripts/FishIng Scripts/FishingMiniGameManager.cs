@@ -56,7 +56,7 @@ public class FishingMiniGameManager : Singleton<FishingMiniGameManager>
                     if (nearbyHybrids.Length >= 5)
                     {
                         //Determine 5 closest hybrids
-                        nearbyHybrids = ReturnClosestHybrids(nearbyHybrids, 5);
+                        nearbyHybrids = ReturnClosestHybrids(bobberGameObject,nearbyHybrids, 5);
 
                     }
 
@@ -71,7 +71,7 @@ public class FishingMiniGameManager : Singleton<FishingMiniGameManager>
                         //need to get parent / FOE Item
                         targetHybrid = targetHybrid.GetComponentInParent<FOEItem_Hybrid>().gameObject;
 
-                        _FNAVM.RemoveHybrid(targetHybrid, false);
+                        _FNAVM.removeHybrid(targetHybrid, false);
 
                         _FNAVM.UpdateHybridState(targetHybrid, HybridState.HybridMiniGame_SwimToLure);
 
@@ -146,8 +146,8 @@ public class FishingMiniGameManager : Singleton<FishingMiniGameManager>
                         break;
                     case FishEncounterState.Fighting:
 
-                        if (!_FNAVM.CheckHybridState(targetHybrid, HybridState.HybridMiniGame_Pulling))
-                            _FNAVM.UpdateHybridState(targetHybrid, HybridState.HybridMiniGame_Pulling);
+                        //if (!_FNAVM.CheckHybridState(targetHybrid, HybridState.HybridMiniGame_Pulling))
+                        //    _FNAVM.UpdateHybridState(targetHybrid, HybridState.HybridMiniGame_Pulling);
 
                         //determine pull direction
                         if (currentPullDirection == PullDirections.NotSet) currentPullDirection = GetDirection();
@@ -240,19 +240,19 @@ public class FishingMiniGameManager : Singleton<FishingMiniGameManager>
     }
 
     /// <summary>
-    /// Return a given amount of hybrids which are closest to the bobber
+    /// Return a given amount of hybrids which are closest to the center
     /// </summary>
     /// <param name="_fullHybridList">Inital hybrids collider list</param>
     /// <param name="_returnListLength"> How many hybrids will be returned</param>
     /// <returns></returns>
-    Collider[] ReturnClosestHybrids(Collider[] _fullHybridList, int _returnListLength)
+    Collider[] ReturnClosestHybrids(GameObject center, Collider[] _fullHybridList, int _returnListLength)
     {
         List<Collider> newHybridsList = new List<Collider>();
         
 
         //add first hybrid for comparisions
         newHybridsList.Add(_fullHybridList[0]);
-        float maxHybridDistance  = Vector3.Distance(bobberGameObject.transform.position, _fullHybridList[0].transform.position);
+        float maxHybridDistance  = Vector3.Distance(center.transform.position, _fullHybridList[0].transform.position);
         int maxHybridIndex = 0;
 
         //only add up to returnListLength
@@ -265,7 +265,7 @@ public class FishingMiniGameManager : Singleton<FishingMiniGameManager>
 
             }
             //hybrids distance is less than current max, so replace current max
-            else if (Vector3.Distance(bobberGameObject.transform.position, _fullHybridList[i].transform.position) < maxHybridDistance)
+            else if (Vector3.Distance(center.transform.position, _fullHybridList[i].transform.position) < maxHybridDistance)
             {
                 //remove old max
                 newHybridsList.RemoveAt(maxHybridIndex);
@@ -274,14 +274,14 @@ public class FishingMiniGameManager : Singleton<FishingMiniGameManager>
                 newHybridsList.Add(_fullHybridList[i]);
 
                 //create temp max distance to compare too
-                var tempMax = Vector3.Distance(bobberGameObject.transform.position, newHybridsList[0].transform.position);
+                var tempMax = Vector3.Distance(center.transform.position, newHybridsList[0].transform.position);
 
                 //find new max
                 foreach (var hybrid in newHybridsList)
                 {
-                    if(Vector3.Distance(bobberGameObject.transform.position, hybrid.transform.position) > tempMax)
+                    if(Vector3.Distance(center.transform.position, hybrid.transform.position) > tempMax)
                     {
-                        tempMax = Vector3.Distance(bobberGameObject.transform.position, hybrid.transform.position);
+                        tempMax = Vector3.Distance(center.transform.position, hybrid.transform.position);
                         maxHybridIndex = newHybridsList.IndexOf(hybrid);
                         maxHybridDistance = tempMax;
                     }
