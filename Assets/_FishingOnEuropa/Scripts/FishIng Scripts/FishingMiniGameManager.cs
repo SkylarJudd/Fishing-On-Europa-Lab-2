@@ -3,21 +3,20 @@ using System.Collections.Generic;
 using UnityEngine;
 using static FishNavigationManager;
 
-public enum BobberState { Withdrawn, Cast, HitWater, AttachedFish }
 
 public class FishingMiniGameManager : Singleton<FishingMiniGameManager>
 {
     [Header("Bobber")]
     [SerializeField] float bobberRange = 3; //detection range of nearby hybrids when cast
     [SerializeField] float minBobberReelDistance; //how close the bobber needs to be before reeling is complete
-    public GameObject bobberGameObject;
+    public GameObject bobberGameObject, bobberTipGO, bobberFishSpot;
 
-   
+    public enum BobberState { Withdrawn, Cast, HitWater, AttachedFish }
+
     public BobberState bobberState;
 
     [Header("Hybrids")]
-    [SerializeField]
-    GameObject targetHybrid; //hybrid used for fishing encounter
+    public GameObject targetHybrid; //hybrid used for fishing encounter
     HybridSO targetHybridSO;
     hybridNavData targetHybridNavData;
     [SerializeField] LayerMask fishMask;
@@ -29,16 +28,23 @@ public class FishingMiniGameManager : Singleton<FishingMiniGameManager>
     Rigidbody rb_reelHandle;
 
 
-    //[Header("Fish Encounter")]
-    public enum FishEncounterState { None, Resting, Fighting, Caught}
-    public FishEncounterState fishEncounterState;
-    float hybridRestTime;
+    [Header("Fish Encounter")]
+    [SerializeField] LayerMask terrainLayerMask;
 
-    // Update is called once per frame
+    [SerializeField] float hybridRestTime;
+    public float fishRotationSpeed, maxAngle;
+    public enum FishEncounterState { None, Resting, Fighting, Caught }
+    public FishEncounterState fishEncounterState;
+    public enum PullDirections { NotSet, Left, Right, Middle }
+    public PullDirections currentPullDirection;
+
+
+
     void Update()
     {
-        
-        switch(bobberState)
+        //bobberGameObject.transform.RotateAround(_PLAYER.transform.position, Vector3.up, bobberRotationSpeed * Time.deltaTime);
+
+        switch (bobberState)
         {
             case BobberState.HitWater:
 
@@ -65,14 +71,13 @@ public class FishingMiniGameManager : Singleton<FishingMiniGameManager>
                         //need to get parent / FOE Item
                         targetHybrid = targetHybrid.GetComponentInParent<FOEItem_Hybrid>().gameObject;
 
-                        _FNAVM.removeHybrid(targetHybrid, false);
+                        _FNAVM.RemoveHybrid(targetHybrid, false);
 
                         _FNAVM.UpdateHybridState(targetHybrid, HybridState.HybridMiniGame_SwimToLure);
 
                         //remove from swim list and put in swimToPoint list
                         _FNAVM.AddHybridTolist(targetHybrid);
 
-                        print(targetHybrid.name);
                     }
                 }
                 
@@ -80,25 +85,75 @@ public class FishingMiniGameManager : Singleton<FishingMiniGameManager>
                 break;
             case BobberState.AttachedFish:
 
-                switch(fishEncounterState)
+
+                switch (fishEncounterState)
                 {
                     case FishEncounterState.Resting:
 
+                        //add to return to middle
+                        
                         hybridRestTime -= Time.deltaTime;
 
                         if(hybridRestTime <= 0.0f)
                         {
                             //rest time is over
-
+                            print("well rested");
+                            fishEncounterState = FishEncounterState.Fighting;
                         }
                         else
                         {
                             //if handle is moving. Handle should be clamped to only move in circular motion
-                            if(rb_reelHandle.velocity.magnitude > 0)
+                            //if(rb_reelHandle.velocity.magnitude > 0)
+                            //{
+                            //    //dont know how Skylar will do reeling so cand do this 
+
+                                //    //while reel is moving, change target fish to move to lure
+                                //    _FNAVM.removeHybrid(targetHybrid, false);
+
+                                //    _FNAVM.UpdateHybridState(targetHybrid, HybridState.HybridMiniGame_Tired);
+
+                                //    //remove from swim list and put in swimToPoint list
+                                //    _FNAVM.AddHybridTolist(targetHybrid);
+
+                                //}
+                            //else
+                            //{
+                            //    //check if tired
+                            //    if (!_FNAVM.CheckHybridState(targetHybrid, HybridState.HybridIdle))
+                            //    {
+                            //        //remove from lists
+                            //        _FNAVM.RemoveHybrid(targetHybrid, false);
+
+                            //        _FNAVM.UpdateHybridState(targetHybrid, HybridState.HybridIdle);
+
+                            //        //remove add to new list
+                            //        _FNAVM.AddHybridTolist(targetHybrid);
+                            //    }
+
+                            //}
+
+                            //check if hybrid is close enough to end
+                            if (Vector3.Distance(_PLAYER.gameObject.transform.position, targetHybrid.transform.position) <= minBobberReelDistance)
                             {
-                                //dont know how Skylar will do reeling so cand do this 
+                                //CAUGHT
+                                fishEncounterState = FishEncounterState.Caught;
+
+
                             }
+                            
                         }
+
+                        break;
+                    case FishEncounterState.Fighting:
+
+                        if (!_FNAVM.CheckHybridState(targetHybrid, HybridState.HybridMiniGame_Pulling))
+                            _FNAVM.UpdateHybridState(targetHybrid, HybridState.HybridMiniGame_Pulling);
+
+                        //determine pull direction
+                        if (currentPullDirection == PullDirections.NotSet) currentPullDirection = GetDirection();
+
+                        
+
 
                         break;
                 }
@@ -110,6 +165,8 @@ public class FishingMiniGameManager : Singleton<FishingMiniGameManager>
                  *  2. set _FNAVM.caughtHyrbid = targetHybridNavData
                  *  3. to change fish state _FNVAM.caughtHybrid.hybrid state > update that state
                  *  4. caught fish movement for fish encounter is in _FNAVM.UpdateMiniGame
+                 *  
+                 *  END MINIGAME IENUMRATOR WHEN FISHING IS DONE
                  */
 
         }
@@ -121,11 +178,56 @@ public class FishingMiniGameManager : Singleton<FishingMiniGameManager>
     /// <summary>
     /// Set rest period time and change fishEncounterState
     /// </summary>
-    void BeginRestingPeriod()
+    public void BeginRestingPeriod()
     {
         hybridRestTime = Random.Range(targetHybridSO.restMinTime, targetHybridSO.restMaxTime);
+        print(hybridRestTime);
         fishEncounterState = FishEncounterState.Resting;
 
+    }
+
+    public void BeginFightingPeriod()
+    {
+        fishEncounterState = FishEncounterState.Fighting;
+
+    }
+
+    /// <summary>
+    /// Generate pull direction which does not collide with terrain
+    /// </summary>
+    /// <returns></returns>
+    public PullDirections GetDirection()
+    {
+        List<PullDirections> viableDirection = new();
+
+        viableDirection.Add(PullDirections.Right);
+        viableDirection.Add(PullDirections.Middle);
+        viableDirection.Add(PullDirections.Left);
+
+
+        ////check middle for collision with raycast
+        //if (!Physics.Raycast(bobberTipGO.transform.position, Vector3.back, 3f, terrainLayerMask))
+        //    viableDirection.Add(PullDirections.Middle);
+
+        ////check left for collision with raycast
+        //if (!Physics.Raycast(bobberTipGO.transform.position, Vector3.right, 3f, terrainLayerMask))
+        //    viableDirection.Add(PullDirections.Left);
+        
+        ////check left for collision with raycast
+        //if (!Physics.Raycast(bobberTipGO.transform.position, Vector3.left, 3f, terrainLayerMask))
+        //    viableDirection.Add(PullDirections.Right);
+
+        return viableDirection[Random.Range(0, viableDirection.Count)];
+
+    }
+
+    public bool CheckForHybridCollision(Vector3 direction)
+    {
+        if (!Physics.Raycast(bobberTipGO.transform.position, direction, 3f, terrainLayerMask))
+        {
+            return true; //no collsion
+        }
+        else return false; //there is a collision
     }
 
     /// <summary>
@@ -134,6 +236,7 @@ public class FishingMiniGameManager : Singleton<FishingMiniGameManager>
     void ResetVariables()
     {
         hybridRestTime = 0;
+        currentPullDirection = PullDirections.NotSet;
     }
 
     /// <summary>
@@ -253,5 +356,9 @@ public class FishingMiniGameManager : Singleton<FishingMiniGameManager>
     {
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(bobberGameObject.transform.position, bobberRange);
+
+        
+
+
     }
 }

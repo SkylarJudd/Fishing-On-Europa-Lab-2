@@ -27,6 +27,7 @@ public class HybridSO : ScriptableObject
     public FoodType[] foodEaten;
     public FoodList favFood;
     public ToyList favToy;
+    public HybridHeadPatTrigger patTrigger;
 
 }
     
