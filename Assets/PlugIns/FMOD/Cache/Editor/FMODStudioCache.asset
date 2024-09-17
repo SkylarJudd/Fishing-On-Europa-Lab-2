@@ -183,7 +183,7 @@ MonoBehaviour:
   Banks:
   - {fileID: 2281390264868754947}
   IsStream: 0
-  Is3D: 0
+  Is3D: 1
   IsOneShot: 1
   Parameters:
   - {fileID: -2424092841801243728}
@@ -492,6 +492,33 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 977
+--- !u!114 &-1403344743014561960
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/Sound Effects/GenericImpact
+  m_EditorClassIdentifier: 
+  Path: event:/Sound Effects/GenericImpact
+  Guid:
+    Data1: -673255562
+    Data2: 1313980961
+    Data3: -342787416
+    Data4: -201223618
+  Banks:
+  - {fileID: 2281390264868754947}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters: []
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 0
 --- !u!114 &-1176862345768735123
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -593,12 +620,13 @@ MonoBehaviour:
   - {fileID: -2117174667508590942}
   - {fileID: -3648373834237595019}
   - {fileID: -1842007625644339044}
+  - {fileID: -1403344743014561960}
   EditorParameters: []
   MasterBanks:
   - {fileID: 2281390264868754947}
   StringsBanks:
   - {fileID: 8626480734235735409}
-  cacheTime: 638615178388774377
+  cacheTime: 638622061115656574
   cacheVersion: 131619
 --- !u!114 &185991491330303944
 MonoBehaviour:
@@ -649,7 +677,7 @@ MonoBehaviour:
   Banks:
   - {fileID: 2281390264868754947}
   IsStream: 0
-  Is3D: 0
+  Is3D: 1
   IsOneShot: 1
   Parameters: []
   MinDistance: 1
@@ -751,10 +779,10 @@ MonoBehaviour:
   Path: FOE - FMOD/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 638615178388734265
+  lastModified: 638622061115616680
   FileSizes:
   - Name: Desktop
-    Value: 9085856
+    Value: 9088896
   Exists: 1
 --- !u!114 &3098235587531520734
 MonoBehaviour:
@@ -1042,8 +1070,8 @@ MonoBehaviour:
   Path: FOE - FMOD/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 638615178388774377
+  lastModified: 638622061115656574
   FileSizes:
   - Name: Desktop
-    Value: 2360
+    Value: 2404
   Exists: 1

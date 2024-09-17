@@ -481,6 +481,11 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7145830067336400853, guid: 180e5c9d245eb934d873859121e99796,
+        type: 3}
+      propertyPath: source
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 7208125370497171811, guid: 180e5c9d245eb934d873859121e99796,
         type: 3}
       propertyPath: m_IsActive
@@ -491,7 +496,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: FOEItem_Hybrid BouncyBass
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1217430210209763296, guid: 180e5c9d245eb934d873859121e99796, type: 3}
+    - {fileID: 7145830067336400853, guid: 180e5c9d245eb934d873859121e99796, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 3436409442831732559, guid: 180e5c9d245eb934d873859121e99796,
@@ -513,16 +520,12 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 7363543831746356099, guid: 180e5c9d245eb934d873859121e99796,
         type: 3}
-      insertIndex: -1
-      addedObject: {fileID: -8768573146914520368}
+      insertIndex: 7
+      addedObject: {fileID: 9021296589995111756}
     - targetCorrespondingSourceObject: {fileID: 7363543831746356099, guid: 180e5c9d245eb934d873859121e99796,
         type: 3}
       insertIndex: -1
       addedObject: {fileID: -217295581781778388}
-    - targetCorrespondingSourceObject: {fileID: 7363543831746356099, guid: 180e5c9d245eb934d873859121e99796,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 2102455129619526327}
   m_SourcePrefab: {fileID: 100100000, guid: 180e5c9d245eb934d873859121e99796, type: 3}
 --- !u!1 &2272104949460083475 stripped
 GameObject:
@@ -542,7 +545,7 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 6528265421535296666}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &-8768573146914520368
+--- !u!114 &9021296589995111756
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -551,11 +554,38 @@ MonoBehaviour:
   m_GameObject: {fileID: 4371199503245582105}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a38fe9184b621994889691c29f1b2764, type: 3}
+  m_Script: {fileID: 11500000, guid: 8f3e5cd8b0ef59846bd016d9ab05818c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementSoundEvent: {fileID: -217295581781778388}
-  idleSoundEvent: {fileID: 2102455129619526327}
+  collisionTriggers:
+    serializedVersion: 2
+    m_Bits: 55
+  source: {fileID: -217295581781778388}
+  velocityVolumeCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 1
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 1
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  soundRepeatDelay: 0.2
 --- !u!114 &-217295581781778388
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -571,11 +601,11 @@ MonoBehaviour:
   CollisionTag: 
   EventReference:
     Guid:
-      Data1: -317466326
-      Data2: 1111331925
-      Data3: -1606219594
-      Data4: -1839460294
-    Path: event:/Sound Effects/Water/swim
+      Data1: -673255562
+      Data2: 1313980961
+      Data3: -342787416
+      Data4: -201223618
+    Path: event:/Sound Effects/GenericImpact
   Event: 
   PlayEvent: 0
   StopEvent: 0
@@ -584,39 +614,6 @@ MonoBehaviour:
   Preload: 0
   NonRigidbodyVelocity: 0
   Params: []
-  OverrideAttenuation: 0
-  OverrideMinDistance: 1
-  OverrideMaxDistance: 20
---- !u!114 &2102455129619526327
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4371199503245582105}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  CollisionTag: 
-  EventReference:
-    Guid:
-      Data1: 310906086
-      Data2: 1149098476
-      Data3: 23358884
-      Data4: 2053275082
-    Path: event:/Sound Effects/Water/splash
-  Event: 
-  PlayEvent: 0
-  StopEvent: 0
-  AllowFadeout: 1
-  TriggerOnce: 0
-  Preload: 0
-  NonRigidbodyVelocity: 0
-  Params:
-  - Name: Size
-    Value: 4
   OverrideAttenuation: 0
   OverrideMinDistance: 1
   OverrideMaxDistance: 20
