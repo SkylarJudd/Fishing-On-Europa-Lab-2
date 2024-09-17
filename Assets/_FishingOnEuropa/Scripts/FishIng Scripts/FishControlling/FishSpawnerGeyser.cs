@@ -53,9 +53,8 @@ public class FishSpawnerGeyser : GameBehaviour
         fishList.Sort((x, y) => x.newSpawnChance.CompareTo(y.newSpawnChance));
     }
 
-    public void spawnHybrid()
+    public void SpawnHybrid()
     {
-        //print("Spawn Hybrid Called");
 
         HybridsToSpawn hybridToSpawn = GetFishToSpawn();
 
@@ -129,7 +128,7 @@ public class FishSpawnerGeyser : GameBehaviour
 
         if ( 100 == UnityEngine.Random.Range(0, 100))
         {
-            //bool isShiney = true;
+            //bool isShiny = true;
         }
 
         float randomNumber = UnityEngine.Random.Range(0, 100);

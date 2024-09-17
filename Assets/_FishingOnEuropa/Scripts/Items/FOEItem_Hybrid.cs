@@ -21,11 +21,14 @@ public class FOEItem_Hybrid : FOEItem
     private GameObject inInventoryVisuals;
     [SerializeField]
     private MeshRenderer ballVisuals;
+    [SerializeField]
+    GameObject patTrigger;
 
 
     private void Start()
     {
         bubbleMovement.isFloating = false;
+        hybridSO.patTrigger = inWorldVisuals.transform.Find("PatHeadTrigger").GetComponent<HybridHeadPatTrigger>();
     }
     public void SetVisuals(HybridVisualsState _State)
     {

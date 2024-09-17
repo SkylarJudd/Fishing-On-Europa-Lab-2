@@ -82,6 +82,6 @@ public class GeyserMannager : MonoBehaviour
             Debug.LogError("Unable to find FishSpawnerGeyser");
         }
 
-        fishSpawnerGeyser.spawnHybrid();
+        fishSpawnerGeyser.SpawnHybrid();
     }
 }
