@@ -19,8 +19,10 @@ MonoBehaviour:
   inWorldVisuals: {fileID: 0}
   damageToRod: 0
   catchChance: 61
+  restMinTime: 2
+  restMaxTime: 5
   fishSpeed: 0
   rotationSpeed: 0
-  foodEaten: 
-  favFood: 0
+  foodEaten: 02000000
+  favFood: 9
   favToy: 0

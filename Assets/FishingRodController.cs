@@ -72,7 +72,7 @@ public class FishingRodController : Singleton<FishingRodController>
 
     private void UpDateRodDiretion()
     {
-        if(_FMGM.bobberState == BobberState.AttachedFish )
+        if(_FMGM.bobberState == FishingMiniGameManager.BobberState.AttachedFish )
         {
             if( Vector3.Distance(lastRodTransform, fishingRod.transform.localPosition) > minMoveAmount)
             {
