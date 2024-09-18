@@ -39,13 +39,13 @@ public class CropFarmingMannager : GameBehaviour
 
     private void OnEnable()
     {
-        DailyEventHandler.SubscribeDailyEvent(DailyEvents.Sunrise, GameEvents_OnTempMorningEvent);
+        DailyEventHandler.SubscribeDailyEvent(DailyEvents.Midnight, GameEvents_OnTempMorningEvent);
         loadPlants();
     }
 
     private void OnDisable()
     {
-        DailyEventHandler.UnsubscribeDailyEvent(DailyEvents.Sunrise, GameEvents_OnTempMorningEvent);
+        DailyEventHandler.UnsubscribeDailyEvent(DailyEvents.Midnight, GameEvents_OnTempMorningEvent);
         SavePlants();
     }
 
@@ -60,7 +60,7 @@ public class CropFarmingMannager : GameBehaviour
     [ContextMenu("GrowPlants")]
     public void TempGrowPlants()
     {
-        DailyEventHandler.InvokeDailyEvent(DailyEvents.Sunrise, true, 1);
+        DailyEventHandler.InvokeDailyEvent(DailyEvents.Midnight);
 
     }
 

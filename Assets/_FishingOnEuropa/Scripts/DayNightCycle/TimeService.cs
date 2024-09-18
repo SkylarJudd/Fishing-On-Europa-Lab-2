@@ -1,3 +1,4 @@
+using Europa.GameEvents;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -6,7 +7,8 @@ using Unity.VisualScripting;
 using UnityEngine;
 
 
-public class TimeService
+[Obsolete("This class is no longer used, please use the TimeHandler class instead.")]
+public class OLDTimeService
 {
     CurrentTimeSO currentTimeSO;
 
@@ -26,7 +28,7 @@ public class TimeService
 
     // bool IsDayTime() => currentTimeSO.hour > sunriseTime && currentTimeSO.hour < sunsetime;
 
-    public TimeService(TimeSettings settings, CurrentTimeSO currentTime)
+    public OLDTimeService(TimeSettings settings, CurrentTimeSO currentTime)
     {
         this.settings = settings; //initalise
         this.currentTimeSO = currentTime; //initalise
@@ -52,7 +54,7 @@ public class TimeService
 
     private void UpdateTime()
     {
-       Europa.GameEvents.DailyEventHandler.UpdateTimeTemp(currentHour, currentMinute, currentDay);
+       
     }
 
     ////check if its daytime or nighttime, if true daytime

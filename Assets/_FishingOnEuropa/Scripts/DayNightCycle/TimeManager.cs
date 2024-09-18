@@ -27,7 +27,7 @@ public class TimeManager : Singleton<TimeManager>
     [SerializeField] TextMeshProUGUI dayText;
     [SerializeField] TimeSettings timeSettings;
     [SerializeField] CurrentTimeSO currentTimeSO;
-    TimeService service;
+    OLDTimeService service;
 
 
     private void Awake()
@@ -41,7 +41,7 @@ public class TimeManager : Singleton<TimeManager>
 
         currentTimeSO.hour = timeSettings.startHour;
 
-        service = new TimeService(timeSettings, currentTimeSO);
+        service = new OLDTimeService(timeSettings, currentTimeSO);
         //start time
 
         //start time by incrementing minute
@@ -97,16 +97,6 @@ public class TimeManager : Singleton<TimeManager>
     {
         currentTimeSO.hour++;
         currentTimeSO.totalHours++;
-
-        switch (currentTimeSO.hour)
-        {
-            case var time when time == timeSettings.sunriseHour:
-                DailyEventHandler.InvokeDailyEvent(DailyEvents.Sunrise, true);
-                break;
-            case var time when time == timeSettings.sunsetHour:
-                DailyEventHandler.InvokeDailyEvent(DailyEvents.Sunset, true);
-                break;
-        }
 
         //day has passed
         if (currentTimeSO.hour == 75)

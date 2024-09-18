@@ -1,65 +1,110 @@
 using System;
 using System.Collections.Generic;
-using System.Timers;
 using UnityEngine;
 
 namespace Europa.GameEvents
 {
     /// <summary>
-    /// Handles the timed event's for things such as farming and hybrids. 
+    /// Handles the timed events for things such as farming and hybrids.
     /// The morning event is called at the start of each day.
     /// <see cref="DailyEvents"/> to add more events.
-    /// - Modified a shit ton by: Jayden (cozitime)
+    /// - Modified a lot by: Jayden (cozitime)
     /// </summary>
     public static class DailyEventHandler
     {
-        // not set up yet.. Need to check with Skylar on this
-        internal static void UpdateTimeTemp(Observable<int> currentHour, Observable<int> currentMinute, Observable<int> currentDay)
-        {
-            throw new NotImplementedException();
-        }
-
         /// <summary>
         /// All of the different growth events that can be triggered.
         /// Each index corresponds to a different individual option in the <see cref="DailyEvents"/> flag enum.
         /// </summary>
-        private static List<DailyEventDelegate>[] dailyEvents;
+        private static Dictionary<int, DailyEventDelegate> dailyEvents;
 
         /// <summary>
-        /// Constructor for the GameEvents static class.
+        /// Static constructor for the ObservedDailyEventHandler class.
         /// </summary>
         static DailyEventHandler()
         {
             ClearDailyEvents();
+            TimeHandler.CurrentHour.ValueChanged += (int hour) => InvokeDailyEvent(hour); // every hour invoke the daily event
         }
+
 
         /// <summary>
         /// Clears out all of the daily events.
-        /// Is called before things are subscribed. 
+        /// Is called before things are subscribed.
         /// </summary>
         public static void ClearDailyEvents()
         {
-            int length = GetDailyEventCount();
-            dailyEvents = new List<DailyEventDelegate>[length];
-            for (int i = 0; i < length; i++)
-            {
-                dailyEvents[i] = new List<DailyEventDelegate>();
-            }
+            dailyEvents = new Dictionary<int, DailyEventDelegate>();
         }
+
+        #region Overloads for DailyEvents
+
+        /// <summary>
+        /// Invokes all of the subscribed actions for the specified daily event(s).
+        /// <see cref="InvokeDailyEvent(int[])"/>
+        /// </summary>
+        /// <param name="times">What time events are being invoked? Is a flag enum so the actions can be invoked for multiple times at once.</param>
+        public static void InvokeDailyEvent(DailyEvents times) => InvokeDailyEvent(times.GetHoursForDailyEvents());
+
+        /// <summary>
+        /// Subscribes the event to the specified daily event(s).
+        /// <see cref="SubscribeDailyEvent(int[], DailyEventDelegate)"/>
+        /// </summary>
+        /// <param name="times">The times we wish to subscribe the event for.</param>
+        /// <param name="growthEvent">The <see cref="DailyEventDelegate"/> action we wish to subscribe to the times.</param>
+        public static DailyEventDelegate SubscribeDailyEvent(DailyEvents times, DailyEventDelegate growthEvent) => SubscribeDailyEvent(times.GetHoursForDailyEvents(), growthEvent);
+
+        /// <summary>
+        /// Removes the growth event from the specified daily event(s).
+        /// <see cref="UnsubscribeDailyEvent(int[], DailyEventDelegate)"/>
+        /// </summary>
+        /// <param name="times">The times we wish to remove the event for.</param>
+        /// <param name="growthEvent">The subscribed growth event we wish to remove.</param>
+        public static void UnsubscribeDailyEvent(DailyEvents times, DailyEventDelegate growthEvent) => UnsubscribeDailyEvent(times.GetHoursForDailyEvents(), growthEvent);
+
+        #endregion
+
+        #region Overloads for int
+
+        /// <summary>
+        /// Invokes all of the subscribed actions for the specified daily event(s).
+        /// <see cref="InvokeDailyEvent(int[])"/>
+        /// </summary>
+        /// <param name="time">The time we wish to invoke the event for.</param>
+        private static void InvokeDailyEvent(int time) => InvokeDailyEvent(new[] { time });
+
+        /// <summary>
+        /// Subscribes the event to a single daily event.
+        /// <see cref="SubscribeDailyEvent(int[], DailyEventDelegate)"/>
+        /// </summary>
+        /// <param name="time">The time we wish to subscribe the event for.</param>
+        /// <param name="growthEvent">The <see cref="DailyEventDelegate"/> action we wish to subscribe to the time.</param>
+        private static DailyEventDelegate SubscribeDailyEvent(int time, DailyEventDelegate growthEvent) => SubscribeDailyEvent(new[] { time }, growthEvent);
+
+        /// <summary>
+        /// Removes the growth event from a single daily event.
+        /// <see cref="UnsubscribeDailyEvent(int[], DailyEventDelegate)"/>
+        /// </summary>
+        /// <param name="time">The time we wish to remove the event for.</param>
+        /// <param name="growthEvent">The subscribed growth event we wish to remove.</param>
+        private static void UnsubscribeDailyEvent(int time, DailyEventDelegate growthEvent) => UnsubscribeDailyEvent(new[] { time }, growthEvent);
+
+        #endregion
+
+        #region Overloads for int[]
+
         /// <summary>
         /// Invokes all of the subscribed actions for the specified daily event(s).
         /// </summary>
-        /// <param name="times">What time events are being invoked? Is a flag enum so the actions can be invoked for multiple times at once.</param>
-        /// <param name="wasObserved">Did the player observe the event? False if things happened while the player is in a different scene.</param>
-        /// <param name="cycles">How many cycles is passing, 1 by default. Should always be 1 if the player observes the event.</param>
-        public static void InvokeDailyEvent(DailyEvents times, bool wasObserved, int cycles = 1)
+        /// <param name="times">Array of times (in hours) for which the events are being invoked.</param>
+        public static void InvokeDailyEvent(params int[] times)
         {
-            int timeEventIndexes = times.ToArrayIndexes().Count;
-            for (int e = 0; e < timeEventIndexes; e++)
+            int length = times.Length;
+            for (int i = 0; i < length; i++)
             {
-                for (int i = 0; i < dailyEvents[e].Count; i++)
+                if (dailyEvents.TryGetValue(times[i], out var dailyEvent))
                 {
-                    dailyEvents[e][i](wasObserved, cycles);
+                    dailyEvent.Invoke(true, 1);
                 }
             }
         }
@@ -68,14 +113,20 @@ namespace Europa.GameEvents
         /// Subscribes the event to the specified daily event(s).
         /// </summary>
         /// <param name="times">The times we wish to subscribe the event for.</param>
-        /// <param name="growthEvent">The <see cref="DailyEventDelegate"/> action we wish to subscribed to the times.</param>
-        public static DailyEventDelegate SubscribeDailyEvent(DailyEvents times, DailyEventDelegate growthEvent)
+        /// <param name="growthEvent">The <see cref="DailyEventDelegate"/> action we wish to subscribe to the times.</param>
+        public static DailyEventDelegate SubscribeDailyEvent(int[] times, DailyEventDelegate growthEvent)
         {
-            List<int> indexes = times.ToArrayIndexes();
-            int length = indexes.Count;
+            int length = times.Length;
             for (int i = 0; i < length; i++)
             {
-                dailyEvents[i].Add(growthEvent);
+                if (!dailyEvents.ContainsKey(times[i]))
+                {
+                    dailyEvents[times[i]] = growthEvent;
+                }
+                else
+                {
+                    dailyEvents[times[i]] += growthEvent;
+                }
             }
 
             return growthEvent;
@@ -86,60 +137,38 @@ namespace Europa.GameEvents
         /// </summary>
         /// <param name="times">The times we wish to remove the event for.</param>
         /// <param name="growthEvent">The subscribed growth event we wish to remove.</param>
-        public static void UnsubscribeDailyEvent(DailyEvents times, DailyEventDelegate growthEvent)
+        public static void UnsubscribeDailyEvent(int[] times, DailyEventDelegate growthEvent)
         {
-            List<int> indexes = times.ToArrayIndexes();
-            int length = indexes.Count;
+            int length = times.Length;
             for (int i = 0; i < length; i++)
             {
-                dailyEvents[i].Remove(growthEvent);
+                if (dailyEvents.ContainsKey(times[i]))
+                {
+                    dailyEvents[times[i]] -= growthEvent;
+                    if (dailyEvents[times[i]] == null)
+                    {
+                        dailyEvents.Remove(times[i]);
+                    }
+                }
             }
         }
 
+        #endregion
+
         /// <summary>
-        /// Removes the every instance of this subscribed action from all of the daily events.
+        /// Removes every instance of this subscribed action from all of the daily events.
         /// </summary>
-        /// <param name="growthEvent"></param>
+        /// <param name="growthEvent">The subscribed growth event we wish to remove.</param>
         public static void UnsubscribeDailyEvent(DailyEventDelegate growthEvent)
         {
-            int length = GetDailyEventCount();
-            for (int i = 0; i < length; i++)
+            foreach (var key in new List<int>(dailyEvents.Keys))
             {
-                dailyEvents[i].Remove(growthEvent);
-            }
-        }
-
-        /// <summary>
-        /// Get's the total number of individual entries within the <see cref="DailyEvents"/> flag enum.
-        /// </summary>
-        /// <returns>How many individual entires are there within the <see cref="DailyEvents"/> flag enum.</returns>
-        private static int GetDailyEventCount() => Enum.GetValues(typeof(DailyEvents)).Length;
-
-        /// <summary>
-        /// Converts the specified <see cref="DailyEvents"/> flags into a list of corresponding indexes.
-        /// Each index represents a bit position that is set in the <paramref name="times"/> flags.
-        /// </summary>
-        /// <param name="times">The <see cref="DailyEvents"/> flags to convert to indexes.</param>
-        /// <returns>A list of indexes where each index corresponds to a set bit in the <paramref name="times"/> flags.</returns>
-        private static List<int> ToArrayIndexes(this DailyEvents times)
-        {
-            var indexes = new List<int>();  // List to store the resulting indexes
-            int index = 0; // Current bit position being checked
-
-            // Loop until all bits in the 'times' flags have been processed
-            while (times != 0)
-            {
-                // Check if the current bit position is set in the 'times' flags
-                if ((times & (DailyEvents)(1 << index)) != 0)
+                dailyEvents[key] -= growthEvent;
+                if (dailyEvents[key] == null)
                 {
-                    indexes.Add(index); // Add the current bit position to the list of indexes
-                    times &= ~(DailyEvents)(1 << index);  // Clear the bit that was just processed
+                    dailyEvents.Remove(key);
                 }
-                index++; // Move to the next bit position
             }
-
-            return indexes; // Return the list of indexes
         }
     }
 }
-

@@ -10,20 +10,20 @@ public class GameEventsExsample : MonoBehaviour
     [Button("Call Game Events Exsmaple")]
     public void CallGameEventsExsmaple()
     {
-        DailyEventHandler.InvokeDailyEvent(DailyEvents.Sunrise, true, 1);
+        DailyEventHandler.InvokeDailyEvent(DailyEvents.Midnight);
     }
     public void CallGameEventsExsample2()
     {
-        DailyEventHandler.InvokeDailyEvent(DailyEvents.MiddayEclipse, false, 3);
+        DailyEventHandler.InvokeDailyEvent(DailyEvents.Sunrise);
     }
 
     private void OnEnable()
     {
-        DailyEventHandler.SubscribeDailyEvent(DailyEvents.Sunrise, LogSunriseCount);
+        DailyEventHandler.SubscribeDailyEvent(DailyEvents.Midnight, LogSunriseCount);
     }
     private void OnDisable()
     {
-        DailyEventHandler.UnsubscribeDailyEvent(DailyEvents.Sunrise, LogSunriseCount);
+        DailyEventHandler.UnsubscribeDailyEvent(DailyEvents.Midnight, LogSunriseCount);
     }
 
     private void LogSunriseCount(bool wasObserved, int cycles)
