@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Obvious.Soap;
 using UnityEditor;
+using Europa;
 
 
 
@@ -60,6 +61,7 @@ public class SaveCrop
 {
     public SaveItem cropItem = new SaveItem();
     public int growthStage;
+    public int farmIndex;
 }
 
 [Serializable]
@@ -188,9 +190,9 @@ public class CurrentSaveData
     public StringReference saveDate = new StringReference();
 
     [Header("Hybrids")]
-    public List<CurrentHybrid> hybridFarmList = new List<CurrentHybrid>();
-    public List<CurrentHybrid> hybridDomeList = new List<CurrentHybrid>();
-    public List<CurrentHybrid> hybridsInventoryList = new List<CurrentHybrid>();
+    public ScriptableListFOEItem_Hybrid hybridFarmList;
+    public ScriptableListFOEItem_Hybrid hybridDomeList;
+    public ScriptableListFOEItem_Hybrid hybridsInventoryList;
 
 
     [Header("PlayerSaveData")]
@@ -200,13 +202,14 @@ public class CurrentSaveData
     public CurrentSettings settings = new CurrentSettings();
 
     [Header("Items")]
-    public List<CurrentItem> itemsFarmList = new List<CurrentItem>();
-    public List<CurrentItem> itemsDomeList = new List<CurrentItem>();
-    public List<CurrentItem> itemsInventoryList = new List<CurrentItem>();
+   
+    public ScriptableListFOEItem itemsInFarmList;
+    public ScriptableListFOEItem itemsInDomeList;
+    public ScriptableListFOEItem itemsInInventoryList;
 
 
     [Header("Farming")]
-    public List<CurrentCrop> cropPlanted = new List<CurrentCrop>();
+    public ScriptableListCropData cropsPlanted;
 
     [Header("Time")]
     public CurrentTime time = new CurrentTime();
@@ -234,13 +237,13 @@ public class SavedSaveData
     public SaveSettings settings = new SaveSettings();
 
     [Header("Items")]
-    public List<SaveItem> itemsFarmList = new List<SaveItem>();
-    public List<SaveItem> itemsDomeList = new List<SaveItem>();
-    public List<SaveItem> itemsInventoryList = new List<SaveItem>();
+    public List<SaveItem> itemsInFarmList = new List<SaveItem>();
+    public List<SaveItem> itemsInDomeList = new List<SaveItem>();
+    public List<SaveItem> itemsInInventoryList = new List<SaveItem>();
 
 
     [Header("Farming")]
-    public List<SaveCrop> cropPlanted = new List<SaveCrop>();
+    public List<SaveCrop> cropsPlanted = new List<SaveCrop>();
 
     [Header("Time")]
     public SaveTime time = new SaveTime();

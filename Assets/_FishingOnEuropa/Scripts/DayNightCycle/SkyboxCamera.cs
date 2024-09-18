@@ -4,19 +4,23 @@ using UnityEngine;
 using Autohand;
 using UnityEngine.PlayerLoop;
 
-public class SkyboxCamera : GameBehaviour
+namespace Europa
 {
-    [SerializeField] private Transform skyboxCamTransform;
-    [SerializeField] private Transform trackedDriverTransform;
-
-
-
-
-    void Update()
+    public class SkyboxCamera : GameBehaviour
     {
+        [SerializeField] private Transform skyboxCamTransform;
+        [SerializeField] private Transform trackedDriverTransform;
 
-        // transform.rotation = skyboxCamTransform.rotation * trackedDriverTransform.rotation;
-        transform.localRotation = _PLAYER.TrackedOffset.localRotation * trackedDriverTransform.localRotation;
+
+
+
+        void Update()
+        {
+
+            // transform.rotation = skyboxCamTransform.rotation * trackedDriverTransform.rotation;
+            transform.localRotation = _PLAYER.TrackedOffset.localRotation * trackedDriverTransform.localRotation;
+        }
+
     }
 
 }

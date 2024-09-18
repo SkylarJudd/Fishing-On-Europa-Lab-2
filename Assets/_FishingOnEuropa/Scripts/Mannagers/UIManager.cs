@@ -3,7 +3,11 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class UIManager : Singleton<UIManager>
+namespace Europa
 {
+    public class UIManager : Singleton<UIManager>
+    {
 
+    }
 }
+
