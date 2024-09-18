@@ -1274,6 +1274,12 @@ Transform:
   - {fileID: 853383184}
   m_Father: {fileID: 1097273803799523691}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &652021735 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2293724037855637007, guid: ec8fef564a54f05418c2b8fe7fa910ae,
+    type: 3}
+  m_PrefabInstance: {fileID: 1073446329}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &654152334 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 839009218241670772, guid: 6f03a54d1c744a0409bd789182e0d376,
@@ -4248,7 +4254,11 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 2293724037855637007, guid: ec8fef564a54f05418c2b8fe7fa910ae,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1902469595}
   m_SourcePrefab: {fileID: 100100000, guid: ec8fef564a54f05418c2b8fe7fa910ae, type: 3}
 --- !u!1 &1088755800
 GameObject:
@@ -5354,6 +5364,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4010229238564149475, guid: 6f03a54d1c744a0409bd789182e0d376,
+        type: 3}
+      propertyPath: leftTrigger.m_Name
+      value: Left Trigger
+      objectReference: {fileID: 0}
+    - target: {fileID: 4010229238564149475, guid: 6f03a54d1c744a0409bd789182e0d376,
+        type: 3}
+      propertyPath: LeftTrigger.m_Action.m_Name
+      value: Left Trigger
+      objectReference: {fileID: 0}
     - target: {fileID: 5323119412432046504, guid: 6f03a54d1c744a0409bd789182e0d376,
         type: 3}
       propertyPath: m_Name
@@ -5791,6 +5811,50 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1073446329}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1902469594 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3953547474902856689, guid: ec8fef564a54f05418c2b8fe7fa910ae,
+    type: 3}
+  m_PrefabInstance: {fileID: 1073446329}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 652021735}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81b3aecd2d510a24e844faff82c6eeb0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1902469595
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 652021735}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d93ba61543949824db31c7cb89b4f009, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _binding: 0
+  _disableAfterSubscribing: 0
+  _eventResponses:
+  - Delay: 0
+    ScriptableEvent: {fileID: 11400000, guid: 3560ad8b530e96f4fa15b4eea0681e75, type: 2}
+    Response:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1902469594}
+          m_TargetAssemblyTypeName: Europa.SaveManager, Assembly-CSharp
+          m_MethodName: StartGame
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!4 &1904605779 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: e8da455f4f0931d478befb8984dc0a0f,
