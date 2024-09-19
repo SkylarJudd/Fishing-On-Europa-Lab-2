@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 97af56ea81ea21143861aabff9a9efbb, type: 3}
-  m_Name: HybridsFarmList
+  m_Name: removeHybridsSwimming
   m_EditorClassIdentifier: 
   TagIndex: 0
   Description: 

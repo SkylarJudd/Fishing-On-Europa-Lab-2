@@ -24,6 +24,9 @@ namespace Europa
         public Grabbable itemGrabbable;
         public Transform itemTransform;
 
+        public PoolType poolType;
+        public ItemLocation itemLocation;
+
 
     }
 }

@@ -7,7 +7,7 @@ namespace Europa
 {
     public enum CropState
     {
-        Seed, Sprout, Adolecent, Mature, Harvested
+        Seed, Sprout, Flowering, Fruited, Harvested
     }
 
     public class CropData : MonoBehaviour

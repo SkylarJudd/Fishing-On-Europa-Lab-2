@@ -1797,15 +1797,57 @@ PrefabInstance:
         type: 2}
     - target: {fileID: 2269280573903691426, guid: 16bfaf496f290d34aa4024ae51ee1add,
         type: 3}
+      propertyPath: removeHybridReact
+      value: 
+      objectReference: {fileID: 11400000, guid: 70427047ee22d8145bb50733d768cc62,
+        type: 2}
+    - target: {fileID: 2269280573903691426, guid: 16bfaf496f290d34aa4024ae51ee1add,
+        type: 3}
+      propertyPath: removeHybridsIdle
+      value: 
+      objectReference: {fileID: 11400000, guid: c7f8e929015611443b4601f9e19f79e4,
+        type: 2}
+    - target: {fileID: 2269280573903691426, guid: 16bfaf496f290d34aa4024ae51ee1add,
+        type: 3}
       propertyPath: hybridReactToPlayer
       value: 
       objectReference: {fileID: 11400000, guid: d6074fcb319a2f045aca5abfd34d7e3f,
         type: 2}
     - target: {fileID: 2269280573903691426, guid: 16bfaf496f290d34aa4024ae51ee1add,
         type: 3}
+      propertyPath: removeHybridsFlying
+      value: 
+      objectReference: {fileID: 11400000, guid: 94009ee4640318445b17fd3f4a7fa468,
+        type: 2}
+    - target: {fileID: 2269280573903691426, guid: 16bfaf496f290d34aa4024ae51ee1add,
+        type: 3}
+      propertyPath: removeHybridsHitWater
+      value: 
+      objectReference: {fileID: 11400000, guid: bae03a9c7597535439435b59526ef523,
+        type: 2}
+    - target: {fileID: 2269280573903691426, guid: 16bfaf496f290d34aa4024ae51ee1add,
+        type: 3}
+      propertyPath: removeHybridsSwimming
+      value: 
+      objectReference: {fileID: 11400000, guid: b5e36e30fae1649489969056bdd2a34a,
+        type: 2}
+    - target: {fileID: 2269280573903691426, guid: 16bfaf496f290d34aa4024ae51ee1add,
+        type: 3}
       propertyPath: playerReactionDistance
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 2269280573903691426, guid: 16bfaf496f290d34aa4024ae51ee1add,
+        type: 3}
+      propertyPath: removeHybridSwimToLure
+      value: 
+      objectReference: {fileID: 11400000, guid: d8f29d6a5a9819e46a21034ddd75c028,
+        type: 2}
+    - target: {fileID: 2269280573903691426, guid: 16bfaf496f290d34aa4024ae51ee1add,
+        type: 3}
+      propertyPath: _removeFromHybridsToNavList
+      value: 
+      objectReference: {fileID: 11400000, guid: 89eff27f2e6e9c242b4cac309ebd76b0,
+        type: 2}
     - target: {fileID: 2269280573903691426, guid: 16bfaf496f290d34aa4024ae51ee1add,
         type: 3}
       propertyPath: playerReactionDistanceReset
@@ -4201,6 +4243,48 @@ PrefabInstance:
       propertyPath: m_Name
       value: 'SaveMannager '
       objectReference: {fileID: 0}
+    - target: {fileID: 3953547474902856689, guid: ec8fef564a54f05418c2b8fe7fa910ae,
+        type: 3}
+      propertyPath: currentSave.cropsPlanted
+      value: 
+      objectReference: {fileID: 11400000, guid: 7d4dd53aba8273f41855835ac78af368,
+        type: 2}
+    - target: {fileID: 3953547474902856689, guid: ec8fef564a54f05418c2b8fe7fa910ae,
+        type: 3}
+      propertyPath: currentSave.hybridDomeList
+      value: 
+      objectReference: {fileID: 11400000, guid: 7a3697ed6ccd83145962216ec9b0cd66,
+        type: 2}
+    - target: {fileID: 3953547474902856689, guid: ec8fef564a54f05418c2b8fe7fa910ae,
+        type: 3}
+      propertyPath: currentSave.hybridFarmList
+      value: 
+      objectReference: {fileID: 11400000, guid: 897d9df1d22b37d419e588541d04c678,
+        type: 2}
+    - target: {fileID: 3953547474902856689, guid: ec8fef564a54f05418c2b8fe7fa910ae,
+        type: 3}
+      propertyPath: currentSave.itemsInDomeList
+      value: 
+      objectReference: {fileID: 11400000, guid: f0277f387e4fe6343bb6c1b7837c4b64,
+        type: 2}
+    - target: {fileID: 3953547474902856689, guid: ec8fef564a54f05418c2b8fe7fa910ae,
+        type: 3}
+      propertyPath: currentSave.itemsInFarmList
+      value: 
+      objectReference: {fileID: 11400000, guid: 6d7a05004d87b8e4cba999b490b25a6a,
+        type: 2}
+    - target: {fileID: 3953547474902856689, guid: ec8fef564a54f05418c2b8fe7fa910ae,
+        type: 3}
+      propertyPath: currentSave.hybridsInventoryList
+      value: 
+      objectReference: {fileID: 11400000, guid: 10a8d62b35861cf4685f811c64e600e4,
+        type: 2}
+    - target: {fileID: 3953547474902856689, guid: ec8fef564a54f05418c2b8fe7fa910ae,
+        type: 3}
+      propertyPath: currentSave.itemsInInventoryList
+      value: 
+      objectReference: {fileID: 11400000, guid: 1cc2ebab60846b94689f1a0039714086,
+        type: 2}
     - target: {fileID: 5396619862681362380, guid: ec8fef564a54f05418c2b8fe7fa910ae,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -5839,7 +5923,7 @@ MonoBehaviour:
   _disableAfterSubscribing: 0
   _eventResponses:
   - Delay: 0
-    ScriptableEvent: {fileID: 11400000, guid: 3560ad8b530e96f4fa15b4eea0681e75, type: 2}
+    ScriptableEvent: {fileID: 11400000, guid: 2323c7ecf9602104a8619f764a3f0531, type: 2}
     Response:
       m_PersistentCalls:
         m_Calls:

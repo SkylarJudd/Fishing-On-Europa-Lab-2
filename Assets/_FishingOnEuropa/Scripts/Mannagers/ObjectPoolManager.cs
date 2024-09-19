@@ -177,7 +177,7 @@ namespace Europa
 
                 // If there is no active object, create a new one
                 spawnableObj = Instantiate(objectToSpawn, spawnPosition, spawnRotation);
-                //Debug.Log($"Created a new GameObject: {spawnableObj}");
+                Debug.Log($"Created a new GameObject: {spawnableObj}");
 
                 if (parentObject != null)
                 {

@@ -8,37 +8,15 @@ using Europa;
 
 
 
-public enum ItemSaveLocation
-{
-    Error, LeftHand, RightHand, World, Inventory, Tank1, Tank2, FarmStation1, FarmStation2
-}
-
 
 [Serializable]
-public class CurrentHybrid
+public class SaveHybrid : SaveItem
 {
-    public CurrentItem hybridItem = new CurrentItem();
-    public StringReference hybridName = new StringReference();
-    public BoolReference hybridShiny= new BoolReference();
-}
-
-[Serializable]
-public class SaveHybrid
-{
-    public SaveItem hybridItem = new SaveItem();
     public string hybridName;
     public bool hybridShiny;
+    public int hybridHappiness;
 }
-[Serializable]
-public class CurrentItem
-{
-    public IntReference itemID = new IntReference();
-    public Vector3Reference itemPosition = new Vector3Reference();
-    public Vector3Reference itemRotation = new Vector3Reference();
-    public IntReference itemSaveLocation = new IntReference();
-    public IntReference itemInventorySlot = new IntReference();
-    public IntReference itemState = new IntReference();
-}
+
 [Serializable]
 public class SaveItem
 {
@@ -47,21 +25,12 @@ public class SaveItem
     public Vector3 itemRotation;
     public int itemSaveLocation;
     public int itemInventorySlot;
-    public int itemState;
 }
-[Serializable]
-public class CurrentCrop
-{
-    public CurrentItem cropItem = new CurrentItem();
-    public IntReference growthStage = new IntReference();
 
-}
 [Serializable]
-public class SaveCrop
+public class SaveCrop : SaveItem
 {
-    public SaveItem cropItem = new SaveItem();
     public int growthStage;
-    public int farmIndex;
 }
 
 [Serializable]
@@ -190,9 +159,9 @@ public class CurrentSaveData
     public StringReference saveDate = new StringReference();
 
     [Header("Hybrids")]
-    public ScriptableListFOEItem_Hybrid hybridFarmList;
-    public ScriptableListFOEItem_Hybrid hybridDomeList;
-    public ScriptableListFOEItem_Hybrid hybridsInventoryList;
+    public ScriptableListFOESaveItem_Hybrid hybridFarmList;
+    public ScriptableListFOESaveItem_Hybrid hybridDomeList;
+    public ScriptableListFOESaveItem_Hybrid hybridsInventoryList;
 
 
     [Header("PlayerSaveData")]
@@ -203,13 +172,13 @@ public class CurrentSaveData
 
     [Header("Items")]
    
-    public ScriptableListFOEItem itemsInFarmList;
-    public ScriptableListFOEItem itemsInDomeList;
-    public ScriptableListFOEItem itemsInInventoryList;
+    public ScriptableListFOESaveItem itemsInFarmList;
+    public ScriptableListFOESaveItem itemsInDomeList;
+    public ScriptableListFOESaveItem itemsInInventoryList;
 
 
     [Header("Farming")]
-    public ScriptableListCropData cropsPlanted;
+    public ScriptableListFOESaveItem_Crop cropsPlanted;
 
     [Header("Time")]
     public CurrentTime time = new CurrentTime();

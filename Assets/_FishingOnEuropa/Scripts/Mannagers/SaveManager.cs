@@ -45,6 +45,7 @@ namespace Europa
 
         public void StartGame()
         {
+            print("Starting Save");
             FindAllSaves();
         }
 
@@ -340,37 +341,37 @@ namespace Europa
 
             foreach (SaveHybrid _savedHybrid in savedData.hybridFarmList)
             {
-                FOEItem_Hybrid _loadHybrid = new FOEItem_Hybrid();
+                FOESaveItem_Hybrid _loadHybrid = new FOESaveItem_Hybrid();
                 currentSave.hybridFarmList.Add(SetHybridData(_loadHybrid, _savedHybrid));
             }
 
             foreach (SaveHybrid _savedHybrid in savedData.hybridDomeList)
             {
-                FOEItem_Hybrid _loadHybrid = new FOEItem_Hybrid();
-                currentSave.hybridFarmList.Add(SetHybridData(_loadHybrid, _savedHybrid));
+                FOESaveItem_Hybrid _loadHybrid = new FOESaveItem_Hybrid();
+                currentSave.hybridDomeList.Add(SetHybridData(_loadHybrid, _savedHybrid));
             }
 
             foreach (SaveHybrid _savedHybrid in savedData.hybridsInventoryList)
             {
-                FOEItem_Hybrid _loadHybrid = new FOEItem_Hybrid();
-                currentSave.hybridFarmList.Add(SetHybridData(_loadHybrid, _savedHybrid));
+                FOESaveItem_Hybrid _loadHybrid = new FOESaveItem_Hybrid();
+                currentSave.hybridsInventoryList.Add(SetHybridData(_loadHybrid, _savedHybrid));
             }
 
             // Load Items
 
             foreach (SaveItem _savedItem in savedData.itemsInFarmList)
             {
-                FOEItem _loadItem = new FOEItem();
+                FOESaveItem _loadItem = new FOESaveItem();
                 currentSave.itemsInFarmList.Add(SetItemData(_loadItem, _savedItem));
             }
             foreach (SaveItem _savedItem in savedData.itemsInDomeList)
             {
-                FOEItem _loadItem = new FOEItem();
+                FOESaveItem _loadItem = new FOESaveItem();
                 currentSave.itemsInDomeList.Add(SetItemData(_loadItem, _savedItem));
             }
             foreach (SaveItem _savedItem in savedData.itemsInInventoryList)
             {
-                FOEItem _loadItem = new FOEItem();
+                FOESaveItem _loadItem = new FOESaveItem();
                 currentSave.itemsInInventoryList.Add(SetItemData(_loadItem, _savedItem));
             }
 
@@ -378,42 +379,43 @@ namespace Europa
 
             foreach (SaveCrop _savedItem in savedData.cropsPlanted)
             {
-                CropData _loadItem = new CropData();
+                FOESaveItem_Crop _loadItem = new FOESaveItem_Crop();
                 currentSave.cropsPlanted.Add(SetCropData(_loadItem, _savedItem));
             }
 
 
         }
-        private FOEItem_Hybrid SetHybridData(FOEItem_Hybrid _loadHybrid, SaveHybrid _savedHybrid)
+        private FOESaveItem_Hybrid SetHybridData(FOESaveItem_Hybrid _loadHybrid, SaveHybrid _savedHybrid)
         {
-            _loadHybrid.europaItemSO.itemID = _savedHybrid.hybridItem.itemID;
-            _loadHybrid.europaItemSO.itemName = _savedHybrid.hybridName;
-            _loadHybrid.navigationData.shiny = _savedHybrid.hybridShiny;
-            _loadHybrid.europaItemSO.itemTransform.position = _savedHybrid.hybridItem.itemPosition;
-            _loadHybrid.europaItemSO.itemTransform.rotation = Quaternion.Euler(_savedHybrid.hybridItem.itemRotation);
-            _loadHybrid.navigationData.hybridLocation = (HybridLocation)_savedHybrid.hybridItem.itemSaveLocation;
-            _loadHybrid.inventoryItemSO.itemSlot = _savedHybrid.hybridItem.itemInventorySlot;
+            _loadHybrid.itemID = _savedHybrid.itemID;
+            _loadHybrid.hybridName = _savedHybrid.hybridName;
+            _loadHybrid.hybridShiny = _savedHybrid.hybridShiny;
+            _loadHybrid.itemPos.position = _savedHybrid.itemPosition;
+            _loadHybrid.itemPos.rotation = Quaternion.Euler(_savedHybrid.itemRotation);
+            _loadHybrid.itemLocation = (ItemLocation)_savedHybrid.itemSaveLocation;
+            _loadHybrid.itemInventorySlot = _savedHybrid.itemInventorySlot;
 
             return _loadHybrid;
         }
 
-        private FOEItem SetItemData(FOEItem _loadItem, SaveItem _savedItem)
+        private FOESaveItem SetItemData(FOESaveItem _loadItem, SaveItem _savedItem)
         {
-            _loadItem.europaItemSO.itemID = _savedItem.itemID;
-            _loadItem.europaItemSO.itemTransform.position = _savedItem.itemPosition;
-            _loadItem.europaItemSO.itemTransform.rotation = Quaternion.Euler(_savedItem.itemRotation);
-            _loadItem.inventoryItemSO.itemSlot = _savedItem.itemInventorySlot;
+            _loadItem.itemID = _savedItem.itemID;
+            _loadItem.itemPos.position = _savedItem.itemPosition;
+            _loadItem.itemPos.rotation = Quaternion.Euler(_savedItem.itemRotation);
+            _loadItem.itemLocation = (ItemLocation)_savedItem.itemSaveLocation;
+            _loadItem.itemInventorySlot = _savedItem.itemInventorySlot;
 
             return _loadItem;
         }
 
-        private CropData SetCropData(CropData _loadItem, SaveCrop _savedItem)
+        private FOESaveItem_Crop SetCropData(FOESaveItem_Crop _loadItem, SaveCrop _savedItem)
         {
-            _loadItem.itemID = _savedItem.cropItem.itemID;
-            _loadItem.itemTransform.position = _savedItem.cropItem.itemPosition;
-            _loadItem.itemTransform.rotation = Quaternion.Euler(_savedItem.cropItem.itemRotation);
-            _loadItem.cropState = (CropState)_savedItem.growthStage;
-            _loadItem.farmIndex = _savedItem.farmIndex;
+            _loadItem.itemID = _savedItem.itemID;
+            _loadItem.itemPos.position = _savedItem.itemPosition;
+            _loadItem.itemPos.rotation = Quaternion.Euler(_savedItem.itemRotation);
+            _loadItem.growthStage = (CropState)_savedItem.growthStage;
+            _loadItem.itemLocation = (ItemLocation)_savedItem.itemSaveLocation;
 
             return _loadItem;
         }
@@ -456,21 +458,21 @@ namespace Europa
 
             // Save Hybrids
             saveData.hybridFarmList.Clear();
-            foreach (FOEItem_Hybrid currentHybrid in currentSave.hybridFarmList)
+            foreach (FOESaveItem_Hybrid currentHybrid in currentSave.hybridFarmList)
             {
                 SaveHybrid savedHybrid = SetHybridSaveData(currentHybrid);
                 saveData.hybridFarmList.Add(savedHybrid);
             }
 
             saveData.hybridDomeList.Clear();
-            foreach (FOEItem_Hybrid currentHybrid in currentSave.hybridDomeList)
+            foreach (FOESaveItem_Hybrid currentHybrid in currentSave.hybridDomeList)
             {
                 SaveHybrid savedHybrid = SetHybridSaveData(currentHybrid);
                 saveData.hybridDomeList.Add(savedHybrid);
             }
 
             saveData.hybridsInventoryList.Clear();
-            foreach (FOEItem_Hybrid currentHybrid in currentSave.hybridsInventoryList)
+            foreach (FOESaveItem_Hybrid currentHybrid in currentSave.hybridsInventoryList)
             {
                 SaveHybrid savedHybrid = SetHybridSaveData(currentHybrid);
                 saveData.hybridsInventoryList.Add(savedHybrid);
@@ -478,21 +480,21 @@ namespace Europa
 
             // Save Items
             saveData.itemsInFarmList.Clear();
-            foreach (FOEItem currentItem in currentSave.itemsInFarmList)
+            foreach (FOESaveItem currentItem in currentSave.itemsInFarmList)
             {
                 SaveItem savedItem = SetItemSaveData(currentItem);
                 saveData.itemsInFarmList.Add(savedItem);
             }
 
             saveData.itemsInDomeList.Clear();
-            foreach (FOEItem currentItem in currentSave.itemsInDomeList)
+            foreach (FOESaveItem currentItem in currentSave.itemsInDomeList)
             {
                 SaveItem savedItem = SetItemSaveData(currentItem);
                 saveData.itemsInDomeList.Add(savedItem);
             }
 
             saveData.itemsInInventoryList.Clear();
-            foreach (FOEItem currentItem in currentSave.itemsInInventoryList)
+            foreach (FOESaveItem currentItem in currentSave.itemsInInventoryList)
             {
                 SaveItem savedItem = SetItemSaveData(currentItem);
                 saveData.itemsInInventoryList.Add(savedItem);
@@ -500,59 +502,60 @@ namespace Europa
 
             // Save Crops
             saveData.cropsPlanted.Clear();
-            foreach (CropData currentCrop in currentSave.cropsPlanted)
+            foreach (FOESaveItem_Crop currentCrop in currentSave.cropsPlanted)
             {
                 SaveCrop savedCrop = SetCropSaveData(currentCrop);
                 saveData.cropsPlanted.Add(savedCrop);
             }
         }
 
-        private SaveHybrid SetHybridSaveData(FOEItem_Hybrid currentHybrid)
+        private SaveHybrid SetHybridSaveData(FOESaveItem_Hybrid currentHybrid)
         {
             SaveHybrid savedHybrid = new SaveHybrid
             {
-                hybridItem = new SaveItem
-                {
-                    itemID = currentHybrid.europaItemSO.itemID,
-                    itemPosition = currentHybrid.europaItemSO.itemTransform.position,
-                    itemRotation = currentHybrid.europaItemSO.itemTransform.rotation.eulerAngles,
-                    itemSaveLocation = (int)currentHybrid.navigationData.hybridLocation,
-                    itemInventorySlot = currentHybrid.inventoryItemSO.itemSlot
-                },
-                hybridName = currentHybrid.europaItemSO.itemName,
-                hybridShiny = currentHybrid.navigationData.shiny
+                
+                itemID = currentHybrid.itemID,
+                itemPosition = currentHybrid.itemPos.position,
+                itemRotation = currentHybrid.itemPos.rotation.eulerAngles,
+                itemSaveLocation = (int)currentHybrid.itemLocation,
+                itemInventorySlot = currentHybrid.itemInventorySlot,
+                hybridName = currentHybrid.hybridName,
+                hybridShiny = currentHybrid.hybridShiny
             };
 
             return savedHybrid;
         }
+    
+        
 
-        private SaveItem SetItemSaveData(FOEItem currentItem)
+        private SaveItem SetItemSaveData(FOESaveItem currentItem)
         {
             SaveItem savedItem = new SaveItem
             {
-                itemID = currentItem.europaItemSO.itemID,
-                itemPosition = currentItem.europaItemSO.itemTransform.position,
-                itemRotation = currentItem.europaItemSO.itemTransform.rotation.eulerAngles,
-                itemInventorySlot = currentItem.inventoryItemSO.itemSlot,
+                itemID = currentItem.itemID,
+                itemPosition = currentItem.itemPos.position,
+                itemRotation = currentItem.itemPos.rotation.eulerAngles,
+                itemSaveLocation = (int)currentItem.itemLocation,
+                itemInventorySlot = currentItem.itemInventorySlot,
 
             };
 
             return savedItem;
         }
 
-        private SaveCrop SetCropSaveData(CropData currentCrop)
+        private SaveCrop SetCropSaveData(FOESaveItem_Crop currentCrop)
         {
             SaveCrop savedCrop = new SaveCrop
             {
-                cropItem = new SaveItem
-                {
-                    itemID = currentCrop.itemID,
-                    itemPosition = currentCrop.itemTransform.position,
-                    itemRotation = currentCrop.itemTransform.rotation.eulerAngles,
-                },
-                growthStage = (int)currentCrop.cropState,
-                farmIndex = currentCrop.farmIndex
+
+                itemID = currentCrop.itemID,
+                itemPosition = currentCrop.itemPos.position,
+                itemRotation = currentCrop.itemPos.rotation.eulerAngles,
+                itemSaveLocation = (int)currentCrop.itemLocation,
+                growthStage = (int)currentCrop.growthStage,
+                
             };
+                
 
             return savedCrop;
         }

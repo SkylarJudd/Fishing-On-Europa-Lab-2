@@ -10,7 +10,7 @@ namespace Europa
     {
         [Header("Pond Data")]
         public Transform waterHeight;
-        public HybridLocation pondType;
+        public ItemLocation pondType;
 
         [Header("Geyser List")]
         [SerializeField]

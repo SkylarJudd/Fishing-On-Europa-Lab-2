@@ -41,14 +41,14 @@ namespace Europa
                 return;
 
             // Calculate the angle between the object's up vector and the world up vector
-            float angle = Vector3.Angle(transform.up, Vector3.up);
+            float angle = Vector3.Angle(europaItemSO.itemGO.transform.up, Vector3.up);
 
             if (angle >= rotationThreshold)
             {
                 // If the angle exceeds the threshold and the coroutine hasn't been started, start it
                 if (!isDroppingSeeds)
                 {
-                    dropSeedsCoroutine = StartCoroutine(DropSeeds());
+                    //dropSeedsCoroutine = StartCoroutine(DropSeeds());
                     isDroppingSeeds = true;
                 }
             }
@@ -57,7 +57,7 @@ namespace Europa
                 // If the object is no longer upside down and the coroutine is running, stop it
                 if (isDroppingSeeds)
                 {
-                    StopCoroutine(dropSeedsCoroutine);
+                    //StopCoroutine(dropSeedsCoroutine);
                     isDroppingSeeds = false;
                     Debug.Log("Stopped dropping seeds because the bag is upright.");
                 }
@@ -79,7 +79,7 @@ namespace Europa
                 seedsDropped++;
 
                 // If the object turns upright while dropping seeds, the coroutine will stop
-                if (Vector3.Angle(transform.up, Vector3.up) < rotationThreshold)
+                if (Vector3.Angle( europaItemSO.itemGO.transform.up, Vector3.up) < rotationThreshold)
                 {
                     yield break;
                 }

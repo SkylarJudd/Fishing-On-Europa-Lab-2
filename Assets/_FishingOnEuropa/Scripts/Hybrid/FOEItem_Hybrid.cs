@@ -66,9 +66,9 @@ namespace Europa
             inInventoryVisuals?.SetActive(false);
         }
 
-        public void InitHybrid(float waterHight, HybridLocation pondType, HybridState state, HybridVisualsState visualState)
+        public void InitHybrid(GameObject go, float waterHight, ItemLocation pondType, HybridState state, HybridVisualsState visualState)
         {
-            europaItemSO.itemGO = gameObject;
+            europaItemSO.itemGO = go;
 
             navigationData.waterHeight = waterHight;
             navigationData.hybridLocation = pondType;
@@ -90,15 +90,22 @@ namespace Europa
             SetVisuals(visualState);
         }
 
-        public void InitSavedHybrid(FOEItem_Hybrid savedHybrid, Transform spawnPoint, float waterHight, HybridLocation location, HybridState state, HybridVisualsState visualState)
+        public void InitSavedHybrid(FOESaveItem_Hybrid savedHybrid, Transform spawnPoint, float waterHight, ItemLocation location, HybridState state, HybridVisualsState visualState)
         {
-            europaItemSO.itemName = savedHybrid.europaItemSO.itemName;
-            navigationData.shiny = savedHybrid.navigationData.shiny;
+
+            europaItemSO.itemGO = savedHybrid.itemGO;
+            europaItemSO.itemName = savedHybrid.hybridName;
             europaItemSO.itemTransform = spawnPoint;
+
+            navigationData.shiny = savedHybrid.hybridShiny;
             navigationData.waterHeight = waterHight;
             navigationData.hybridLocation = location;
             navigationData.hybridState = state;
             navigationData.firstNav = true;
+
+            navigationData.minSpeed = hybridSO.fishSpeed;
+            navigationData.maxSpeed = hybridSO.fishSpeed * 2;
+            navigationData.velocity = Vector3.forward * hybridSO.fishSpeed;
 
             SetVisuals(visualState);
         }

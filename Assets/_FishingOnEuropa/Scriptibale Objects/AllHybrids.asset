@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 262546772e8e0b34c970b031305e0844, type: 3}
+  m_Name: AllHybrids
+  m_EditorClassIdentifier: 
+  FishToSpawnList:
+  - {fileID: 8235945337240472755, guid: 092bade61f32b7c48bfe07f758d36a2f, type: 3}
+  - {fileID: 8235945337240472755, guid: 5a778a398b407644b9f04c64ecf9ebf8, type: 3}
+  - {fileID: 8235945337240472755, guid: 8f9be6ae80de9644a8363bc77ffb038f, type: 3}
+  - {fileID: 8235945337240472755, guid: afc5f0cf86f3fca49a41ddcecdb91d8a, type: 3}
+  - {fileID: 8235945337240472755, guid: 450f2e8df91ec244d8c709245080b555, type: 3}
+  - {fileID: 8235945337240472755, guid: d9862188a420aac498f4004947a75d39, type: 3}
+  - {fileID: 8235945337240472755, guid: 5f24ca5cc06483e45b0a5c600c633f2b, type: 3}
+  - {fileID: 8235945337240472755, guid: 3df93d2dc6b69e74ea5bd29d6039051e, type: 3}
+  - {fileID: 8235945337240472755, guid: 85444673a7d7dc64c9d6a270087f8d62, type: 3}
+  - {fileID: 8235945337240472755, guid: f474f599c7ee25e47bacc32a51fb1a89, type: 3}

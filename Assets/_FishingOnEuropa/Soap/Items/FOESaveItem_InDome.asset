@@ -9,8 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2aff529622eb88c4ba3b3fcd00b02d66, type: 3}
-  m_Name: itemsInDomeList
+  m_Script: {fileID: 11500000, guid: 59857698fd27ac243bff752c89d83e44, type: 3}
+  m_Name: FOESaveItem_InDome
   m_EditorClassIdentifier: 
   TagIndex: 0
   Description: 

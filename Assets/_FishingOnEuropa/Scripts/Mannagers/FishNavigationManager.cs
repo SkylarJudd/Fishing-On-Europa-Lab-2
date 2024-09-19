@@ -12,9 +12,9 @@ namespace Europa
     {
         [Header("All Hybrids In Pond")]
         [Tooltip("a list that contains all the hybrids that has been spawned into this pond.")]
-        public ScriptableListFOEItem_Hybrid _hybridsToNavList;
+        [SerializeField] private ScriptableListFOEItem_Hybrid _hybridsToNavList;
 
-        private ScriptableListFOEItem_Hybrid _removeFromHybridsToNavList;
+        [SerializeField] private ScriptableListFOEItem_Hybrid _removeFromHybridsToNavList;
 
         #region Hybrid Nav Lists
         [Header("Hybrids Doing Different Tasks")] // Lists for each of the hybrids doing different things so we don't have to loop over them all. 
@@ -42,12 +42,13 @@ namespace Europa
         #endregion
 
         #region RemoveHybridLists
-        private ScriptableListFOEItem_Hybrid removeHybridsIdle;
-        private ScriptableListFOEItem_Hybrid removeHybridsFlying;
-        private ScriptableListFOEItem_Hybrid removeHybridsHitWater;
-        private ScriptableListFOEItem_Hybrid removeHybridsSwimming;
-        private ScriptableListFOEItem_Hybrid removeHybridSwimToLure;
-        private ScriptableListFOEItem_Hybrid removeHybridReact;
+
+        [SerializeField] private ScriptableListFOEItem_Hybrid removeHybridsIdle;
+        [SerializeField] private ScriptableListFOEItem_Hybrid removeHybridsFlying;
+        [SerializeField] private ScriptableListFOEItem_Hybrid removeHybridsHitWater;
+        [SerializeField] private ScriptableListFOEItem_Hybrid removeHybridsSwimming;
+        [SerializeField] private ScriptableListFOEItem_Hybrid removeHybridSwimToLure;
+        [SerializeField] private ScriptableListFOEItem_Hybrid removeHybridReact;
         #endregion
 
         #region Boids Settings
@@ -223,11 +224,11 @@ namespace Europa
             {
                 if (_food == _leftFood.foodType)
                 {
-                    SetHybridTargetState(_hybrid, _PLAYER.leftHandFood.gameObject.transform);
+                    SetHybridTargetState(_hybrid, _PLAYER.leftHandFood.europaItemSO.itemGO.transform);
                 }
                 else if (_food == _rightFood.foodType)
                 {
-                    SetHybridTargetState(_hybrid, _PLAYER.rightHandFood.gameObject.transform);
+                    SetHybridTargetState(_hybrid, _PLAYER.rightHandFood.europaItemSO.itemGO.transform);
                 }
             }
         }
@@ -240,11 +241,11 @@ namespace Europa
             // Interact with the favorite toy
             if (_hybrid.hybridSO.favToy == _PLAYER.leftHandPlushie.ToyItem)
             {
-                SetHybridTargetState(_hybrid, _PLAYER.leftHandPlushie.gameObject.transform);
+                SetHybridTargetState(_hybrid, _PLAYER.leftHandPlushie.europaItemSO.itemGO.transform);
             }
             else if (_hybrid.hybridSO.favToy == _PLAYER.rightHandPlushie.ToyItem)
             {
-                SetHybridTargetState(_hybrid, _PLAYER.rightHandPlushie.gameObject.transform);
+                SetHybridTargetState(_hybrid, _PLAYER.rightHandPlushie.europaItemSO.itemGO.transform);
             }
         }
 
@@ -768,7 +769,8 @@ namespace Europa
 
         public void AddHybridTolist(GameObject go)
         {
-            var _hybrid = GetHybridFromGO(go);  // wont this crash if the inputted object dose not have a hybrid nav data?
+            var _hybrid = GetHybridFromGO(go);
+
             if (_hybrid.europaItemSO.itemGO == go)
             {
                 print(_hybrid.navigationData.hybridState);
@@ -794,10 +796,33 @@ namespace Europa
             }
         }
 
+        public void AddHybridTolist(FOEItem_Hybrid _hybrid, HybridState _state)
+        {
+            switch (_state)
+            {
+                case HybridState.HybridIdle:
+                    hybridsIdle.Add(_hybrid);
+                    break;
+                case HybridState.HybridFlying:
+                    hybridsFlying.Add(_hybrid);
+                    break;
+                case HybridState.HybridHitWater:
+                    hybridsHitWater.Add(_hybrid);
+                    break;
+                case HybridState.HybridFlocking or HybridState.HybridAvoidingWall:
+                    hybridsSwimming.Add(_hybrid);
+                    break;
+                case HybridState.HybridMiniGame_SwimToLure:
+                    print("SWIM");
+                    hybridSwimToPoint.Add(_hybrid);
+                    break;
+            }
+        }
+
         public void OnPickUp(FOEItem_Hybrid _hybridInfo)
         {
             _hybridInfo.SetVisuals(HybridVisualsState.Bubble);
-            removeHybrid(_hybridInfo.gameObject, true);
+            removeHybrid(_hybridInfo.europaItemSO.itemGO, true);
         }
 
         public void OnDrop(FOEItem_Hybrid _hybridInfo)

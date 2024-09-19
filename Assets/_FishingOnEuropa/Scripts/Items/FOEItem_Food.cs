@@ -1,6 +1,7 @@
 using Autohand;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 namespace Europa
@@ -22,7 +23,8 @@ namespace Europa
             // Call the base class's OnDrop method
             base.OnDrop(_Hand, _Grabbable);
 
-            _PLAYER.OnFoodDrop(_Hand.left);
+            //_PLAYER.OnFoodDrop(_Hand.left);
+            Debug.LogError("This Is broken Find Another Way to send this though events");
         }
 
         public override void OnPickUp(Hand _Hand, Grabbable _Grabbable)
@@ -33,7 +35,8 @@ namespace Europa
             FOEItem_Food foodItemComponent = _Grabbable.gameObject.GetComponent<FOEItem_Food>();
             if (foodItemComponent != null)
             {
-                _PLAYER.OnFoodPickUp(_Hand.left, foodItemComponent);
+                //_PLAYER.OnFoodPickUp(_Hand.left, foodItemComponent);
+                Debug.LogError("This Is broken Find Another Way to send this though events");
             }
             else
             {

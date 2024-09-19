@@ -14,7 +14,7 @@ namespace Europa
     public enum FoodList { Error, Bugs, WhiteMeat, RedMeat, Leaves, Flowers, Seeds, Carrot, Potato, Orange, Apple, Banana, WaterMelon }
     public enum ToyList { Error, }
     public enum ItemRarity { Common, Uncommon, Rare, Epic };
-
+    public enum ItemLocation { Error, LeftHand, RightHand, World, Inventory, Tank1, Tank2, FarmStation1, FarmStation2, ZoneOne, ZoneTwo, ZoneThree, Cave, }
 
 
     public class FOEItem : GameBehaviour, IEropaItemable, ISellable

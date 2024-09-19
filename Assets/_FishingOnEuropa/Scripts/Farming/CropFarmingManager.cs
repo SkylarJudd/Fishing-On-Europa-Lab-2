@@ -105,7 +105,7 @@ namespace Europa
             if (ableToPlant == true)
             {
                 CropData newitem = new CropData();
-                newitem.go = _Seed.gameObject;
+                //newitem.go = _Seed.gameObject;
                 newitem.itemID = _Seed.europaItemSO.itemID;
                 newitem.itemTransform = _Seed.europaItemSO.itemTransform;
                 newitem.cropState = CropState.Seed;
@@ -115,7 +115,7 @@ namespace Europa
                 _Seed.europaItemSO.itemRB.isKinematic = true;
                 _Seed.europaItemSO.itemRB.useGravity = false;
                 _Seed.europaItemSO.itemGrabbable.isGrabbable = false;
-                _Seed.transform.rotation = new Quaternion(0, 0, 0, 0);
+                //_Seed.transform.rotation = new Quaternion(0, 0, 0, 0);
 
                 cropList.Add(newitem);
 
@@ -166,14 +166,14 @@ namespace Europa
                         SpawnNewObject(_crop.seedSO.growthStages[1], _crop);
                         break;
                     case CropState.Sprout:
-                        _crop.cropState = CropState.Adolecent;
+                        _crop.cropState = CropState.Flowering;
                         SpawnNewObject(_crop.seedSO.growthStages[2], _crop);
                         break;
-                    case CropState.Adolecent:
-                        _crop.cropState = CropState.Mature;
+                    case CropState.Flowering:
+                        _crop.cropState = CropState.Fruited;
                         SpawnNewObject(_crop.seedSO.growthStages[3], _crop);
                         break;
-                    case CropState.Mature:
+                    case CropState.Fruited:
                         _crop.cropState = CropState.Harvested;
                         SpawnNewObject(_crop.seedSO.growthStages[4], _crop);
                         break;

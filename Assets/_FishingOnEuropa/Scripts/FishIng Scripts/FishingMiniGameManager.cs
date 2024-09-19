@@ -69,7 +69,7 @@ namespace Europa
                             //change fish state here
 
                             //need to get parent / FOE Item
-                            targetHybrid = targetHybrid.GetComponentInParent<FOEItem_Hybrid>().gameObject;
+                            targetHybrid = targetHybrid.GetComponentInParent<FOEItem_Hybrid>().europaItemSO.itemGO;
 
                             _FNAVM.removeHybrid(targetHybrid, false);
 
