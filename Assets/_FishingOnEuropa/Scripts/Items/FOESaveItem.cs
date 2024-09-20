@@ -21,6 +21,14 @@ namespace Europa
         public string hybridName;
         public bool hybridShiny;
         public int hybridTrust;
+
+        
+
+        public bool fed;
+        public bool played;
+        public bool patted;
+        public bool hadcharm;
+        public float timeWhenCharmSpawned;
     }
     [Serializable]
     public class FOESaveItem_Crop : FOESaveItem
