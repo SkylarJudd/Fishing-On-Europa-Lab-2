@@ -267,6 +267,10 @@ PrefabInstance:
         type: 3}
       insertIndex: 1
       addedObject: {fileID: 2941688891302965289}
+    - targetCorrespondingSourceObject: {fileID: 8910402524323637192, guid: 43fb700f02b00b046b82d8ecda0ba12e,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7002668068226167439}
   m_SourcePrefab: {fileID: 100100000, guid: 43fb700f02b00b046b82d8ecda0ba12e, type: 3}
 --- !u!23 &3161320752819073310 stripped
 MeshRenderer:
@@ -311,10 +315,39 @@ MonoBehaviour:
   nameText: {fileID: 8343416051275482291}
   bubbleMovement: {fileID: 7386807591126320886}
   hybridSO: {fileID: 0}
+  navigationData: {fileID: 7002668068226167439}
   inWorldVisuals: {fileID: 4364129868193805728}
   inBubbleVisuals: {fileID: 7208125370497171811}
   inInventoryVisuals: {fileID: 4976809339553193865}
   ballVisuals: {fileID: 3161320752819073310}
+  patTrigger: {fileID: 0}
+--- !u!114 &7002668068226167439
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7363543831746356099}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d247461685df3c34e8f3005cd81c547d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hybridState: 0
+  hybridLocation: 0
+  velocity: {x: 0, y: 0, z: 0}
+  minSpeed: 0
+  maxSpeed: 0
+  waterHeight: 0
+  isTurning: 0
+  aboutToHitWall: 0
+  firstNav: 0
+  distanceToPlayer: 0
+  distanceToLeftHand: 0
+  distanceToRightHand: 0
+  arrivedAtLure: 0
+  itemTarget: {fileID: 0}
+  shiny: 0
 --- !u!114 &7386807591126320886 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8870892415497601725, guid: 43fb700f02b00b046b82d8ecda0ba12e,

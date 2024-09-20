@@ -2,13 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ReferanceSingletonExsample : GameBehaviour
+namespace Europa
 {
-
-    private void Start()
+    public class ReferanceSingletonExsample : GameBehaviour
     {
-        _ES.ExsampleFuctionCall();
-        _ES.exsampleParamator = true;
-    }
 
+        private void Start()
+        {
+            _ES.ExsampleFuctionCall();
+            _ES.exsampleParamator = true;
+        }
+
+    }
 }
+

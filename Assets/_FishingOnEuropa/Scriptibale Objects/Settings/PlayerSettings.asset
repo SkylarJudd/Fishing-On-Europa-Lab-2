@@ -12,3 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 193c4c2619734f74e8d7d3f2bd22e58d, type: 3}
   m_Name: PlayerSettings
   m_EditorClassIdentifier: 
+  turnType: 1
+  turnAngle: 35
+  turnSpeed: 50
+  language: 0
+  masterVolume: 0
+  musicVolume: 0
+  sFXVolume: 0
+  hybridVolume: 0
+  voicesVolume: 0
+  gameQuality: 0
+  postProssessing: 0
+  bloomAmout: 0

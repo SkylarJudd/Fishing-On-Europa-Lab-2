@@ -45,11 +45,33 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hybridsInPond: []
-  waterHeight: 0
-  hybridsIdel: []
+  hybridsIdle: []
   hybridsFlying: []
   hybridsHitWater: []
   hybridsSwimming: []
+  hybridSwimToPoint: []
+  hybridReactToPlayer: []
+  caughtHybrid:
+    hybridGameObject: {fileID: 0}
+    hybridRigidbody: {fileID: 0}
+    pondType: 0
+    foodEaten: 
+    favToy: 0
+    isTamed: 1
+    HybridState: 0
+    velocity: {x: 0, y: 0, z: 0}
+    minSpeed: 0
+    maxSpeed: 0
+    rotationSpeed: 0
+    waterHeight: 0
+    isTurning: 0
+    aboutToHitWall: 0
+    firstNav: 0
+    distanceToPlayer: 0
+    distanceToLeftHand: 0
+    distanceToRightHand: 0
+    arrivedAtLure: 0
+    itemTarget: {fileID: 0}
   applyBoidsChance: 20
   rayCastCheckChance: 20
   debug: 1
@@ -60,3 +82,11 @@ MonoBehaviour:
   alignmentFactor: 1
   cohesionFactor: 1
   correctRotationSpeed: 5
+  fishCollisionLayerMask:
+    serializedVersion: 2
+    m_Bits: 5242880
+  playerReactionDistance: 5
+  playerReactionDistanceReset: 0
+  playerHandReactionDistance: 2
+  playerHandReactionDistanceReset: 0
+  moveToPlayerStoppingDistance: 3

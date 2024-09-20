@@ -3,33 +3,37 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class UIAudio : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
+namespace Europa
 {
-    public string clickAudioName;
-    public string hoverEnterAudioName;
-    public string hoverExitAudioName;
-
-    public void OnPointerClick(PointerEventData eventData)
+    public class UIAudio : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
     {
-        if(clickAudioName != "")
+        public string clickAudioName;
+        public string hoverEnterAudioName;
+        public string hoverExitAudioName;
+
+        public void OnPointerClick(PointerEventData eventData)
         {
-            AudioManager.instance.Play(clickAudioName);
+            if (clickAudioName != "")
+            {
+                AudioManager.instance.Play(clickAudioName);
+            }
         }
-    }
 
-    public void OnPointerEnter(PointerEventData eventData)
-    {
-        if (hoverEnterAudioName != "")
+        public void OnPointerEnter(PointerEventData eventData)
         {
-            AudioManager.instance.Play(hoverEnterAudioName);
+            if (hoverEnterAudioName != "")
+            {
+                AudioManager.instance.Play(hoverEnterAudioName);
+            }
         }
-    }
 
-    public void OnPointerExit(PointerEventData eventData)
-    {
-        if (hoverExitAudioName != "")
+        public void OnPointerExit(PointerEventData eventData)
         {
-            AudioManager.instance.Play(hoverExitAudioName);
+            if (hoverExitAudioName != "")
+            {
+                AudioManager.instance.Play(hoverExitAudioName);
+            }
         }
     }
 }
+

@@ -273,13 +273,20 @@ namespace Autohand {
         }
 
         protected virtual void OnEnable() {
-            EnableHand(handRight);
-            EnableHand(handLeft);
+            if (handRight != null | handLeft != null)
+            {
+                EnableHand(handRight);
+                EnableHand(handLeft);
+            }    
         }
 
         protected virtual void OnDisable() {
-            DisableHand(handRight);
-            DisableHand(handLeft);
+
+            if (handRight != null | handLeft != null)
+            {
+                DisableHand(handRight);
+                DisableHand(handLeft);
+            }    
         }
 
         IEnumerator WaitFlagForTrackingStart() {
@@ -494,45 +501,49 @@ namespace Autohand {
         }
 
 
-        protected virtual void UpdateTrackedObjects() {
+        protected virtual void UpdateTrackedObjects()
+        {
 
-            var startRightHandPos = handRight.transform.position;
-            var startLeftHandPos = handLeft.transform.position;
+            if (handRight != null | handLeft != null)
+            {
+                var startRightHandPos = handRight.transform.position;
+                var startLeftHandPos = handLeft.transform.position;
 
-            //Moves the tracked objects based on the physics bodys delta movement
-            targetTrackedPos += (transform.position - lastUpdatePosition);
-            trackingContainer.position = new Vector3(targetTrackedPos.x, trackingContainer.position.y, targetTrackedPos.z);
-
-
-            //This slow moves the head + controllers on the Y-axis so it doesn't jump when stepping up
-            if(isGrounded)
-                trackingContainer.position = Vector3.MoveTowards(trackingContainer.position, targetTrackedPos + Vector3.up * heightOffset, (Mathf.Abs(trackingContainer.position.y - targetTrackedPos.y) + 0.1f) * Time.deltaTime * heightSmoothSpeed);
-            else
-                trackingContainer.position = targetTrackedPos + Vector3.up * heightOffset;
+                //Moves the tracked objects based on the physics bodys delta movement
+                targetTrackedPos += (transform.position - lastUpdatePosition);
+                trackingContainer.position = new Vector3(targetTrackedPos.x, trackingContainer.position.y, targetTrackedPos.z);
 
 
-            //This code will move the tracking objects to match the body collider position when moving
-            var targetPos = transform.position - headCamera.transform.position; targetPos.y = 0;
-            targetPosOffset = Vector3.MoveTowards(targetPosOffset, targetPos, body.velocity.magnitude * Time.deltaTime);
-            trackingContainer.position += targetPosOffset;
+                //This slow moves the head + controllers on the Y-axis so it doesn't jump when stepping up
+                if (isGrounded)
+                    trackingContainer.position = Vector3.MoveTowards(trackingContainer.position, targetTrackedPos + Vector3.up * heightOffset, (Mathf.Abs(trackingContainer.position.y - targetTrackedPos.y) + 0.1f) * Time.deltaTime * heightSmoothSpeed);
+                else
+                    trackingContainer.position = targetTrackedPos + Vector3.up * heightOffset;
 
 
-            //This helps prevent the hands from clipping
-            var deltaHandPos = handRight.transform.position - startRightHandPos;
-            if(pushRight.Count > 0)
-                handRight.transform.position -= deltaHandPos;
-            else 
-               PreventHandClipping(handRight, startRightHandPos);
-            
-            
-            deltaHandPos = handLeft.transform.position - startLeftHandPos;
-            if(pushLeft.Count > 0)
-                handLeft.transform.position -= deltaHandPos;
-            else 
-                PreventHandClipping(handLeft, startLeftHandPos);
-            
+                //This code will move the tracking objects to match the body collider position when moving
+                var targetPos = transform.position - headCamera.transform.position; targetPos.y = 0;
+                targetPosOffset = Vector3.MoveTowards(targetPosOffset, targetPos, body.velocity.magnitude * Time.deltaTime);
+                trackingContainer.position += targetPosOffset;
 
-            lastUpdatePosition = transform.position;
+
+                //This helps prevent the hands from clipping
+                var deltaHandPos = handRight.transform.position - startRightHandPos;
+                if (pushRight.Count > 0)
+                    handRight.transform.position -= deltaHandPos;
+                else
+                    PreventHandClipping(handRight, startRightHandPos);
+
+
+                deltaHandPos = handLeft.transform.position - startLeftHandPos;
+                if (pushLeft.Count > 0)
+                    handLeft.transform.position -= deltaHandPos;
+                else
+                    PreventHandClipping(handLeft, startLeftHandPos);
+
+
+                lastUpdatePosition = transform.position;
+            }
         }
 
 
@@ -668,16 +679,22 @@ namespace Autohand {
                 QueryTriggerInteraction.Ignore
             );
 
-            //Prevents held objects from being considered for depenetration
-            if(handLeft.IsHolding() || handRight.IsHolding()) {
-                for(int j = overlapCount - 1; j >= 0; j--) {
-                    Collider otherCollider = colliderNonAlloc[j];
+            if( handRight != null && handLeft != null )
+            {
+                //Prevents held objects from being considered for depenetration
+                if (handLeft.IsHolding() || handRight.IsHolding())
+                {
+                    for (int j = overlapCount - 1; j >= 0; j--)
+                    {
+                        Collider otherCollider = colliderNonAlloc[j];
 
-                    if(handLeft.IsHolding() && handLeft.holdingObj.grabColliders.Contains(otherCollider)
-                        || handRight.IsHolding() && handRight.holdingObj.grabColliders.Contains(otherCollider))
+                        if (handLeft.IsHolding() && handLeft.holdingObj.grabColliders.Contains(otherCollider)
+                            || handRight.IsHolding() && handRight.holdingObj.grabColliders.Contains(otherCollider))
                             overlapCount--;
+                    }
                 }
             }
+            
 
             //If the head is overlapping with something, move the head/body away from the overlapped objects
             if(overlapCount > 0) {
@@ -801,8 +818,12 @@ namespace Autohand {
                 targetPosOffset = Vector3.zero;
                 targetTrackedPos = new Vector3(trackingContainer.position.x, targetTrackedPos.y, trackingContainer.position.z);
 
-                handRight.handFollow.AverageSetMoveTo();
-                handLeft.handFollow.AverageSetMoveTo();
+                if( handRight!= null && handLeft != null )
+                {
+                    handRight.handFollow.AverageSetMoveTo();
+                    handLeft.handFollow.AverageSetMoveTo();
+                }
+                
                 Physics.SyncTransforms();
 
                 OnSmoothTurn?.Invoke(this);

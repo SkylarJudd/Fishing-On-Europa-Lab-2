@@ -5,239 +5,242 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public enum Scenes
+namespace Europa
 {
-    _ERROR,
-    _TUTORIAL,
-    _ESSENTIALES,
-    _MAINMENU_SCENE,
-    _FARM_SCENE,
-    _DOME_SCENE,
-    _FISHINGTEST_SCENE
-}
-
-public class SceneController : Singleton<SceneController>
-{
-    [Header("Scenes")]
-    public Scenes[] IgnoreScenes;
-    public Scenes currentEnviromentScene;
-
-    [Header("DefaultTransform")]
-    [SerializeField]
-    private Transform defaultTransform;
-
-    [Header("Debug")]
-    [SerializeField] bool debug;
-    [SerializeField] Scenes starterScene;
-
-    private void Start()
+    public enum Scenes
     {
-        currentEnviromentScene = DetectCurrentActiveEnviromentScene();
-
-        if (currentEnviromentScene == Scenes._ERROR)
-            Debug.LogError("Was unable to find Scene, check the name and ensure the scene exists");
-
-        if(debug)
-        {
-            Debug.LogWarning($"Switching to {starterScene} from {currentEnviromentScene} If this is not what you wanted toggle on Debug");
-            StartCoroutine(SwitchScene(starterScene));
-        }
-
-        else if (currentEnviromentScene != Scenes._MAINMENU_SCENE && !debug)
-        {
-            Debug.LogWarning($"Switching to Main Menu from {currentEnviromentScene} If this is not what you wanted toggle on Debug");
-            StartCoroutine(SwitchScene(Scenes._MAINMENU_SCENE));
-        }
+        _ERROR,
+        _TUTORIAL,
+        _ESSENTIALES,
+        _MAINMENU_SCENE,
+        _FARM_SCENE,
+        _DOME_SCENE,
+        _FISHINGTEST_SCENE
     }
 
-    /// <summary>
-    /// Will find the active environment scene that is currently active
-    /// </summary>
-    private Scenes DetectCurrentActiveEnviromentScene()
+    public class SceneController : Singleton<SceneController>
     {
-        foreach (var scene in Enum.GetValues(typeof(Scenes)))
-        {
-            Scenes _Scene = (Scenes)scene;
-            if (_Scene == Scenes._ERROR) continue;
+        [Header("Scenes")]
+        public Scenes[] IgnoreScenes;
+        public Scenes currentEnviromentScene;
 
-            for (int i = 0; i < SceneManager.sceneCount; i++)
+        [Header("DefaultTransform")]
+        [SerializeField]
+        private Transform defaultTransform;
+
+        [Header("Debug")]
+        [SerializeField] bool debug;
+        [SerializeField] Scenes starterScene;
+
+        private void Start()
+        {
+            currentEnviromentScene = DetectCurrentActiveEnviromentScene();
+
+            if (currentEnviromentScene == Scenes._ERROR)
+                Debug.LogError("Was unable to find Scene, check the name and ensure the scene exists");
+
+            if (debug)
             {
-                var activeScene = SceneManager.GetSceneAt(i);
-                if (activeScene.name.Equals(_Scene.ToString(), StringComparison.OrdinalIgnoreCase))
+                Debug.LogWarning($"Switching to {starterScene} from {currentEnviromentScene} If this is not what you wanted toggle on Debug");
+                StartCoroutine(SwitchScene(starterScene));
+            }
+
+            else if (currentEnviromentScene != Scenes._MAINMENU_SCENE && !debug)
+            {
+                Debug.LogWarning($"Switching to Main Menu from {currentEnviromentScene} If this is not what you wanted toggle on Debug");
+                StartCoroutine(SwitchScene(Scenes._MAINMENU_SCENE));
+            }
+        }
+
+        /// <summary>
+        /// Will find the active environment scene that is currently active
+        /// </summary>
+        private Scenes DetectCurrentActiveEnviromentScene()
+        {
+            foreach (var scene in Enum.GetValues(typeof(Scenes)))
+            {
+                Scenes _Scene = (Scenes)scene;
+                if (_Scene == Scenes._ERROR) continue;
+
+                for (int i = 0; i < SceneManager.sceneCount; i++)
                 {
-                    if (Array.Exists(IgnoreScenes, s => s == _Scene))
-                        continue;
-                    return _Scene;
+                    var activeScene = SceneManager.GetSceneAt(i);
+                    if (activeScene.name.Equals(_Scene.ToString(), StringComparison.OrdinalIgnoreCase))
+                    {
+                        if (Array.Exists(IgnoreScenes, s => s == _Scene))
+                            continue;
+                        return _Scene;
+                    }
                 }
             }
+
+            return Scenes._ERROR;
         }
 
-        return Scenes._ERROR;
-    }
-
-    /// <summary>
-    /// Converts a string of the Scene to an Enum of the scene
-    /// </summary>
-    /// <param name="_SceneName"></param>
-    /// <returns></returns>
-    private Scenes GetSceneFromString(string _SceneName)
-    {
-        Scenes _Scene;
-        print($"SceneName = {_SceneName}");
-
-        switch (_SceneName)
+        /// <summary>
+        /// Converts a string of the Scene to an Enum of the scene
+        /// </summary>
+        /// <param name="_SceneName"></param>
+        /// <returns></returns>
+        private Scenes GetSceneFromString(string _SceneName)
         {
-            case "_ESSENTIALES":
-                _Scene = Scenes._ESSENTIALES;
-                break;
-            case "_MAINMENU_SCENE":
-                _Scene = Scenes._MAINMENU_SCENE;
-                break;
-            case "_FARM_SCENE":
-                _Scene = Scenes._FARM_SCENE;
-                break;
-            case "_DOME_SCENE":
-                _Scene = Scenes._DOME_SCENE;
-                break;
-            case "_TUTORIAL":
-                _Scene = Scenes._TUTORIAL;
-                break;
-            case "_FISHINGTEST_SCENE":
-                _Scene = Scenes._FISHINGTEST_SCENE;
-                break;
+            Scenes _Scene;
+            print($"SceneName = {_SceneName}");
 
-            default:
-                _Scene = Scenes._ERROR;
-                break;
-        }
-        return _Scene;
-    }
-
-    /// <summary>
-    /// Takes in a string and uses that to change the scene
-    /// </summary>
-    /// <param name="_sceneName"></param>
-    public void ChangeScene(string _sceneName)
-    {
-        Scenes scenes = GetSceneFromString(_sceneName);
-        if (scenes == Scenes._ERROR)
-        {
-            Debug.LogError($"Count not find {_sceneName} Check you're using the right name, or add the scene to the scene controller Enum and switch statment");
-            return;
-        }
-        else
-        {
-            StartCoroutine(SwitchScene(scenes));
-        }
-    }
-
-    /// <summary>
-    /// Takes in an Enum of Scene and uses that to change the scene
-    /// </summary>
-    /// <param name="_sceneName"></param>
-    public void ChangeScene(Scenes _sceneName)
-    {
-        if (_sceneName == Scenes._ERROR)
-        {
-            Debug.LogError($"Count not find {_sceneName} Check you're using the right name, or add the scene to the scene controller Enum and switch statment");
-            return;
-        }
-        else
-        {
-            StartCoroutine(SwitchScene(_sceneName));
-        }
-    }
-
-    /// <summary>
-    /// Takes in an Enum of the Scene and uses that to change the Scene Asynchronously, unloading the current environment scene, and waits while the two operations are completing
-    /// </summary>
-    /// <param name="_sceneName"></param>
-    /// <returns></returns>
-    IEnumerator SwitchScene(Scenes _sceneName)
-    {
-        AsyncOperation unload;
-        if (currentEnviromentScene != Scenes._ERROR)
-        {
-            unload = SceneManager.UnloadSceneAsync(currentEnviromentScene.ToString());
-            while (!unload.isDone)
+            switch (_SceneName)
             {
-                yield return new WaitForEndOfFrame();
+                case "_ESSENTIALES":
+                    _Scene = Scenes._ESSENTIALES;
+                    break;
+                case "_MAINMENU_SCENE":
+                    _Scene = Scenes._MAINMENU_SCENE;
+                    break;
+                case "_FARM_SCENE":
+                    _Scene = Scenes._FARM_SCENE;
+                    break;
+                case "_DOME_SCENE":
+                    _Scene = Scenes._DOME_SCENE;
+                    break;
+                case "_TUTORIAL":
+                    _Scene = Scenes._TUTORIAL;
+                    break;
+                case "_FISHINGTEST_SCENE":
+                    _Scene = Scenes._FISHINGTEST_SCENE;
+                    break;
+
+                default:
+                    _Scene = Scenes._ERROR;
+                    break;
             }
-
+            return _Scene;
         }
 
-        AsyncOperation load = SceneManager.LoadSceneAsync(_sceneName.ToString(), LoadSceneMode.Additive);
-        currentEnviromentScene = _sceneName;
-
-
-        while (!load.isDone)
+        /// <summary>
+        /// Takes in a string and uses that to change the scene
+        /// </summary>
+        /// <param name="_sceneName"></param>
+        public void ChangeScene(string _sceneName)
         {
-            yield return new WaitForEndOfFrame();
-        }
-        yield return new WaitForEndOfFrame();
-
-        Transform waypoint = GetWaypointTransform();
-        
-        _PLAYER.UpdatePlayerTransform(waypoint);
-       
-
-        yield return null;
-    }
-
-    private Transform GetWaypointTransform()
-    {
-        // Try to find the SceneInfoContainer
-        SceneInfoContainer sceneInfoContainer = FindObjectOfType<SceneInfoContainer>();
-
-        // Check if SceneInfoContainer exists and has waypoints
-        if (sceneInfoContainer != null && sceneInfoContainer.entranceWaypoints.Count > 0)
-        {
-            // Get the first waypoint
-            Transform waypoint = sceneInfoContainer.entranceWaypoints[0];
-
-            // Check if the first waypoint is not null
-            if (waypoint != null)
+            Scenes scenes = GetSceneFromString(_sceneName);
+            if (scenes == Scenes._ERROR)
             {
-                return waypoint;
+                Debug.LogError($"Count not find {_sceneName} Check you're using the right name, or add the scene to the scene controller Enum and switch statment");
+                return;
             }
             else
             {
-                Debug.LogError("The first waypoint in the list is null. Using default transform.");
-                return defaultTransform; // Return defaultTransform if the waypoint is null
+                StartCoroutine(SwitchScene(scenes));
             }
         }
-        else
+
+        /// <summary>
+        /// Takes in an Enum of Scene and uses that to change the scene
+        /// </summary>
+        /// <param name="_sceneName"></param>
+        public void ChangeScene(Scenes _sceneName)
         {
-            Debug.LogError("SceneInfoContainer is either missing or has no waypoints. Using default transform.");
-            return defaultTransform; // Return defaultTransform if no valid SceneInfoContainer or waypoint
+            if (_sceneName == Scenes._ERROR)
+            {
+                Debug.LogError($"Count not find {_sceneName} Check you're using the right name, or add the scene to the scene controller Enum and switch statment");
+                return;
+            }
+            else
+            {
+                StartCoroutine(SwitchScene(_sceneName));
+            }
         }
+
+        /// <summary>
+        /// Takes in an Enum of the Scene and uses that to change the Scene Asynchronously, unloading the current environment scene, and waits while the two operations are completing
+        /// </summary>
+        /// <param name="_sceneName"></param>
+        /// <returns></returns>
+        IEnumerator SwitchScene(Scenes _sceneName)
+        {
+            AsyncOperation unload;
+            if (currentEnviromentScene != Scenes._ERROR)
+            {
+                unload = SceneManager.UnloadSceneAsync(currentEnviromentScene.ToString());
+                while (!unload.isDone)
+                {
+                    yield return new WaitForEndOfFrame();
+                }
+
+            }
+
+            AsyncOperation load = SceneManager.LoadSceneAsync(_sceneName.ToString(), LoadSceneMode.Additive);
+            currentEnviromentScene = _sceneName;
+
+
+            while (!load.isDone)
+            {
+                yield return new WaitForEndOfFrame();
+            }
+            yield return new WaitForEndOfFrame();
+
+            Transform waypoint = GetWaypointTransform();
+
+            _PLAYER.UpdatePlayerTransform(waypoint);
+
+
+            yield return null;
+        }
+
+        private Transform GetWaypointTransform()
+        {
+            // Try to find the SceneInfoContainer
+            SceneInfoContainer sceneInfoContainer = FindObjectOfType<SceneInfoContainer>();
+
+            // Check if SceneInfoContainer exists and has waypoints
+            if (sceneInfoContainer != null && sceneInfoContainer.entranceWaypoints.Count > 0)
+            {
+                // Get the first waypoint
+                Transform waypoint = sceneInfoContainer.entranceWaypoints[0];
+
+                // Check if the first waypoint is not null
+                if (waypoint != null)
+                {
+                    return waypoint;
+                }
+                else
+                {
+                    Debug.LogError("The first waypoint in the list is null. Using default transform.");
+                    return defaultTransform; // Return defaultTransform if the waypoint is null
+                }
+            }
+            else
+            {
+                Debug.LogError("SceneInfoContainer is either missing or has no waypoints. Using default transform.");
+                return defaultTransform; // Return defaultTransform if no valid SceneInfoContainer or waypoint
+            }
+        }
+
+        /// <summary>
+        /// This function will quit the game, if called this will quit without saving and should only be called after save has been called. 
+        /// </summary>
+        public void QuitGame()
+        {
+            Application.Quit();
+        }
+
+        #region TestLoads
+
+        /// <summary>
+        /// Test Load to Load the Main Menu from within Unity
+        /// </summary>
+        [ContextMenu("Load Main Menu")]
+        public void LoadMainMenu() => StartCoroutine(SwitchScene(Scenes._MAINMENU_SCENE));
+        /// <summary>
+        /// Test Load to Load the Farm Scene from within Unity
+        /// </summary>
+        [ContextMenu("Load Farm Scene")]
+        public void LoadFarmScene() => StartCoroutine(SwitchScene(Scenes._FARM_SCENE));
+        /// <summary>
+        /// Test Load to Load the Dome Scene from within Unity
+        /// </summary>
+        [ContextMenu("Load Dome Scene")]
+        public void LoadDomeScene() => StartCoroutine(SwitchScene(Scenes._DOME_SCENE));
+
+        #endregion
     }
-
-    /// <summary>
-    /// This function will quit the game, if called this will quit without saving and should only be called after save has been called. 
-    /// </summary>
-    public void QuitGame()
-    {
-        Application.Quit();
-    }
-
-    #region TestLoads
-
-    /// <summary>
-    /// Test Load to Load the Main Menu from within Unity
-    /// </summary>
-    [ContextMenu("Load Main Menu")]
-    public void LoadMainMenu() => StartCoroutine(SwitchScene(Scenes._MAINMENU_SCENE));
-    /// <summary>
-    /// Test Load to Load the Farm Scene from within Unity
-    /// </summary>
-    [ContextMenu("Load Farm Scene")]
-    public void LoadFarmScene() => StartCoroutine(SwitchScene(Scenes._FARM_SCENE));
-    /// <summary>
-    /// Test Load to Load the Dome Scene from within Unity
-    /// </summary>
-    [ContextMenu("Load Dome Scene")]
-    public void LoadDomeScene() => StartCoroutine(SwitchScene(Scenes._DOME_SCENE));
-
-    #endregion
 }
