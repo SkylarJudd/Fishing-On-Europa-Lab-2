@@ -11,7 +11,6 @@ namespace Europa
     {
         [SerializeField] private FishToSpawnSO fishToSpawn;
 
-        [SerializeField] List<FOEItem_Hybrid> hybridInfos = new List<FOEItem_Hybrid>();
         [SerializeField] Transform[] tankOneSpawnPoints;
         [SerializeField] Transform[] tankTwoSpawnPoints;
         [SerializeField] Transform[] defaultGroundSpawnPoints;
@@ -115,23 +114,27 @@ namespace Europa
 
             FOEItem_Hybrid _baseHybridItem = GetHybridFromID(_hybrid.itemID, fishToSpawn);
 
-            _hybrid.itemGO = _OPM.SpawnObject(_baseHybridItem.europaItemSO.itemPrefab, spawnPoint.position, spawnPoint.rotation, _baseHybridItem.europaItemSO.poolType);
+            GameObject _hybridGO = _OPM.SpawnObject(_baseHybridItem.europaItemSO.itemPrefab, spawnPoint.position, spawnPoint.rotation, _baseHybridItem.europaItemSO.poolType);
 
-            FOEItem_Hybrid _newHybridItem = _hybrid.itemGO.GetComponent<FOEItem_Hybrid>();
+            FOEItem_Hybrid _newHybridItem = _hybridGO.GetComponent<FOEItem_Hybrid>();
+
+            _newHybridItem.europaItemData.itemGO = _hybridGO;
+
+            _hybrid.itemGO = _newHybridItem;
 
             _hybridsToNavList.Add(_newHybridItem);
 
-            _newHybridItem.InitSavedHybrid(_hybrid, spawnPoint, waterHight, _hybrid.itemLocation, HybridState.HybridFlocking, HybridVisualsState.World);
+            _newHybridItem.InitSavedHybrid(_hybridGO, _hybrid, spawnPoint, waterHight, _hybrid.itemLocation, HybridState.HybridFlocking, HybridVisualsState.World);
 
             _hybridsSwimmingList.Add(_newHybridItem);
 
-            //_FNAVM.AddHybridTolist(_newHybridItem, HybridState.HybridFlocking);
 
+            _hybrid.hybridTrust = 100;
         }
 
         private void RemoveHybridFromTank(FOESaveItem_Hybrid _hybrid)
         {
-            _OPM.ReturnObjectToPool(_hybrid.itemGO);
+            _OPM.ReturnObjectToPool(_hybrid.itemGO.europaItemData.itemGO);
         }
     }
 }

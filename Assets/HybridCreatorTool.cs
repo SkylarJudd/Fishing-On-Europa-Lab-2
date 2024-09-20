@@ -37,7 +37,7 @@ namespace Europa
             _newHybrid.itemInventorySlot = InventorySlot;
             _newHybrid.hybridName = hybridName;
             _newHybrid.hybridShiny = hybridShiney;
-            _newHybrid.hybridHappiness = hybridHappiness;
+            _newHybrid.hybridTrust = hybridHappiness;
 
 
             _list.Add(_newHybrid);

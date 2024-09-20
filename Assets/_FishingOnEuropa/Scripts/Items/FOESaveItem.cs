@@ -9,7 +9,7 @@ namespace Europa
     public class FOESaveItem
     {
         public int itemID;
-        public GameObject itemGO;
+        public FOEItem itemGO;
         public Transform itemPos;
         public ItemLocation itemLocation;
         public int itemInventorySlot;
@@ -20,7 +20,7 @@ namespace Europa
     {
         public string hybridName;
         public bool hybridShiny;
-        public int hybridHappiness;
+        public int hybridTrust;
     }
     [Serializable]
     public class FOESaveItem_Crop : FOESaveItem

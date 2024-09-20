@@ -100,21 +100,21 @@ namespace Europa
         public IEnumerator PlantCrop(FOEItem_Seed _Seed, int index)
         {
             ableToPlant = false;
-            yield return CheckIfCanPlant(_Seed.europaItemSO.itemTransform.position, _Seed.europaItemSO.itemRB);
+            yield return CheckIfCanPlant(_Seed.europaItemData.itemTransform.position, _Seed.europaItemData.itemRB);
 
             if (ableToPlant == true)
             {
                 CropData newitem = new CropData();
                 //newitem.go = _Seed.gameObject;
                 newitem.itemID = _Seed.europaItemSO.itemID;
-                newitem.itemTransform = _Seed.europaItemSO.itemTransform;
+                newitem.itemTransform = _Seed.europaItemData.itemTransform;
                 newitem.cropState = CropState.Seed;
                 newitem.farmIndex = index;
 
 
-                _Seed.europaItemSO.itemRB.isKinematic = true;
-                _Seed.europaItemSO.itemRB.useGravity = false;
-                _Seed.europaItemSO.itemGrabbable.isGrabbable = false;
+                _Seed.europaItemData.itemRB.isKinematic = true;
+                _Seed.europaItemData.itemRB.useGravity = false;
+                _Seed.europaItemData.itemGrabbable.isGrabbable = false;
                 //_Seed.transform.rotation = new Quaternion(0, 0, 0, 0);
 
                 cropList.Add(newitem);

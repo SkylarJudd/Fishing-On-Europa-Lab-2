@@ -51,7 +51,7 @@ namespace Europa
 
         private void OnApplicationQuit()
         {
-            //Save();
+            Save();
         }
 
         private void OnApplicationFocus(bool appInFocus)

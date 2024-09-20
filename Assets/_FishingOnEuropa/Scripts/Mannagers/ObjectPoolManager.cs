@@ -205,7 +205,7 @@ namespace Europa
 
             if (pool == null)
             {
-                Debug.LogWarning("Trying To Releace An Object That is Not Pooled: " + obj.name);
+                Debug.LogWarning("Trying To Release An Object That is Not Pooled: " + obj.name);
             }
             else
             {

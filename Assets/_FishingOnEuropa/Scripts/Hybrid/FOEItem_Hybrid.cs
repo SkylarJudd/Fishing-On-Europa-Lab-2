@@ -27,6 +27,8 @@ namespace Europa
         [SerializeField]
         GameObject patTrigger;
 
+        FOESaveItem_Hybrid _hybridSave;
+
 
         private void Start()
         {
@@ -68,7 +70,7 @@ namespace Europa
 
         public void InitHybrid(GameObject go, float waterHight, ItemLocation pondType, HybridState state, HybridVisualsState visualState)
         {
-            europaItemSO.itemGO = go;
+            europaItemData.itemGO = go;
 
             navigationData.waterHeight = waterHight;
             navigationData.hybridLocation = pondType;
@@ -81,21 +83,25 @@ namespace Europa
 
             // Assign Rigidbody to hybrid, or add one if it is missing
 
-            if (europaItemSO.itemRB == null)
+            if (europaItemData.itemRB == null)
             {
-                Debug.LogWarning($"{europaItemSO.itemGO.name} does not have a Rigidbody; one has been assigned");
-                europaItemSO.itemRB = europaItemSO.itemGO.AddComponent<Rigidbody>();
+                Debug.LogWarning($"{europaItemData.itemGO.name} does not have a Rigidbody; one has been assigned");
+                europaItemData.itemRB = europaItemData.itemGO.AddComponent<Rigidbody>();
             }
 
             SetVisuals(visualState);
         }
 
-        public void InitSavedHybrid(FOESaveItem_Hybrid savedHybrid, Transform spawnPoint, float waterHight, ItemLocation location, HybridState state, HybridVisualsState visualState)
+        public void InitSavedHybrid(GameObject go, FOESaveItem_Hybrid savedHybrid, Transform spawnPoint, float waterHight, ItemLocation location, HybridState state, HybridVisualsState visualState)
         {
+            europaItemData.itemGO = go;
 
-            europaItemSO.itemGO = savedHybrid.itemGO;
-            europaItemSO.itemName = savedHybrid.hybridName;
-            europaItemSO.itemTransform = spawnPoint;
+            _hybridSave = savedHybrid;
+
+            _hybridSave.hybridTrust = savedHybrid.hybridTrust;
+
+            europaItemData.itemName = savedHybrid.hybridName;
+            europaItemData.itemTransform = spawnPoint;
 
             navigationData.shiny = savedHybrid.hybridShiny;
             navigationData.waterHeight = waterHight;
@@ -106,6 +112,8 @@ namespace Europa
             navigationData.minSpeed = hybridSO.fishSpeed;
             navigationData.maxSpeed = hybridSO.fishSpeed * 2;
             navigationData.velocity = Vector3.forward * hybridSO.fishSpeed;
+
+            nameText.text = europaItemData.itemName;
 
             SetVisuals(visualState);
         }
