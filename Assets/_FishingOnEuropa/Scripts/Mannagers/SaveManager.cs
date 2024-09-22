@@ -1,11 +1,14 @@
-using NaughtyAttributes;
-using Obvious.Soap;
+
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Security.Cryptography;
 using UnityEngine;
+
+
+
+// This is the save manager It manages all the save data Inside the game and is responsible for saving and loading files from the players computer
+// If you would like more info in the SaveManager you can find documentation at https://app.clickup.com/9014574275/v/dc/8cmyz63-1474/8cmyz63-2114
 
 
 namespace Europa
@@ -13,8 +16,11 @@ namespace Europa
     public class SaveManager : Singleton<SaveManager>
     {
         [Header("Saves")]
-        public List<SavedSaveData> saveDatas = new List<SavedSaveData>();
-        public CurrentSaveData currentSave;
+        [Tooltip("A List that holds all the Stored Save Data once they are loaded")] //SaveData is a list of SavedSaveData that is a class that holds all the data in a form that can be serialized by the Jason converter. 
+        public List<FOEDataFromSave> saveDatas = new List<FOEDataFromSave>();
+        [Tooltip("A Class that holds the Stored Save Data thats been loaded from one of the save data's")] // this is a class of CurrentSaveData that holds information about all the saved items in the game within a soap format, allowing them to be accessed where they are needed and saved without ever needing to communicate with the save manager. 
+        public FOEDataThatHasBeenLoaded currentSave;
+        [Tooltip("In index that stores the current save")] //current save Index is Used to store the Current File that is being used. This number starts at one, so if you need to access the array make sure to -1 from this values to get its location. 
         public int currentSaveIndex;
 
         [Header("SaveSettings")]
@@ -32,6 +38,8 @@ namespace Europa
         private byte[] cryptoKey = { 0xF7, 0x24, 0x94, 0x08, 0x71, 0xE9, 0x64, 0x51, 0xC3, 0x5B, 0x84, 0x60, 0xCC, 0x55, 0x12, 0x76 };
         [SerializeField, Tooltip("Date format")]
         public static string dateFormat = "yyyy-MM-dd HH:mm:ss zzz";
+
+
         /// <summary>
         /// Gets the path of where the application is installed
         /// </summary>
@@ -43,14 +51,35 @@ namespace Europa
         /// <returns></returns>
         private string MakeTimestampNow() => DateTime.Now.ToString(dateFormat);
 
+        /// <summary>
+        /// Called at the start of the game Though An event Listener attached to this GameObject.
+        /// </summary>
         public void StartGame()
         {
-            print("Starting Save");
+
             FindAllSaves();
         }
 
+        /// <summary>
+        /// Called at the End of the game and when the game is unfocused though an event listener attached to this GameObject.
+        /// </summary>
+        public void SaveGame()
+        {
+            if (saveDatas.Count == 0 || saveDatas == null)
+                return;
+
+            Save();
+        }
+
+
+        /// <summary>
+        /// REMOVE AS SOON AS THE ABOVE IS SET UP!!
+        /// </summary>
         private void OnApplicationQuit()
         {
+            if(saveDatas.Count == 0 || saveDatas == null)
+                return;
+
             Save();
         }
 
@@ -68,49 +97,42 @@ namespace Europa
         [ContextMenu("NewSave")]
         public bool NewSave()
         {
+            //Checks to see if the Max file size is equal to or has exceeded the limit. If it has it means the player has created a new save inside the save file, we need to find a way to warn the player about this. 
             if (saveDatas.Count >= maxSaves)
             {
                 return false;
             }
 
-            currentSaveIndex = saveDatas.Count;
-            SavedSaveData _newSave = new SavedSaveData();
+            currentSaveIndex = saveDatas.Count;                     //Sets the SaveIndex to the current number of saves so when a new save is made its numbered after the current max file. 
+            FOEDataFromSave _newSave = new FOEDataFromSave();           //Creates a new SavedSaveData class as a container for the new save. 
             Debug.Log("New game save created");
 
-            _newSave = InitializeNewSave(_newSave);
+            _newSave = InitializeNewSave(_newSave);                 //Initialize The newSave with the default Values.                            
 
-            saveDatas.Add(_newSave);
-            LoadData(_newSave);
+            saveDatas.Add(_newSave);                                //Adds the New save to the saveDatas
+            LoadData(_newSave);                                     //Loads the New Nave into the current save data
 
-            Save();
+            Save();                                                 //Saves the new File to the computers files. 
 
             return true;
         }
 
-        private void SetCurrentSave()
-        {
-
-        }
+       
 
         /// <summary>
-        /// Sets the starting Values for a save
+        /// Initialize A new save file setting the default values that a new player will start with. 
         /// </summary>
-        private SavedSaveData InitializeNewSave(SavedSaveData _NewSave)
+        private FOEDataFromSave InitializeNewSave(FOEDataFromSave _NewSave)
         {
             print("InitializingSave");
             _NewSave.saveName = fileName + currentSaveIndex;
-            _NewSave.saveDate = MakeTimestampNow();
+            _NewSave.saveDate = MakeTimestampNow();                         //Calls the MakeTimeStampNow that returns a string value that holds the current Timestamp
 
             _NewSave.hybridFarmList = new List<SaveHybrid>();
             _NewSave.hybridDomeList = new List<SaveHybrid>();
             _NewSave.hybridsInventoryList = new List<SaveHybrid>();
 
-            if (_NewSave.player == null)
-            {
-                Debug.LogError("_NewSave.player is null");
-            }
-            Debug.Log(Scenes._TUTORIAL); // Check if it's logging the correct value
-            _NewSave.player.currentScene = (int)Scenes._TUTORIAL;
+            _NewSave.player.currentScene = (int)CurrentScenes._TUTORIAL;
             _NewSave.player.location = Vector3.zero;
 
             _NewSave.settings.moveSettings.turnType = 1;
@@ -140,6 +162,7 @@ namespace Europa
 
             return _NewSave;
         }
+
         /// <summary>
         /// Loads the save data from the specified save index
         /// </summary>
@@ -147,12 +170,13 @@ namespace Europa
         public void Load(int saveIndex)
         {
 
-            SavedSaveData _Save = LoadDataObject<SavedSaveData>(saveIndex);
+            FOEDataFromSave _Save = LoadDataObject<FOEDataFromSave>(saveIndex);
             LoadData(_Save);
 
             currentSaveIndex = saveIndex;
-            // Call event to load all objects that need to be loaded
+            
         }
+
         /// <summary>
         /// Will save the data currently stored in the current save to its corresponding file. 
         /// </summary>
@@ -176,7 +200,7 @@ namespace Europa
         /// </summary>
         /// <typeparam name="T">The type of data to return</typeparam>
         /// <returns></returns>
-        protected T LoadDataObject<T>(int saveIndex) where T : SavedSaveData
+        protected T LoadDataObject<T>(int saveIndex) where T : FOEDataFromSave
         {
             if (File.Exists(GetPath(saveIndex)))
             {
@@ -225,7 +249,7 @@ namespace Europa
         /// </summary>
         /// <typeparam name="T">The data type</typeparam>
         /// <param name="data">The data object to save</param>
-        protected void SaveDataObject<T>(T data, int saveIndex) where T : SavedSaveData
+        protected void SaveDataObject<T>(T data, int saveIndex) where T : FOEDataFromSave
         {
             string path = GetPath(saveIndex);
             Debug.Log("Saving data to: " + path);
@@ -276,32 +300,40 @@ namespace Europa
             }
         }
         /// <summary>
-        /// Finds all save data in our Directory
+        /// Finds all save data in our Directory and loads them into the saveDatas List
         /// </summary>
         private void FindAllSaves()
         {
             Debug.Log("Locating saves");
             for (int i = 0; i < maxSaves; i++)
             {
+                //Checks to see if the File exists with an index of 1
                 if (File.Exists(GetPath(i)))
                 {
                     Debug.Log($"Save found: {GetPath(i)}");
-                    saveDatas.Add(LoadDataObject<SavedSaveData>(i));
+                    saveDatas.Add(LoadDataObject<FOEDataFromSave>(i));
                 }
             }
 
-            if (saveDatas.Count == 0)
+            //Do we need to check if the player has more then the max number of saves? If so we should do it here. 
+
+            
+            if (saveDatas.Count == 0) //Creates a new save if there is no saves loaded first time entering the game. 
             {
                 NewSave();
             }
-            else
+            else // Loads the first save in the list, This will need to be changed to another file, that contains info about the last played file, and the temp audio settings from that last file. 
             {
                 Load(0);
             }
         }
 
-
-        private void LoadData(SavedSaveData savedData)
+        //If you wish to add a new object to the save go to these docs. https://app.clickup.com/9014574275/v/dc/8cmyz63-1474/8cmyz63-6174
+        /// <summary>
+        /// This loads the Data from the SavedSaveData to the Current Save Data
+        /// </summary>
+        /// <param name="savedData"></param>
+        private void LoadData(FOEDataFromSave savedData)
         {
 
             // Load Basic Information
@@ -385,6 +417,13 @@ namespace Europa
 
 
         }
+
+        /// <summary>
+        /// Converts a FOESaveItem To a SaveHybrid The FOESaveItem_Hybrid is found in a scriptible list that contains a list of FOESaveItem_Hybrids
+        /// </summary>
+        /// <param name="_loadHybrid"></param>
+        /// <param name="_savedHybrid"></param>
+        /// <returns></returns>
         private FOESaveItem_Hybrid SetHybridData(FOESaveItem_Hybrid _loadHybrid, SaveHybrid _savedHybrid)
         {
             _loadHybrid.itemID = _savedHybrid.itemID;
@@ -422,7 +461,7 @@ namespace Europa
 
         private void SaveData()
         {
-            SavedSaveData saveData = saveDatas[currentSaveIndex];
+            FOEDataFromSave saveData = saveDatas[currentSaveIndex];
 
             // Save Basic Information
             saveData.saveName = currentSave.saveName.Value;

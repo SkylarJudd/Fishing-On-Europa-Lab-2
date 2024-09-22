@@ -129,7 +129,7 @@ namespace Europa
             _hybridsSwimmingList.Add(_newHybridItem);
 
 
-            _hybrid.hybridTrust = 100;
+            
         }
 
         private void RemoveHybridFromTank(FOESaveItem_Hybrid _hybrid)

@@ -4,6 +4,6 @@ using UnityEngine;
 
 public interface ISavable
 {
-    void LoadData(CurrentSaveData data);
-    void SaveData(ref CurrentSaveData data);
+    void LoadData(FOEDataThatHasBeenLoaded data);
+    void SaveData(ref FOEDataThatHasBeenLoaded data);
 }
