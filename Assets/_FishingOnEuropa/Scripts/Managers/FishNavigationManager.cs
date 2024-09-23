@@ -93,6 +93,8 @@ namespace Europa
 
         [SerializeField] float moveToPlayerStoppingDistance;
 
+        [SerializeField] float hybridDistanceToEat;
+
 
         private void Start()
         {
@@ -231,10 +233,13 @@ namespace Europa
                 if (_food == _leftFood.foodType)
                 {
                     SetHybridTargetState(_hybrid, _PLAYER.leftHandFood.europaItemSO.itemGO.transform);
+                    HybridEat(_hybrid, _leftFood, _PLAYER.leftHandFood.europaItemSO.itemGO.transform);
                 }
                 else if (_food == _rightFood.foodType)
                 {
                     SetHybridTargetState(_hybrid, _PLAYER.rightHandFood.europaItemSO.itemGO.transform);
+                    HybridEat(_hybrid, _rightFood, _PLAYER.rightHandFood.europaItemSO.itemGO.transform);
+
                 }
             }
         }
@@ -249,13 +254,11 @@ namespace Europa
             {
                 SetHybridTargetState(_hybrid, _PLAYER.leftHandPlushie.europaItemSO.itemGO.transform);
 
-                //Increase Trust Here
             }
             else if (_hybrid.hybridSO.favToy == _PLAYER.rightHandPlushie.ToyItem)
             {
                 SetHybridTargetState(_hybrid, _PLAYER.rightHandPlushie.europaItemSO.itemGO.transform);
 
-                //Increase Trust Here
             }
         }
 
@@ -275,6 +278,7 @@ namespace Europa
                     //play animation here
 
                     //Increase Trust Here
+                    _TM.UpdateHybridPatTrust(_hybridInfo);
 
                 }
             }
@@ -289,7 +293,31 @@ namespace Europa
 
 
                     //Increase Trust Here
+                    _TM.UpdateHybridPatTrust(_hybridInfo);
+
                 }
+            }
+        }
+        
+        /// <summary>
+        /// Check if hybrid is close enough to object to eat, then processes eat
+        /// </summary>
+        /// <param name="_hybrid"></param>
+        /// <param name="_food"></param>
+        /// <param name="_foodTransform"></param>
+        void HybridEat(FOEItem_Hybrid _hybrid, FOEItem_Food _food, Transform _foodTransform)
+        {
+            if(Vector3.Distance(_hybrid.transform.position, _foodTransform.position)< hybridDistanceToEat)
+            {
+                //destroy/remove food item
+
+
+                //check if favourite food
+                bool isFav = false;
+                if (_hybrid.hybridSO.favFood == _food.foodItem)
+                    isFav = true;
+                //Increase Trust
+                _TM.UpdateHybridFeedTrust(_hybrid, isFav);
             }
         }
 
@@ -305,7 +333,6 @@ namespace Europa
             {
                 _hybrid.navigationData.hybridState = HybridState.HybridLookAtHand;
 
-                //Call eating food here
             }
         }
 
@@ -318,7 +345,7 @@ namespace Europa
                 {
                     foreach (FOEItem_Hybrid _hybrid in hybridsIdle)
                     {
-                        //Play Idel animation
+                        //Play Idle animation
                     }
                     // Remove hybrids from hybridsHitWater
                     foreach (var _hybrid in removeHybridsIdle)

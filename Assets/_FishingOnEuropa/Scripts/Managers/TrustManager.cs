@@ -6,36 +6,85 @@ namespace Europa
 {
     public class TrustManager : Singleton<TrustManager>
     {
-        // Start is called before the first frame update
-        void Start()
-        {
-        
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-        
-        }
+        [SerializeField] int pat_IncreaseTrust, feed_IncreaseTrust, favFeed_IncreaseTrust, plushie_IncreaseTrust;
+        [SerializeField] int feed_DecreaseTrust, charmNotCollected_DecreaseTrust;
 
 
         //subcribe to end of day
         void EndOfDayCheck(FOESaveItem_Hybrid _FOESaveItem_Hybrid)
         {
             //check if trust increasing actions have been done
-            //if they haven't decrease trust
 
-            //reset trust increasing value action trackers
+            //if they haven't been fed or charge hasn't been collected, decrease trust
+            if (!_FOESaveItem_Hybrid.charmCollectedCurrentDay)
+                _FOESaveItem_Hybrid.hybridTrust -= charmNotCollected_DecreaseTrust;
+            if (!_FOESaveItem_Hybrid.hasBeenFedCurrentDay)
+                _FOESaveItem_Hybrid.hybridTrust -= feed_DecreaseTrust;
 
-            //save
+            //reset trust increasing value action trackers and save them
             _FOESaveItem_Hybrid.hasBeenPatCurrentDay = false;
             _FOESaveItem_Hybrid.hasBeenFedCurrentDay = false;
             _FOESaveItem_Hybrid.hasBeenFedCurrentDay = false;
+            _FOESaveItem_Hybrid.charmCollectedCurrentDay = false;
 
         }
 
-        public void UpdateHybridPat()
+        public void InitaliseHybridCharm()
         {
+
+        }
+
+        /// <summary>
+        /// Increase trust when Hybrid is pat
+        /// </summary>
+        /// <param name="_itemHybrid"></param>
+        public void UpdateHybridPatTrust(FOEItem_Hybrid _itemHybrid)
+        {
+            if(!_itemHybrid.FOEhybridSaveData.hasBeenPatCurrentDay)
+            {
+                _itemHybrid.FOEhybridSaveData.hasBeenPatCurrentDay = true;
+
+                //increase trust
+                _itemHybrid.FOEhybridSaveData.hybridTrust += pat_IncreaseTrust;
+            }
+           
+        }
+
+        /// <summary>
+        /// Increase trust when Hybrid is near plushie
+        /// </summary>
+        /// <param name="_itemHybrid"></param>
+        public void UpdateHybridPlushieTrust(FOEItem_Hybrid _itemHybrid)
+        {
+            if (!_itemHybrid.FOEhybridSaveData.hasHadPlushieCurrentDay)
+            {
+
+                _itemHybrid.FOEhybridSaveData.hasHadPlushieCurrentDay = true;
+
+                //increase trust
+                _itemHybrid.FOEhybridSaveData.hybridTrust += plushie_IncreaseTrust;
+
+            }
+
+        }
+        
+        /// <summary>
+        /// Increase trust when Hybrid is fed
+        /// </summary>
+        /// <param name="_itemHybrid"></param>
+        public void UpdateHybridFeedTrust(FOEItem_Hybrid _itemHybrid, bool isFavFood)
+        {
+            if (!_itemHybrid.FOEhybridSaveData.hasBeenFedCurrentDay)
+            {
+                _itemHybrid.FOEhybridSaveData.hasBeenFedCurrentDay = true;
+
+                //increase trust
+                if(isFavFood)
+                    _itemHybrid.FOEhybridSaveData.hybridTrust += favFeed_IncreaseTrust;
+                else
+                    _itemHybrid.FOEhybridSaveData.hybridTrust += feed_IncreaseTrust;
+
+            }
 
         }
     }

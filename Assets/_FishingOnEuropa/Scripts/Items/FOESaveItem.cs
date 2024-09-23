@@ -22,10 +22,11 @@ namespace Europa
         public bool hybridShiny;
         public int hybridTrust;
 
-        //trust settings
+        //trust action tracking
         public bool hasBeenPatCurrentDay;
         public bool hasBeenFedCurrentDay;
         public bool hasHadPlushieCurrentDay;
+        public bool charmCollectedCurrentDay;
 
     }
     [Serializable]

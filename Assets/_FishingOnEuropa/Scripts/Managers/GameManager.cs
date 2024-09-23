@@ -54,6 +54,9 @@ namespace Europa
         private ScriptableEventNoParam _onGamePauseEnd;
         [SerializeField]
         private ScriptableEventNoParam _onExitGame;
+        
+        [SerializeField]
+        private ScriptableEventNoParam _onGameDayStart; //when new day starts in game
         #endregion
 
         public override void Awake()
@@ -131,12 +134,13 @@ namespace Europa
         [ContextMenu("Pause Game End")]
         public void ActionPauseGameEnd() => _onGamePauseEnd.Raise();
 
-
         [ContextMenu("Exit Game")]
         public void ActionExitGame() => _onExitGame.Raise();
 
+        [ContextMenu("Game Day Start")]
+        public void ActionGameDayStart() => _onGameDayStart.Raise();
 
-        
+
     }
 }
 

@@ -4,6 +4,8 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
+using Obvious.Soap;
+
 
 namespace Europa
 {
@@ -29,6 +31,7 @@ namespace Europa
         [SerializeField] CurrentTimeSO currentTimeSO;
         TimeService service;
 
+        [SerializeField] ScriptableEventNoParam newDayEvent;
 
         private void Awake()
         {
@@ -108,6 +111,9 @@ namespace Europa
             //day has passed
             if (currentTimeSO.hour == 75)
             {
+                //invoke new day event
+                newDayEvent.Raise();
+
                 currentTimeSO.day++;
                 currentTimeSO.hour = 0;
 

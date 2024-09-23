@@ -20,7 +20,7 @@ namespace Europa
         [SerializeField] private bool hybridShiney;
         [SerializeField] private ItemLocation hybridLocation = ItemLocation.Tank1;
         [SerializeField] private int InventorySlot;
-        [SerializeField] private int hybridHappiness;
+        [SerializeField] private int hybridTrust;
 
         [SerializeField] private Transform[] spawnPoints;
 
@@ -37,7 +37,7 @@ namespace Europa
             _newHybrid.itemInventorySlot = InventorySlot;
             _newHybrid.hybridName = hybridName;
             _newHybrid.hybridShiny = hybridShiney;
-            _newHybrid.hybridHappiness = hybridHappiness;
+            _newHybrid.hybridTrust = hybridTrust;
 
 
             _list.Add(_newHybrid);

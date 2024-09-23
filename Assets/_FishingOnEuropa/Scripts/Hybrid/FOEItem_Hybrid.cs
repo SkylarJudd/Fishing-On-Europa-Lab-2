@@ -15,6 +15,7 @@ namespace Europa
         ItemRarity rarity;
         public HybridSO hybridSO;
         public HybridNavigationData navigationData;
+        public FOESaveItem_Hybrid FOEhybridSaveData;
 
         [SerializeField]
         private GameObject inWorldVisuals;
@@ -96,7 +97,15 @@ namespace Europa
 
             SetVisuals(visualState);
         }
-
+        /// <summary>
+        /// Initalise data into Hybrid
+        /// </summary>
+        /// <param name="savedHybrid"></param>
+        /// <param name="spawnPoint"></param>
+        /// <param name="waterHight"></param>
+        /// <param name="location"></param>
+        /// <param name="state"></param>
+        /// <param name="visualState"></param>
         public void InitSavedHybrid(FOESaveItem_Hybrid savedHybrid, Transform spawnPoint, float waterHight, ItemLocation location, HybridState state, HybridVisualsState visualState)
         {
 
