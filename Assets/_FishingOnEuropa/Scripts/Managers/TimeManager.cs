@@ -4,6 +4,8 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
+using Obvious.Soap;
+
 
 namespace Europa
 {
@@ -108,6 +110,9 @@ namespace Europa
             //day has passed
             if (currentTimeSO.hour == 75)
             {
+                //invoke new day event
+                _GM.ActionGameDayStart();
+
                 currentTimeSO.day++;
                 currentTimeSO.hour = 0;
 

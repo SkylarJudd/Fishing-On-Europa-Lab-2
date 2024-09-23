@@ -11,6 +11,10 @@ namespace Europa
     public class FishNavigationManager : Singleton<FishNavigationManager>
     {
         [Header("All Hybrids In Pond")]
+
+        [Tooltip("A list that contains all the tamed hybrids.")]
+        [SerializeField] public ScriptableListFOEItem_Hybrid _hybridsTamedList;
+
         [Tooltip("a list that contains all the hybrids that has been spawned into this pond.")]
         [SerializeField] private ScriptableListFOEItem_Hybrid _hybridsToNavList;
 
@@ -93,6 +97,8 @@ namespace Europa
 
         [SerializeField] float moveToPlayerStoppingDistance;
 
+        [SerializeField] float hybridDistanceToEat;
+
 
         private void Start()
         {
@@ -127,11 +133,9 @@ namespace Europa
                     // Iterate through each hybrid in the pond
                     foreach (FOEItem_Hybrid _hybrid in _hybridsToNavList)
                     {
-                        // Update distance the hybrid is to the player
-                        _hybrid.navigationData.distanceToPlayer = Vector3.Distance(_PLAYER.player.transform.position, _hybrid.europaItemData.itemGO.transform.position);
-
-                        // Check if the hybrid is within the player's reaction distance
-                        if (_hybrid.navigationData.distanceToPlayer < playerReactionDistance)
+                        
+                        // Check if the hybrid is within the player's reaction distance using trigger on hybrid
+                        if (_hybrid.hybridSO.hybridInteractionTrigger.playerInRange)
                         {
                             // Add the hybrid to the react list if it's not already included
                             if (!hybridReactToPlayer.Contains(_hybrid))
@@ -148,6 +152,12 @@ namespace Europa
                             else
                             {
                                 ProcessPlayerWithoutItem(_hybrid);
+                            }
+
+                            //Check if player is patting hybrid
+                            if (_hybrid.ReturnPatTrigger() != null)
+                            {
+                                HybridPat(_hybrid.ReturnPatTrigger(), _hybrid);
                             }
                         }
                         else if (_hybrid.navigationData.distanceToPlayer > playerReactionDistanceReset && _hybrid.navigationData.hybridState == HybridState.HybridWatchPlayer)
@@ -225,10 +235,12 @@ namespace Europa
                 if (_food == _leftFood.foodType)
                 {
                     SetHybridTargetState(_hybrid, _PLAYER.leftHandFood.europaItemData.itemGO.transform);
+                    HybridEat(_hybrid, _leftFood, _PLAYER.leftHandFood.europaItemData.itemGO.transform);
                 }
                 else if (_food == _rightFood.foodType)
                 {
                     SetHybridTargetState(_hybrid, _PLAYER.rightHandFood.europaItemData.itemGO.transform);
+                    HybridEat(_hybrid, _rightFood, _PLAYER.rightHandFood.europaItemData.itemGO.transform);
                 }
             }
         }
@@ -242,11 +254,75 @@ namespace Europa
             if (_hybrid.hybridSO.favToy == _PLAYER.leftHandPlushie.ToyItem)
             {
                 SetHybridTargetState(_hybrid, _PLAYER.leftHandPlushie.europaItemData.itemGO.transform);
+
             }
             else if (_hybrid.hybridSO.favToy == _PLAYER.rightHandPlushie.ToyItem)
             {
                 SetHybridTargetState(_hybrid, _PLAYER.rightHandPlushie.europaItemData.itemGO.transform);
+
             }
+        }
+
+        /// <summary>
+        /// Processes player patting hybrid
+        /// </summary>
+        void HybridPat(Transform handState, FOEItem_Hybrid _hybridInfo)
+        {
+
+            //check if hand that is in trigger is holding an item
+            if (handState == _PLAYER.leftHand && _PLAYER.leftHandFood == null && _PLAYER.leftHandPlushie == null)
+            {
+
+                //check if hand is moving
+                if (_PLAYER.leftHand.GetComponent<Rigidbody>().velocity.magnitude >= 1)
+                {
+                    //play animation here
+
+                    //Increase Trust Here
+                    _TM.UpdateHybridPatTrust(_hybridInfo);
+
+                }
+            }
+            else if (handState == _PLAYER.rightHand && _PLAYER.rightHandFood == null && _PLAYER.rightHandPlushie == null)
+            {
+
+                //check if hand is moving
+                if (_PLAYER.rightHand.GetComponent<Rigidbody>().velocity.magnitude >= 1)
+                {
+
+                    //play animation here
+
+
+                    //Increase Trust Here
+                    _TM.UpdateHybridPatTrust(_hybridInfo);
+
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Check if hybrid is close enough to object to eat, then processes eat
+        /// </summary>
+        /// <param name="_hybrid"></param>
+        /// <param name="_food"></param>
+        /// <param name="_foodTransform"></param>
+        void HybridEat(FOEItem_Hybrid _hybrid, FOEItem_Food _food, Transform _foodTransform)
+        {
+            if(Vector3.Distance(_hybrid.transform.position, _foodTransform.position)< hybridDistanceToEat)
+            {
+                //destroy/remove food item
+                _OPM.ReturnObjectToPool(_foodTransform.gameObject);
+
+                //check if favourite food
+                bool isFav = false;
+                if (_hybrid.hybridSO.favFood == _food.foodItem)
+                    isFav = true;
+                //Increase Trust
+                _TM.UpdateHybridFeedTrust(_hybrid, isFav);
+
+                SetHybridTargetState(_hybrid, _PLAYER.leftHandPlushie.europaItemData.itemGO.transform);
+            }
+            
         }
 
         /// <summary>
@@ -260,9 +336,9 @@ namespace Europa
             if (_hybrid.navigationData.distanceToPlayer < moveToPlayerStoppingDistance)
             {
                 _hybrid.navigationData.hybridState = HybridState.HybridLookAtHand;
+
             }
         }
-
 
 
         private IEnumerator UpdateIdle()
@@ -273,7 +349,7 @@ namespace Europa
                 {
                     foreach (FOEItem_Hybrid _hybrid in hybridsIdle)
                     {
-                        //Play Idel animation
+                        //Play Idle animation
                     }
                     // Remove hybrids from hybridsHitWater
                     foreach (var _hybrid in removeHybridsIdle)

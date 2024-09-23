@@ -22,12 +22,12 @@ namespace Europa
         public bool hybridShiny;
         public int hybridTrust;
 
-        
+        //trust action tracking
+        public bool hasBeenPatCurrentDay;
+        public bool hasBeenFedCurrentDay;
+        public bool hasHadPlushieCurrentDay;
+        public bool charmCollectedCurrentDay;
 
-        public bool fed;
-        public bool played;
-        public bool patted;
-        public bool hadcharm;
         public float timeWhenCharmSpawned;
     }
     [Serializable]

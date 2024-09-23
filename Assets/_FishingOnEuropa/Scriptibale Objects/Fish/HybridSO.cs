@@ -30,6 +30,7 @@ namespace Europa
         public FoodList favFood;
         public ToyList favToy;
         public HybridHeadPatTrigger patTrigger;
+        public HybridInteractionTrigger hybridInteractionTrigger;
 
     }
 }

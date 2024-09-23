@@ -1,9 +1,8 @@
-using Europa;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Euopa
+namespace Europa
 {
     public interface ISavable
     {
@@ -12,4 +11,3 @@ namespace Euopa
     }
 
 }
-
