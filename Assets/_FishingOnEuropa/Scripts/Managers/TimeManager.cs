@@ -1,14 +1,16 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
-using Obvious.Soap;
+using Europa.GameEvents;
+using System;
 
 
 namespace Europa
 {
+    /// <summary>
+    /// Handles the sky box, sun and moon rotation, and time of day
+    /// </summary>
     public class TimeManager : Singleton<TimeManager>
     {
         [SerializeReference] Light sun;
@@ -16,7 +18,6 @@ namespace Europa
         [SerializeField] AnimationCurve lightIntensityCurve;
         [SerializeField] float maxSunIntensity = 1;
         [SerializeField] float maxMoonIntensity = 0.5f;
-
 
         [SerializeField] Color dayAmbientLight;
         [SerializeField] Color nightAmbientLight;
@@ -29,23 +30,17 @@ namespace Europa
         [SerializeField] TextMeshProUGUI dayText;
         [SerializeField] TimeSettings timeSettings;
         [SerializeField] CurrentTimeSO currentTimeSO;
-        TimeService service;
 
 
         private void Awake()
         {
             //Save data here
-
-
-
             CurrentTimeSO lastSavedCurrentTime = new();
             lastSavedCurrentTime = GetDataFromSaveManager(currentTimeSO);
             LoadTimeFromSave(lastSavedCurrentTime);
 
-
             currentTimeSO.hour = timeSettings.startHour;
 
-            service = new TimeService(timeSettings, currentTimeSO);
             //start time
 
             //start time by incrementing minute
@@ -54,23 +49,26 @@ namespace Europa
         #region Enable/Disable
         private void OnEnable()
         {
-            GameEvents.OnUpdateTime += GameEvents_OnUpdateTime;
-
-
+            TimeHandler.CurrentTime.ValueChanged += CurrentTime_ValueChanged;
         }
+
 
         private void OnDisable()
         {
-            GameEvents.OnUpdateTime -= GameEvents_OnUpdateTime;
+            TimeHandler.CurrentTime.ValueChanged -= CurrentTime_ValueChanged;
 
         }
+
+
         #endregion
 
-        #region Add Event Listeners
-        private void GameEvents_OnUpdateTime(int arg1, int arg2, int arg3)
+        private void CurrentTime_ValueChanged(SplitTime time)
         {
-            UpdateTimeFromInt(arg1, arg2, arg3);
+            UpdateSkybox(time, TimeHandler.GetTotalMinutes());
         }
+     
+        #region Add Event Listeners
+
 
 
         #endregion
@@ -126,6 +124,11 @@ namespace Europa
             RotateSun(); //can change to sub to on hour change clock
             UpdateLightSettings();
             UpdateSkyBlend();
+
+        }
+
+        private void UpdateSkybox(SplitTime time, ulong v)
+        {
 
         }
 
@@ -219,7 +222,7 @@ namespace Europa
         /// <param name="_hour"></param>
         /// <param name="_min"></param>
         /// <param name="_day"></param>
-        void UpdateTimeFromInt(int _hour, int _min, int _day)
+        void UpdateTimeFromInt(int _day, int _hour, int _min)
         {
             currentTimeSO.day = _day;
             currentTimeSO.hour = _hour;
