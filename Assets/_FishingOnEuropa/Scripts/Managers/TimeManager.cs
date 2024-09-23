@@ -31,7 +31,6 @@ namespace Europa
         [SerializeField] CurrentTimeSO currentTimeSO;
         TimeService service;
 
-        [SerializeField] ScriptableEventNoParam newDayEvent;
 
         private void Awake()
         {
@@ -112,7 +111,7 @@ namespace Europa
             if (currentTimeSO.hour == 75)
             {
                 //invoke new day event
-                newDayEvent.Raise();
+                _GM.ActionGameDayStart();
 
                 currentTimeSO.day++;
                 currentTimeSO.hour = 0;

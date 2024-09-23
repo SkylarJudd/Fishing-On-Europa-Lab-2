@@ -17,7 +17,7 @@ namespace Europa
 
         [SerializeField] private int hybridID;
         [SerializeField] private string hybridName;
-        [SerializeField] private bool hybridShiney;
+        [SerializeField] private bool hybridShiny;
         [SerializeField] private ItemLocation hybridLocation = ItemLocation.Tank1;
         [SerializeField] private int InventorySlot;
         [SerializeField] private int hybridTrust;

@@ -27,14 +27,18 @@ namespace Europa
         private MeshRenderer ballVisuals;
         [SerializeField]
         GameObject patTrigger;
+        HybridInteractionTrigger hybridInteractionTrigger;
 
         FOESaveItem_Hybrid _hybridSave;
 
 
         private void Start()
         {
+            hybridInteractionTrigger = GetComponentInChildren<HybridInteractionTrigger>();
+
             bubbleMovement.isFloating = false;
             hybridSO.patTrigger = patTrigger.GetComponent<HybridHeadPatTrigger>();
+            hybridSO.hybridInteractionTrigger = hybridInteractionTrigger;
         }
         public void SetVisuals(HybridVisualsState _State)
         {

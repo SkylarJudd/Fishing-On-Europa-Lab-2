@@ -11,7 +11,15 @@ namespace Europa
 
 
         //subcribe to end of day
-        void EndOfDayCheck(FOESaveItem_Hybrid _FOESaveItem_Hybrid)
+        public void EndOfDayCheck()
+        {
+            foreach (var item in _FNAVM._hybridsTamedList)
+            {
+                UpdateHybridTrustEndOfDay(item.FOEhybridSaveData);
+            }
+        }
+
+        void UpdateHybridTrustEndOfDay(FOESaveItem_Hybrid _FOESaveItem_Hybrid)
         {
             //check if trust increasing actions have been done
 

@@ -11,6 +11,10 @@ namespace Europa
     public class FishNavigationManager : Singleton<FishNavigationManager>
     {
         [Header("All Hybrids In Pond")]
+
+        [Tooltip("A list that contains all the tamed hybrids.")]
+        [SerializeField] public ScriptableListFOEItem_Hybrid _hybridsTamedList;
+
         [Tooltip("a list that contains all the hybrids that has been spawned into this pond.")]
         [SerializeField] private ScriptableListFOEItem_Hybrid _hybridsToNavList;
 
@@ -129,11 +133,9 @@ namespace Europa
                     // Iterate through each hybrid in the pond
                     foreach (FOEItem_Hybrid _hybrid in _hybridsToNavList)
                     {
-                        // Update distance the hybrid is to the player
-                        _hybrid.navigationData.distanceToPlayer = Vector3.Distance(_PLAYER.player.transform.position, _hybrid.europaItemData.itemGO.transform.position);
-
-                        // Check if the hybrid is within the player's reaction distance
-                        if (_hybrid.navigationData.distanceToPlayer < playerReactionDistance)
+                        
+                        // Check if the hybrid is within the player's reaction distance using trigger on hybrid
+                        if (_hybrid.hybridSO.hybridInteractionTrigger.playerInRange)
                         {
                             // Add the hybrid to the react list if it's not already included
                             if (!hybridReactToPlayer.Contains(_hybrid))
@@ -232,13 +234,13 @@ namespace Europa
             {
                 if (_food == _leftFood.foodType)
                 {
-                    SetHybridTargetState(_hybrid, _PLAYER.leftHandFood.europaItemSO.itemGO.transform);
-                    HybridEat(_hybrid, _leftFood, _PLAYER.leftHandFood.europaItemSO.itemGO.transform);
+                    SetHybridTargetState(_hybrid, _PLAYER.leftHandFood.europaItemData.itemGO.transform);
+                    HybridEat(_hybrid, _leftFood, _PLAYER.leftHandFood.europaItemData.itemGO.transform);
                 }
                 else if (_food == _rightFood.foodType)
                 {
-                    SetHybridTargetState(_hybrid, _PLAYER.rightHandFood.europaItemSO.itemGO.transform);
-                    HybridEat(_hybrid, _rightFood, _PLAYER.rightHandFood.europaItemSO.itemGO.transform);
+                    SetHybridTargetState(_hybrid, _PLAYER.rightHandFood.europaItemData.itemGO.transform);
+                    HybridEat(_hybrid, _rightFood, _PLAYER.rightHandFood.europaItemData.itemGO.transform);
 
 
                 }
@@ -253,12 +255,12 @@ namespace Europa
             // Interact with the favorite toy
             if (_hybrid.hybridSO.favToy == _PLAYER.leftHandPlushie.ToyItem)
             {
-                SetHybridTargetState(_hybrid, _PLAYER.leftHandPlushie.europaItemSO.itemGO.transform);
+                SetHybridTargetState(_hybrid, _PLAYER.leftHandPlushie.europaItemData.itemGO.transform);
 
             }
             else if (_hybrid.hybridSO.favToy == _PLAYER.rightHandPlushie.ToyItem)
             {
-                SetHybridTargetState(_hybrid, _PLAYER.rightHandPlushie.europaItemSO.itemGO.transform);
+                SetHybridTargetState(_hybrid, _PLAYER.rightHandPlushie.europaItemData.itemGO.transform);
 
             }
         }
