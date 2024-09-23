@@ -14,7 +14,7 @@ namespace Europa
     public enum FoodList { Error, Bugs, WhiteMeat, RedMeat, Leaves, Flowers, Seeds, Carrot, Potato, Orange, Apple, Banana, WaterMelon }
     public enum ToyList { Error, }
     public enum ItemRarity { Common, Uncommon, Rare, Epic };
-
+    public enum ItemLocation { Error, LeftHand, RightHand, World, Inventory, Tank1, Tank2, FarmStation1, FarmStation2, ZoneOne, ZoneTwo, ZoneThree, Cave, }
 
 
     public class FOEItem : GameBehaviour, IEropaItemable, ISellable
@@ -22,6 +22,7 @@ namespace Europa
         [Header("Scriptible Object Data")]
         public InventoryItemSO inventoryItemSO;
         public EuropaItemSO europaItemSO;
+        public EuropaItemData europaItemData;
         public bool held;
         public GameObject nameTextGO;
         public TMP_Text nameText;
@@ -33,7 +34,7 @@ namespace Europa
 
         private void Start()
         {
-            nameText.text = europaItemSO.name;
+            nameText.text = europaItemSO.itemName;
         }
 
         public virtual void OnDrop(Hand _Hand, Grabbable _Grabbable)

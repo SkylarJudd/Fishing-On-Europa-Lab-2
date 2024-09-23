@@ -1,6 +1,7 @@
 using Autohand;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 namespace Europa
@@ -23,6 +24,8 @@ namespace Europa
             base.OnDrop(_Hand, _Grabbable);
 
             _PLAYER.OnFoodDrop(_Hand.left);
+            
+            ToggleHandVisuals(false);
         }
 
         public override void OnPickUp(Hand _Hand, Grabbable _Grabbable)
@@ -34,11 +37,22 @@ namespace Europa
             if (foodItemComponent != null)
             {
                 _PLAYER.OnFoodPickUp(_Hand.left, foodItemComponent);
+                ToggleHandVisuals(true);
             }
             else
             {
                 Debug.LogWarning("The object does not have a FOEItem_Food component.");
+                
             }
+
+
+        }
+
+        private void ToggleHandVisuals(bool _Toggle)
+        {
+            inWorldVisuals.SetActive(!_Toggle);
+            inWorldVisuals.SetActive(_Toggle);
+            bubbleVisual.enabled = _Toggle;
         }
     }
 }

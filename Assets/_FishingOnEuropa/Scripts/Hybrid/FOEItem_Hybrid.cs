@@ -15,6 +15,7 @@ namespace Europa
         ItemRarity rarity;
         public HybridSO hybridSO;
         public HybridNavigationData navigationData;
+        public FOESaveItem_Hybrid FOEhybridSaveData;
 
         [SerializeField]
         private GameObject inWorldVisuals;
@@ -26,12 +27,18 @@ namespace Europa
         private MeshRenderer ballVisuals;
         [SerializeField]
         GameObject patTrigger;
+        HybridInteractionTrigger hybridInteractionTrigger;
+
+        FOESaveItem_Hybrid _hybridSave;
 
 
         private void Start()
         {
+            hybridInteractionTrigger = GetComponentInChildren<HybridInteractionTrigger>();
+
             bubbleMovement.isFloating = false;
-            hybridSO.patTrigger = inWorldVisuals.transform.Find("PatHeadTrigger").GetComponent<HybridHeadPatTrigger>();
+            hybridSO.patTrigger = patTrigger.GetComponent<HybridHeadPatTrigger>();
+            hybridSO.hybridInteractionTrigger = hybridInteractionTrigger;
         }
         public void SetVisuals(HybridVisualsState _State)
         {
@@ -43,14 +50,19 @@ namespace Europa
                     break;
                 case HybridVisualsState.World:
                     inWorldVisuals.SetActive(true);
+                    patTrigger.SetActive(true);
                     break;
                 case HybridVisualsState.Bubble:
                     ballVisuals.enabled = true;
                     inBubbleVisuals.SetActive(true);
+                    patTrigger.SetActive(false);
+
                     break;
                 case HybridVisualsState.Inventory:
                     ballVisuals.enabled = true;
                     inInventoryVisuals.SetActive(true);
+                    patTrigger.SetActive(false);
+
                     break;
                 default:
                     Debug.Log("State Not found, Please ensure that the state has been added to this switch statement");
@@ -64,11 +76,13 @@ namespace Europa
             inWorldVisuals.SetActive(false);
             inBubbleVisuals?.SetActive(false);
             inInventoryVisuals?.SetActive(false);
+            patTrigger.SetActive(false);
+
         }
 
-        public void InitHybrid(float waterHight, HybridLocation pondType, HybridState state, HybridVisualsState visualState)
+        public void InitHybrid(GameObject go, float waterHight, ItemLocation pondType, HybridState state, HybridVisualsState visualState)
         {
-            europaItemSO.itemGO = gameObject;
+            europaItemData.itemGO = go;
 
             navigationData.waterHeight = waterHight;
             navigationData.hybridLocation = pondType;
@@ -81,26 +95,56 @@ namespace Europa
 
             // Assign Rigidbody to hybrid, or add one if it is missing
 
-            if (europaItemSO.itemRB == null)
+            if (europaItemData.itemRB == null)
             {
-                Debug.LogWarning($"{europaItemSO.itemGO.name} does not have a Rigidbody; one has been assigned");
-                europaItemSO.itemRB = europaItemSO.itemGO.AddComponent<Rigidbody>();
+                Debug.LogWarning($"{europaItemData.itemGO.name} does not have a Rigidbody; one has been assigned");
+                europaItemData.itemRB = europaItemData.itemGO.AddComponent<Rigidbody>();
             }
 
             SetVisuals(visualState);
         }
 
-        public void InitSavedHybrid(FOEItem_Hybrid savedHybrid, Transform spawnPoint, float waterHight, HybridLocation location, HybridState state, HybridVisualsState visualState)
+        /// <summary>
+        /// Initalise data into Hybrid
+        /// </summary>
+        /// <param name="savedHybrid"></param>
+        /// <param name="spawnPoint"></param>
+        /// <param name="waterHight"></param>
+        /// <param name="location"></param>
+        /// <param name="state"></param>
+        /// <param name="visualState"></param>
+
+
+        public void InitSavedHybrid(GameObject go, FOESaveItem_Hybrid savedHybrid, Transform spawnPoint, float waterHight, ItemLocation location, HybridState state, HybridVisualsState visualState)
+
         {
-            europaItemSO.itemName = savedHybrid.europaItemSO.itemName;
-            navigationData.shiny = savedHybrid.navigationData.shiny;
-            europaItemSO.itemTransform = spawnPoint;
+            europaItemData.itemGO = go;
+
+            _hybridSave = savedHybrid;
+
+            _hybridSave.hybridTrust = savedHybrid.hybridTrust;
+
+            europaItemData.itemName = savedHybrid.hybridName;
+            europaItemData.itemTransform = spawnPoint;
+
+            navigationData.shiny = savedHybrid.hybridShiny;
             navigationData.waterHeight = waterHight;
             navigationData.hybridLocation = location;
             navigationData.hybridState = state;
             navigationData.firstNav = true;
 
+            navigationData.minSpeed = hybridSO.fishSpeed;
+            navigationData.maxSpeed = hybridSO.fishSpeed * 2;
+            navigationData.velocity = Vector3.forward * hybridSO.fishSpeed;
+
+            nameText.text = europaItemData.itemName;
+
             SetVisuals(visualState);
+        }
+
+        public Transform ReturnPatTrigger()
+        {
+            return hybridSO.patTrigger.ReturnHand();
         }
     }
 }

@@ -17,12 +17,10 @@ namespace Europa
         public GameObject itemPrefab;
         public string itemName;
         public string itemDescription;
+     
 
-        [Header("Componets")]
-        public GameObject itemGO;
-        public Rigidbody itemRB;
-        public Grabbable itemGrabbable;
-        public Transform itemTransform;
+        public PoolType poolType;
+        
 
 
     }

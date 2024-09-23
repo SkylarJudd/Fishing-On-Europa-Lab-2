@@ -2,8 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface ISavable
+namespace Europa
 {
-    void LoadData(CurrentSaveData data);
-    void SaveData(ref CurrentSaveData data);
+    public interface ISavable
+    {
+        void LoadData(FOEDataThatHasBeenLoaded data);
+        void SaveData(ref FOEDataThatHasBeenLoaded data);
+    }
+
 }

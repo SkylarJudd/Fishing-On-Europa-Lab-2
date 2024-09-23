@@ -27,10 +27,7 @@ namespace Europa
 
     }
 
-    public enum HybridLocation
-    {
-        Error, Tank1, Tank2, World, ZoneOne, ZoneTwo, ZoneThree, Cave,
-    }
+   
 
     [Serializable]
     public class HybridNavigationData : MonoBehaviour
@@ -38,7 +35,7 @@ namespace Europa
         [Header("Hybrid Nav")]
 
         public HybridState hybridState;
-        public HybridLocation hybridLocation;
+        public ItemLocation hybridLocation;
         public Vector3 velocity;
 
         public float minSpeed;

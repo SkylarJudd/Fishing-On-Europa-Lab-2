@@ -17,9 +17,10 @@ namespace Europa
         protected static SettingsMannager _SETM { get { return SettingsMannager.instance; } }
 
         protected static FishNavigationManager _FNAVM { get { return FishNavigationManager.instance; } }
+        protected static TrustManager _TM { get { return TrustManager.instance; } }
         //protected static FishingMiniGameManager _FMGM { get { return FishingMiniGameManager.instance; } }
 
-
+      
         public Transform getClosestEnermy(Transform _origin, List<GameObject> _objects)
         {
             if (_objects == null || _objects.Count == 0)
@@ -40,9 +41,41 @@ namespace Europa
             return closest;
         }
 
+        public FOEItem_Hybrid GetHybridFromID(int _ID , FishToSpawnSO allHybrids)
+        {
+            foreach (FOEItem_Hybrid _hybrid in allHybrids.FishToSpawnList)
+            {
+                if (_hybrid.europaItemSO.itemID == _ID)
+                {
+                    return _hybrid;
+                }
+            }
+            return null;
+        }
 
+        public PoolType GetPoolTypeFromID(int _ID, AllItemsSO allItems)
+        {
+            foreach (FOEItem _Item in allItems.items)
+            {
+                if (_Item.europaItemSO.itemID == _ID)
+                {
+                    return _Item.europaItemSO.poolType;
+                }
+            }
+            return PoolType.None;
+        }
 
-
+        public FOEItem GetItemFromID(int _ID, AllItemsSO allItems)
+        {
+            foreach (FOEItem _Item in allItems.items)
+            {
+                if (_Item.europaItemSO.itemID == _ID)
+                {
+                    return _Item;
+                }
+            }
+            return null;
+        }
     }
 }
 

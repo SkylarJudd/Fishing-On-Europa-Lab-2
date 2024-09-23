@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 
 namespace Europa
 {
-    public enum Scenes
+    public enum CurrentScenes
     {
         _ERROR,
         _TUTORIAL,
@@ -21,8 +21,8 @@ namespace Europa
     public class SceneController : Singleton<SceneController>
     {
         [Header("Scenes")]
-        public Scenes[] IgnoreScenes;
-        public Scenes currentEnviromentScene;
+        public CurrentScenes[] IgnoreScenes;
+        public CurrentScenes currentEnviromentScene;
 
         [Header("DefaultTransform")]
         [SerializeField]
@@ -30,13 +30,13 @@ namespace Europa
 
         [Header("Debug")]
         [SerializeField] bool debug;
-        [SerializeField] Scenes starterScene;
+        [SerializeField] CurrentScenes starterScene;
 
         private void Start()
         {
             currentEnviromentScene = DetectCurrentActiveEnviromentScene();
 
-            if (currentEnviromentScene == Scenes._ERROR)
+            if (currentEnviromentScene == CurrentScenes._ERROR)
                 Debug.LogError("Was unable to find Scene, check the name and ensure the scene exists");
 
             if (debug)
@@ -45,22 +45,22 @@ namespace Europa
                 StartCoroutine(SwitchScene(starterScene));
             }
 
-            else if (currentEnviromentScene != Scenes._MAINMENU_SCENE && !debug)
+            else if (currentEnviromentScene != CurrentScenes._MAINMENU_SCENE && !debug)
             {
                 Debug.LogWarning($"Switching to Main Menu from {currentEnviromentScene} If this is not what you wanted toggle on Debug");
-                StartCoroutine(SwitchScene(Scenes._MAINMENU_SCENE));
+                StartCoroutine(SwitchScene(CurrentScenes._MAINMENU_SCENE));
             }
         }
 
         /// <summary>
         /// Will find the active environment scene that is currently active
         /// </summary>
-        private Scenes DetectCurrentActiveEnviromentScene()
+        private CurrentScenes DetectCurrentActiveEnviromentScene()
         {
-            foreach (var scene in Enum.GetValues(typeof(Scenes)))
+            foreach (var scene in Enum.GetValues(typeof(CurrentScenes)))
             {
-                Scenes _Scene = (Scenes)scene;
-                if (_Scene == Scenes._ERROR) continue;
+                CurrentScenes _Scene = (CurrentScenes)scene;
+                if (_Scene == CurrentScenes._ERROR) continue;
 
                 for (int i = 0; i < SceneManager.sceneCount; i++)
                 {
@@ -74,7 +74,7 @@ namespace Europa
                 }
             }
 
-            return Scenes._ERROR;
+            return CurrentScenes._ERROR;
         }
 
         /// <summary>
@@ -82,34 +82,34 @@ namespace Europa
         /// </summary>
         /// <param name="_SceneName"></param>
         /// <returns></returns>
-        private Scenes GetSceneFromString(string _SceneName)
+        private CurrentScenes GetSceneFromString(string _SceneName)
         {
-            Scenes _Scene;
+            CurrentScenes _Scene;
             print($"SceneName = {_SceneName}");
 
             switch (_SceneName)
             {
                 case "_ESSENTIALES":
-                    _Scene = Scenes._ESSENTIALES;
+                    _Scene = CurrentScenes._ESSENTIALES;
                     break;
                 case "_MAINMENU_SCENE":
-                    _Scene = Scenes._MAINMENU_SCENE;
+                    _Scene = CurrentScenes._MAINMENU_SCENE;
                     break;
                 case "_FARM_SCENE":
-                    _Scene = Scenes._FARM_SCENE;
+                    _Scene = CurrentScenes._FARM_SCENE;
                     break;
                 case "_DOME_SCENE":
-                    _Scene = Scenes._DOME_SCENE;
+                    _Scene = CurrentScenes._DOME_SCENE;
                     break;
                 case "_TUTORIAL":
-                    _Scene = Scenes._TUTORIAL;
+                    _Scene = CurrentScenes._TUTORIAL;
                     break;
                 case "_FISHINGTEST_SCENE":
-                    _Scene = Scenes._FISHINGTEST_SCENE;
+                    _Scene = CurrentScenes._FISHINGTEST_SCENE;
                     break;
 
                 default:
-                    _Scene = Scenes._ERROR;
+                    _Scene = CurrentScenes._ERROR;
                     break;
             }
             return _Scene;
@@ -121,8 +121,8 @@ namespace Europa
         /// <param name="_sceneName"></param>
         public void ChangeScene(string _sceneName)
         {
-            Scenes scenes = GetSceneFromString(_sceneName);
-            if (scenes == Scenes._ERROR)
+            CurrentScenes scenes = GetSceneFromString(_sceneName);
+            if (scenes == CurrentScenes._ERROR)
             {
                 Debug.LogError($"Count not find {_sceneName} Check you're using the right name, or add the scene to the scene controller Enum and switch statment");
                 return;
@@ -137,9 +137,9 @@ namespace Europa
         /// Takes in an Enum of Scene and uses that to change the scene
         /// </summary>
         /// <param name="_sceneName"></param>
-        public void ChangeScene(Scenes _sceneName)
+        public void ChangeScene(CurrentScenes _sceneName)
         {
-            if (_sceneName == Scenes._ERROR)
+            if (_sceneName == CurrentScenes._ERROR)
             {
                 Debug.LogError($"Count not find {_sceneName} Check you're using the right name, or add the scene to the scene controller Enum and switch statment");
                 return;
@@ -155,10 +155,10 @@ namespace Europa
         /// </summary>
         /// <param name="_sceneName"></param>
         /// <returns></returns>
-        IEnumerator SwitchScene(Scenes _sceneName)
+        IEnumerator SwitchScene(CurrentScenes _sceneName)
         {
             AsyncOperation unload;
-            if (currentEnviromentScene != Scenes._ERROR)
+            if (currentEnviromentScene != CurrentScenes._ERROR)
             {
                 unload = SceneManager.UnloadSceneAsync(currentEnviromentScene.ToString());
                 while (!unload.isDone)
@@ -229,17 +229,17 @@ namespace Europa
         /// Test Load to Load the Main Menu from within Unity
         /// </summary>
         [ContextMenu("Load Main Menu")]
-        public void LoadMainMenu() => StartCoroutine(SwitchScene(Scenes._MAINMENU_SCENE));
+        public void LoadMainMenu() => StartCoroutine(SwitchScene(CurrentScenes._MAINMENU_SCENE));
         /// <summary>
         /// Test Load to Load the Farm Scene from within Unity
         /// </summary>
         [ContextMenu("Load Farm Scene")]
-        public void LoadFarmScene() => StartCoroutine(SwitchScene(Scenes._FARM_SCENE));
+        public void LoadFarmScene() => StartCoroutine(SwitchScene(CurrentScenes._FARM_SCENE));
         /// <summary>
         /// Test Load to Load the Dome Scene from within Unity
         /// </summary>
         [ContextMenu("Load Dome Scene")]
-        public void LoadDomeScene() => StartCoroutine(SwitchScene(Scenes._DOME_SCENE));
+        public void LoadDomeScene() => StartCoroutine(SwitchScene(CurrentScenes._DOME_SCENE));
 
         #endregion
     }

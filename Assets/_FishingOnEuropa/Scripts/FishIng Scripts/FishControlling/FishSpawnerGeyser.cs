@@ -77,7 +77,7 @@ namespace Europa
 
             FOEItem_Hybrid _hybrid = hybridFromManager.GetComponent<FOEItem_Hybrid>();
 
-            _hybrid.InitHybrid(geyserMannager.waterHeight.position.y, geyserMannager.pondType, HybridState.HybridFlying, HybridVisualsState.World);
+            _hybrid.InitHybrid(hybridFromManager, geyserMannager.waterHeight.position.y, geyserMannager.pondType, HybridState.HybridFlying, HybridVisualsState.World);
 
             _hybridsList.Add(_hybrid);
             _hybridsToNavList.Add(_hybrid);
