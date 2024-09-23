@@ -133,6 +133,8 @@ namespace Europa
         public int itemSaveLocation;
         [Tooltip("The slot in the inventory that the item is currently in")] // Value will not be used if not in the inventory
         public int itemInventorySlot;
+
+        
     }
 
     /// <summary>
