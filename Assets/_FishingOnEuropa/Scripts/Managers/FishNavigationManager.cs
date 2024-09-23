@@ -241,8 +241,6 @@ namespace Europa
                 {
                     SetHybridTargetState(_hybrid, _PLAYER.rightHandFood.europaItemData.itemGO.transform);
                     HybridEat(_hybrid, _rightFood, _PLAYER.rightHandFood.europaItemData.itemGO.transform);
-
-
                 }
             }
         }
@@ -313,7 +311,7 @@ namespace Europa
             if(Vector3.Distance(_hybrid.transform.position, _foodTransform.position)< hybridDistanceToEat)
             {
                 //destroy/remove food item
-
+                _OPM.ReturnObjectToPool(_foodTransform.gameObject);
 
                 //check if favourite food
                 bool isFav = false;
