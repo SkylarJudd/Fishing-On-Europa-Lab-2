@@ -6,16 +6,10 @@ using UnityEngine;
 
 namespace Europa
 {
-    public class FOEItem_Seed : FOEItem
+    public class FOEItem_Seed : FOEItem_Food
     {
         public SeedsSO seedsSO;
-        [Header("Visuals")]
-        [SerializeField]
-        private GameObject inWorldVisuals;
-        [SerializeField]
-        private GameObject inHandVisuals;
-        [SerializeField]
-        private MeshRenderer bubbleVisuals;
+
         [SerializeField]
         [Tooltip("Threshold angle in degrees for the object to be considered upside down.")]
         private float rotationThreshold = 170f;
@@ -41,7 +35,7 @@ namespace Europa
                 return;
 
             // Calculate the angle between the object's up vector and the world up vector
-            float angle = Vector3.Angle(europaItemSO.itemGO.transform.up, Vector3.up);
+            float angle = Vector3.Angle(europaItemData.itemGO.transform.up, Vector3.up);
 
             if (angle >= rotationThreshold)
             {
@@ -79,7 +73,7 @@ namespace Europa
                 seedsDropped++;
 
                 // If the object turns upright while dropping seeds, the coroutine will stop
-                if (Vector3.Angle( europaItemSO.itemGO.transform.up, Vector3.up) < rotationThreshold)
+                if (Vector3.Angle(europaItemData.itemGO.transform.up, Vector3.up) < rotationThreshold)
                 {
                     yield break;
                 }
@@ -93,22 +87,8 @@ namespace Europa
             //send back to the object pool mannager and reset the values 
         }
 
-        public override void OnDrop(Hand _Hand, Grabbable _Grabbable)
-        {
-            base.OnDrop(_Hand, _Grabbable);
-
-            ToggleHandVisuals(false);
-        }
-        public override void OnPickUp(Hand _Hand, Grabbable _Grabbable)
-        {
-            ToggleHandVisuals(true);
-        }
-        private void ToggleHandVisuals(bool _Toggle)
-        {
-            inHandVisuals.SetActive(!_Toggle);
-            inWorldVisuals.SetActive(_Toggle);
-            bubbleVisuals.enabled = _Toggle;
-        }
+       
+        
     }
 }
 

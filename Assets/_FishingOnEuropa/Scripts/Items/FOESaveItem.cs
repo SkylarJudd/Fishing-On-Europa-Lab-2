@@ -9,7 +9,7 @@ namespace Europa
     public class FOESaveItem
     {
         public int itemID;
-        public GameObject itemGO;
+        public FOEItem itemGO;
         public Transform itemPos;
         public ItemLocation itemLocation;
         public int itemInventorySlot;
@@ -28,6 +28,7 @@ namespace Europa
         public bool hasHadPlushieCurrentDay;
         public bool charmCollectedCurrentDay;
 
+        public float timeWhenCharmSpawned;
     }
     [Serializable]
     public class FOESaveItem_Crop : FOESaveItem

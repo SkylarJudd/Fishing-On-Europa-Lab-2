@@ -13,13 +13,10 @@ MonoBehaviour:
   m_Name: FOEItem_Food_Item_Leaves
   m_EditorClassIdentifier: 
   itemID: 200006
-  worldObject: {fileID: 5912406539843738869, guid: 2d6393aa028396f438b61316aad77bb1,
+  worldObject: {fileID: 2168081722587043594, guid: 1479e91effec7394bb2c7e2f0451336d,
     type: 3}
-  itemPrefab: {fileID: 2625746280661737934, guid: ced78639ec4227c40861f482ba236ab5,
+  itemPrefab: {fileID: 7073779309740609926, guid: 1479e91effec7394bb2c7e2f0451336d,
     type: 3}
-  itemName: Carrot
-  itemDescription: 'Carrots are obtained through farming, the seeds can be bought
-    from the store after they have been found in chests fished up in zone 1 '
-  ItemRB: {fileID: 0}
-  ItemGrabbable: {fileID: 0}
-  itemTransform: {fileID: 0}
+  itemName: Leaves
+  itemDescription: "Leaves can be obtained from picking up leaves in the zone 3\_"
+  poolType: 6

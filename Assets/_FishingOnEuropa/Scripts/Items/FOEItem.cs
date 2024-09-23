@@ -22,6 +22,7 @@ namespace Europa
         [Header("Scriptible Object Data")]
         public InventoryItemSO inventoryItemSO;
         public EuropaItemSO europaItemSO;
+        public EuropaItemData europaItemData;
         public bool held;
         public GameObject nameTextGO;
         public TMP_Text nameText;
@@ -33,7 +34,7 @@ namespace Europa
 
         private void Start()
         {
-            nameText.text = europaItemSO.name;
+            nameText.text = europaItemSO.itemName;
         }
 
         public virtual void OnDrop(Hand _Hand, Grabbable _Grabbable)

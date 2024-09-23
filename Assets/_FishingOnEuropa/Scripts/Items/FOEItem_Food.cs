@@ -23,8 +23,9 @@ namespace Europa
             // Call the base class's OnDrop method
             base.OnDrop(_Hand, _Grabbable);
 
-            //_PLAYER.OnFoodDrop(_Hand.left);
-            Debug.LogError("This Is broken Find Another Way to send this though events");
+            _PLAYER.OnFoodDrop(_Hand.left);
+            
+            ToggleHandVisuals(false);
         }
 
         public override void OnPickUp(Hand _Hand, Grabbable _Grabbable)
@@ -35,13 +36,23 @@ namespace Europa
             FOEItem_Food foodItemComponent = _Grabbable.gameObject.GetComponent<FOEItem_Food>();
             if (foodItemComponent != null)
             {
-                //_PLAYER.OnFoodPickUp(_Hand.left, foodItemComponent);
-                Debug.LogError("This Is broken Find Another Way to send this though events");
+                _PLAYER.OnFoodPickUp(_Hand.left, foodItemComponent);
+                ToggleHandVisuals(true);
             }
             else
             {
                 Debug.LogWarning("The object does not have a FOEItem_Food component.");
+                
             }
+
+
+        }
+
+        private void ToggleHandVisuals(bool _Toggle)
+        {
+            inWorldVisuals.SetActive(!_Toggle);
+            inWorldVisuals.SetActive(_Toggle);
+            bubbleVisual.enabled = _Toggle;
         }
     }
 }

@@ -130,7 +130,7 @@ namespace Europa
                     foreach (FOEItem_Hybrid _hybrid in _hybridsToNavList)
                     {
                         // Update distance the hybrid is to the player
-                        _hybrid.navigationData.distanceToPlayer = Vector3.Distance(_PLAYER.player.transform.position, _hybrid.europaItemSO.itemGO.transform.position);
+                        _hybrid.navigationData.distanceToPlayer = Vector3.Distance(_PLAYER.player.transform.position, _hybrid.europaItemData.itemGO.transform.position);
 
                         // Check if the hybrid is within the player's reaction distance
                         if (_hybrid.navigationData.distanceToPlayer < playerReactionDistance)
@@ -138,7 +138,7 @@ namespace Europa
                             // Add the hybrid to the react list if it's not already included
                             if (!hybridReactToPlayer.Contains(_hybrid))
                             {
-                                removeHybrid(_hybrid.europaItemSO.itemGO, false);
+                                removeHybrid(_hybrid.europaItemData.itemGO, false);
                                 hybridReactToPlayer.Add(_hybrid);
                             }
 
@@ -207,8 +207,8 @@ namespace Europa
         private void ProcessPlayerWithoutItem(FOEItem_Hybrid _hybrid)
         {
             // Calculate distances to player's hands
-            float distanceToRightHand = Vector3.Distance(_hybrid.europaItemSO.itemGO.transform.position, _PLAYER.rightHand.transform.position);
-            float distanceToLeftHand = Vector3.Distance(_hybrid.europaItemSO.itemGO.transform.position, _PLAYER.leftHand.transform.position);
+            float distanceToRightHand = Vector3.Distance(_hybrid.europaItemData.itemGO.transform.position, _PLAYER.rightHand.transform.position);
+            float distanceToLeftHand = Vector3.Distance(_hybrid.europaItemData.itemGO.transform.position, _PLAYER.leftHand.transform.position);
 
             // Determine which hand is closer, or default to watching the player
             if (distanceToRightHand < playerHandReactionDistance || distanceToLeftHand < playerHandReactionDistance)
@@ -239,6 +239,7 @@ namespace Europa
                 {
                     SetHybridTargetState(_hybrid, _PLAYER.rightHandFood.europaItemSO.itemGO.transform);
                     HybridEat(_hybrid, _rightFood, _PLAYER.rightHandFood.europaItemSO.itemGO.transform);
+
 
                 }
             }
@@ -318,7 +319,10 @@ namespace Europa
                     isFav = true;
                 //Increase Trust
                 _TM.UpdateHybridFeedTrust(_hybrid, isFav);
+
+                SetHybridTargetState(_hybrid, _PLAYER.leftHandPlushie.europaItemData.itemGO.transform);
             }
+            
         }
 
         /// <summary>
@@ -380,13 +384,13 @@ namespace Europa
                         // Check if Hybrid has left the water
                         if (_hybrid.navigationData.hybridState != HybridState.HybridFlying)
                         {
-                            UpdateRB(_hybrid.europaItemSO.itemRB, true, airDrag, airDrag);
+                            UpdateRB(_hybrid.europaItemData.itemRB, true, airDrag, airDrag);
                             _hybrid.navigationData.hybridState = HybridState.HybridFlying;
                         }
 
                         //print($"{_hybridd} has a y value of {_hybridd.hybridGameObject.transform.position.y} and the water hight is {waterHight}.y ");
                         // Check if the Hybrids have hit the water
-                        if (_hybrid.europaItemSO.itemGO.transform.position.y <= _hybrid.navigationData.waterHeight)
+                        if (_hybrid.europaItemData.itemGO.transform.position.y <= _hybrid.navigationData.waterHeight)
                         {
                             hybridsHitWater.Add(_hybrid);
                             //hybridsFlying.RemoveAt(i);
@@ -424,22 +428,22 @@ namespace Europa
                         if (_hybrid.navigationData.hybridState != HybridState.HybridHitWater)
                         {
                             // Disable gravity and adjust drag to simulate water resistance
-                            UpdateRB(_hybrid.europaItemSO.itemRB, false, waterDrag, waterDrag);
+                            UpdateRB(_hybrid.europaItemData.itemRB, false, waterDrag, waterDrag);
                             _hybrid.navigationData.hybridState = HybridState.HybridHitWater;
                         }
 
                         // Define and interpolate towards the target rotation to align with the water surface
-                        Quaternion targetRotation = Quaternion.Euler(0, _hybrid.europaItemSO.itemGO.transform.rotation.eulerAngles.y, 0);
-                        _hybrid.europaItemSO.itemGO.transform.rotation = Quaternion.Lerp(_hybrid.europaItemSO.itemGO.transform.rotation, targetRotation, Time.deltaTime * correctRotationSpeed);
+                        Quaternion targetRotation = Quaternion.Euler(0, _hybrid.europaItemData.itemGO.transform.rotation.eulerAngles.y, 0);
+                        _hybrid.europaItemData.itemGO.transform.rotation = Quaternion.Lerp(_hybrid.europaItemData.itemGO.transform.rotation, targetRotation, Time.deltaTime * correctRotationSpeed);
 
                         // Check if the hybrid is aligned within acceptable thresholds to transition to swimming
-                        Vector3 currentRotation = _hybrid.europaItemSO.itemGO.transform.rotation.eulerAngles;
+                        Vector3 currentRotation = _hybrid.europaItemData.itemGO.transform.rotation.eulerAngles;
                         if (IsRotationWithinRange(currentRotation))
                         {
                             // Mark for transition to swimming state
                             hybridsSwimming.Add(_hybrid);
                             removeHybridsHitWater.Add(_hybrid);
-                            _hybrid.navigationData.velocity = _hybrid.europaItemSO.itemGO.transform.position;
+                            _hybrid.navigationData.velocity = _hybrid.europaItemData.itemGO.transform.position;
                         }
                     }
 
@@ -492,14 +496,14 @@ namespace Europa
                     {
                         bool outofWater = false;
 
-                        if (_hybrid.europaItemSO.itemGO.transform.position.y > _hybrid.navigationData.waterHeight)
+                        if (_hybrid.europaItemData.itemGO.transform.position.y > _hybrid.navigationData.waterHeight)
                         {
                             outofWater = true;
                         }
 
                         if (UnityEngine.Random.Range(0, rayCastCheckChance) < 1 && hybridsSwimming.Count > 1)
                         {
-                            Ray hybridRay = new Ray(_hybrid.europaItemSO.itemGO.transform.position, _hybrid.europaItemSO.itemGO.transform.forward);
+                            Ray hybridRay = new Ray(_hybrid.europaItemData.itemGO.transform.position, _hybrid.europaItemData.itemGO.transform.forward);
                             float raycastDistance = 0.5f;
                             int layerMask = ~LayerMask.GetMask("Fish");
 
@@ -535,7 +539,7 @@ namespace Europa
                             int numOfBoidsToAvoid = 0;
                             int numOfBoidsToAlignWith = 0;
                             int numOfBoidsInFlock = 0;
-                            Vector3 currBoidPosition = _hybrid.europaItemSO.itemGO.transform.position;
+                            Vector3 currBoidPosition = _hybrid.europaItemData.itemGO.transform.position;
                             Vector3 positionToMoveTowards = Vector3.zero;
 
                             foreach (FOEItem_Hybrid _otherBoid in hybridsSwimming)
@@ -545,7 +549,7 @@ namespace Europa
                                     continue;
                                 }
 
-                                Vector3 otherBoidsPosition = _otherBoid.europaItemSO.itemGO.transform.position;
+                                Vector3 otherBoidsPosition = _otherBoid.europaItemData.itemGO.transform.position;
                                 float dist = Vector3.Distance(currBoidPosition, otherBoidsPosition);
 
                                 // Separation Check
@@ -613,18 +617,18 @@ namespace Europa
 
                         if (_hybrid.navigationData.aboutToHitWall == true && _hybrid.navigationData.hybridState != HybridState.HybridAvoidingWall)
                         {
-                            Vector3 oppositeDirection = -_hybrid.europaItemSO.itemGO.transform.forward;
+                            Vector3 oppositeDirection = -_hybrid.europaItemData.itemGO.transform.forward;
                             _hybrid.navigationData.velocity = oppositeDirection * _hybrid.navigationData.maxSpeed;
                             _hybrid.navigationData.hybridState = HybridState.HybridAvoidingWall;
                         }
 
                         // Move the Hybrid in the direction of Velocity
-                        _hybrid.europaItemSO.itemGO.transform.position += _hybrid.navigationData.velocity * Time.deltaTime;
+                        _hybrid.europaItemData.itemGO.transform.position += _hybrid.navigationData.velocity * Time.deltaTime;
 
                         // Rotate the Hybrid toward the direction it is moving
                         Quaternion targetRotation = Quaternion.LookRotation(_hybrid.navigationData.velocity);
                         //Debug.Log($"Updating Rotation: {_Hybrid.hybridGameObject.name} Current Rotation: {_Hybrid.hybridGameObject.transform.rotation} Target Rotation: {targetRotation}");
-                        _hybrid.europaItemSO.itemGO.transform.rotation = Quaternion.Lerp(_hybrid.europaItemSO.itemGO.transform.rotation, targetRotation, _hybrid.hybridSO.rotationSpeed * Time.deltaTime);
+                        _hybrid.europaItemData.itemGO.transform.rotation = Quaternion.Lerp(_hybrid.europaItemData.itemGO.transform.rotation, targetRotation, _hybrid.hybridSO.rotationSpeed * Time.deltaTime);
 
                     }
 
@@ -648,7 +652,7 @@ namespace Europa
                     foreach (FOEItem_Hybrid _hybrid in hybridSwimToPoint)
                     {
                         print("swim part 2" + lureLocation.transform.position);
-                        Vector3 directionToTarget = lureLocation.transform.position - _hybrid.europaItemSO.itemGO.transform.position;
+                        Vector3 directionToTarget = lureLocation.transform.position - _hybrid.europaItemData.itemGO.transform.position;
                         float yOffset = 0.5f;
                         directionToTarget = new Vector3(directionToTarget.x, directionToTarget.y - yOffset, directionToTarget.z);
 
@@ -663,8 +667,8 @@ namespace Europa
                         {
                             targetPosition.y = _hybrid.navigationData.waterHeight;
                         }
-                        print(_hybrid.europaItemSO.itemGO.transform.position);
-                        _hybrid.europaItemSO.itemGO.transform.position = Vector3.Lerp(_hybrid.europaItemSO.itemGO.transform.position, new Vector3(targetPosition.x, targetPosition.y - yOffset, targetPosition.z), Time.deltaTime * (_hybrid.navigationData.maxSpeed * 2));
+                        print(_hybrid.europaItemData.itemGO.transform.position);
+                        _hybrid.europaItemData.itemGO.transform.position = Vector3.Lerp(_hybrid.europaItemData.itemGO.transform.position, new Vector3(targetPosition.x, targetPosition.y - yOffset, targetPosition.z), Time.deltaTime * (_hybrid.navigationData.maxSpeed * 2));
 
                         // Check if the object has reached the target position
                         float distanceToTarget = Vector3.Distance(transform.position, targetPosition);
@@ -785,9 +789,9 @@ namespace Europa
         /// <param name="_targetPos">Position to face.</param>
         private void RotateHybridTowards(FOEItem_Hybrid _hybrid, Vector3 _targetPos)
         {
-            Vector3 direction = (_targetPos - _hybrid.europaItemSO.itemGO.transform.position).normalized;
+            Vector3 direction = (_targetPos - _hybrid.europaItemData.itemGO.transform.position).normalized;
             Quaternion targetRotation = Quaternion.LookRotation(direction);
-            _hybrid.europaItemSO.itemGO.transform.rotation = Quaternion.Lerp(_hybrid.europaItemSO.itemGO.transform.rotation, targetRotation, _hybrid.hybridSO.rotationSpeed * Time.deltaTime);
+            _hybrid.europaItemData.itemGO.transform.rotation = Quaternion.Lerp(_hybrid.europaItemData.itemGO.transform.rotation, targetRotation, _hybrid.hybridSO.rotationSpeed * Time.deltaTime);
         }
 
         /// <summary>
@@ -806,14 +810,14 @@ namespace Europa
             }
 
             // Move towards the target
-            _hybrid.europaItemSO.itemGO.transform.position = Vector3.Lerp(_hybrid.europaItemSO.itemGO.transform.position, _targetPos, Time.deltaTime * _hybrid.navigationData.maxSpeed);
+            _hybrid.europaItemData.itemGO.transform.position = Vector3.Lerp(_hybrid.europaItemData.itemGO.transform.position, _targetPos, Time.deltaTime * _hybrid.navigationData.maxSpeed);
         }
 
         public void removeHybrid(GameObject go, bool _RemoveFromPond)
         {
             foreach (FOEItem_Hybrid _hybrid in _hybridsToNavList)
             {
-                if (_hybrid.europaItemSO.itemGO == go)
+                if (_hybrid.europaItemData.itemGO == go)
                 {
                     switch (_hybrid.navigationData.hybridState)
                     {
@@ -843,7 +847,7 @@ namespace Europa
         {
             var _hybrid = GetHybridFromGO(go);
 
-            if (_hybrid.europaItemSO.itemGO == go)
+            if (_hybrid.europaItemData.itemGO == go)
             {
                 print(_hybrid.navigationData.hybridState);
                 switch (_hybrid.navigationData.hybridState)
@@ -894,7 +898,7 @@ namespace Europa
         public void OnPickUp(FOEItem_Hybrid _hybridInfo)
         {
             _hybridInfo.SetVisuals(HybridVisualsState.Bubble);
-            removeHybrid(_hybridInfo.europaItemSO.itemGO, true);
+            removeHybrid(_hybridInfo.europaItemData.itemGO, true);
         }
 
         public void OnDrop(FOEItem_Hybrid _hybridInfo)
@@ -941,7 +945,7 @@ namespace Europa
         {
             foreach (FOEItem_Hybrid _hybrid in _hybridsToNavList)
             {
-                if (_hybrid.europaItemSO.itemGO == go)
+                if (_hybrid.europaItemData.itemGO == go)
                 {
                     return _hybrid;
                 }

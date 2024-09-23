@@ -13,13 +13,11 @@ MonoBehaviour:
   m_Name: FOEItem_Food_Item_Bannana
   m_EditorClassIdentifier: 
   itemID: 200002
-  worldObject: {fileID: 5912406539843738869, guid: 6f543abc821edab4993132650c18a050,
+  worldObject: {fileID: 2168081722587043594, guid: 24107b56a4a27b84d88050de3866913f,
     type: 3}
-  itemPrefab: {fileID: 2625746280661737934, guid: 37e87f46c1e44ae48916f3e94d6fc9ef,
+  itemPrefab: {fileID: 7073779309740609926, guid: 24107b56a4a27b84d88050de3866913f,
     type: 3}
   itemName: Banana
   itemDescription: 'Bananas are obtained through farming, the seeds can be bought
     from the store after they have been found in chests fished up in zone 2. '
-  ItemRB: {fileID: 0}
-  ItemGrabbable: {fileID: 0}
-  itemTransform: {fileID: 0}
+  poolType: 6
