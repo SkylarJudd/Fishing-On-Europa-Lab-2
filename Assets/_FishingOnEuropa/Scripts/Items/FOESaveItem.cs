@@ -20,7 +20,13 @@ namespace Europa
     {
         public string hybridName;
         public bool hybridShiny;
-        public int hybridHappiness;
+        public int hybridTrust;
+
+        //trust settings
+        public bool hasBeenPatCurrentDay;
+        public bool hasBeenFedCurrentDay;
+        public bool hasHadPlushieCurrentDay;
+
     }
     [Serializable]
     public class FOESaveItem_Crop : FOESaveItem

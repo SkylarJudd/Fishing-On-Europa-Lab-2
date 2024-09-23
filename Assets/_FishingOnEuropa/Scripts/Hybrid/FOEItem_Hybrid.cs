@@ -31,7 +31,7 @@ namespace Europa
         private void Start()
         {
             bubbleMovement.isFloating = false;
-            hybridSO.patTrigger = inWorldVisuals.transform.Find("PatHeadTrigger").GetComponent<HybridHeadPatTrigger>();
+            hybridSO.patTrigger = patTrigger.GetComponent<HybridHeadPatTrigger>();
         }
         public void SetVisuals(HybridVisualsState _State)
         {
@@ -43,14 +43,19 @@ namespace Europa
                     break;
                 case HybridVisualsState.World:
                     inWorldVisuals.SetActive(true);
+                    patTrigger.SetActive(true);
                     break;
                 case HybridVisualsState.Bubble:
                     ballVisuals.enabled = true;
                     inBubbleVisuals.SetActive(true);
+                    patTrigger.SetActive(false);
+
                     break;
                 case HybridVisualsState.Inventory:
                     ballVisuals.enabled = true;
                     inInventoryVisuals.SetActive(true);
+                    patTrigger.SetActive(false);
+
                     break;
                 default:
                     Debug.Log("State Not found, Please ensure that the state has been added to this switch statement");
@@ -64,6 +69,8 @@ namespace Europa
             inWorldVisuals.SetActive(false);
             inBubbleVisuals?.SetActive(false);
             inInventoryVisuals?.SetActive(false);
+            patTrigger.SetActive(false);
+
         }
 
         public void InitHybrid(GameObject go, float waterHight, ItemLocation pondType, HybridState state, HybridVisualsState visualState)
@@ -108,6 +115,11 @@ namespace Europa
             navigationData.velocity = Vector3.forward * hybridSO.fishSpeed;
 
             SetVisuals(visualState);
+        }
+
+        public Transform ReturnPatTrigger()
+        {
+            return hybridSO.patTrigger.ReturnHand();
         }
     }
 }

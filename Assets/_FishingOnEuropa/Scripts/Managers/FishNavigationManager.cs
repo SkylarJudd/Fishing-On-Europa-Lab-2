@@ -149,6 +149,12 @@ namespace Europa
                             {
                                 ProcessPlayerWithoutItem(_hybrid);
                             }
+
+                            //Check if player is patting hybrid
+                            if (_hybrid.ReturnPatTrigger() != null)
+                            {
+                                HybridPat(_hybrid.ReturnPatTrigger(), _hybrid);
+                            }
                         }
                         else if (_hybrid.navigationData.distanceToPlayer > playerReactionDistanceReset && _hybrid.navigationData.hybridState == HybridState.HybridWatchPlayer)
                         {
@@ -242,10 +248,48 @@ namespace Europa
             if (_hybrid.hybridSO.favToy == _PLAYER.leftHandPlushie.ToyItem)
             {
                 SetHybridTargetState(_hybrid, _PLAYER.leftHandPlushie.europaItemSO.itemGO.transform);
+
+                //Increase Trust Here
             }
             else if (_hybrid.hybridSO.favToy == _PLAYER.rightHandPlushie.ToyItem)
             {
                 SetHybridTargetState(_hybrid, _PLAYER.rightHandPlushie.europaItemSO.itemGO.transform);
+
+                //Increase Trust Here
+            }
+        }
+
+        /// <summary>
+        /// Processes player patting hybrid
+        /// </summary>
+        void HybridPat(Transform handState, FOEItem_Hybrid _hybridInfo)
+        {
+
+            //check if hand that is in trigger is holding an item
+            if (handState == _PLAYER.leftHand && _PLAYER.leftHandFood == null && _PLAYER.leftHandPlushie == null)
+            {
+
+                //check if hand is moving
+                if (_PLAYER.leftHand.GetComponent<Rigidbody>().velocity.magnitude >= 1)
+                {
+                    //play animation here
+
+                    //Increase Trust Here
+
+                }
+            }
+            else if (handState == _PLAYER.rightHand && _PLAYER.rightHandFood == null && _PLAYER.rightHandPlushie == null)
+            {
+
+                //check if hand is moving
+                if (_PLAYER.rightHand.GetComponent<Rigidbody>().velocity.magnitude >= 1)
+                {
+
+                    //play animation here
+
+
+                    //Increase Trust Here
+                }
             }
         }
 
@@ -260,9 +304,10 @@ namespace Europa
             if (_hybrid.navigationData.distanceToPlayer < moveToPlayerStoppingDistance)
             {
                 _hybrid.navigationData.hybridState = HybridState.HybridLookAtHand;
+
+                //Call eating food here
             }
         }
-
 
 
         private IEnumerator UpdateIdle()

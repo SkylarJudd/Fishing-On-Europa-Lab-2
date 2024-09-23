@@ -29,11 +29,11 @@ Transform:
   m_GameObject: {fileID: 3189758428667565363}
   serializedVersion: 2
   m_LocalRotation: {x: -0.072886646, y: -0.00003180038, z: -0.00043513975, w: 0.99734014}
-  m_LocalPosition: {x: 0, y: 0.316, z: 0.48499978}
-  m_LocalScale: {x: 0.6977106, y: 0.6977108, z: 0.6977108}
+  m_LocalPosition: {x: 0, y: 0.316, z: 0.48499972}
+  m_LocalScale: {x: 0.6977106, y: 0.6977109, z: 0.6977108}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 5431710258534395582}
+  m_Father: {fileID: 7248846263316748185}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &86895027851516873
 MeshFilter:
@@ -371,6 +371,11 @@ PrefabInstance:
         type: 2}
     - target: {fileID: 2941688891302965289, guid: 180e5c9d245eb934d873859121e99796,
         type: 3}
+      propertyPath: patTrigger
+      value: 
+      objectReference: {fileID: 3189758428667565363}
+    - target: {fileID: 2941688891302965289, guid: 180e5c9d245eb934d873859121e99796,
+        type: 3}
       propertyPath: europaItemSO
       value: 
       objectReference: {fileID: 11400000, guid: 44088ad8441061946ae5262920785977,
@@ -469,6 +474,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 4467603357052840707, guid: 180e5c9d245eb934d873859121e99796,
+        type: 3}
+      insertIndex: 0
+      addedObject: {fileID: 3281956687776185466}
     - targetCorrespondingSourceObject: {fileID: 3436409442831732559, guid: 180e5c9d245eb934d873859121e99796,
         type: 3}
       insertIndex: -1
@@ -477,10 +486,6 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 1182627840840543953}
-    - targetCorrespondingSourceObject: {fileID: 1294856789159449124, guid: 180e5c9d245eb934d873859121e99796,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 3281956687776185466}
     - targetCorrespondingSourceObject: {fileID: 7643921426541660128, guid: 180e5c9d245eb934d873859121e99796,
         type: 3}
       insertIndex: -1
@@ -508,6 +513,12 @@ GameObject:
 --- !u!4 &5431710258534395582 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1294856789159449124, guid: 180e5c9d245eb934d873859121e99796,
+    type: 3}
+  m_PrefabInstance: {fileID: 6528265421535296666}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &7248846263316748185 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4467603357052840707, guid: 180e5c9d245eb934d873859121e99796,
     type: 3}
   m_PrefabInstance: {fileID: 6528265421535296666}
   m_PrefabAsset: {fileID: 0}
