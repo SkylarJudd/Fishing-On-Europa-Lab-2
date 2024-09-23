@@ -601,15 +601,15 @@ MonoBehaviour:
   CollisionTag: 
   EventReference:
     Guid:
-      Data1: -673255562
-      Data2: 1313980961
-      Data3: -342787416
-      Data4: -201223618
-    Path: event:/Sound Effects/GenericImpact
+      Data1: -1981645972
+      Data2: 1126942252
+      Data3: 1991009152
+      Data4: 150059475
+    Path: event:/Sound Effects/Footsteps
   Event: 
   PlayEvent: 0
   StopEvent: 0
-  AllowFadeout: 1
+  AllowFadeout: 0
   TriggerOnce: 0
   Preload: 0
   NonRigidbodyVelocity: 0
