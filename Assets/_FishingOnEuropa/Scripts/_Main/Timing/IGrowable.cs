@@ -1,9 +1,12 @@
 ﻿namespace Europa.GameEvents
 {
+    /// <summary>
+    /// Used for objects that grow at particular times/events.
+    /// </summary>
     public interface IGrowable
     {
         /// <summary>
-        /// Called when this object grows. Growth is handled by the <see cref="UnobservedTimePassageHandler"/>.
+        /// Called when this object grows. Growth is handled by the <see cref="UnobservedTimePassageCalculator"/>.
         /// From <see cref="GrowthObjectBase.OnUnobservedGrowth(int)"/>.
         /// </summary>
         /// <param name="wasObserved">Is true if the object is loaded when a daily event fires,
@@ -21,11 +24,32 @@
 
         /// <summary>
         /// Registers this growable with the growth handler.
+        /// Needs to be called when the growable is loaded in.
         /// </summary>
-        public void RegisterGrowable()
+        public void EnableGrowable()
         {
-            // Implementation needed
+            int cycles = UnobservedTimePassageCalculator.GetDailyEventsSinceZoneUnloaded(GetTimeLastUnloaded());
+            OnGrowth(false, cycles);
+
+            DailyEventHandler.SubscribeDailyEvent(GrowthTime(), OnGrowth);
         }
+
+        public void DisableGrowable()
+        {
+            DailyEventHandler.UnsubscribeDailyEvent(GrowthTime(), OnGrowth);
+        }
+
+        /// <summary>
+        /// Gets
+        /// </summary>
+        /// <returns>Returns the event's when this item grows.</returns>
+        public DailyEvents GrowthTime();
+
+        /// <summary>
+        /// Gets when this item was last unloaded.
+        /// </summary>
+        /// <returns>Returns when this item was last unloaded.</returns>
+        public ulong GetTimeLastUnloaded();
     }
 
 
