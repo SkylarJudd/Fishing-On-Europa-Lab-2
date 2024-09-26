@@ -197,8 +197,11 @@ namespace Europa
             return spawnableObj;
         }
 
-        public void ReturnObjectToPool(GameObject obj)
+        public void ReturnObjectToPool(FOEItem item)
         {
+            item.ItemLastUnloadedTime = GameEvents.TimeHandler.GetTotalMinutes();
+
+            GameObject obj = item.europaItemData.itemGO;
             string goName = obj.name.Substring(0, obj.name.Length - 7); // by taking off the 7, we are removing the (clone) from the passed in Obj
 
             PooledObjectInfo pool = objectPools.Find(p => p.LookUpString == goName);

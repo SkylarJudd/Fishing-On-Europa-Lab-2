@@ -13,6 +13,7 @@ namespace Europa
         public Transform itemPos;
         public ItemLocation itemLocation;
         public int itemInventorySlot;
+        public uint itemTimeLastUnloaded;
 
     }
     [Serializable]

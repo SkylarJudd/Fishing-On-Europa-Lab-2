@@ -13,14 +13,21 @@ public class GrowthDataSO : ScriptableObject
         DailyEvent,
         DailyEventCustomHour,
         HourlyTimer,
+        MinuteTimer,
     }
 
     public EventTypeEnum EventType = EventTypeEnum.DailyEvent;
 
-    [Tooltip("What times does the growth for this object occur?"), ShowIf(nameof(EventTypeEnum), EventTypeEnum.DailyEvent)]
-    public DailyEvents TimeOfGrowth = DailyEvents.Sunrise;
+    [Tooltip("When does this event occur during the day?"), ShowIf("EventType", "EventTypeEnum.DailyEvent")]
+    public DailyEvents DailyEventEnum = DailyEvents.Sunrise;
 
-    [Tooltip("Max amount of random in-game minute delay after an observed growth event occurs, this is to stagger things such as particle effects.")]
-    public int MaxRandomDelay = 0;
+    [Tooltip("What custom hours during the day does the event occur?"), ShowIf("EventType", "EventTypeEnum.DailyEventCustomHour")]
+    public int[] DailyEventHour = new int[] { 6 };
+
+    [Tooltip("How many hours does it take for the event to happen"), ShowIf("EventType", "EventTypeEnum.HourlyTimer")]
+    public int HourlyTime = 1;
+
+    [Tooltip("How many minutes does it take for the event to happen"), ShowIf("EventType", "EventTypeEnum.MinuteTimer")]
+    public int MinuteTime = 10;
 }
 

@@ -32,6 +32,8 @@ namespace Europa
 
         public BubbleMovement bubbleMovement;
 
+        public ulong ItemLastUnloadedTime;
+
         private void Start()
         {
             nameText.text = europaItemSO.itemName;

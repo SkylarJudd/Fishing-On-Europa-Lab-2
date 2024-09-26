@@ -9,6 +9,19 @@ namespace Europa.GameEvents
     /// </summary>
     public static class UnobservedTimePassageCalculator
     {
+       
+        /// <summary>
+        /// Gets the number of minted that have passed since the zone was last unloaded.
+        /// </summary>
+        /// <param name="timeLastUnloaded">timeLastUnloaded.</param>
+        /// <returns>The number of hours that have passed.</returns>
+        public static int GetMinutesSinceZoneUnloaded(ulong timeLastUnloaded)
+        {
+            ulong totalMinutes = TimeHandler.GetTotalMinutes();
+            ulong minutesSinceUnloaded = totalMinutes - timeLastUnloaded;
+            return (int)minutesSinceUnloaded;
+        }
+
         /// <summary>
         /// Gets the number of hours that have passed since the zone was last unloaded.
         /// </summary>
@@ -16,11 +29,7 @@ namespace Europa.GameEvents
         /// <returns>The number of hours that have passed.</returns>
         public static int GetHoursSinceZoneUnloaded(ulong timeLastUnloaded)
         {
-            ulong totalMinutes = TimeHandler.GetTotalMinutes();
-
-            ulong minutesSinceUnloaded = totalMinutes - timeLastUnloaded;
-            ulong hoursSinceUnloaded = minutesSinceUnloaded / TimeConstants.MINUTES_IN_HOUR;
-            return (int)hoursSinceUnloaded;
+            return GetMinutesSinceZoneUnloaded(timeLastUnloaded) / TimeConstants.MINUTES_IN_HOUR;
         }
 
         /// <summary>

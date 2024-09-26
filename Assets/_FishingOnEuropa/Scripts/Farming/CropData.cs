@@ -10,13 +10,14 @@ namespace Europa
         Seed, Sprout, Flowering, Fruited, Harvested
     }
 
-    public class CropData : MonoBehaviour
+    public class FOEItem_Crop : FOEItem
     {
         public GameObject go;
-        public int itemID;
         public SeedsSO seedSO;
         public Transform itemTransform;
         public CropState cropState;
         public int farmIndex;
+
+        public GrowthDataSO growthData;
     }
 }

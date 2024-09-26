@@ -59,30 +59,39 @@ namespace Europa
             }
         }
 
-        private void CropList_OnItemAdded(CropData _crop)
+        private void CropList_OnItemAdded(FOEItem_Crop _crop)
         {
             SpawnCrop(_crop);
         }
 
-        private void CropList_OnItemRemoved(CropData _crop)
+        private void CropList_OnItemRemoved(FOEItem_Crop _crop)
         {
             RemoveCrop(_crop);
         }
 
-        private void SpawnCrop(CropData _crop)
+        private void SpawnCrop(FOEItem_Crop _crop)
         {
             foreach (SeedsSO seedID in seedsSOs)
             {
-                if (seedID.ItemID == _crop.itemID)
+                if (seedID.ItemID == _crop.europaItemSO.itemID)
                 {
                     _crop.go = _OPM.SpawnObject(seedID.growthStages[(int)_crop.cropState], _crop.itemTransform.position, _crop.itemTransform.rotation, PoolType.Plants);
+                    if (_crop.go.TryGetComponent<GrowthObjectExample>(out GrowthObjectExample growthObjectExample))
+                    {
+                        growthObjectExample.ItemLoaded(_crop.ItemLastUnloadedTime, _crop.growthData);
+                    }
                 }
             }
         }
 
-        private void RemoveCrop(CropData _crop)
+        private void RemoveCrop(FOEItem_Crop _crop)
         {
-            _OPM.ReturnObjectToPool(_crop.go);
+            _OPM.ReturnObjectToPool(_crop);
+
+            if (_crop.go.TryGetComponent<GrowthObjectExample>(out GrowthObjectExample growthObjectExample))
+            {
+                growthObjectExample.ItemUnloaded();
+            }
         }
 
 
@@ -105,9 +114,9 @@ namespace Europa
 
             if (ableToPlant == true)
             {
-                CropData newitem = new CropData();
+                FOEItem_Crop newitem = new FOEItem_Crop();
                 //newitem.go = _Seed.gameObject;
-                newitem.itemID = _Seed.europaItemSO.itemID;
+                newitem.europaItemSO.itemID = _Seed.europaItemSO.itemID;
                 newitem.itemTransform = _Seed.europaItemData.itemTransform;
                 newitem.cropState = CropState.Seed;
                 newitem.farmIndex = index;
@@ -132,7 +141,7 @@ namespace Europa
             int attempts = 0;
             while (attempts < 4)
             {
-                foreach (CropData _Crop in cropList)
+                foreach (FOEItem_Crop _Crop in cropList)
                 {
                     Vector3 _CropSeedPos = _Crop.itemTransform.position;
                     float _distance = Vector3.Distance(_CropSeedPos, _PlantSeedPos);
@@ -158,7 +167,7 @@ namespace Europa
 
         private void GrowPlants()   //change to an Enumerator so each for loop is spaced out by a few seconds
         {
-            foreach (CropData _crop in cropList)
+            foreach (FOEItem_Crop _crop in cropList)
             {
                 switch (_crop.cropState)
                 {
@@ -186,9 +195,9 @@ namespace Europa
             }
         }
 
-        private void SpawnNewObject(GameObject _go, CropData _crop)
+        private void SpawnNewObject(GameObject _go, FOEItem_Crop _crop)
         {
-            _OPM.ReturnObjectToPool(_crop.go);
+            _OPM.ReturnObjectToPool(_crop);
             _crop.go = _OPM.SpawnObject(_go, _crop.itemTransform.position, _crop.itemTransform.rotation, PoolType.Plants);
         }
 

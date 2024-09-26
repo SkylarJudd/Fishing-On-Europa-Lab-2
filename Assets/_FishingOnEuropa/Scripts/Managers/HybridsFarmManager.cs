@@ -134,7 +134,7 @@ namespace Europa
 
         private void RemoveHybridFromTank(FOESaveItem_Hybrid _hybrid)
         {
-            _OPM.ReturnObjectToPool(_hybrid.itemGO.europaItemData.itemGO);
+            _OPM.ReturnObjectToPool(_hybrid.itemGO);
         }
     }
 }

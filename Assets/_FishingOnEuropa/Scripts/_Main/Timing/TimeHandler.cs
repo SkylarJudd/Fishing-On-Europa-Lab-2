@@ -37,13 +37,13 @@ namespace Europa.GameEvents
 
         // The current serialised time. Is the total minutes that have passed in game since the very start.
         // Hope it doesn't overflow, I think it would take about 23381681843.6 real life years.
-        private static UInt64 totalMinutes;
+        private static ulong totalMinutes;
 
         /// <summary>
         /// How many minutes have passed since the start of the game.
         /// </summary>
         /// <returns>Returns the total amount of minutes that have passed since the very start of the game.</returns>
-        public static UInt64 GetTotalMinutes()
+        public static ulong GetTotalMinutes()
         {
             return totalMinutes;
         }
@@ -84,7 +84,7 @@ namespace Europa.GameEvents
         /// Gets the serialised time from the save file.
         /// </summary>
         /// <returns>The total serialised minutes from the save file.</returns>
-        private static UInt64 LoadSerialisedMinute()
+        private static ulong LoadSerialisedMinute()
         {
             // Load the serialised time from the save file. TODO: Implement this.
             throw new NotImplementedException();
