@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using UnityEngine;
 using Obvious.Soap;
+using Europa.GameEvents;
 
 namespace Europa
 {
@@ -26,20 +27,20 @@ namespace Europa
 
         private void OnEnable()
         {
-            GameEvents.OnTempMorningEvent += GameEvents_OnTempMorningEvent;
+            DailyEventHandler.SubscribeDailyEvent(DailyEvents.Sunrise, GameEvents_OnTempMorningEvent);
+
             cropList.OnItemAdded += CropList_OnItemAdded;
             cropList.OnItemRemoved += CropList_OnItemRemoved;
 
-            
+
         }
 
         private void OnDisable()
         {
-            GameEvents.OnTempMorningEvent -= GameEvents_OnTempMorningEvent;
             cropList.OnItemAdded -= CropList_OnItemAdded;
             cropList.OnItemRemoved -= CropList_OnItemRemoved;
 
-           
+
         }
 
         public void OnFarmSceneLoaded()
@@ -85,7 +86,7 @@ namespace Europa
         }
 
 
-        private void GameEvents_OnTempMorningEvent(int _Day, int _Hour, int _Min, int _Seconds)
+        private void GameEvents_OnTempMorningEvent(bool wasObserved, int cycles = 1)
         {
             GrowPlants();
         }
@@ -93,7 +94,7 @@ namespace Europa
         [ContextMenu("GrowPlants")]
         public void TempGrowPlants()
         {
-            GameEvents.TempMorningEvent(1, 1, 1, 1);
+            DailyEventHandler.InvokeDailyEvent(DailyEvents.Sunrise);
 
         }
 

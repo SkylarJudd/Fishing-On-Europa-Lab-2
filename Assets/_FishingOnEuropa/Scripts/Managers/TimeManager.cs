@@ -5,6 +5,8 @@ using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 using Obvious.Soap;
+using Europa.GameEvents;
+using System;
 
 
 namespace Europa
@@ -54,22 +56,21 @@ namespace Europa
         #region Enable/Disable
         private void OnEnable()
         {
-            GameEvents.OnUpdateTime += GameEvents_OnUpdateTime;
-
-
+            TimeHandler.CurrentTime.ValueChanged += GameEvents_OnUpdateTime; 
         }
 
         private void OnDisable()
         {
-            GameEvents.OnUpdateTime -= GameEvents_OnUpdateTime;
-
+            TimeHandler.CurrentTime.ValueChanged -= GameEvents_OnUpdateTime;
         }
+
+
         #endregion
 
         #region Add Event Listeners
-        private void GameEvents_OnUpdateTime(int arg1, int arg2, int arg3)
+        private void GameEvents_OnUpdateTime(SplitTime time)
         {
-            UpdateTimeFromInt(arg1, arg2, arg3);
+            UpdateTimeFromInt(time);
         }
 
 
@@ -102,10 +103,6 @@ namespace Europa
         {
             currentTimeSO.hour++;
             currentTimeSO.totalHours++;
-
-            if (currentTimeSO.hour == timeSettings.sunriseHour) GameEvents.SunriseEvent();
-            if (currentTimeSO.hour == timeSettings.sunsetHour) GameEvents.SunsetEvent();
-
 
             //day has passed
             if (currentTimeSO.hour == 75)
@@ -219,14 +216,13 @@ namespace Europa
         /// <param name="_hour"></param>
         /// <param name="_min"></param>
         /// <param name="_day"></param>
-        void UpdateTimeFromInt(int _hour, int _min, int _day)
+        void UpdateTimeFromInt(SplitTime time)
         {
-            currentTimeSO.day = _day;
-            currentTimeSO.hour = _hour;
-            currentTimeSO.minute = _min;
+            currentTimeSO.day = time.Day;
+            currentTimeSO.hour = time.Hour;
+            currentTimeSO.minute = time.Minute;
 
-            currentTimeSO.totalMinutes = _min + (_hour * 60) + (_day * 1440);
-            currentTimeSO.totalHours = _hour + (_day * 24);
+            currentTimeSO.totalMinutes = (int) time.ToTotalMinutes();
         }
 
         /// <summary>
