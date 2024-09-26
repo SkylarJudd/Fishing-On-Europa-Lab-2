@@ -36,8 +36,6 @@ namespace Europa
             _hybridInFarm.OnItemRemoved += _hybridInFarm_OnItemRemoved;
         }
 
-
-
         private void OnDisable()
         {
             _hybridInFarm.OnItemAdded -= _hybridInFarm_OnItemAdded;
@@ -46,10 +44,7 @@ namespace Europa
 
         private void _hybridInFarm_OnItemAdded(FOESaveItem_Hybrid _hybrid)
         {
-            
-                SpawnHybridInTank(_hybrid);
-         
-
+            SpawnHybridInTank(_hybrid);
         }
 
         private void _hybridInFarm_OnItemRemoved(FOESaveItem_Hybrid _hybrid)
@@ -129,7 +124,7 @@ namespace Europa
             _hybridsSwimmingList.Add(_newHybridItem);
 
 
-            
+
         }
 
         private void RemoveHybridFromTank(FOESaveItem_Hybrid _hybrid)

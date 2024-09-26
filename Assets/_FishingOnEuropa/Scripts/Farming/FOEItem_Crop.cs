@@ -5,10 +5,6 @@ using UnityEngine;
 
 namespace Europa
 {
-    public enum CropState
-    {
-        Seed, Sprout, Flowering, Fruited, Harvested
-    }
 
     public class FOEItem_Crop : FOEItem
     {
@@ -19,5 +15,9 @@ namespace Europa
         public int farmIndex;
 
         public GrowthDataSO growthData;
+    }
+    public enum CropState
+    {
+        Seed, Sprout, Flowering, Fruited, Harvested
     }
 }

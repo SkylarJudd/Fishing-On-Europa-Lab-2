@@ -76,7 +76,7 @@ namespace Europa
                 if (seedID.ItemID == _crop.europaItemSO.itemID)
                 {
                     _crop.go = _OPM.SpawnObject(seedID.growthStages[(int)_crop.cropState], _crop.itemTransform.position, _crop.itemTransform.rotation, PoolType.Plants);
-                    if (_crop.go.TryGetComponent<GrowthObjectExample>(out GrowthObjectExample growthObjectExample))
+                    if (_crop.go.TryGetComponent<PlantGrowth>(out PlantGrowth growthObjectExample))
                     {
                         growthObjectExample.ItemLoaded(_crop.ItemLastUnloadedTime, _crop.growthData);
                     }
@@ -88,7 +88,7 @@ namespace Europa
         {
             _OPM.ReturnObjectToPool(_crop);
 
-            if (_crop.go.TryGetComponent<GrowthObjectExample>(out GrowthObjectExample growthObjectExample))
+            if (_crop.go.TryGetComponent<PlantGrowth>(out PlantGrowth growthObjectExample))
             {
                 growthObjectExample.ItemUnloaded();
             }

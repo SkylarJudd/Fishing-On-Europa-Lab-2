@@ -15,30 +15,30 @@ public abstract class GrowthObjectBase : MonoBehaviour
     /// false if the object has just been loaded in after daily events occurred during the object's inactivity.</param>
     /// <param name="cycles">For when <paramref name="wasObserved"/> is false, this is the amount of times the growth occurred in the background.
     /// Eg: if an apple tree is unloaded for 3 mornings, we'll need to make it grow for 3 stages when it is loaded in.</param>
-    protected abstract void OnGrowth(bool wasObserved = true, int cycles = 1);
+    protected abstract void GrowthObjectBase_OnGrowth(bool wasObserved = true, int cycles = 1);
 
     /// <summary>
     /// Registers this growable with the growth handler.
     /// Needs to be called when the growable is loaded in.
     /// </summary>
-    public void EnableGrowable()
+    public void GrowthObjectBase_EnableGrowable()
     {
-        var growthSO = GetGrowthSettings();
-        ulong timeLastUnloaded = GetTimeLastUnloaded();
+        var growthSO = GrowthObjectBase_GetGrowthSettings();
+        ulong timeLastUnloaded = GrowthObjectBase_GetTimeLastUnloaded();
         HandleMissingTimeAndSubscribeToTimeEvents(growthSO, timeLastUnloaded);
     }
 
     /// <summary>
     /// Disables the growable object.
     /// </summary>
-    protected void DisableGrowable()
+    protected void GrowthObjectBase_DisableGrowable()
     {
-        var growthSO = GetGrowthSettings();
+        var growthSO = GrowthObjectBase_GetGrowthSettings();
         switch (growthSO.EventType)
         {
             case GrowthDataSO.EventTypeEnum.DailyEvent:
             case GrowthDataSO.EventTypeEnum.DailyEventCustomHour:
-                DailyEventHandler.UnsubscribeDailyEvent(OnGrowth);
+                DailyEventHandler.UnsubscribeDailyEvent(GrowthObjectBase_OnGrowth);
                 break;
             case GrowthDataSO.EventTypeEnum.HourlyTimer:
             case GrowthDataSO.EventTypeEnum.MinuteTimer:
@@ -51,13 +51,13 @@ public abstract class GrowthObjectBase : MonoBehaviour
     /// Gets when this item was last unloaded.
     /// </summary>
     /// <returns>Returns when this item was last unloaded.</returns>
-    protected abstract ulong GetTimeLastUnloaded();
+    protected abstract ulong GrowthObjectBase_GetTimeLastUnloaded();
 
     /// <summary>
     /// Gets the growth settings for this growable.
     /// </summary>
     /// <returns>The growth settings.</returns>
-    protected abstract GrowthDataSO GetGrowthSettings();
+    protected abstract GrowthDataSO GrowthObjectBase_GetGrowthSettings();
 
     /// <summary>
     /// Subscribes to daily events that trigger growth as well as handles the unobserved daily events.
@@ -67,8 +67,8 @@ public abstract class GrowthObjectBase : MonoBehaviour
     private void SubscribeDailyEvent(ulong timeLastUnloaded, params int[] eventHours)
     {
         int cycles = UnobservedTimePassageCalculator.GetDailyEventsSinceZoneUnloaded(timeLastUnloaded, eventHours);
-        OnGrowth(false, cycles);
-        DailyEventHandler.SubscribeDailyEvent(eventHours, OnGrowth);
+        GrowthObjectBase_OnGrowth(false, cycles);
+        DailyEventHandler.SubscribeDailyEvent(eventHours, GrowthObjectBase_OnGrowth);
     }
 
     /// <summary>
@@ -82,7 +82,7 @@ public abstract class GrowthObjectBase : MonoBehaviour
         int unloadedCycles = minutesMissed / minutesPerCycle;
         int remainder = minutesMissed % minutesPerCycle;
 
-        OnGrowth(false, unloadedCycles);
+        GrowthObjectBase_OnGrowth(false, unloadedCycles);
 
         int minuteCounter = remainder;
 
@@ -92,7 +92,7 @@ public abstract class GrowthObjectBase : MonoBehaviour
             minuteCounter %= minutesPerCycle;
             if (minuteCounter == 0)
             {
-                OnGrowth(true, 1);
+                GrowthObjectBase_OnGrowth(true, 1);
             }
         }
 
