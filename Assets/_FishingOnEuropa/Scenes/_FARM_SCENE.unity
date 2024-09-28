@@ -6020,10 +6020,10 @@ MonoBehaviour:
     type: 2}
   hybridID: 100001
   hybridName: Bob
-  hybridShiney: 1
+  hybridShiny: 0
   hybridLocation: 5
   InventorySlot: 1
-  hybridHappiness: 100
+  hybridTrust: 0
   spawnPoints:
   - {fileID: 481129937}
   - {fileID: 63067006}
