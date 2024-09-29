@@ -75,8 +75,8 @@ namespace Europa
             {
                 if (seedID.ItemID == _crop.europaItemSO.itemID)
                 {
-                    _crop.go = _OPM.SpawnObject(seedID.growthStages[(int)_crop.cropState], _crop.itemTransform.position, _crop.itemTransform.rotation, PoolType.Plants);
-                    if (_crop.go.TryGetComponent<PlantGrowth>(out PlantGrowth growthObjectExample))
+                    _crop.europaItemData.itemGO = _OPM.SpawnObject(seedID.growthStages[(int)_crop.cropState], _crop.europaItemData.itemTransform.position, _crop.europaItemData.itemTransform.rotation, PoolType.Plants);
+                    if (_crop.europaItemData.itemGO.TryGetComponent<PlantGrowth>(out PlantGrowth growthObjectExample))
                     {
                         growthObjectExample.ItemLoaded(_crop.ItemLastUnloadedTime, _crop.growthData);
                     }
@@ -86,12 +86,12 @@ namespace Europa
 
         private void RemoveCrop(FOEItem_Crop _crop)
         {
-            _OPM.ReturnObjectToPool(_crop);
-
-            if (_crop.go.TryGetComponent<PlantGrowth>(out PlantGrowth growthObjectExample))
+            if (_crop.europaItemData.itemGO.TryGetComponent<PlantGrowth>(out PlantGrowth growthObjectExample))
             {
                 growthObjectExample.ItemUnloaded();
             }
+
+            _OPM.ReturnObjectToPool(_crop);
         }
 
 
@@ -107,7 +107,7 @@ namespace Europa
 
         }
 
-        public IEnumerator PlantCrop(FOEItem_Seed _Seed, int index)
+        public IEnumerator PlantCrop(FOEItem_Seed _Seed, ItemLocation location)
         {
             ableToPlant = false;
             yield return CheckIfCanPlant(_Seed.europaItemData.itemTransform.position, _Seed.europaItemData.itemRB);
@@ -117,9 +117,9 @@ namespace Europa
                 FOEItem_Crop newitem = new FOEItem_Crop();
                 //newitem.go = _Seed.gameObject;
                 newitem.europaItemSO.itemID = _Seed.europaItemSO.itemID;
-                newitem.itemTransform = _Seed.europaItemData.itemTransform;
+                newitem.europaItemData.itemTransform = _Seed.europaItemData.itemTransform;
                 newitem.cropState = CropState.Seed;
-                newitem.farmIndex = index;
+                newitem.europaItemData.itemLocation = location;
 
 
                 _Seed.europaItemData.itemRB.isKinematic = true;
@@ -143,7 +143,7 @@ namespace Europa
             {
                 foreach (FOEItem_Crop _Crop in cropList)
                 {
-                    Vector3 _CropSeedPos = _Crop.itemTransform.position;
+                    Vector3 _CropSeedPos = _Crop.europaItemData.itemTransform.position;
                     float _distance = Vector3.Distance(_CropSeedPos, _PlantSeedPos);
                     if (_distance < seedRadius)
                     {
@@ -165,41 +165,58 @@ namespace Europa
             }
         }
 
-        private void GrowPlants()   //change to an Enumerator so each for loop is spaced out by a few seconds
+      private void SetPlantVisuals(FOEItem_Crop _crop )
         {
-            foreach (FOEItem_Crop _crop in cropList)
+            switch (_crop.cropState)
             {
-                switch (_crop.cropState)
-                {
-                    case CropState.Seed:
-                        _crop.cropState = CropState.Sprout;
-                        SpawnNewObject(_crop.seedSO.growthStages[1], _crop);
-                        break;
-                    case CropState.Sprout:
-                        _crop.cropState = CropState.Flowering;
-                        SpawnNewObject(_crop.seedSO.growthStages[2], _crop);
-                        break;
-                    case CropState.Flowering:
-                        _crop.cropState = CropState.Fruited;
-                        SpawnNewObject(_crop.seedSO.growthStages[3], _crop);
-                        break;
-                    case CropState.Fruited:
-                        _crop.cropState = CropState.Harvested;
-                        SpawnNewObject(_crop.seedSO.growthStages[4], _crop);
-                        break;
-                    case CropState.Harvested:
-                        cropList.Remove(_crop);
-                        break;
+                case CropState.Seed:
+                    _crop.europaItemData.itemFOE.SwapVisuals(0);
+                    break;
+                case CropState.Sprout:
+                    _crop.europaItemData.itemFOE.SwapVisuals(2);
+                    break;
+                case CropState.Flowering:
+                    _crop.europaItemData.itemFOE.SwapVisuals(3);
+                    break;
+                case CropState.Fruited:
+                    _crop.europaItemData.itemFOE.SwapVisuals(4);
+                    break;
+                case CropState.Harvested:
+                    _crop.europaItemData.itemFOE.SwapVisuals(5);
+                    break;
 
-                }
             }
         }
 
-        private void SpawnNewObject(GameObject _go, FOEItem_Crop _crop)
+        private void UpdatePlantVisuals(FOEItem_Crop _crop)
         {
-            _OPM.ReturnObjectToPool(_crop);
-            _crop.go = _OPM.SpawnObject(_go, _crop.itemTransform.position, _crop.itemTransform.rotation, PoolType.Plants);
+            switch (_crop.cropState)
+            {
+                case CropState.Seed:
+                    _crop.europaItemData.itemFOE.SwapVisuals(1);
+                    _crop.cropState = CropState.Sprout;
+                    break;
+                case CropState.Sprout:
+                    _crop.cropState = CropState.Flowering;
+                    _crop.europaItemData.itemFOE.SwapVisuals(2);
+                    break;
+                case CropState.Flowering:
+                    _crop.cropState = CropState.Fruited;
+                    _crop.europaItemData.itemFOE.SwapVisuals(3);
+                    break;
+                case CropState.Fruited:
+                    _crop.cropState = CropState.Harvested;
+                    _crop.europaItemData.itemFOE.SwapVisuals(4);
+                    break;
+                case CropState.Harvested:
+                    _crop.europaItemData.itemFOE.ResetItem();
+                    cropList.Remove(_crop);
+                    break;
+
+            }
         }
+
+        
 
     }
 }

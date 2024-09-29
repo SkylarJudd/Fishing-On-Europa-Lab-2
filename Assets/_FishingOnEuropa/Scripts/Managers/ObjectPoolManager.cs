@@ -218,6 +218,25 @@ namespace Europa
             }
         }
 
+        public void ReturnObjectToPool(GameObject obj)
+        {
+            
+            string goName = obj.name.Substring(0, obj.name.Length - 7); // by taking off the 7, we are removing the (clone) from the passed in Obj
+
+            PooledObjectInfo pool = objectPools.Find(p => p.LookUpString == goName);
+
+            if (pool == null)
+            {
+                Debug.LogWarning("Trying To Release An Object That is Not Pooled: " + obj.name);
+            }
+            else
+            {
+                obj.SetActive(false);
+                pool.inactiveObjects.Add(obj);
+                pool.inactiveTimestamps[obj] = Time.time;
+            }
+        }
+
         [Serializable]
         public class PooledObjectInfo
         {
