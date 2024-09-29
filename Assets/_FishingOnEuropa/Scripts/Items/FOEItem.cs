@@ -15,6 +15,7 @@ namespace Europa
     public enum ToyList { Error, }
     public enum ItemRarity { Common, Uncommon, Rare, Epic };
     public enum ItemLocation { Error, LeftHand, RightHand, World, Inventory, Tank1, Tank2, FarmStation1, FarmStation2, ZoneOne, ZoneTwo, ZoneThree, Cave, }
+    public enum CharmType { Error, }
 
 
     public class FOEItem : GameBehaviour, IEropaItemable, ISellable
