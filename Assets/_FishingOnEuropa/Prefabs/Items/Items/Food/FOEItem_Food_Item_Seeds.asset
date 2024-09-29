@@ -13,10 +13,13 @@ MonoBehaviour:
   m_Name: FOEItem_Food_Item_Seeds
   m_EditorClassIdentifier: 
   itemID: 200010
-  worldObject: {fileID: 2168081722587043594, guid: c193af12932fd014f8e4cd12350da07f,
+  worldObject: {fileID: 5912406539843738869, guid: a9acbc8f3ca19c64c9bc00c8caa044a7,
     type: 3}
-  itemPrefab: {fileID: 7073779309740609926, guid: c193af12932fd014f8e4cd12350da07f,
+  itemPrefab: {fileID: 2625746280661737934, guid: 37e87f46c1e44ae48916f3e94d6fc9ef,
     type: 3}
-  itemName: Seed
-  itemDescription: "Seeds are obtained though chests in Each Zone\_"
-  poolType: 6
+  itemName: Banana
+  itemDescription: 'Bananas are obtained through farming, the seeds can be bought
+    from the store after they have been found in chests fished up in zone 2. '
+  ItemRB: {fileID: 0}
+  ItemGrabbable: {fileID: 0}
+  itemTransform: {fileID: 0}

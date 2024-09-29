@@ -3,14 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-namespace Europa
+public class HybridInventoryItem : InventoryItem
 {
-    public class HybridInventoryItem : InventoryItem
+    private void Start()
     {
-        private void Start()
-        {
-            //inventoryItemSO.itemStackSize = 1; 
-        }
+        //inventoryItemSO.itemStackSize = 1; 
     }
 }
-

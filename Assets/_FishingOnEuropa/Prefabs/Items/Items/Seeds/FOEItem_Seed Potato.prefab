@@ -219,21 +219,6 @@ PrefabInstance:
         type: 2}
     - target: {fileID: 3643110053305357456, guid: 2ffada7c597f64d4495892d2d0e5269d,
         type: 3}
-      propertyPath: foodItem
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 3643110053305357456, guid: 2ffada7c597f64d4495892d2d0e5269d,
-        type: 3}
-      propertyPath: foodType
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 3643110053305357456, guid: 2ffada7c597f64d4495892d2d0e5269d,
-        type: 3}
-      propertyPath: happinesAdd
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 3643110053305357456, guid: 2ffada7c597f64d4495892d2d0e5269d,
-        type: 3}
       propertyPath: europaItemSO
       value: 
       objectReference: {fileID: 11400000, guid: a7ad7398824f9d848a143359778cef56,

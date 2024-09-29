@@ -13,11 +13,13 @@ MonoBehaviour:
   m_Name: FOEItem_Food_Item_Oranges
   m_EditorClassIdentifier: 
   itemID: 200007
-  worldObject: {fileID: 2168081722587043594, guid: 3c8ebcca5a9bbc14c8914803f09dc1a0,
+  worldObject: {fileID: 5912406539843738869, guid: 18cb9c5641f1478408951cb4d6e396bc,
     type: 3}
-  itemPrefab: {fileID: 7073779309740609926, guid: 3c8ebcca5a9bbc14c8914803f09dc1a0,
+  itemPrefab: {fileID: 2625746280661737934, guid: ced78639ec4227c40861f482ba236ab5,
     type: 3}
-  itemName: Orange
-  itemDescription: "Orange are obtained through farming, the seeds can be bought
-    from the store after they have been found in chests found in zone 1.\_"
-  poolType: 6
+  itemName: Carrot
+  itemDescription: 'Carrots are obtained through farming, the seeds can be bought
+    from the store after they have been found in chests fished up in zone 1 '
+  ItemRB: {fileID: 0}
+  ItemGrabbable: {fileID: 0}
+  itemTransform: {fileID: 0}

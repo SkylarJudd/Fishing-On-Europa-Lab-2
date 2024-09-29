@@ -9,6 +9,5 @@ public class InventoryItemSO : ScriptableObject
     [Header("Inventory Data")]
     public int itemStackSize;
     public Sprite icon;
-    public int itemSlot;
 
 }

@@ -13,11 +13,13 @@ MonoBehaviour:
   m_Name: FOEItem_Food_Item_Potatos
   m_EditorClassIdentifier: 
   itemID: 200008
-  worldObject: {fileID: 2168081722587043594, guid: c18455d8d66f344468fab7313e1f6600,
+  worldObject: {fileID: 5912406539843738869, guid: 0270d38e717541f49b27af04966310cf,
     type: 3}
-  itemPrefab: {fileID: 7073779309740609926, guid: c18455d8d66f344468fab7313e1f6600,
+  itemPrefab: {fileID: 2625746280661737934, guid: ced78639ec4227c40861f482ba236ab5,
     type: 3}
-  itemName: Potato
-  itemDescription: "Potatoes are obtained through farming, the seeds can be bought
-    from the store after they have been found in chests fished up\_ in zone 1\_"
-  poolType: 6
+  itemName: Carrot
+  itemDescription: 'Carrots are obtained through farming, the seeds can be bought
+    from the store after they have been found in chests fished up in zone 1 '
+  ItemRB: {fileID: 0}
+  ItemGrabbable: {fileID: 0}
+  itemTransform: {fileID: 0}

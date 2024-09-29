@@ -179,7 +179,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inventoryItemSO: {fileID: 0}
   europaItemSO: {fileID: 0}
-  europaItemData: {fileID: 7393862018077505929}
   held: 0
   nameTextGO: {fileID: 8901062359851768450}
   nameText: {fileID: 4803608372739053623}
@@ -196,18 +195,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 713c396c98ee77347ba9610113b5cb4b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &7393862018077505929 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5360639546099310918, guid: 43fb700f02b00b046b82d8ecda0ba12e,
-    type: 3}
-  m_PrefabInstance: {fileID: 3240506057669875919}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6291683667087982343}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 24c3fc2b41b421440af438fc2f9de6e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &8901062359851768450 stripped

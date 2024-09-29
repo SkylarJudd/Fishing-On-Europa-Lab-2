@@ -13,10 +13,13 @@ MonoBehaviour:
   m_Name: FOEItem_Food_Item_RedMeat
   m_EditorClassIdentifier: 
   itemID: 200009
-  worldObject: {fileID: 2168081722587043594, guid: f46f1531caf92934abcfd82afef4fdb3,
+  worldObject: {fileID: 5912406539843738869, guid: b63deb7edad2e094f819874b5db2c7b1,
     type: 3}
-  itemPrefab: {fileID: 7073779309740609926, guid: f46f1531caf92934abcfd82afef4fdb3,
+  itemPrefab: {fileID: 2625746280661737934, guid: ced78639ec4227c40861f482ba236ab5,
     type: 3}
-  itemName: RedMeat
-  itemDescription: "Red Meat is given from the protein generator by putting veg.\_"
-  poolType: 6
+  itemName: Carrot
+  itemDescription: 'Carrots are obtained through farming, the seeds can be bought
+    from the store after they have been found in chests fished up in zone 1 '
+  ItemRB: {fileID: 0}
+  ItemGrabbable: {fileID: 0}
+  itemTransform: {fileID: 0}
