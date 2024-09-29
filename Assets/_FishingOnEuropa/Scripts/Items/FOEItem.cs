@@ -9,7 +9,7 @@ using Unity.VisualScripting;
 namespace Europa
 {
     public enum StackType { UIStack, WorldStack, }
-    public enum ItemType { Error, Hybrid, Food, Seed, Plushie }
+    public enum ItemType { Error, Hybrid, Food, Seed, Plushie, Charms }
     public enum FoodType { Error, Veg, Fruit, Meat, Seed, Leaves, Bugs, Flowers };
     public enum FoodList { Error, Bugs, WhiteMeat, RedMeat, Leaves, Flowers, Seeds, Carrot, Potato, Orange, Apple, Banana, WaterMelon }
     public enum ToyList { Error, }
@@ -60,7 +60,7 @@ namespace Europa
             throw new System.NotImplementedException();
         }
 
-        public void OnSell()
+        public virtual void OnSell()
         {
             throw new System.NotImplementedException();
         }

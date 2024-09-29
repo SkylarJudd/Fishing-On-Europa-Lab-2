@@ -18,6 +18,9 @@ namespace Europa
 
         protected static FishNavigationManager _FNAVM { get { return FishNavigationManager.instance; } }
         protected static TrustManager _TM { get { return TrustManager.instance; } }
+        protected static EconomyManager _EM { get { return EconomyManager.instance; } }
+
+
         //protected static FishingMiniGameManager _FMGM { get { return FishingMiniGameManager.instance; } }
 
       
