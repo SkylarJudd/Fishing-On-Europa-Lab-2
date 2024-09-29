@@ -2,8 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FOEItem_Plushie : FOEItem
+namespace Europa
 {
-    public ToyList ToyItem;
-    public int happinesAdd;
+    public class FOEItem_Plushie : FOEItem
+    {
+        public ToyList ToyItem;
+        public int happinesAdd;
+    }
 }
+

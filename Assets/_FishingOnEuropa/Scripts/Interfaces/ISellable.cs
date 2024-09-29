@@ -2,8 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface ISellable 
+namespace Europa
 {
-    void OnSell();
-    
+    public interface ISellable
+    {
+        void OnSell();
+
+    }
 }
+

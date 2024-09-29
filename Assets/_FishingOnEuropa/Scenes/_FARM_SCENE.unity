@@ -445,6 +445,12 @@ MonoBehaviour:
   OnDispenseEvent:
     m_PersistentCalls:
       m_Calls: []
+--- !u!4 &63067006 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3551445850767828276, guid: 21be8ba837fc08a4aa7b74103e715381,
+    type: 3}
+  m_PrefabInstance: {fileID: 1261392956}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &65539327
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1037,6 +1043,12 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -2049785196340691213, guid: 123e61f953b7a3041b8309f25a59f872, type: 3}
+--- !u!4 &314479903 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5316593387922132405, guid: 21be8ba837fc08a4aa7b74103e715381,
+    type: 3}
+  m_PrefabInstance: {fileID: 1261392956}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &327201346
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1661,6 +1673,12 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 866316551}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &481129937 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1513780618933962647, guid: 21be8ba837fc08a4aa7b74103e715381,
+    type: 3}
+  m_PrefabInstance: {fileID: 1261392956}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &499054995
 GameObject:
   m_ObjectHideFlags: 0
@@ -2247,6 +2265,12 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &552155610 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6850041893185089203, guid: 21be8ba837fc08a4aa7b74103e715381,
+    type: 3}
+  m_PrefabInstance: {fileID: 1261392956}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &553294267 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 225781249116920463, guid: 3c8ebcca5a9bbc14c8914803f09dc1a0,
@@ -2315,6 +2339,12 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4187099987426957574, guid: 2ed0131bc9b06804eb873d407d121619,
     type: 3}
   m_PrefabInstance: {fileID: 529326906}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &616419218 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 825463975102167670, guid: 21be8ba837fc08a4aa7b74103e715381,
+    type: 3}
+  m_PrefabInstance: {fileID: 1261392956}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &618535019
 GameObject:
@@ -2744,7 +2774,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 783739753}
-  - component: {fileID: 783739752}
+  - component: {fileID: 783739754}
   m_Layer: 0
   m_Name: CropFarmingMannager
   m_TagString: Untagged
@@ -2752,27 +2782,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &783739752
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 783739751}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 71bcf4faa8c64b647acd6d386771e3c0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Soil: {fileID: 20133503}
-  seedRadius: 0.3
-  seedSOS:
-  - {fileID: 11400000, guid: 0c39c1fa0638c0342b4bf4ab17b1e14c, type: 2}
-  - {fileID: 11400000, guid: e1e810b8e5037d745ac9e21726bd3d32, type: 2}
-  - {fileID: 11400000, guid: 77a7e2979aff5df47bc2e09013619127, type: 2}
-  - {fileID: 11400000, guid: 9cbc749d65d5dc74d86bfc2b44db1b04, type: 2}
-  - {fileID: 11400000, guid: a91eebbf5ac59c447b44284b9ebd94c2, type: 2}
-  - {fileID: 11400000, guid: 314465d796677fb47ba94af3cf38cb2d, type: 2}
 --- !u!4 &783739753
 Transform:
   m_ObjectHideFlags: 0
@@ -2788,6 +2797,28 @@ Transform:
   m_Children: []
   m_Father: {fileID: 286406839}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &783739754
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 783739751}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8bd54eddb46944049ad2294b61c500d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Soil: {fileID: 0}
+  cropList: {fileID: 11400000, guid: 045757eda1f875b4ea014ef89aad4c76, type: 2}
+  seedRadius: 0.3
+  seedsSOs:
+  - {fileID: 11400000, guid: 0c39c1fa0638c0342b4bf4ab17b1e14c, type: 2}
+  - {fileID: 11400000, guid: e1e810b8e5037d745ac9e21726bd3d32, type: 2}
+  - {fileID: 11400000, guid: 77a7e2979aff5df47bc2e09013619127, type: 2}
+  - {fileID: 11400000, guid: 9cbc749d65d5dc74d86bfc2b44db1b04, type: 2}
+  - {fileID: 11400000, guid: a91eebbf5ac59c447b44284b9ebd94c2, type: 2}
+  - {fileID: 11400000, guid: 314465d796677fb47ba94af3cf38cb2d, type: 2}
 --- !u!4 &796008105 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3308857874883346367, guid: 21cf01f8af2606c4ca14e3080dc97aec,
@@ -4144,6 +4175,30 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 406045421707340054, guid: 21be8ba837fc08a4aa7b74103e715381,
         type: 3}
+      propertyPath: fishToSpawn
+      value: 
+      objectReference: {fileID: 11400000, guid: 8c96184245371e945b3bc6367ec80b61,
+        type: 2}
+    - target: {fileID: 406045421707340054, guid: 21be8ba837fc08a4aa7b74103e715381,
+        type: 3}
+      propertyPath: _hybridInFarm
+      value: 
+      objectReference: {fileID: 11400000, guid: 897d9df1d22b37d419e588541d04c678,
+        type: 2}
+    - target: {fileID: 406045421707340054, guid: 21be8ba837fc08a4aa7b74103e715381,
+        type: 3}
+      propertyPath: _hybridsToNavList
+      value: 
+      objectReference: {fileID: 11400000, guid: eccfc48b5d90af148a1f602d1999386d,
+        type: 2}
+    - target: {fileID: 406045421707340054, guid: 21be8ba837fc08a4aa7b74103e715381,
+        type: 3}
+      propertyPath: _hybridsSwimmingList
+      value: 
+      objectReference: {fileID: 11400000, guid: ef9098ea051dd52449162d94743f2122,
+        type: 2}
+    - target: {fileID: 406045421707340054, guid: 21be8ba837fc08a4aa7b74103e715381,
+        type: 3}
       propertyPath: hybridInfos.Array.size
       value: 10
       objectReference: {fileID: 0}
@@ -4303,7 +4358,8 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 8390491979092721068, guid: 21be8ba837fc08a4aa7b74103e715381, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 21be8ba837fc08a4aa7b74103e715381, type: 3}
@@ -4905,6 +4961,12 @@ Transform:
   - {fileID: 1756874460}
   m_Father: {fileID: 639591968}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &1361798862 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7186533055392102159, guid: 21be8ba837fc08a4aa7b74103e715381,
+    type: 3}
+  m_PrefabInstance: {fileID: 1261392956}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1410349727
 GameObject:
   m_ObjectHideFlags: 0
@@ -5907,6 +5969,83 @@ Transform:
   - {fileID: 777012822}
   m_Father: {fileID: 1274672661}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1713369572
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1713369573}
+  - component: {fileID: 1713369574}
+  m_Layer: 0
+  m_Name: HybridCreatorTool
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1713369573
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1713369572}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2089640093}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1713369574
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1713369572}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 79cd33b5a16156d488b925be67ec6d8e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fishToSpawn: {fileID: 11400000, guid: 8c96184245371e945b3bc6367ec80b61, type: 2}
+  hybridInFarmList: {fileID: 11400000, guid: 897d9df1d22b37d419e588541d04c678, type: 2}
+  hybridInDomeList: {fileID: 11400000, guid: 7a3697ed6ccd83145962216ec9b0cd66, type: 2}
+  hybridInInvetoryList: {fileID: 11400000, guid: 10a8d62b35861cf4685f811c64e600e4,
+    type: 2}
+  hybridID: 100001
+  hybridName: Bob
+  hybridShiny: 0
+  hybridLocation: 5
+  InventorySlot: 1
+  hybridTrust: 0
+  spawnPoints:
+  - {fileID: 481129937}
+  - {fileID: 63067006}
+  - {fileID: 1720620253}
+  - {fileID: 616419218}
+  - {fileID: 552155610}
+  - {fileID: 314479903}
+  - {fileID: 1717425035}
+  - {fileID: 2018380018}
+  - {fileID: 1361798862}
+--- !u!4 &1717425035 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1859187186075792110, guid: 21be8ba837fc08a4aa7b74103e715381,
+    type: 3}
+  m_PrefabInstance: {fileID: 1261392956}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1720620253 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1348461626302070050, guid: 21be8ba837fc08a4aa7b74103e715381,
+    type: 3}
+  m_PrefabInstance: {fileID: 1261392956}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1734924544
 GameObject:
   m_ObjectHideFlags: 0
@@ -6765,7 +6904,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87d633e095e4e2442ba6cb5c7305807f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cropFarmingMannager: {fileID: 783739752}
+  cropFarmingMannager: {fileID: 0}
   farnIndex: 0
 --- !u!1001 &1933294982
 PrefabInstance:
@@ -7018,6 +7157,12 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &2018380018 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4636892041389751533, guid: 21be8ba837fc08a4aa7b74103e715381,
+    type: 3}
+  m_PrefabInstance: {fileID: 1261392956}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2019327888
 GameObject:
   m_ObjectHideFlags: 0
@@ -7768,6 +7913,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1567588836}
+  - {fileID: 1713369573}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2118663855

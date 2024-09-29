@@ -2,45 +2,49 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HybridHeadPatTrigger : GameBehaviour
+namespace Europa
 {
-    GameObject objectInTrigger;
-
-    /// <summary>
-    /// Returns hand in trigger, if no hand in trigger it returns null
-    /// </summary>
-    public Transform ReturnHand()
+    public class HybridHeadPatTrigger : GameBehaviour
     {
-        if(objectInTrigger == null) return null;
+        GameObject objectInTrigger;
 
-        if (objectInTrigger.tag == "LeftHandTag")
+        /// <summary>
+        /// Returns hand in trigger, if no hand in trigger it returns null
+        /// </summary>
+        public Transform ReturnHand()
         {
-            return _PLAYER.leftHand;
-            
+            if (objectInTrigger == null) return null;
+
+            if (objectInTrigger.tag == "LeftHandTag")
+            {
+                return _PLAYER.leftHand;
+
+            }
+            else if (objectInTrigger.tag == "RightHandTag")
+            {
+                return _PLAYER.rightHand;
+            }
+
+            return null;
+
+
         }
-        else if (objectInTrigger.tag == "RightHandTag")
+
+        private void OnTriggerEnter(Collider other)
         {
-            return _PLAYER.rightHand;
+            if (other.CompareTag("LeftHandTag") || other.CompareTag("RightHandTag"))
+            {
+                objectInTrigger = other.gameObject;
+            }
         }
 
-        return null;
-
-
+        private void OnTriggerExit(Collider other)
+        {
+            if (other.CompareTag("LeftHandTag") || other.CompareTag("RightHandTag"))
+            {
+                objectInTrigger = null;
+            }
+        }
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("LeftHandTag") || other.CompareTag("RightHandTag"))
-        {
-            objectInTrigger = other.gameObject;
-        }
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.CompareTag("LeftHandTag") || other.CompareTag("RightHandTag"))
-        {
-            objectInTrigger = null;
-        }
-    }
 }

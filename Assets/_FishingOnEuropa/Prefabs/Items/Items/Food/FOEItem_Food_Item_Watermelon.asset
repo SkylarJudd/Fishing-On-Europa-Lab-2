@@ -13,13 +13,11 @@ MonoBehaviour:
   m_Name: FOEItem_Food_Item_Watermelon
   m_EditorClassIdentifier: 
   itemID: 200011
-  worldObject: {fileID: 5912406539843738869, guid: 84d5a4ebd32b5344aaf82d3c44a789aa,
+  worldObject: {fileID: 2168081722587043594, guid: 50a0c1ea3d3eb2142b718292f7ef218d,
     type: 3}
-  itemPrefab: {fileID: 2625746280661737934, guid: 8f08be7243a4392458fe7432453cb51b,
+  itemPrefab: {fileID: 7073779309740609926, guid: 50a0c1ea3d3eb2142b718292f7ef218d,
     type: 3}
-  itemName: Apple
-  itemDescription: 'Apples are obtained through farming, the seeds can be bought
-    from the store after they have been found in chests fished up in zone 1. '
-  ItemRB: {fileID: 0}
-  ItemGrabbable: {fileID: 0}
-  itemTransform: {fileID: 0}
+  itemName: WaterMelon
+  itemDescription: "Watermelon are obtained through farming, the seeds can be bought
+    from the store after they have been found in chests fished up in zone 3.\_"
+  poolType: 6

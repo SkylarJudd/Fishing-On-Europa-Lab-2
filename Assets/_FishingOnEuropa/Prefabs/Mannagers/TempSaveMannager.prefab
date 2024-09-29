@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5396619862681362380}
-  - component: {fileID: 1626593172359749012}
+  - component: {fileID: 3953547474902856689}
   m_Layer: 0
   m_Name: TempSaveMannager
   m_TagString: Untagged
@@ -32,7 +32,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1626593172359749012
+--- !u!114 &3953547474902856689
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -41,44 +41,111 @@ MonoBehaviour:
   m_GameObject: {fileID: 2293724037855637007}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fa52f8734f1416b45b3dc2b0ba01ef5c, type: 3}
+  m_Script: {fileID: 11500000, guid: 81b3aecd2d510a24e844faff82c6eeb0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   saveDatas: []
   currentSave:
-    saveName: 
-    saveDate: 
-    HybridsInFarm: 
-    HybridsShiney: 
-    HybridsNames: []
-    HybridTank: 
-    HybridLastPos: []
-    currentScene: 
-    playerLocation: {x: 0, y: 0, z: 0}
-    turnType: 0
-    turnAngle: 0
-    turnSpeed: 0
-    language: 0
-    masterVolume: 0
-    musicVolume: 0
-    sFXVolume: 0
-    hybridVolume: 0
-    voicesVolume: 0
-    gameQuality: 0
-    postProssessing: 0
-    bloomAmout: 0
-    HybridsInInventory: 
-    ItemInInventory: 
-    itemsInFarm: 
-    plantLocations: []
-    growthStage: 
-    farmLocatedIn: 
-    toysInWorld: 
-    toysPosition: []
-    toysRotation: []
-    Days: 0
-    Hours: 0
-    Minuites: 0
+    saveName:
+      UseLocal: 0
+      LocalValue: 
+      Variable: {fileID: 11400000, guid: eafc67392ca9eee448d23dda6f642822, type: 2}
+    saveDate:
+      UseLocal: 0
+      LocalValue: 
+      Variable: {fileID: 11400000, guid: a68d631e191f6964ebccfa6badfd4c34, type: 2}
+    hybridFarmList: {fileID: 11400000, guid: b18e6ef0e12e8e347af0dd0079eb7e53, type: 2}
+    hybridDomeList: {fileID: 11400000, guid: c3025e6db687f2145b1272ba025a5c1d, type: 2}
+    hybridsInventoryList: {fileID: 11400000, guid: 195854aeb48bd234a84aa5c4b611f5d5,
+      type: 2}
+    player:
+      currentScene:
+        UseLocal: 0
+        LocalValue: 0
+        Variable: {fileID: 11400000, guid: 4a27606a275559b4abcbafcdc10ee600, type: 2}
+      location:
+        UseLocal: 0
+        LocalValue: {x: 0, y: 0, z: 0}
+        Variable: {fileID: 11400000, guid: d9f29ef1e5f99ca4296efc384dddd056, type: 2}
+      rotation:
+        UseLocal: 0
+        LocalValue: {x: 0, y: 0, z: 0}
+        Variable: {fileID: 11400000, guid: e5b794b68de92274e8e6f2d62cff9ddd, type: 2}
+    settings:
+      moveSettings:
+        turnType:
+          UseLocal: 0
+          LocalValue: 0
+          Variable: {fileID: 11400000, guid: 0672a3cbbad84744797235d925b703d3, type: 2}
+        turnAngle:
+          UseLocal: 0
+          LocalValue: 0
+          Variable: {fileID: 11400000, guid: 4f76f1ba0f63e3d49ad25002957aef06, type: 2}
+        turnSpeed:
+          UseLocal: 0
+          LocalValue: 0
+          Variable: {fileID: 11400000, guid: b86ca8788865fde4cb14094c41660d5d, type: 2}
+      audioSettings:
+        masterVolume:
+          UseLocal: 0
+          LocalValue: 0
+          Variable: {fileID: 11400000, guid: 85593924050f06842a7d73ea15b196d9, type: 2}
+        musicVolume:
+          UseLocal: 0
+          LocalValue: 0
+          Variable: {fileID: 11400000, guid: e6c9732882e54074ea39810d7b07f0b0, type: 2}
+        sFXVolume:
+          UseLocal: 0
+          LocalValue: 0
+          Variable: {fileID: 11400000, guid: fa3138b47687b0b4c9169873cca3b8f9, type: 2}
+        hybridVolume:
+          UseLocal: 0
+          LocalValue: 0
+          Variable: {fileID: 11400000, guid: 8a709553769bd03429f629baabba02c6, type: 2}
+        voicesVolume:
+          UseLocal: 0
+          LocalValue: 0
+          Variable: {fileID: 11400000, guid: e0ef2f04591951641a95c77f285a9bb8, type: 2}
+      graphicSettings:
+        gameQuality:
+          UseLocal: 0
+          LocalValue: 0
+          Variable: {fileID: 11400000, guid: 571ef4e16bf0d5543b43ed4874746b03, type: 2}
+        postProcessing:
+          UseLocal: 0
+          LocalValue: 0
+          Variable: {fileID: 11400000, guid: 2b9d7fac168ccdb4f94258ab42e55f2c, type: 2}
+        bloomAmount:
+          UseLocal: 0
+          LocalValue: 0
+          Variable: {fileID: 11400000, guid: 950c5cb7b15e1364b885748067a6d678, type: 2}
+      languageSettings:
+        language:
+          UseLocal: 0
+          LocalValue: 0
+          Variable: {fileID: 11400000, guid: 3a5cb5e051e3b6546919604786f38c01, type: 2}
+        fontSize:
+          UseLocal: 0
+          LocalValue: 0
+          Variable: {fileID: 11400000, guid: 7fe91fee1e2ec494281ab1a3fbc00f2e, type: 2}
+    itemsInFarmList: {fileID: 11400000, guid: 51bb3d0d894f9604391e0c471b6bacbd, type: 2}
+    itemsInDomeList: {fileID: 11400000, guid: 4890019a755639045bff1e7fd5a79bc3, type: 2}
+    itemsInInventoryList: {fileID: 11400000, guid: 97a1768e3190c634ab08ef35c1cfb0f5,
+      type: 2}
+    cropsPlanted: {fileID: 11400000, guid: 045757eda1f875b4ea014ef89aad4c76, type: 2}
+    time:
+      days:
+        UseLocal: 0
+        LocalValue: 0
+        Variable: {fileID: 11400000, guid: c6a72ed943ea4d4489b349d7ec7a8714, type: 2}
+      hours:
+        UseLocal: 0
+        LocalValue: 0
+        Variable: {fileID: 11400000, guid: c6a72ed943ea4d4489b349d7ec7a8714, type: 2}
+      minutes:
+        UseLocal: 0
+        LocalValue: 0
+        Variable: {fileID: 11400000, guid: 851328b85881db2458afd0efc0c59364, type: 2}
   currentSaveIndex: 0
   maxSaves: 5
   fileName: EuropaWorld
