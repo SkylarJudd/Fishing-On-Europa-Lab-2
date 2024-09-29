@@ -15,7 +15,9 @@ namespace Europa
         _MAINMENU_SCENE,
         _FARM_SCENE,
         _DOME_SCENE,
-        _FISHINGTEST_SCENE
+        _FISHINGTEST_SCENE,
+        _CurrentScene,
+        
     }
 
     public class SceneController : Singleton<SceneController>
@@ -42,7 +44,11 @@ namespace Europa
             if (debug)
             {
                 Debug.LogWarning($"Switching to {starterScene} from {currentEnviromentScene} If this is not what you wanted toggle on Debug");
-                StartCoroutine(SwitchScene(starterScene));
+                if (starterScene != CurrentScenes._CurrentScene)
+                {
+                    StartCoroutine(SwitchScene(starterScene));
+                }
+                
             }
 
             else if (currentEnviromentScene != CurrentScenes._MAINMENU_SCENE && !debug)
