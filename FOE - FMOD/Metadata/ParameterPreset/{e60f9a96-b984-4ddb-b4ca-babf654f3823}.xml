@@ -2,7 +2,7 @@
 <objects serializationModel="Studio.02.02.00">
 	<object class="ParameterPreset" id="{e60f9a96-b984-4ddb-b4ca-babf654f3823}">
 		<property name="name">
-			<value>Speed Switch</value>
+			<value>Walk Speed Switch</value>
 		</property>
 		<relationship name="folder">
 			<destination>{798e9a2a-cb5e-447f-8cd1-de9983a8a668}</destination>

@@ -2,13 +2,13 @@
 <objects serializationModel="Studio.02.02.00">
 	<object class="Event" id="{e7020741-793d-4d42-9814-9bb9f5b4d84a}">
 		<property name="name">
-			<value>active munch_01</value>
+			<value>Active Munch</value>
 		</property>
 		<property name="outputFormat">
 			<value>1</value>
 		</property>
 		<relationship name="folder">
-			<destination>{ca3d677e-2182-4f70-ae51-bdc578560ec4}</destination>
+			<destination>{28e4ec9c-1ea6-4f66-a09e-3e6bde31f732}</destination>
 		</relationship>
 		<relationship name="mixer">
 			<destination>{7957eda5-cdb5-4dea-849a-cf51aa9ee3be}</destination>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="EventFolder" id="{e4221d2d-22e8-4751-98b6-23483dcefeb3}">
+		<property name="name">
+			<value>Hybrid Navigation</value>
+		</property>
+		<relationship name="folder">
+			<destination>{bd296049-6cdd-4b34-91dd-bf0db0cf58e0}</destination>
+		</relationship>
+	</object>
+</objects>

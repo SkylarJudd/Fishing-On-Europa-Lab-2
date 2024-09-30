@@ -2,13 +2,13 @@
 <objects serializationModel="Studio.02.02.00">
 	<object class="Event" id="{2f9234df-a33d-4c82-85fc-1e01f05e46bf}">
 		<property name="name">
-			<value>charm gifted</value>
+			<value>Hybrid Charm Pickup</value>
 		</property>
 		<property name="outputFormat">
 			<value>1</value>
 		</property>
 		<relationship name="folder">
-			<destination>{91bcb835-d42f-40f6-ac0f-149a252271ad}</destination>
+			<destination>{5c7dc4a2-eb12-4b3a-9b91-ed3f2de22a8b}</destination>
 		</relationship>
 		<relationship name="mixer">
 			<destination>{c7b1b697-1aba-40f2-a63a-56fd5bced471}</destination>
@@ -84,7 +84,7 @@
 	</object>
 	<object class="MultiSound" id="{4b5cc891-22af-4a10-9ba2-7241b0d90363}">
 		<relationship name="sounds">
-			<destination>{3f6c29cd-c1f9-454b-9a5a-a6fda90fdde5}</destination>
+			<destination>{f876b52e-034b-474b-9fcf-5f4246710ddb}</destination>
 		</relationship>
 	</object>
 	<object class="MixerBusEffectChain" id="{a346adb6-8fdb-47a2-84a2-f44f9068f307}">
@@ -99,9 +99,9 @@
 		</relationship>
 	</object>
 	<object class="MixerBusPanner" id="{bae4566f-0aa3-421b-be7c-05aebae280cc}" />
-	<object class="SingleSound" id="{3f6c29cd-c1f9-454b-9a5a-a6fda90fdde5}">
+	<object class="SingleSound" id="{f876b52e-034b-474b-9fcf-5f4246710ddb}">
 		<relationship name="audioFile">
-			<destination>{27ba517a-3393-47dc-93a2-6466b12a418f}</destination>
+			<destination>{66ee841b-65cc-4b93-b4b1-5f909382dace}</destination>
 		</relationship>
 	</object>
 	<object class="MixerBusFader" id="{4d463ef5-ef09-416f-81f0-3c51bf96f5be}" />

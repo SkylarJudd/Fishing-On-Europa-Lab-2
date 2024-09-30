@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="EventFolder" id="{5c7dc4a2-eb12-4b3a-9b91-ed3f2de22a8b}">
+		<property name="name">
+			<value>Hybrid Charm</value>
+		</property>
+		<relationship name="folder">
+			<destination>{e005e470-5ae6-4acb-831a-c7687a663063}</destination>
+		</relationship>
+	</object>
+</objects>

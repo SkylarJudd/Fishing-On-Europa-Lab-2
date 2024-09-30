@@ -2,10 +2,10 @@
 <objects serializationModel="Studio.02.02.00">
 	<object class="EventFolder" id="{ae42a036-7ffe-4417-9ec2-114344673e7f}">
 		<property name="name">
-			<value>Dialogue</value>
+			<value>Voice Acting</value>
 		</property>
 		<relationship name="folder">
-			<destination>{b4823cf6-52e7-4331-b2ea-95907098b075}</destination>
+			<destination>{7784f637-c799-47bf-a722-d1baed5b869d}</destination>
 		</relationship>
 	</object>
 </objects>

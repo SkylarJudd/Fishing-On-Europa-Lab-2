@@ -7,7 +7,7 @@
 [LOG] OutputWASAPI::init                       : Output buffer size: 4096 samples, latency: 0.00ms, period: 10.00ms, DSP buffer: 1024 * 4
 [LOG] Thread::initThread                       : Init FMOD stream thread. Affinity: 0x4000000000000003, Priority: 0xFFFF7FFB, Stack Size: 98304, Semaphore: No, Sleep Time: 10, Looping: Yes.
 [LOG] Thread::initThread                       : Init FMOD mixer thread. Affinity: 0x4000000000000001, Priority: 0xFFFF7FFA, Stack Size: 81920, Semaphore: No, Sleep Time: 0, Looping: Yes.
-[LOG] AsyncManager::init                       : manager 0000019465BC48D8 isAsync 0 updatePeriod 0.02
+[LOG] AsyncManager::init                       : manager 000001CE9B7E4C68 isAsync 0 updatePeriod 0.02
 [LOG] AsyncManager::init                       : done
 [LOG] PlaybackSystem::init                     : 
 [LOG] Thread::initThread                       : Init FMOD Studio sample load thread. Affinity: 0x4000000000000003, Priority: 0xFFFF7FFD, Stack Size: 98304, Semaphore: No, Sleep Time: 1, Looping: No.
@@ -15,6 +15,132 @@
 [LOG] Thread::initThread                       : Init FMOD Studio bank load thread. Affinity: 0x4000000000000003, Priority: 0xFFFF7FFD, Stack Size: 98304, Semaphore: No, Sleep Time: 1, Looping: No.
 [LOG] Manager::init                            : done.
 [LOG] Manager::readBank                        : fileversion = 142, compatVersion = 140 (oldest = 44, newest = 142)
+[LOG] Manager::readBank                        : fileversion = 142, compatVersion = 140 (oldest = 44, newest = 142)
+[LOG] PlaybackSystem::acquireMasterBus         : Setting master channel group format to 6
+[LOG] SystemI::createSoundInternal             : Create name='', mode=0x02000202
+[LOG] SystemI::createSoundInternal             : exinfo->cbsize             = 224
+[LOG] SystemI::createSoundInternal             : exinfo->length             = 6803232
+[LOG] SystemI::createSoundInternal             : exinfo->fileoffset         = 60640
+[LOG] SystemI::createSoundInternal             : exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             : exinfo->inclusionlist      = 00000007DA68EE58
+[LOG] SystemI::createSoundInternal             : exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             : exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             : exinfo->useropen           = 00007FFD4F874130
+[LOG] SystemI::createSoundInternal             : exinfo->userclose          = 00007FFD4F8740F0
+[LOG] SystemI::createSoundInternal             : exinfo->userread           = 00007FFD4F874210
+[LOG] SystemI::createSoundInternal             : exinfo->userseek           = 00007FFD4F8742D0
+[LOG] SystemI::createSoundInternal             : exinfo->fileuserdata       = 000001CEE86D66F8
+[LOG] SystemI::createSoundInternal             : exinfo->initialseekpostype = 1
+[LOG] SystemI::DSPCodecPoolRegister            : register codec pool for pool type 5
+[LOG] SystemI::createSoundInternal             : Sample 0/1: name='Hybrid Int_Hybrid Animal_Angry 03_2024_09_29', format=5, channels=2, frequency=48000, lengthbytes=15872, lengthpcm=114364, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.165222.
+[LOG] SystemI::createSoundInternal             : Create name='', mode=0x02000202
+[LOG] SystemI::createSoundInternal             : exinfo->cbsize             = 224
+[LOG] SystemI::createSoundInternal             : exinfo->length             = 6803232
+[LOG] SystemI::createSoundInternal             : exinfo->fileoffset         = 60640
+[LOG] SystemI::createSoundInternal             : exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             : exinfo->inclusionlist      = 00000007DA68EE58
+[LOG] SystemI::createSoundInternal             : exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             : exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             : exinfo->useropen           = 00007FFD4F874130
+[LOG] SystemI::createSoundInternal             : exinfo->userclose          = 00007FFD4F8740F0
+[LOG] SystemI::createSoundInternal             : exinfo->userread           = 00007FFD4F874210
+[LOG] SystemI::createSoundInternal             : exinfo->userseek           = 00007FFD4F8742D0
+[LOG] SystemI::createSoundInternal             : exinfo->fileuserdata       = 000001CEE86D66F8
+[LOG] SystemI::createSoundInternal             : exinfo->initialseekpostype = 1
+[LOG] SystemI::DSPCodecPoolRegister            : register codec pool for pool type 5
+[LOG] SystemI::createSoundInternal             : Sample 0/1: name='Hybrid Int_Hybrid Animal_Angry 02_2024_09_29', format=5, channels=2, frequency=48000, lengthbytes=16128, lengthpcm=115866, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.246033.
+[LOG] SystemI::createSoundInternal             : Create name='', mode=0x02000202
+[LOG] SystemI::createSoundInternal             : exinfo->cbsize             = 224
+[LOG] SystemI::createSoundInternal             : exinfo->length             = 6803232
+[LOG] SystemI::createSoundInternal             : exinfo->fileoffset         = 60640
+[LOG] SystemI::createSoundInternal             : exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             : exinfo->inclusionlist      = 00000007DA68EE58
+[LOG] SystemI::createSoundInternal             : exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             : exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             : exinfo->useropen           = 00007FFD4F874130
+[LOG] SystemI::createSoundInternal             : exinfo->userclose          = 00007FFD4F8740F0
+[LOG] SystemI::createSoundInternal             : exinfo->userread           = 00007FFD4F874210
+[LOG] SystemI::createSoundInternal             : exinfo->userseek           = 00007FFD4F8742D0
+[LOG] SystemI::createSoundInternal             : exinfo->fileuserdata       = 000001CEE86D66F8
+[LOG] SystemI::createSoundInternal             : exinfo->initialseekpostype = 1
+[LOG] SystemI::DSPCodecPoolRegister            : register codec pool for pool type 5
+[LOG] SystemI::createSoundInternal             : Sample 0/1: name='Hybrid Int_Hybrid Animal_Angry 01_2024_09_29', format=5, channels=2, frequency=48000, lengthbytes=12640, lengthpcm=107455, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.265472.
+[LOG] SoundI::release                          :  (000001CEE888BCA8)
+[LOG] SoundI::release                          :     Hybrid Int_Hybrid Animal_Angry 01_2024_09_29 (000001CE612E1FF8)
+[LOG] SoundI::release                          :  (000001CEE888ED88)
+[LOG] SoundI::release                          :     Hybrid Int_Hybrid Animal_Angry 02_2024_09_29 (000001CE612E4558)
+[LOG] SoundI::release                          :  (000001CEE888DF28)
+[LOG] SoundI::release                          :     Hybrid Int_Hybrid Animal_Angry 03_2024_09_29 (000001CE612E43B8)
+[LOG] Manager::readBank                        : fileversion = 142, compatVersion = 140 (oldest = 44, newest = 142)
+[LOG] Manager::readBank                        : fileversion = 142, compatVersion = 140 (oldest = 44, newest = 142)
+[LOG] PlaybackSystem::acquireMasterBus         : Setting master channel group format to 6
+[LOG] SystemI::createSoundInternal             : Create name='', mode=0x02000202
+[LOG] SystemI::createSoundInternal             : exinfo->cbsize             = 224
+[LOG] SystemI::createSoundInternal             : exinfo->length             = 6803232
+[LOG] SystemI::createSoundInternal             : exinfo->fileoffset         = 60640
+[LOG] SystemI::createSoundInternal             : exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             : exinfo->inclusionlist      = 00000007DA68EE58
+[LOG] SystemI::createSoundInternal             : exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             : exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             : exinfo->useropen           = 00007FFD4F874130
+[LOG] SystemI::createSoundInternal             : exinfo->userclose          = 00007FFD4F8740F0
+[LOG] SystemI::createSoundInternal             : exinfo->userread           = 00007FFD4F874210
+[LOG] SystemI::createSoundInternal             : exinfo->userseek           = 00007FFD4F8742D0
+[LOG] SystemI::createSoundInternal             : exinfo->fileuserdata       = 000001CE46F11E18
+[LOG] SystemI::createSoundInternal             : exinfo->initialseekpostype = 1
+[LOG] SystemI::DSPCodecPoolRegister            : register codec pool for pool type 5
+[LOG] SystemI::createSoundInternal             : Sample 0/1: name='Hybrid Int_Hybrid Animal_Angry 03_2024_09_29', format=5, channels=2, frequency=48000, lengthbytes=15872, lengthpcm=114364, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.165222.
+[LOG] SystemI::createSoundInternal             : Create name='', mode=0x02000202
+[LOG] SystemI::createSoundInternal             : exinfo->cbsize             = 224
+[LOG] SystemI::createSoundInternal             : exinfo->length             = 6803232
+[LOG] SystemI::createSoundInternal             : exinfo->fileoffset         = 60640
+[LOG] SystemI::createSoundInternal             : exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             : exinfo->inclusionlist      = 00000007DA68EE58
+[LOG] SystemI::createSoundInternal             : exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             : exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             : exinfo->useropen           = 00007FFD4F874130
+[LOG] SystemI::createSoundInternal             : exinfo->userclose          = 00007FFD4F8740F0
+[LOG] SystemI::createSoundInternal             : exinfo->userread           = 00007FFD4F874210
+[LOG] SystemI::createSoundInternal             : exinfo->userseek           = 00007FFD4F8742D0
+[LOG] SystemI::createSoundInternal             : exinfo->fileuserdata       = 000001CE46F11E18
+[LOG] SystemI::createSoundInternal             : exinfo->initialseekpostype = 1
+[LOG] SystemI::DSPCodecPoolRegister            : register codec pool for pool type 5
+[LOG] SystemI::createSoundInternal             : Sample 0/1: name='Hybrid Int_Hybrid Animal_Angry 02_2024_09_29', format=5, channels=2, frequency=48000, lengthbytes=16128, lengthpcm=115866, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.246033.
+[LOG] SystemI::createSoundInternal             : Create name='', mode=0x02000202
+[LOG] SystemI::createSoundInternal             : exinfo->cbsize             = 224
+[LOG] SystemI::createSoundInternal             : exinfo->length             = 6803232
+[LOG] SystemI::createSoundInternal             : exinfo->fileoffset         = 60640
+[LOG] SystemI::createSoundInternal             : exinfo->numsubsounds       = 1
+[LOG] SystemI::createSoundInternal             : exinfo->inclusionlist      = 00000007DA68EE58
+[LOG] SystemI::createSoundInternal             : exinfo->inclusionlistnum   = 1
+[LOG] SystemI::createSoundInternal             : exinfo->suggestedsoundtype = 5
+[LOG] SystemI::createSoundInternal             : exinfo->useropen           = 00007FFD4F874130
+[LOG] SystemI::createSoundInternal             : exinfo->userclose          = 00007FFD4F8740F0
+[LOG] SystemI::createSoundInternal             : exinfo->userread           = 00007FFD4F874210
+[LOG] SystemI::createSoundInternal             : exinfo->userseek           = 00007FFD4F8742D0
+[LOG] SystemI::createSoundInternal             : exinfo->fileuserdata       = 000001CE46F11E18
+[LOG] SystemI::createSoundInternal             : exinfo->initialseekpostype = 1
+[LOG] SystemI::DSPCodecPoolRegister            : register codec pool for pool type 5
+[LOG] SystemI::createSoundInternal             : Sample 0/1: name='Hybrid Int_Hybrid Animal_Angry 01_2024_09_29', format=5, channels=2, frequency=48000, lengthbytes=12640, lengthpcm=107455, pcmblocksize=0, loopstart=0, loopend=0, mode=0x00000000, channelmask=0x00000000, channelorder=0, peakvolume=0.265472.
+[LOG] SoundI::release                          :  (000001CF3436B9C8)
+[LOG] SoundI::release                          :     Hybrid Int_Hybrid Animal_Angry 01_2024_09_29 (000001CF5E986F18)
+[LOG] SoundI::release                          :  (000001CF34368498)
+[LOG] SoundI::release                          :     Hybrid Int_Hybrid Animal_Angry 02_2024_09_29 (000001CEBE85BC08)
+[LOG] SoundI::release                          :  (000001CF343698B8)
+[LOG] SoundI::release                          :     Hybrid Int_Hybrid Animal_Angry 03_2024_09_29 (000001CEBE85C428)
+[LOG] Manager::readBank                        : fileversion = 142, compatVersion = 140 (oldest = 44, newest = 142)
+[LOG] Manager::readBank                        : fileversion = 142, compatVersion = 140 (oldest = 44, newest = 142)
+[LOG] Manager::readBank                        : fileversion = 142, compatVersion = 140 (oldest = 44, newest = 142)
+[LOG] PlaybackSystem::acquireMasterBus         : Setting master channel group format to 6
+[LOG] Manager::readBank                        : fileversion = 142, compatVersion = 140 (oldest = 44, newest = 142)
+[LOG] Manager::readBank                        : fileversion = 142, compatVersion = 140 (oldest = 44, newest = 142)
+[LOG] PlaybackSystem::acquireMasterBus         : Setting master channel group format to 6
+[LOG] Manager::readBank                        : fileversion = 142, compatVersion = 140 (oldest = 44, newest = 142)
+[LOG] Manager::readBank                        : fileversion = 142, compatVersion = 140 (oldest = 44, newest = 142)
+[LOG] PlaybackSystem::acquireMasterBus         : Setting master channel group format to 6
+[LOG] Manager::readBank                        : fileversion = 142, compatVersion = 140 (oldest = 44, newest = 142)
+[LOG] Manager::readBank                        : fileversion = 142, compatVersion = 140 (oldest = 44, newest = 142)
+[LOG] PlaybackSystem::acquireMasterBus         : Setting master channel group format to 6
 [LOG] Manager::readBank                        : fileversion = 142, compatVersion = 140 (oldest = 44, newest = 142)
 [LOG] Manager::readBank                        : fileversion = 142, compatVersion = 140 (oldest = 44, newest = 142)
 [LOG] PlaybackSystem::acquireMasterBus         : Setting master channel group format to 6

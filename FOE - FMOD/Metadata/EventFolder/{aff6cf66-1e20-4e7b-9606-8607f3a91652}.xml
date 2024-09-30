@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="EventFolder" id="{aff6cf66-1e20-4e7b-9606-8607f3a91652}">
+		<property name="name">
+			<value>Hybrid Swimming</value>
+		</property>
+		<relationship name="folder">
+			<destination>{e4221d2d-22e8-4751-98b6-23483dcefeb3}</destination>
+		</relationship>
+	</object>
+</objects>
