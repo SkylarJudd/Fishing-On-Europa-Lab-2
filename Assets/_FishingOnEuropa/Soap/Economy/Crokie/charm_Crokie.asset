@@ -16,7 +16,8 @@ MonoBehaviour:
   Description: 
   _resetOn: 0
   _list: []
-  basePopulation: {fileID: 11400000, guid: 683c9ecb63178b24cae873b68f62f7c4, type: 2}
+  rarityType: {fileID: 11400000, guid: a5803eb498ad3d046bcdff2c73ee5d83, type: 2}
+  populaion: 0
   currentPopulation: {fileID: 11400000, guid: 8453d421fbb56f043838a88c91eeadf1, type: 2}
-  basePrice: {fileID: 11400000, guid: 587da31847dc24749a8bf3cb9fcc220b, type: 2}
   currentPrice: {fileID: 11400000, guid: 4de6e63b86e73144596ed6cbba6fdd45, type: 2}
+  priceAdjustmentVariable: 0

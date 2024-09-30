@@ -12,6 +12,11 @@ namespace Europa
         public ItemRarity rarity;
         public PopulaionZone zone;
 
+        [Header("Enums")]
+        [SerializeField] private ScriptableEnumFOECharm_Rarity rarityType= null;
+        public ScriptableEnumFOECharm_Rarity RarityType => rarityType;
+
+
         [Header("Population")]
         [SerializeField] private IntVariable basePopulation;
         [SerializeField] private IntVariable currentPopulation;
@@ -19,6 +24,8 @@ namespace Europa
         [Header("Economy")]
         [SerializeField] private IntVariable basePrice;
         [SerializeField] private IntVariable currentPrice;
+
+
     }
 }
 

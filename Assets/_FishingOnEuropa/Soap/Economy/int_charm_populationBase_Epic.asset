@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 56cdb8ad39a5bdd4f8ed3d18fae14a63, type: 3}
-  m_Name: int_charm_Boing_populationBase
+  m_Name: int_charm_populationBase_Epic
   m_EditorClassIdentifier: 
   TagIndex: 0
   Description: 
-  _guid: 4e56513e36f49cf44b460a8d7418768e
+  _guid: 069302dbdfc989a4a817ba6b2bea3bf4
   _saveGuid: 0
-  _value: 80
+  _value: 10
   _debugLogEnabled: 0
   _saved: 0
   _defaultValue: 0
