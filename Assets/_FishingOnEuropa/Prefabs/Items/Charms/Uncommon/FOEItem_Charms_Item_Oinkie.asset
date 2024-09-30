@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6e950a2c00c94d49998b462f64d57e7, type: 3}
+  m_Name: FOEItem_Charms_Item_Oinkie
+  m_EditorClassIdentifier: 
+  itemID: 600005
+  worldObject: {fileID: 192483995952111075, guid: d5efbd655669e364fba5b900b76025b9,
+    type: 3}
+  itemPrefab: {fileID: 1177066939840504101, guid: d5efbd655669e364fba5b900b76025b9,
+    type: 3}
+  itemName: Oinkie Charm
+  itemDescription: 
+  startingPrice: 25
+  poolType: 0

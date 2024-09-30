@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6e950a2c00c94d49998b462f64d57e7, type: 3}
+  m_Name: FOEItem_Charms_Item_Yokie
+  m_EditorClassIdentifier: 
+  itemID: 600001
+  worldObject: {fileID: 1774245935939831490, guid: c7299c47e69028f41ad042576de65143,
+    type: 3}
+  itemPrefab: {fileID: 748015691101059588, guid: c7299c47e69028f41ad042576de65143,
+    type: 3}
+  itemName: Yokie Charm
+  itemDescription: 
+  startingPrice: 13
+  poolType: 0

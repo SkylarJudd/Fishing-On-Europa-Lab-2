@@ -1,12 +1,12 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using Obvious.Soap;
-using Europa;
 
-
-namespace equals
+namespace Europa
 {
-    [CreateAssetMenu(fileName = "scriptable_list_" + nameof(FOEItem_Charm), menuName = "Soap/ScriptableLists/" + nameof(FOEItem_Charm))]
-    public class ScriptableListFOEItem_Charm : ScriptableList<FOEItem_Charm>
+    [CreateAssetMenu(fileName = "Economy Scriptable Objects", menuName = "Europa/Economy")]
+    public class EuropaEconomySO : ScriptableObject
     {
         [Header("Population")]
         public IntVariable basePopulation;
@@ -17,4 +17,3 @@ namespace equals
         public IntVariable currentPrice;
     }
 }
-

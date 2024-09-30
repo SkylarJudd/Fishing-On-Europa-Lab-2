@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Autohand;
+using Obvious.Soap;
 
 namespace Europa
 {
@@ -17,7 +18,10 @@ namespace Europa
         public GameObject itemPrefab;
         public string itemName;
         public string itemDescription;
-     
+
+        [Header("Europa Economy")]
+        public int startingPrice;
+
 
         public PoolType poolType;
         

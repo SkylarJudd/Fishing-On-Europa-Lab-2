@@ -1,0 +1,87 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &5466833120174175037
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: -3930022968322806050, guid: afc5c6671a522064699923ffda406cf0,
+        type: 3}
+      propertyPath: rarity
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: -3930022968322806050, guid: afc5c6671a522064699923ffda406cf0,
+        type: 3}
+      propertyPath: europaItemSO
+      value: 
+      objectReference: {fileID: 11400000, guid: 3042e4246dbccb6479123f6719f96ed7,
+        type: 2}
+    - target: {fileID: -3930022968322806050, guid: afc5c6671a522064699923ffda406cf0,
+        type: 3}
+      propertyPath: inventoryItemSO
+      value: 
+      objectReference: {fileID: 11400000, guid: 7dbaea32f92fb1a4ea3128241998bfd5,
+        type: 2}
+    - target: {fileID: 268899226457889432, guid: afc5c6671a522064699923ffda406cf0,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 268899226457889432, guid: afc5c6671a522064699923ffda406cf0,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 268899226457889432, guid: afc5c6671a522064699923ffda406cf0,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 268899226457889432, guid: afc5c6671a522064699923ffda406cf0,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.99734014
+      objectReference: {fileID: 0}
+    - target: {fileID: 268899226457889432, guid: afc5c6671a522064699923ffda406cf0,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.072886646
+      objectReference: {fileID: 0}
+    - target: {fileID: 268899226457889432, guid: afc5c6671a522064699923ffda406cf0,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.00003180038
+      objectReference: {fileID: 0}
+    - target: {fileID: 268899226457889432, guid: afc5c6671a522064699923ffda406cf0,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.00043513975
+      objectReference: {fileID: 0}
+    - target: {fileID: 268899226457889432, guid: afc5c6671a522064699923ffda406cf0,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 8.36
+      objectReference: {fileID: 0}
+    - target: {fileID: 268899226457889432, guid: afc5c6671a522064699923ffda406cf0,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0.007
+      objectReference: {fileID: 0}
+    - target: {fileID: 268899226457889432, guid: afc5c6671a522064699923ffda406cf0,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0.051
+      objectReference: {fileID: 0}
+    - target: {fileID: 6596612263054856728, guid: afc5c6671a522064699923ffda406cf0,
+        type: 3}
+      propertyPath: m_Name
+      value: FOEItem_Charm Stompy
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: afc5c6671a522064699923ffda406cf0, type: 3}
