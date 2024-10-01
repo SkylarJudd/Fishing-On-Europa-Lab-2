@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.07425486, g: 0.019470753, b: 0.023988847, a: 1}
+  m_IndirectSpecularColor: {r: 0.074760765, g: 0.027137639, b: 0.02841165, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -937,6 +937,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 388498735}
+  - component: {fileID: 388498736}
   m_Layer: 0
   m_Name: LineStartTransform
   m_TagString: Untagged
@@ -959,6 +960,34 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1236014197}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &388498736
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 388498734}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0500cc2ddecbabd4882da99c219d36f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rodEndPostion:
+    UseLocal: 0
+    LocalValue: {x: 0, y: 0, z: 0}
+    Variable: {fileID: 11400000, guid: ba3c0508229f1d440945d0987fe7357a, type: 2}
+  rodEndCurrentSpeed:
+    UseLocal: 0
+    LocalValue: 0
+    Variable: {fileID: 11400000, guid: 180ac7e2200e3f544b8a62fc33538208, type: 2}
+  rodEndPointForceDirection:
+    UseLocal: 0
+    LocalValue: {x: 0, y: 0, z: 0}
+    Variable: {fileID: 11400000, guid: 78bbc0e0df047af4d9322daffb8fcaf2, type: 2}
+  playerCastInput:
+    UseLocal: 0
+    LocalValue: 0
+    Variable: {fileID: 11400000, guid: d44e3034d276abc4899fd8aab8977f8a, type: 2}
 --- !u!4 &412232569 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5275070727369660137, guid: c06420f4e8c2f5f4da6b683a6ebfbbfb,
@@ -1239,6 +1268,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 448494504}
+  - component: {fileID: 448494505}
   m_Layer: 0
   m_Name: FishingRodLogic
   m_TagString: Untagged
@@ -1261,6 +1291,53 @@ Transform:
   m_Children: []
   m_Father: {fileID: 716947}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &448494505
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 448494503}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 441a4b69b997c9742a8670643af230f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fishingRodEndPointTransform:
+    UseLocal: 0
+    LocalValue: {x: 0, y: 0, z: 0}
+    Variable: {fileID: 11400000, guid: ba3c0508229f1d440945d0987fe7357a, type: 2}
+  LureEndPointTransform:
+    UseLocal: 0
+    LocalValue: {x: 0, y: 0, z: 0}
+    Variable: {fileID: 11400000, guid: 47cf46d5e2582cd4088ab8caec2598c6, type: 2}
+  LureCurrentDistance:
+    UseLocal: 0
+    LocalValue: 0
+    Variable: {fileID: 11400000, guid: f2f515a27d0f6034a9a91b8f1c18ad48, type: 2}
+  LureCurrentMaxDistance:
+    UseLocal: 0
+    LocalValue: 0
+    Variable: {fileID: 11400000, guid: fdc709a0982218446a8e212cf5a10b14, type: 2}
+  LureMaxDistanceFromRod:
+    UseLocal: 0
+    LocalValue: 0
+    Variable: {fileID: 11400000, guid: 11c73aab1e4b6b645ae3c6335c7ddfc6, type: 2}
+  Casted:
+    UseLocal: 0
+    LocalValue: 0
+    Variable: {fileID: 11400000, guid: 91164d818420917459bf868959a3a45e, type: 2}
+  fishingRod: {fileID: 1001497420}
+  rodDirectionLeftRight: 0
+  rodDirectionForwardBack: 0
+  rodDirectionVector: {x: 0, y: 0}
+  fishingRodRB: {fileID: 1001497426}
+  endPointTransform:
+    UseLocal: 0
+    LocalValue: {x: 0, y: 0, z: 0}
+    Variable: {fileID: 11400000, guid: ba3c0508229f1d440945d0987fe7357a, type: 2}
+  minMoveAmount: 0
+  _FMGM: {fileID: 0}
 --- !u!1 &449448176
 GameObject:
   m_ObjectHideFlags: 0
@@ -4235,7 +4312,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 2
 --- !u!65 &1001497427
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -4316,7 +4393,7 @@ Transform:
   m_GameObject: {fileID: 1001497420}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.1400003, y: 1.4230005, z: 17.79}
+  m_LocalPosition: {x: 3.1400003, y: 1.4230005, z: 11.255}
   m_LocalScale: {x: 0.44617993, y: 0.0441, z: 0.0441}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -6189,7 +6266,7 @@ Transform:
   m_GameObject: {fileID: 1877717348}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 3.14, y: 1.75, z: 17.79}
+  m_LocalPosition: {x: 3.14, y: 1.75, z: 11.255}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -6203,7 +6280,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1877717348}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 98755396ffb39624db4e335ca5c9eb7f, type: 3}
   m_Name: 
@@ -6226,23 +6303,30 @@ MonoBehaviour:
   fishingRodEndPointTransform:
     UseLocal: 0
     LocalValue: {x: 0, y: 0, z: 0}
-    Variable: {fileID: 0}
+    Variable: {fileID: 11400000, guid: ba3c0508229f1d440945d0987fe7357a, type: 2}
+  LureEndPointTransform:
+    UseLocal: 0
+    LocalValue: {x: 0, y: 0, z: 0}
+    Variable: {fileID: 11400000, guid: 47cf46d5e2582cd4088ab8caec2598c6, type: 2}
   LureCurrentDistance:
     UseLocal: 0
     LocalValue: 0
-    Variable: {fileID: 0}
+    Variable: {fileID: 11400000, guid: f2f515a27d0f6034a9a91b8f1c18ad48, type: 2}
   LureCurrentMaxDistance:
     UseLocal: 0
     LocalValue: 0
-    Variable: {fileID: 0}
+    Variable: {fileID: 11400000, guid: fdc709a0982218446a8e212cf5a10b14, type: 2}
   LureMaxDistanceFromRod:
     UseLocal: 0
     LocalValue: 0
-    Variable: {fileID: 0}
+    Variable: {fileID: 11400000, guid: 11c73aab1e4b6b645ae3c6335c7ddfc6, type: 2}
   Casted:
     UseLocal: 0
     LocalValue: 0
-    Variable: {fileID: 0}
+    Variable: {fileID: 11400000, guid: 91164d818420917459bf868959a3a45e, type: 2}
+  lureRigidbody: {fileID: 1877717353}
+  forceMultiplier: 100
+  maxForce: 50
 --- !u!65 &1877717352
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -6273,8 +6357,8 @@ Rigidbody:
   m_GameObject: {fileID: 1877717348}
   serializedVersion: 4
   m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
+  m_Drag: 10
+  m_AngularDrag: 5
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}

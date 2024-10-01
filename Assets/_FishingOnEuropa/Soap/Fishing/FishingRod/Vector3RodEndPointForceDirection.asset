@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TagIndex: 0
   Description: 
-  _guid: 
+  _guid: 78bbc0e0df047af4d9322daffb8fcaf2
   _saveGuid: 0
   _value: {x: 0, y: 0, z: 0}
   _debugLogEnabled: 0
