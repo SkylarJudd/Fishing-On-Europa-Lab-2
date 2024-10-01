@@ -19,7 +19,8 @@ namespace Europa
         private Transform randomLocation;
 
         [SerializeField]
-        private ScriptableListFOEItem_Hybrid _hybridsList;//added new() as temp
+
+        private ScriptableListFOEItem_Hybrid _hybridsFlyingList;
         [SerializeField]
         private ScriptableListFOEItem_Hybrid _hybridsToNavList;
 
@@ -79,7 +80,7 @@ namespace Europa
 
             _hybrid.InitHybrid(hybridFromManager, geyserMannager.waterHeight.position.y, geyserMannager.pondType, HybridState.HybridFlying, HybridVisualsState.World);
 
-            _hybridsList.Add(_hybrid);
+            _hybridsFlyingList.Add(_hybrid);
             _hybridsToNavList.Add(_hybrid);
 
 

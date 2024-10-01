@@ -10,7 +10,7 @@ namespace Europa
         [SerializeField]
         private CropFarmingManager cropFarmingMannager;
         [SerializeField]
-        private int farnIndex;
+        private ItemLocation farnIndex;
 
 
         private void OnCollisionEnter(Collision collision)

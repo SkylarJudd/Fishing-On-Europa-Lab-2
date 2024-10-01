@@ -3,8 +3,8 @@ using Obvious.Soap;
 
 namespace Europa
 {
-    [CreateAssetMenu(fileName = "scriptable_list_" + nameof(CropData), menuName = "Soap/ScriptableLists/" + nameof(CropData))]
-    public class ScriptableListCropData : ScriptableList<CropData>
+    [CreateAssetMenu(fileName = "scriptable_list_" + nameof(FOEItem_Crop), menuName = "Soap/ScriptableLists/" + nameof(FOEItem_Crop))]
+    public class ScriptableListCropData : ScriptableList<FOEItem_Crop>
     {
 
     }
