@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEditor.Progress;
 
 namespace Europa
 {
@@ -18,5 +19,21 @@ namespace Europa
         public Transform itemTransform;
 
         public ItemLocation itemLocation;
+
+        private void Start()
+        {
+            InitaliseValues();
+        }
+
+        void InitaliseValues()
+        {
+
+            itemGO = gameObject;
+            itemRB = gameObject.GetComponent<Rigidbody>();
+            itemGrabbable = gameObject.GetComponent<Grabbable>();
+            itemTransform = gameObject.transform;
+        }
     }
+
+    
 }

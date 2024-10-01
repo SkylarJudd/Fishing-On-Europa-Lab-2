@@ -9,7 +9,7 @@ namespace Europa
         [Header("Bobber")]
         [SerializeField] float bobberRange = 3; //detection range of nearby hybrids when cast
         [SerializeField] float minBobberReelDistance; //how close the bobber needs to be before reeling is complete
-        public GameObject bobberGameObject, bobberTipGO, bobberFishSpot;
+        public GameObject bobberGameObject, bobberTipGO, bobberFishSpot; //fish spot is where fish will attach to
 
         public enum BobberState { Withdrawn, Cast, HitWater, AttachedFish }
 
@@ -25,7 +25,7 @@ namespace Europa
         [Header("Handle")]
         [SerializeField] float handleVelocity; //speed fishing rod handle is moving
         [SerializeField] float minPullAngle; //min rod angle to count as pulling in corrrect direction
-        Rigidbody rb_reelHandle;
+        Rigidbody rb_reelHandle;    
 
 
         [Header("Fish Encounter")]

@@ -19,7 +19,7 @@ namespace Europa
         private Transform randomLocation;
 
         [SerializeField]
-        private ScriptableListFOEItem_Hybrid _hybridsList;
+        private ScriptableListFOEItem_Hybrid _hybridsList;//added new() as temp
         [SerializeField]
         private ScriptableListFOEItem_Hybrid _hybridsToNavList;
 

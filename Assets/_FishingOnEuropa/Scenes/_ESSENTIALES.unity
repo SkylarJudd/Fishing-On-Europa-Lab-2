@@ -1697,6 +1697,11 @@ PrefabInstance:
       propertyPath: defaultTransform
       value: 
       objectReference: {fileID: 571568595}
+    - target: {fileID: 5740153878916498933, guid: 7c48fd7e54ed904489b2b0131dd84ff2,
+        type: 3}
+      propertyPath: currentEnviromentScene
+      value: 6
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

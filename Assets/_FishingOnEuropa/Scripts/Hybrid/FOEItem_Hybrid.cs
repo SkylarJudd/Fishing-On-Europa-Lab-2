@@ -94,10 +94,10 @@ namespace Europa
             navigationData.firstNav = true;
 
             // Assign Rigidbody to hybrid, or add one if it is missing
-
+            print(europaItemData.itemRB);
             if (europaItemData.itemRB == null)
             {
-                Debug.LogWarning($"{europaItemData.itemGO.name} does not have a Rigidbody; one has been assigned");
+                Debug.LogWarning($"{europaItemData.itemGO.name} does not have a Rigidbody; one has been assigned"); 
                 europaItemData.itemRB = europaItemData.itemGO.AddComponent<Rigidbody>();
             }
 
