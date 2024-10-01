@@ -1,3 +1,4 @@
+using Obvious.Soap;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -17,10 +18,14 @@ namespace Europa
     public class FishingRodController : Singleton<FishingRodController>
     {
         [Header("Line Properties")]
-        [SerializeField]
-        float currentLineLenth = 0;
-        [SerializeField]
-        float maxLineLenth = 20.0f;
+        [SerializeField] Vector3Reference fishingRodEndPointTransform;
+        [SerializeField] Vector3Reference LureEndPointTransform;
+        [SerializeField] FloatReference LureCurrentDistance;
+        [SerializeField] FloatReference LureCurrentMaxDistance;
+        [SerializeField] FloatReference LureMaxDistanceFromRod;
+        [SerializeField] BoolReference Casted;
+
+        
 
         [Header("FishingRod")]
         [SerializeField]
@@ -42,10 +47,7 @@ namespace Europa
         private Rigidbody fishingRodRB;
         [SerializeField]
         [Tooltip("The end transform of the fishing Rod")]
-        private Transform endPointTransform;
-        [SerializeField]
-        [Tooltip("the Rigid body attached to the end of the rod to caculate the velocity")]
-        private Rigidbody rodEndRB;
+        private Vector3Reference endPointTransform;
         [SerializeField]
         [Tooltip("The Minium amout the transform needs to move by for the direction to be updated")]
         private float minMoveAmount;
@@ -63,7 +65,13 @@ namespace Europa
         }
         private void Update()
         {
-            UpDateRodDiretion();
+            CaculateDistance();
+            //UpDateRodDiretion();
+        }
+
+        private void CaculateDistance()
+        {
+            LureCurrentDistance.Value = Vector3.Distance(fishingRodEndPointTransform.Value, LureEndPointTransform.Value);
         }
 
         private void Cast()

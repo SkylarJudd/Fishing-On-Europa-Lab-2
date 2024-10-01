@@ -6170,6 +6170,9 @@ GameObject:
   - component: {fileID: 1877717349}
   - component: {fileID: 1877717350}
   - component: {fileID: 1877717351}
+  - component: {fileID: 1877717354}
+  - component: {fileID: 1877717353}
+  - component: {fileID: 1877717352}
   m_Layer: 0
   m_Name: Lure
   m_TagString: Untagged
@@ -6220,6 +6223,103 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98f5205f5d36cd44883d2a7bb256b496, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fishingRodEndPointTransform:
+    UseLocal: 0
+    LocalValue: {x: 0, y: 0, z: 0}
+    Variable: {fileID: 0}
+  LureCurrentDistance:
+    UseLocal: 0
+    LocalValue: 0
+    Variable: {fileID: 0}
+  LureCurrentMaxDistance:
+    UseLocal: 0
+    LocalValue: 0
+    Variable: {fileID: 0}
+  LureMaxDistanceFromRod:
+    UseLocal: 0
+    LocalValue: 0
+    Variable: {fileID: 0}
+  Casted:
+    UseLocal: 0
+    LocalValue: 0
+    Variable: {fileID: 0}
+--- !u!65 &1877717352
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1877717348}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.48, y: 0.12, z: 0.48}
+  m_Center: {x: 0, y: -0.06963289, z: 0}
+--- !u!54 &1877717353
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1877717348}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!114 &1877717354
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1877717348}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a40fd5c1f71f7964d8d4ae9c76c882b7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _version: 0
+  _raiseObject: 1.28
+  _buoyancyCoeff: 5.7
+  _boyancyTorque: 8
+  _accelerateDownhill: 0
+  _maximumBuoyancyForce: 13
+  _objectWidth: 3
+  _forceHeightOffset: -0.3
+  _dragInWaterUp: 3
+  _dragInWaterRight: 2
+  _dragInWaterForward: 1
+  _dragInWaterRotational: 0.02
+  _debugDraw: 1
+  _inWater: 0
+  OnLureHitWater: {fileID: 11400000, guid: 13baa279cf5bc18409aa48086150091e, type: 2}
+  OnLureExitWater: {fileID: 11400000, guid: 13baa279cf5bc18409aa48086150091e, type: 2}
+  _previousInWaterState: 0
 --- !u!4 &1893988278 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1748528439184458762, guid: 7c48fd7e54ed904489b2b0131dd84ff2,

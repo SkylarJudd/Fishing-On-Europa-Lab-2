@@ -9,8 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a9978ce9c8bdc724896114c9952c52ea, type: 3}
-  m_Name: FloatVariable 1
+  m_Script: {fileID: 11500000, guid: 6a11231538da9894d8dce88b47df6a36, type: 3}
+  m_Name: Bool_RodCasted
   m_EditorClassIdentifier: 
   TagIndex: 0
   Description: 
@@ -21,5 +21,3 @@ MonoBehaviour:
   _saved: 0
   _defaultValue: 0
   _resetOn: 0
-  _isClamped: 0
-  _minMax: {x: 0, y: 3.4028235e+38}
