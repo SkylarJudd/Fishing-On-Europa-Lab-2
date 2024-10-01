@@ -49,7 +49,10 @@ MonoBehaviour:
   spawnPos: {fileID: 7036427764430357314}
   targetPos: {fileID: 0}
   randomLocation: {fileID: 0}
+  _hybridsFlyingList: {fileID: 11400000, guid: fccbaeabfdfd3024db9e65159b641003, type: 2}
+  _hybridsToNavList: {fileID: 11400000, guid: eccfc48b5d90af148a1f602d1999386d, type: 2}
   fishList: []
+  geyserMannager: {fileID: 0}
 --- !u!1 &3372364102621837033
 GameObject:
   m_ObjectHideFlags: 0
@@ -151,7 +154,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7604754495473113285
 Transform:
   m_ObjectHideFlags: 0

@@ -97,7 +97,7 @@ namespace Europa
 
         private void GameEvents_OnTempMorningEvent(bool wasObserved, int cycles = 1)
         {
-            GrowPlants();
+            //GrowPlants();
         }
 
         [ContextMenu("GrowPlants")]
