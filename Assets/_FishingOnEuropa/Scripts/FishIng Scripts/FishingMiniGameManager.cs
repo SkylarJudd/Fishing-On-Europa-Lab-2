@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Europa
 {
-    public class FishingMiniGameManager : GameBehaviour
+    public class FishingMiniGameManager : Singleton<FishingMiniGameManager>
     {
         [Header("Bobber")]
         [SerializeField] float bobberRange = 3; //detection range of nearby hybrids when cast
@@ -18,8 +18,8 @@ namespace Europa
         [Header("Hybrids")]
         public GameObject targetHybrid; //hybrid used for fishing encounter
         HybridSO targetHybridSO;
-        HybridNavigationData targetHybridNavData;
-        [SerializeField] LayerMask fishMask;
+        FOEItem_Hybrid targetHybridNavData;
+        public LayerMask fishMask, fishCollisionLayerMask;
         public Collider[] nearbyHybrids;
 
         [Header("Handle")]
@@ -46,6 +46,11 @@ namespace Europa
 
             switch (bobberState)
             {
+                case BobberState.Cast:
+
+                    //Check if bobber is water height or lower
+
+
                 case BobberState.HitWater:
 
                     if (targetHybrid == null)
@@ -84,7 +89,6 @@ namespace Europa
 
                     break;
                 case BobberState.AttachedFish:
-
 
                     switch (fishEncounterState)
                     {
@@ -146,12 +150,23 @@ namespace Europa
                             break;
                         case FishEncounterState.Fighting:
 
-                            //if (!_FNAVM.CheckHybridState(targetHybrid, HybridState.HybridMiniGame_Pulling))
-                            //    _FNAVM.UpdateHybridState(targetHybrid, HybridState.HybridMiniGame_Pulling);
+                            if (!_FNAVM.CheckHybridState(targetHybrid, HybridState.HybridMiniGame_Pulling))
+                                _FNAVM.UpdateHybridState(targetHybrid, HybridState.HybridMiniGame_Pulling);
 
                             //determine pull direction
                             if (currentPullDirection == PullDirections.NotSet) currentPullDirection = GetDirection();
 
+                            //if rod is pulling in other direction
+
+                            //deplete stamina each second
+
+                            //if stamina = 0 switch to resting
+
+                            //else danage rod
+
+                            //if rod hp = 0
+
+                            //hybrid espcaped
 
 
 
@@ -189,6 +204,8 @@ namespace Europa
         public void BeginFightingPeriod()
         {
             fishEncounterState = FishEncounterState.Fighting;
+
+            //set stamina of hybrid
 
         }
 

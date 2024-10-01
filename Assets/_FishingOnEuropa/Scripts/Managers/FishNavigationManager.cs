@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Obvious.Soap;
+using static Crest.Spline.Spline;
 
 namespace Europa
 {
@@ -651,8 +652,8 @@ namespace Europa
                 {
                     foreach (FOEItem_Hybrid _hybrid in hybridSwimToPoint)
                     {
-                        print("swim part 2" + lureLocation.transform.position);
-                        Vector3 directionToTarget = lureLocation.transform.position - _hybrid.europaItemData.itemGO.transform.position;
+                        print("swim part 2" + _FMGM.bobberGameObject.transform.position);
+                        Vector3 directionToTarget = _FMGM.bobberGameObject.transform.position - _hybrid.europaItemData.itemGO.transform.position;
                         float yOffset = 0.5f;
                         directionToTarget = new Vector3(directionToTarget.x, directionToTarget.y - yOffset, directionToTarget.z);
 
@@ -661,18 +662,19 @@ namespace Europa
                         transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * _hybrid.hybridSO.rotationSpeed);
 
                         // Move towards the target
-                        Vector3 targetPosition = lureLocation.transform.position;
+                        Vector3 targetPosition = _FMGM.bobberGameObject.transform.position;
 
                         if (targetPosition.y > _hybrid.navigationData.waterHeight)
                         {
                             targetPosition.y = _hybrid.navigationData.waterHeight;
                         }
-                        print(_hybrid.europaItemData.itemGO.transform.position);
                         _hybrid.europaItemData.itemGO.transform.position = Vector3.Lerp(_hybrid.europaItemData.itemGO.transform.position, new Vector3(targetPosition.x, targetPosition.y - yOffset, targetPosition.z), Time.deltaTime * (_hybrid.navigationData.maxSpeed * 2));
 
                         // Check if the object has reached the target position
-                        float distanceToTarget = Vector3.Distance(transform.position, targetPosition);
+                        float distanceToTarget = Vector3.Distance(_hybrid.europaItemData.itemGO.transform.position, targetPosition);
                         float threshold = 1f; // Adjust the threshold as needed
+
+                        print(distanceToTarget);
 
                         if (distanceToTarget < threshold && _hybrid.navigationData.arrivedAtLure == false)
                         {
@@ -682,7 +684,14 @@ namespace Europa
                             hybridsIdle.Add(_hybrid);
                             removeHybridSwimToLure.Add(_hybrid);
 
+                            caughtHybrid = _hybrid;
+
                             //send an update to minigame Manager that the Hybrid has arrived
+                            _FMGM.bobberState = FishingMiniGameManager.BobberState.AttachedFish;
+                            _FMGM.fishEncounterState = FishingMiniGameManager.FishEncounterState.Fighting;
+
+                            StartCoroutine(UpdateMiniGame()); //start mini game coroutine
+
                         }
 
                     }
@@ -704,7 +713,52 @@ namespace Europa
                 {
                     if (caughtHybrid.navigationData.hybridState == HybridState.HybridMiniGame_Pulling)
                     {
+                        print("Fighintg");
 
+                        //look at target
+
+                        //Move towards the target
+                        Vector3 targetPosition = _FMGM.bobberGameObject.transform.position;
+
+                        if (targetPosition.y > caughtHybrid.navigationData.waterHeight)
+                        {
+                            targetPosition.y = caughtHybrid.navigationData.waterHeight;
+                        }
+                        caughtHybrid.europaItemData.itemGO.transform.position = Vector3.Lerp(caughtHybrid.europaItemData.itemGO.transform.position, new Vector3(targetPosition.x, targetPosition.y - 0, targetPosition.z), Time.deltaTime * (caughtHybrid.navigationData.maxSpeed * 2));
+
+                        if (_FMGM.currentPullDirection == FishingMiniGameManager.PullDirections.NotSet) _FMGM.currentPullDirection = _FMGM.GetDirection();
+                        Vector3 rotationAxis = new();
+                        Vector3 direction = new();
+
+                        switch (_FMGM.currentPullDirection)
+                        {
+                            case FishingMiniGameManager.PullDirections.Left:
+                                //set bobber rotation
+                                rotationAxis = Vector3.down;
+                                direction = Vector3.right;
+                                //reset temp
+
+                                break;
+                            case FishingMiniGameManager.PullDirections.Right:
+                                rotationAxis = Vector3.up;
+                                direction = Vector3.left;
+                                break;
+                            case FishingMiniGameManager.PullDirections.Middle:
+                                rotationAxis = Vector3.zero;
+                                direction = Vector3.zero;
+                                break;
+                        }
+                        print(rotationAxis);
+                        float deltaAngle = _FMGM.fishRotationSpeed * Time.deltaTime;
+                        var targetDir = _PLAYER.transform.position - caughtHybrid.europaItemData.itemGO.transform.position;
+                        float currentAngle = Vector3.Angle(targetDir, _PLAYER.transform.forward);
+                        
+                        if (currentAngle < _FMGM.maxAngle && !Physics.CheckSphere(caughtHybrid.europaItemData.itemGO.transform.position, 1, _FMGM.fishCollisionLayerMask))
+                        {
+                            caughtHybrid.europaItemData.itemGO.transform.RotateAround(_PLAYER.transform.position, rotationAxis, deltaAngle);
+                        }
+                        //right rotation
+                        //left rotation
                     }
                     else if (caughtHybrid.navigationData.hybridState == HybridState.HybridMiniGame_Tired)
                     {
@@ -952,6 +1006,24 @@ namespace Europa
             }
             return null;
         }
+
+        /// <summary>
+        /// Return true if hybrid is currently in passed state
+        /// </summary>
+        /// <param name="go"></param>
+        /// <param name="hybridState"></param>
+        /// <returns></returns>
+        public bool CheckHybridState(GameObject _hybridGO, HybridState _HybridState)
+        {
+            FOEItem_Hybrid _hybrid = GetHybridFromGO(_hybridGO);
+
+
+            if (_hybrid.navigationData.hybridState == _HybridState)
+                return true;
+            else return false;
+
+        }
+
 
     }
 }

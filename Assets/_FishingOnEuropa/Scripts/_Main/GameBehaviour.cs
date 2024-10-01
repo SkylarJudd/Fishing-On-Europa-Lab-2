@@ -18,9 +18,9 @@ namespace Europa
 
         protected static FishNavigationManager _FNAVM { get { return FishNavigationManager.instance; } }
         protected static TrustManager _TM { get { return TrustManager.instance; } }
-        //protected static FishingMiniGameManager _FMGM { get { return FishingMiniGameManager.instance; } }
+        protected static FishingMiniGameManager _FMGM { get { return FishingMiniGameManager.instance; } }
 
-      
+
         public Transform getClosestEnermy(Transform _origin, List<GameObject> _objects)
         {
             if (_objects == null || _objects.Count == 0)
