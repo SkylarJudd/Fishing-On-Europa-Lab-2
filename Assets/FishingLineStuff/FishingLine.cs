@@ -15,11 +15,10 @@ public class BezierLine : MonoBehaviour
     public float controlPointDrag = 2.0f; // Drag of the control point
 
     [Header("Tension")]
-    public float tensionStrenght = 0.5f;
+    public float tensionStrenght = 0;
     public float minDistance = 0;
     public float maxDistance = 20;
-    public float minVar = 0;
-    public float maxVar = 1;
+    public float tensionFloor = 10;
 
     private LineRenderer lineRenderer;
     private Transform averagePoint;
@@ -82,6 +81,12 @@ public class BezierLine : MonoBehaviour
     {
         // Update the average point in FixedUpdate
         averagePoint.position = (startPoint.position + endPoint.position) / 2;
+
+        float currentDistance = Vector3.Distance(startPoint.position, endPoint.position);
+
+        tensionStrenght = Mathf.InverseLerp(minDistance, maxDistance, currentDistance);
+
+        ApplyTension();
     }
 
     private IEnumerator GenerateAndRenderCurve()
@@ -95,7 +100,7 @@ public class BezierLine : MonoBehaviour
         }
     }
 
-    // Calculate a point on the quadratic Bezier curve
+    //Calculate a point on the quadratic Bezier curve
     private Vector3 CalculateQuadraticBezierPoint(float t, Vector3 p0, Vector3 p1, Vector3 p2)
     {
         float u = 1 - t;
@@ -110,5 +115,18 @@ public class BezierLine : MonoBehaviour
         p += tt * t * endPoint.position;
 
         return p;
+    }
+
+    void ApplyTension()
+    {
+        Vector3 midPoint = (startPoint.position + endPoint.position) / 2;
+
+        float slack = Mathf.Lerp(tensionFloor, 0, tensionStrenght);
+        midPoint += Vector3.up * slack;
+
+        float minY = Mathf.Min(startPoint.position.y, endPoint.position.y);
+        midPoint.y = Mathf.Max(midPoint.y, minY);
+
+        controlPoint.position = midPoint;
     }
 }
