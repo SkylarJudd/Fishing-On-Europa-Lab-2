@@ -18,6 +18,7 @@ namespace Europa
         HybridMiniGame_Pulling,
         HybridMiniGame_Tired,
         HybridMiniGame_Caught,
+        HybridMiniGame_Escaped,
 
         HybridOnLand_Sitting,
         HybridOnLand_Walking,

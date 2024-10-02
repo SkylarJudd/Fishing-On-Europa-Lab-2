@@ -156,6 +156,37 @@ Transform:
   - {fileID: 1019147268}
   m_Father: {fileID: 958924206}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 91.615}
+--- !u!1 &17895782
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 17895783}
+  m_Layer: 0
+  m_Name: Bobber
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &17895783
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 17895782}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.534, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1877717349}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &55589098
 GameObject:
   m_ObjectHideFlags: 0
@@ -928,6 +959,62 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &373930722 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 863313539413655328, guid: dbdadaad3a2d1674f945499b920627d9,
+    type: 3}
+  m_PrefabInstance: {fileID: 1806424663}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &373930723 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7204413666018029058, guid: dbdadaad3a2d1674f945499b920627d9,
+    type: 3}
+  m_PrefabInstance: {fileID: 1806424663}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &373930724
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 373930722}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d93ba61543949824db31c7cb89b4f009, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _binding: 0
+  _disableAfterSubscribing: 0
+  _eventResponses:
+  - Delay: 0
+    ScriptableEvent: {fileID: 11400000, guid: d81c4899543a5cc4a9e13f7c7f55aab0, type: 2}
+    Response:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 373930725}
+          m_TargetAssemblyTypeName: Europa.FishingMiniGameManager, Assembly-CSharp
+          m_MethodName: LureHitWater
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+--- !u!114 &373930725 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5911518260582333399, guid: dbdadaad3a2d1674f945499b920627d9,
+    type: 3}
+  m_PrefabInstance: {fileID: 1806424663}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 373930722}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aea96e125abd5a6448ed64bb42f82b13, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &388498734
 GameObject:
   m_ObjectHideFlags: 0
@@ -1118,7 +1205,12 @@ PrefabInstance:
     - target: {fileID: 2293724037855637007, guid: ec8fef564a54f05418c2b8fe7fa910ae,
         type: 3}
       propertyPath: m_Name
-      value: 'SaveMannager '
+      value: 'SaveManager '
+      objectReference: {fileID: 0}
+    - target: {fileID: 3953547474902856689, guid: ec8fef564a54f05418c2b8fe7fa910ae,
+        type: 3}
+      propertyPath: saveDatas.Array.size
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3953547474902856689, guid: ec8fef564a54f05418c2b8fe7fa910ae,
         type: 3}
@@ -5193,6 +5285,7 @@ Transform:
   - {fileID: 1692571097}
   - {fileID: 840922375}
   - {fileID: 989395510}
+  - {fileID: 373930723}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1123016494 stripped
@@ -5652,6 +5745,11 @@ PrefabInstance:
       propertyPath: defaultTransform
       value: 
       objectReference: {fileID: 571568595}
+    - target: {fileID: 5740153878916498933, guid: 7c48fd7e54ed904489b2b0131dd84ff2,
+        type: 3}
+      propertyPath: currentEnviromentScene
+      value: 5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -6511,6 +6609,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: DayNightCycle
       objectReference: {fileID: 0}
+    - target: {fileID: 3802271532656692908, guid: 232f1d264d2e2d64eace14da916e0cda,
+        type: 3}
+      propertyPath: m_Cameras.Array.size
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6480877890758509511, guid: 232f1d264d2e2d64eace14da916e0cda,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -6602,6 +6705,112 @@ Transform:
   - {fileID: 1034448803}
   m_Father: {fileID: 1097273803799523691}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &1806424663
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1102718914}
+    m_Modifications:
+    - target: {fileID: 863313539413655328, guid: dbdadaad3a2d1674f945499b920627d9,
+        type: 3}
+      propertyPath: m_Name
+      value: FishingMiniGameManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 5911518260582333399, guid: dbdadaad3a2d1674f945499b920627d9,
+        type: 3}
+      propertyPath: Casted.Variable
+      value: 
+      objectReference: {fileID: 11400000, guid: 91164d818420917459bf868959a3a45e,
+        type: 2}
+    - target: {fileID: 5911518260582333399, guid: dbdadaad3a2d1674f945499b920627d9,
+        type: 3}
+      propertyPath: bobberGameObject
+      value: 
+      objectReference: {fileID: 17895782}
+    - target: {fileID: 5911518260582333399, guid: dbdadaad3a2d1674f945499b920627d9,
+        type: 3}
+      propertyPath: terrainLayerMask.m_Bits
+      value: 5242880
+      objectReference: {fileID: 0}
+    - target: {fileID: 5911518260582333399, guid: dbdadaad3a2d1674f945499b920627d9,
+        type: 3}
+      propertyPath: LureCurrentDistance.Variable
+      value: 
+      objectReference: {fileID: 11400000, guid: f2f515a27d0f6034a9a91b8f1c18ad48,
+        type: 2}
+    - target: {fileID: 5911518260582333399, guid: dbdadaad3a2d1674f945499b920627d9,
+        type: 3}
+      propertyPath: LureCurrentMaxDistance.Variable
+      value: 
+      objectReference: {fileID: 11400000, guid: fdc709a0982218446a8e212cf5a10b14,
+        type: 2}
+    - target: {fileID: 5911518260582333399, guid: dbdadaad3a2d1674f945499b920627d9,
+        type: 3}
+      propertyPath: LureMaxDistanceFromRod.Variable
+      value: 
+      objectReference: {fileID: 11400000, guid: 11c73aab1e4b6b645ae3c6335c7ddfc6,
+        type: 2}
+    - target: {fileID: 7204413666018029058, guid: dbdadaad3a2d1674f945499b920627d9,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 7.358093
+      objectReference: {fileID: 0}
+    - target: {fileID: 7204413666018029058, guid: dbdadaad3a2d1674f945499b920627d9,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 3.0023713
+      objectReference: {fileID: 0}
+    - target: {fileID: 7204413666018029058, guid: dbdadaad3a2d1674f945499b920627d9,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 11.655557
+      objectReference: {fileID: 0}
+    - target: {fileID: 7204413666018029058, guid: dbdadaad3a2d1674f945499b920627d9,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7204413666018029058, guid: dbdadaad3a2d1674f945499b920627d9,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7204413666018029058, guid: dbdadaad3a2d1674f945499b920627d9,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7204413666018029058, guid: dbdadaad3a2d1674f945499b920627d9,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7204413666018029058, guid: dbdadaad3a2d1674f945499b920627d9,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7204413666018029058, guid: dbdadaad3a2d1674f945499b920627d9,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7204413666018029058, guid: dbdadaad3a2d1674f945499b920627d9,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 863313539413655328, guid: dbdadaad3a2d1674f945499b920627d9,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 373930724}
+  m_SourcePrefab: {fileID: 100100000, guid: dbdadaad3a2d1674f945499b920627d9, type: 3}
 --- !u!1001 &1811307060
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6721,11 +6930,12 @@ Transform:
   m_GameObject: {fileID: 1877717348}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 3.14, y: 1.75, z: 11.255}
+  m_LocalPosition: {x: 1.074, y: 1.75, z: 11.255}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1904605779}
+  - {fileID: 17895783}
   m_Father: {fileID: 2012903472}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1877717350
@@ -6856,7 +7066,7 @@ MonoBehaviour:
   _dragInWaterRotational: 0.02
   _debugDraw: 1
   _inWater: 0
-  OnLureHitWater: {fileID: 11400000, guid: 13baa279cf5bc18409aa48086150091e, type: 2}
+  OnLureHitWater: {fileID: 11400000, guid: d81c4899543a5cc4a9e13f7c7f55aab0, type: 2}
   OnLureExitWater: {fileID: 11400000, guid: 13baa279cf5bc18409aa48086150091e, type: 2}
   _previousInWaterState: 0
 --- !u!4 &1893988278 stripped

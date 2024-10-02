@@ -1,4 +1,5 @@
 
+using Obvious.Soap;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -25,20 +26,29 @@ namespace Europa
         [Header("Handle")]
         [SerializeField] float handleVelocity; //speed fishing rod handle is moving
         [SerializeField] float minPullAngle; //min rod angle to count as pulling in corrrect direction
-        Rigidbody rb_reelHandle;    
+        Rigidbody rb_reelHandle;
+
+        [Header("Fishing Rod")]
+        [SerializeField] FloatReference fishingRodHP; //how much hp the rod has 
+        [SerializeField] FloatReference fishingEfficency; //the rate at which hybrid stamina is drained per second
+        public GameObject fishingRod;
+
+        [Header("Lure")]
+        [SerializeField] FloatReference LureCurrentDistance;
+        [SerializeField] FloatReference LureCurrentMaxDistance;
+        [SerializeField] FloatReference LureMaxDistanceFromRod;
+        [SerializeField] BoolReference Casted;
 
 
         [Header("Fish Encounter")]
         [SerializeField] LayerMask terrainLayerMask;
 
-        [SerializeField] float hybridRestTime;
+        [SerializeField] float hybridRestTime, currentHybridStamina;
         public float fishRotationSpeed, maxAngle;
         public enum FishEncounterState { None, Resting, Fighting, Caught }
         public FishEncounterState fishEncounterState;
         public enum PullDirections { NotSet, Left, Right, Middle }
         public PullDirections currentPullDirection;
-
-
 
         void Update()
         {
@@ -46,9 +56,11 @@ namespace Europa
 
             switch (bobberState)
             {
+                case BobberState.Withdrawn:
+
                 case BobberState.Cast:
 
-                    //Check if bobber is water height or lower
+                    
 
 
                 case BobberState.HitWater:
@@ -66,7 +78,7 @@ namespace Europa
                         }
 
                         //CHANGE INPUT HERE - commit to catching fish (or pull rod)
-                        if (Input.GetKey(KeyCode.Space))
+                        if (nearbyHybrids.Length > 0 && Input.GetKey(KeyCode.Space))
                         {
                             targetHybrid = CalculateHybridWithHighestCatchChance(nearbyHybrids);
 
@@ -122,7 +134,7 @@ namespace Europa
                                 //}
                                 //else
                                 //{
-                                //    //check if tired
+                                //    //if not moving, make idle
                                 //    if (!_FNAVM.CheckHybridState(targetHybrid, HybridState.HybridIdle))
                                 //    {
                                 //        //remove from lists
@@ -137,7 +149,7 @@ namespace Europa
                                 //}
 
                                 //check if hybrid is close enough to end
-                                if (Vector3.Distance(_PLAYER.gameObject.transform.position, targetHybrid.transform.position) <= minBobberReelDistance)
+                                if (LureCurrentDistance <= minBobberReelDistance)
                                 {
                                     //CAUGHT
                                     fishEncounterState = FishEncounterState.Caught;
@@ -156,18 +168,36 @@ namespace Europa
                             //determine pull direction
                             if (currentPullDirection == PullDirections.NotSet) currentPullDirection = GetDirection();
 
+                            //do this every second VVVV
+
                             //if rod is pulling in other direction
+                            //if()
+                            //{
+                            //    //deplete stamina each second
+                            //    currentHybridStamina -= fishingEfficency;
+                            //    if(currentHybridStamina <= 0.0f)
+                            //    {
+                            //        //if stamina = 0 switch to resting
+                            //        BeginRestingPeriod();
+                            //    }
+                            //}
+                            //else
+                            //{
+                            //    //else damage rod
+                            //    fishingRodHP -= 1; //? how much damage
 
-                            //deplete stamina each second
+                            //    //if rod hp = 0
 
-                            //if stamina = 0 switch to resting
+                            //    if (fishingRodHP <= 0.0f)
+                            //    {
+                            //        //escaped
+                            //        _FNAVM.UpdateHybridState(targetHybrid, HybridState.HybridMiniGame_Escaped);
 
-                            //else danage rod
 
-                            //if rod hp = 0
+                            //        fishEncounterState = FishEncounterState.None;
 
-                            //hybrid espcaped
-
+                            //    }
+                            //}
 
 
                             break;
@@ -191,6 +221,14 @@ namespace Europa
 
 
         /// <summary>
+        /// Subscribe to OnLureHitWater event on Lure
+        /// </summary>
+        public void LureHitWater()
+        {
+            bobberState = BobberState.HitWater;
+        }
+
+        /// <summary>
         /// Set rest period time and change fishEncounterState
         /// </summary>
         public void BeginRestingPeriod()
@@ -206,6 +244,7 @@ namespace Europa
             fishEncounterState = FishEncounterState.Fighting;
 
             //set stamina of hybrid
+
 
         }
 
@@ -373,8 +412,6 @@ namespace Europa
         {
             Gizmos.color = Color.yellow;
             Gizmos.DrawWireSphere(bobberGameObject.transform.position, bobberRange);
-
-
 
 
         }
