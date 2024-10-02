@@ -312,7 +312,7 @@ namespace Europa
             if(Vector3.Distance(_hybrid.transform.position, _foodTransform.position)< hybridDistanceToEat)
             {
                 //destroy/remove food item
-                _OPM.ReturnObjectToPool(_foodTransform.gameObject);
+                _OPM.ReturnObjectToPool(_food);
 
                 //check if favourite food
                 bool isFav = false;

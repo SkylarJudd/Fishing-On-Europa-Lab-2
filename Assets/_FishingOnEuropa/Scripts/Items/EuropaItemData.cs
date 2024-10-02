@@ -17,6 +17,7 @@ namespace Europa
         public Rigidbody itemRB;
         public Grabbable itemGrabbable;
         public Transform itemTransform;
+        public FOEItem itemFOE;
 
         public ItemLocation itemLocation;
 

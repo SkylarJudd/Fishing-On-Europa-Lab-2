@@ -7,6 +7,7 @@
 using Crest.Internal;
 using UnityEngine;
 
+
 namespace Crest
 {
     /// <summary>
@@ -53,7 +54,7 @@ namespace Crest
         [Header("Debug")]
         [SerializeField] bool _debugDraw = false;
 
-        bool _inWater;
+        public bool _inWater;
         public override bool InWater => _inWater;
 
         public override Vector3 Velocity => _rb.LinearVelocity();
@@ -74,7 +75,7 @@ namespace Crest
             }
         }
 
-        void FixedUpdate()
+        protected virtual void FixedUpdate()
         {
             UnityEngine.Profiling.Profiler.BeginSample("SimpleFloatingObject.FixedUpdate");
 
