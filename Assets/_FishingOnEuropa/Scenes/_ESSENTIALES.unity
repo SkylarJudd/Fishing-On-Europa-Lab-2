@@ -1405,6 +1405,21 @@ PrefabInstance:
       propertyPath: startPoint
       value: 
       objectReference: {fileID: 946606575}
+    - target: {fileID: 774569505852803517, guid: 4ee5f931c66d4694a8fa8b7e53c221dc,
+        type: 3}
+      propertyPath: maxDistance
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 774569505852803517, guid: 4ee5f931c66d4694a8fa8b7e53c221dc,
+        type: 3}
+      propertyPath: minDistance
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 774569505852803517, guid: 4ee5f931c66d4694a8fa8b7e53c221dc,
+        type: 3}
+      propertyPath: tensionFloor
+      value: -5
+      objectReference: {fileID: 0}
     - target: {fileID: 1856633712876626829, guid: 4ee5f931c66d4694a8fa8b7e53c221dc,
         type: 3}
       propertyPath: m_Name
