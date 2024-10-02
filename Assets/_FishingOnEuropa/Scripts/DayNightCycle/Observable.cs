@@ -1,12 +1,13 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 [Serializable]
 public class Observable<T>
 {
-    private T value;
+    private T value = default;
     public event Action<T> ValueChanged;
 
     public T Value
@@ -15,7 +16,7 @@ public class Observable<T>
         set => Set(value);
     }
 
-    public static implicit operator T(Observable<T> observable) => observable.value;
+    public static implicit operator T(Observable<T> observable) => observable.Value;
 
     public Observable(T value, Action<T> onValueChanged = null)
     {
@@ -53,4 +54,9 @@ public class Observable<T>
         ValueChanged = null;
         value = default;
     }
+
+
+
+
+
 }

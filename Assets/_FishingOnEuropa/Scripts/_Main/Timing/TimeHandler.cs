@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Timers;
+using UnityEngine;
 using static Europa.GameEvents.TimeConstants;
 namespace Europa.GameEvents
 {
@@ -11,10 +12,10 @@ namespace Europa.GameEvents
     public static class TimeHandler
     {
         // Observables for the times
-        public static Observable<SplitTime> CurrentTime { private set; get; }
-        public static Observable<int> CurrentDay { get; private set; }
-        public static Observable<int> CurrentHour { get; private set; }
-        public static Observable<int> CurrentMinute { get; private set; }
+        public static Observable<SplitTime> CurrentTime { private set; get; } = new Observable<SplitTime>(new SplitTime(0, 0, 0));
+        public static Observable<int> CurrentDay { get; private set; } = new Observable<int>(0);
+        public static Observable<int> CurrentHour { get; private set; } = new Observable<int>(0);
+        public static Observable<int> CurrentMinute { get; private set; } = new Observable<int>(0);
 
         /// <summary>
         /// Constructor for the TimeHandler static class.
@@ -23,7 +24,7 @@ namespace Europa.GameEvents
         static TimeHandler()
         {
             // Load the serialisedMinute and set up the observer values 
-            // serialisedMinute = LoadSerialisedMinute();
+            totalMinutes = LoadSerialisedMinute();
             ProcessSerialisedMinute();
 
             // Start the timer for the minute intervals.
@@ -65,6 +66,9 @@ namespace Europa.GameEvents
         {
             CurrentTime.Value = SplitTime.FromTotalMinutes(totalMinutes);
             UpdateTimeObservables(CurrentTime);
+
+            // temp save
+            SaveSerialisedMinute(totalMinutes);
         }
 
         /// <summary>
@@ -87,17 +91,19 @@ namespace Europa.GameEvents
         private static ulong LoadSerialisedMinute()
         {
             // Load the serialised time from the save file. TODO: Implement this.
-            throw new NotImplementedException();
+            return ulong.Parse(PlayerPrefs.GetString("TotalMinutes", "0"));
         }
         /// <summary>
         /// Saves the serialised minutes.
         /// </summary>
         /// <param name="totalMinutes">The total minutes since starting the game to save.</param>
         /// <exception cref="NotImplementedException"></exception>
-        private static void SaveSerialisedMinute(UInt64 totalMinutes)
+        private static void SaveSerialisedMinute(ulong totalMinutes)
         {
             // Save the serialised time to the save file. TODO: Implement this.
-            throw new NotImplementedException();
+            string timeString = totalMinutes.ToString();
+            PlayerPrefs.SetString("TotalMinutes", timeString);
+            PlayerPrefs.Save();
         }
     }
 }
