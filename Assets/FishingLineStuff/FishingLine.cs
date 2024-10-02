@@ -14,6 +14,13 @@ public class BezierLine : MonoBehaviour
     public float controlPointMass = 2.0f; // Mass of the control point
     public float controlPointDrag = 2.0f; // Drag of the control point
 
+    [Header("Tension")]
+    public float tensionStrenght = 0.5f;
+    public float minDistance = 0;
+    public float maxDistance = 20;
+    public float minVar = 0;
+    public float maxVar = 1;
+
     private LineRenderer lineRenderer;
     private Transform averagePoint;
 
