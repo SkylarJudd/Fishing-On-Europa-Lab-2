@@ -652,7 +652,7 @@ namespace Europa
                 {
                     foreach (FOEItem_Hybrid _hybrid in hybridSwimToPoint)
                     {
-                        print("swim part 2" + _FMGM.bobberGameObject.transform.position);
+                        print("swim part 2" + _FMGM.bobberTipGO.transform.position);
                         Vector3 directionToTarget = _FMGM.bobberGameObject.transform.position - _hybrid.europaItemData.itemGO.transform.position;
                         float yOffset = 0.5f;
                         directionToTarget = new Vector3(directionToTarget.x, directionToTarget.y - yOffset, directionToTarget.z);
@@ -662,7 +662,7 @@ namespace Europa
                         transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * _hybrid.hybridSO.rotationSpeed);
 
                         // Move towards the target
-                        Vector3 targetPosition = _FMGM.bobberGameObject.transform.position;
+                        Vector3 targetPosition = _FMGM.bobberTipGO.transform.position;
 
                         if (targetPosition.y > _hybrid.navigationData.waterHeight)
                         {
@@ -721,17 +721,22 @@ namespace Europa
                             //look at target
 
                             ////Move towards the target
-                            //Vector3 targetPosition = _FMGM.bobberGameObject.transform.position;
+                            Vector3 targetPosition = _FMGM.bobberTipGO.transform.position;
 
-                            //if (targetPosition.y > caughtHybrid.navigationData.waterHeight)
-                            //{
-                            //    targetPosition.y = caughtHybrid.navigationData.waterHeight;
-                            //}
-                            //caughtHybrid.europaItemData.itemGO.transform.position = Vector3.Lerp(caughtHybrid.europaItemData.itemGO.transform.position, new Vector3(targetPosition.x, targetPosition.y - 0, targetPosition.z), Time.deltaTime * (caughtHybrid.navigationData.maxSpeed * 2));
+                            if (targetPosition.y > caughtHybrid.navigationData.waterHeight)
+                            {
+                                targetPosition.y = caughtHybrid.navigationData.waterHeight;
+                            }
+                            caughtHybrid.europaItemData.itemGO.transform.position = Vector3.Lerp(caughtHybrid.europaItemData.itemGO.transform.position, new Vector3(targetPosition.x, targetPosition.y - 0, targetPosition.z), Time.deltaTime * (caughtHybrid.navigationData.maxSpeed * 3));
 
+                            //get pull direction
                             if (_FMGM.currentPullDirection == FishingMiniGameManager.PullDirections.NotSet) _FMGM.currentPullDirection = _FMGM.GetDirection();
                             Vector3 rotationAxis = new();
                             Vector3 direction = new();
+
+                            float deltaAngle = _FMGM.bobberRotationSpeedFighting * Time.deltaTime; 
+                            var targetDir = _FMGM.fishingRod.transform.position - _FMGM.bobberTipGO.transform.position;
+                            float currentAngle = Vector3.Angle(targetDir, _PLAYER.gameObject.transform.forward);
 
                             switch (_FMGM.currentPullDirection)
                             {
@@ -746,21 +751,14 @@ namespace Europa
                                     rotationAxis = Vector3.up;
                                     direction = Vector3.left;
                                     break;
-                                case FishingMiniGameManager.PullDirections.Middle:
-                                    rotationAxis = Vector3.zero;
-                                    direction = Vector3.zero;
-                                    break;
-                            }
-                            print(rotationAxis);
-                            float deltaAngle = _FMGM.fishRotationSpeed * Time.deltaTime;
-                            var targetDir = _FMGM.fishingRod.transform.position - caughtHybrid.europaItemData.itemGO.transform.position;
-                            float currentAngle = Vector3.Angle(targetDir, _FMGM.fishingRod.transform.forward);
 
-                            print(currentAngle);
-                            //rotate hybrid around player
-                            if (currentAngle < _FMGM.maxAngle && !Physics.CheckSphere(caughtHybrid.europaItemData.itemGO.transform.position, 0.5f, _FMGM.fishCollisionLayerMask))
+                            }
+                            print(currentAngle + " " + _FMGM.maxAngle);
+
+                            //rotate bobber around player
+                            if (currentAngle < _FMGM.maxAngle) //&& !Physics.CheckSphere(_FMGM.bobberGameObject.transform.position, 0.5f, _FMGM.fishCollisionLayerMask)
                             {
-                                caughtHybrid.europaItemData.itemGO.transform.RotateAround(_FMGM.fishingRod.transform.position, rotationAxis, deltaAngle);
+                                _FMGM.bobberGameObject.transform.RotateAround(_FMGM.fishingRod.transform.position, rotationAxis, deltaAngle);
                             }
                             
                             break;

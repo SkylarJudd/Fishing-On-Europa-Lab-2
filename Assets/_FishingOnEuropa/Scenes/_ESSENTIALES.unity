@@ -166,7 +166,7 @@ GameObject:
   m_Component:
   - component: {fileID: 17895783}
   m_Layer: 0
-  m_Name: Bobber
+  m_Name: BobberTransform
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6720,6 +6720,21 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5911518260582333399, guid: dbdadaad3a2d1674f945499b920627d9,
         type: 3}
+      propertyPath: maxAngle
+      value: 180
+      objectReference: {fileID: 0}
+    - target: {fileID: 5911518260582333399, guid: dbdadaad3a2d1674f945499b920627d9,
+        type: 3}
+      propertyPath: fishingRod
+      value: 
+      objectReference: {fileID: 1001497420}
+    - target: {fileID: 5911518260582333399, guid: dbdadaad3a2d1674f945499b920627d9,
+        type: 3}
+      propertyPath: bobberTipGO
+      value: 
+      objectReference: {fileID: 17895782}
+    - target: {fileID: 5911518260582333399, guid: dbdadaad3a2d1674f945499b920627d9,
+        type: 3}
       propertyPath: Casted.Variable
       value: 
       objectReference: {fileID: 11400000, guid: 91164d818420917459bf868959a3a45e,
@@ -6728,7 +6743,7 @@ PrefabInstance:
         type: 3}
       propertyPath: bobberGameObject
       value: 
-      objectReference: {fileID: 17895782}
+      objectReference: {fileID: 1877717348}
     - target: {fileID: 5911518260582333399, guid: dbdadaad3a2d1674f945499b920627d9,
         type: 3}
       propertyPath: terrainLayerMask.m_Bits

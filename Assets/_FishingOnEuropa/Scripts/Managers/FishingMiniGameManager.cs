@@ -1,5 +1,6 @@
 
 using Obvious.Soap;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,7 +11,7 @@ namespace Europa
         [Header("Bobber")]
         [SerializeField] float bobberRange = 3; //detection range of nearby hybrids when cast
         [SerializeField] float minBobberReelDistance; //how close the bobber needs to be before reeling is complete
-        public GameObject bobberGameObject, bobberTipGO, bobberFishSpot; //fish spot is where fish will attach to
+        public GameObject bobberGameObject, bobberTipGO; //fish spot is where fish will attach to
 
         public enum BobberState { Withdrawn, Cast, HitWater, AttachedFish }
 
@@ -22,6 +23,7 @@ namespace Europa
         FOEItem_Hybrid targetHybridNavData;
         public LayerMask fishMask, fishCollisionLayerMask;
         public Collider[] nearbyHybrids;
+        public float trackingLureInFightSpeed;
 
         [Header("Handle")]
         [SerializeField] float handleVelocity; //speed fishing rod handle is moving
@@ -38,13 +40,14 @@ namespace Europa
         [SerializeField] FloatReference LureCurrentMaxDistance;
         [SerializeField] FloatReference LureMaxDistanceFromRod;
         [SerializeField] BoolReference Casted;
+        [SerializeField] BoolReference fightingMiniGameActive;
 
 
         [Header("Fish Encounter")]
         [SerializeField] LayerMask terrainLayerMask;
 
         [SerializeField] float hybridRestTime, currentHybridStamina;
-        public float fishRotationSpeed, maxAngle;
+        public float bobberRotationSpeedFighting, maxAngle;
         public enum FishEncounterState { None, Resting, Fighting, Caught }
         public FishEncounterState fishEncounterState;
         public enum PullDirections { NotSet, Left, Right, Middle }
@@ -165,39 +168,14 @@ namespace Europa
                             if (!_FNAVM.CheckHybridState(targetHybrid, HybridState.HybridMiniGame_Pulling))
                                 _FNAVM.UpdateHybridState(targetHybrid, HybridState.HybridMiniGame_Pulling);
 
+                            //set mini game active on rod
+
                             //determine pull direction
                             if (currentPullDirection == PullDirections.NotSet) currentPullDirection = GetDirection();
 
                             //do this every second VVVV
 
-                            //if rod is pulling in other direction
-                            //if()
-                            //{
-                            //    //deplete stamina each second
-                            //    currentHybridStamina -= fishingEfficency;
-                            //    if(currentHybridStamina <= 0.0f)
-                            //    {
-                            //        //if stamina = 0 switch to resting
-                            //        BeginRestingPeriod();
-                            //    }
-                            //}
-                            //else
-                            //{
-                            //    //else damage rod
-                            //    fishingRodHP -= 1; //? how much damage
-
-                            //    //if rod hp = 0
-
-                            //    if (fishingRodHP <= 0.0f)
-                            //    {
-                            //        //escaped
-                            //        _FNAVM.UpdateHybridState(targetHybrid, HybridState.HybridMiniGame_Escaped);
-
-
-                            //        fishEncounterState = FishEncounterState.None;
-
-                            //    }
-                            //}
+                            
 
 
                             break;
@@ -220,6 +198,42 @@ namespace Europa
         }
 
 
+        IEnumerator UpdateHybridAndRodDuringFighting()
+        {
+            while (true)
+            {
+                yield return new WaitForSeconds(1f);
+                //if rod is pulling in other direction
+                //if ()
+                //{
+                //    //deplete stamina each second
+                //    currentHybridStamina -= fishingEfficency;
+                //    if (currentHybridStamina <= 0.0f)
+                //    {
+                //        //if stamina = 0 switch to resting
+                //        BeginRestingPeriod();
+                //    }
+                //}
+                //else
+                //{
+                //    //else damage rod
+                //    fishingRodHP.Value -= targetHybridSO.damageToRod; 
+
+                //    //if rod hp = 0
+
+                //    if (fishingRodHP <= 0.0f)
+                //    {
+                //        //escaped
+                //        _FNAVM.UpdateHybridState(targetHybrid, HybridState.HybridMiniGame_Escaped);
+
+
+                //        fishEncounterState = FishEncounterState.None;
+
+                //    }
+                //}
+            }
+        }
+
         /// <summary>
         /// Subscribe to OnLureHitWater event on Lure
         /// </summary>
@@ -236,6 +250,7 @@ namespace Europa
             hybridRestTime = Random.Range(targetHybridSO.restMinTime, targetHybridSO.restMaxTime);
             print(hybridRestTime);
             fishEncounterState = FishEncounterState.Resting;
+            fightingMiniGameActive.Value = false;
 
         }
 
@@ -243,7 +258,13 @@ namespace Europa
         {
             fishEncounterState = FishEncounterState.Fighting;
 
-            //set stamina of hybrid
+            currentHybridStamina = targetHybridSO.stamina;
+
+            fightingMiniGameActive.Value = true;
+
+            StartCoroutine(UpdateHybridAndRodDuringFighting());
+
+
 
 
         }
@@ -257,7 +278,7 @@ namespace Europa
             List<PullDirections> viableDirection = new();
 
             viableDirection.Add(PullDirections.Right);
-            viableDirection.Add(PullDirections.Middle);
+            //viableDirection.Add(PullDirections.Middle);
             viableDirection.Add(PullDirections.Left);
 
 
@@ -292,6 +313,7 @@ namespace Europa
         void ResetVariables()
         {
             hybridRestTime = 0;
+            fightingMiniGameActive.Value = false;
             currentPullDirection = PullDirections.NotSet;
         }
 
