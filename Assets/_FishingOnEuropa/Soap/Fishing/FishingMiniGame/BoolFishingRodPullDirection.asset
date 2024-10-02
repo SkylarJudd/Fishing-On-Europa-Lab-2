@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6a11231538da9894d8dce88b47df6a36, type: 3}
-  m_Name: Bool_RodCasted
+  m_Name: BoolFishingRodPullDirection
   m_EditorClassIdentifier: 
   TagIndex: 0
   Description: 
-  _guid: 91164d818420917459bf868959a3a45e
+  _guid: 
   _saveGuid: 0
   _value: 0
   _debugLogEnabled: 0
