@@ -39,7 +39,12 @@ public class VelocityCalculator : MonoBehaviour
         // Calculate the direction of movement (normalized velocity)
         rodEndPointForceDirection.Value = endPointSpeed.normalized;
 
-        rodEndCurrentSpeed.Value = endPointSpeed.magnitude; 
+        rodEndCurrentSpeed.Value = endPointSpeed.magnitude;
+
+        // Draw a line in the Scene view to represent the velocity direction
+        // Start from the fishing rod's end point (transform.position)
+        // The line will extend in the direction of the movement, scaled by the speed (for visualization purposes)
+        Debug.DrawLine(transform.position, transform.position + endPointSpeed, Color.green, 0.1f);
     }
 
 
