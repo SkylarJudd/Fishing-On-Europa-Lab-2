@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace Europa
 {
@@ -18,14 +19,16 @@ namespace Europa
     public class FishingRodController : Singleton<FishingRodController>
     {
         [Header("Line Properties")]
-        [SerializeField] Vector3Reference fishingRodEndPointTransform;
-        [SerializeField] Vector3Reference LureEndPointTransform;
-        [SerializeField] FloatReference LureCurrentDistance;
-        [SerializeField] FloatReference LureCurrentMaxDistance;
-        [SerializeField] FloatReference LureMaxDistanceFromRod;
-        [SerializeField] BoolReference Casted;
+        [SerializeField] private Vector3Reference fishingRodEndPointTransform;
+        [SerializeField] private Vector3Reference lureEndPointTransform;
+        [SerializeField] private FloatReference lureCurrentDistance;
+        [SerializeField] private FloatReference lureCurrentMaxDistance;
+        [SerializeField] private FloatReference lureMaxDistanceFromRod;
 
-        
+        [SerializeField] private BoolReference playerCastInput;
+        [SerializeField] private BoolReference fishingLineCasted;
+
+
 
         [Header("FishingRod")]
         [SerializeField]
@@ -44,10 +47,7 @@ namespace Europa
 
         [SerializeField]
         [Tooltip("The Rigidbody of the fishing Rod")]
-        private Rigidbody fishingRodRB;
-        [SerializeField]
-        [Tooltip("The end transform of the fishing Rod")]
-        private Vector3Reference endPointTransform;
+        private Rigidbody fishingRodRB;  
         [SerializeField]
         [Tooltip("The Minium amout the transform needs to move by for the direction to be updated")]
         private float minMoveAmount;
@@ -71,12 +71,12 @@ namespace Europa
 
         private void CaculateDistance()
         {
-            LureCurrentDistance.Value = Vector3.Distance(fishingRodEndPointTransform.Value, LureEndPointTransform.Value);
+            lureCurrentDistance.Value = Vector3.Distance(fishingRodEndPointTransform.Value, lureEndPointTransform.Value);
         }
 
         private void Cast()
         {
-
+            fishingLineCasted.Value = true;
         }
 
         private void UpdateLineLength(float _length)
@@ -105,6 +105,26 @@ namespace Europa
 
             rodDirectionVector = new Vector2(leftRightVector, forwardBackVector);
             return (returnLR, returnFW);
+        }
+
+        public void OnTriggerPressed(InputAction _context)
+        {
+            float input = _context.ReadValue<float>();
+
+            if (input == 0 && playerCastInput.Value == true)
+            {
+                Cast();
+                playerCastInput.Value = false;
+            }
+            else if (input > 0 && playerCastInput.Value == false)
+            {
+                playerCastInput.Value = true;
+            }
+            else if (input == 0)
+            {
+                playerCastInput.Value = false;
+            }
+
         }
     }
 }
