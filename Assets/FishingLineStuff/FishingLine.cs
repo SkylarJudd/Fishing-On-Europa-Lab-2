@@ -1,11 +1,14 @@
+using Obvious.Soap;
 using System.Collections;
 using UnityEngine;
 
 public class BezierLine : MonoBehaviour
 {
-    public Transform startPoint;
+    
+    [SerializeField] private Vector3Reference lineStartPoint;
+    [SerializeField] private Vector3Reference lineEndPoint;
+
     public Transform controlPoint;
-    public Transform endPoint;
     public int resolution = 10; // Number of points on the line
     public GameObject averagePointObject; // GameObject representing the average point
     public float springStiffness = 100.0f;
@@ -50,8 +53,8 @@ public class BezierLine : MonoBehaviour
         lineRenderer.useWorldSpace = true;
 
         // Initialize last positions
-        lastStartPointPos = startPoint.position;
-        lastEndPointPos = endPoint.position;
+        lastStartPointPos = lineStartPoint.Value;
+        lastEndPointPos = lineEndPoint.Value;
 
         // Add Spring Joint component to control point
         springJoint = controlPoint.gameObject.AddComponent<SpringJoint>();
@@ -80,9 +83,9 @@ public class BezierLine : MonoBehaviour
     private void FixedUpdate()
     {
         // Update the average point in FixedUpdate
-        averagePoint.position = (startPoint.position + endPoint.position) / 2;
+        averagePoint.position = (lineStartPoint.Value + lineEndPoint.Value) / 2;
 
-        float currentDistance = Vector3.Distance(startPoint.position, endPoint.position);
+        float currentDistance = Vector3.Distance(lineStartPoint.Value, lineEndPoint.Value);
 
         tensionStrenght = Mathf.InverseLerp(minDistance, maxDistance, currentDistance);
 
@@ -94,7 +97,7 @@ public class BezierLine : MonoBehaviour
         for (int i = 0; i <= resolution; i++)
         {
             float t = i / (float)resolution;
-            Vector3 point = CalculateQuadraticBezierPoint(t, startPoint.position, controlPoint.position, endPoint.position);
+            Vector3 point = CalculateQuadraticBezierPoint(t, lineStartPoint.Value, controlPoint.position, lineEndPoint.Value);
             lineRenderer.SetPosition(i, point);
             yield return null;
         }
@@ -112,19 +115,19 @@ public class BezierLine : MonoBehaviour
         Vector3 p = uuu * p0;
         p += 3 * uu * t * p1;
         p += 3 * u * tt * p2;
-        p += tt * t * endPoint.position;
+        p += tt * t * lineEndPoint.Value;
 
         return p;
     }
 
     void ApplyTension()
     {
-        Vector3 midPoint = (startPoint.position + endPoint.position) / 2;
+        Vector3 midPoint = (lineStartPoint.Value + lineEndPoint.Value) / 2;
 
         float slack = Mathf.Lerp(tensionFloor, 0, tensionStrenght);
         midPoint += Vector3.up * slack;
 
-        float minY = Mathf.Min(startPoint.position.y, endPoint.position.y);
+        float minY = Mathf.Min(lineStartPoint.Value.y, lineEndPoint.Value.y);
         midPoint.y = Mathf.Max(midPoint.y, minY);
 
         controlPoint.position = midPoint;

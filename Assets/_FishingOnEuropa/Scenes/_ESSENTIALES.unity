@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.07473869, g: 0.026821297, b: 0.028229093, a: 1}
+  m_IndirectSpecularColor: {r: 0.07425486, g: 0.019470753, b: 0.023988847, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1420,6 +1420,18 @@ PrefabInstance:
       propertyPath: tensionFloor
       value: -5
       objectReference: {fileID: 0}
+    - target: {fileID: 774569505852803517, guid: 4ee5f931c66d4694a8fa8b7e53c221dc,
+        type: 3}
+      propertyPath: lineEndPoint.Variable
+      value: 
+      objectReference: {fileID: 11400000, guid: 47cf46d5e2582cd4088ab8caec2598c6,
+        type: 2}
+    - target: {fileID: 774569505852803517, guid: 4ee5f931c66d4694a8fa8b7e53c221dc,
+        type: 3}
+      propertyPath: lineStartPoint.Variable
+      value: 
+      objectReference: {fileID: 11400000, guid: ba3c0508229f1d440945d0987fe7357a,
+        type: 2}
     - target: {fileID: 1856633712876626829, guid: 4ee5f931c66d4694a8fa8b7e53c221dc,
         type: 3}
       propertyPath: m_Name
