@@ -13,15 +13,6 @@ public class PlantGrowth : GrowthObjectBase
     [SerializeField]
     private ulong currentTime;
 
-    private void OnEnable()
-    {
-        ItemLoaded(timeLastUnloaded, growthDataSO);
-    }
-    private void OnDisable()
-    {
-        ItemUnloaded(); 
-    }
-
     public void ItemLoaded(ulong itemLastUnloadedTime, GrowthDataSO growthData)
     {
         timeLastUnloaded = itemLastUnloadedTime;

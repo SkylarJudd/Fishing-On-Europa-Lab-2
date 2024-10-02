@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Timers;
 using UnityEngine;
 using static Europa.GameEvents.TimeConstants;
@@ -11,6 +12,12 @@ namespace Europa.GameEvents
     /// </summary>
     public static class TimeHandler
     {
+
+        private static readonly string TEMP_FOLDER_PATH =
+            Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory), "temp");
+        private static readonly string TEMP_FILE_PATH =
+            Path.Combine(TEMP_FOLDER_PATH, "time.txt");
+
         // Observables for the times
         public static Observable<SplitTime> CurrentTime { private set; get; } = new Observable<SplitTime>(new SplitTime(0, 0, 0));
         public static Observable<int> CurrentDay { get; private set; } = new Observable<int>(0);
@@ -23,6 +30,17 @@ namespace Europa.GameEvents
         /// </summary>
         static TimeHandler()
         {
+            SaveManager.OnInitialised += () =>
+            {
+                // we are ready to go
+                Start();
+            };
+
+           
+        }
+
+        private static void Start()
+        {
             // Load the serialisedMinute and set up the observer values 
             totalMinutes = LoadSerialisedMinute();
             ProcessSerialisedMinute();
@@ -34,7 +52,7 @@ namespace Europa.GameEvents
         }
 
         // Timer system for the minute interval.
-        private static readonly Timer minuteTimer;
+        private static Timer minuteTimer;
 
         // The current serialised time. Is the total minutes that have passed in game since the very start.
         // Hope it doesn't overflow, I think it would take about 23381681843.6 real life years.
@@ -91,7 +109,8 @@ namespace Europa.GameEvents
         private static ulong LoadSerialisedMinute()
         {
             // Load the serialised time from the save file. TODO: Implement this.
-            return ulong.Parse(PlayerPrefs.GetString("TotalMinutes", "0"));
+            string time = File.ReadAllText(TEMP_FILE_PATH);
+            return ulong.Parse(time);
         }
         /// <summary>
         /// Saves the serialised minutes.
@@ -101,9 +120,7 @@ namespace Europa.GameEvents
         private static void SaveSerialisedMinute(ulong totalMinutes)
         {
             // Save the serialised time to the save file. TODO: Implement this.
-            string timeString = totalMinutes.ToString();
-            PlayerPrefs.SetString("TotalMinutes", timeString);
-            PlayerPrefs.Save();
+            File.WriteAllText(TEMP_FILE_PATH, totalMinutes.ToString());
         }
     }
 }
