@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UIElements;
 
 namespace Europa
 {
@@ -25,10 +26,13 @@ namespace Europa
         [SerializeField] private FloatReference lureCurrentMaxDistance;
         [SerializeField] private FloatReference lureMaxDistanceFromRod;
 
+        [SerializeField] private FloatReference rodEndSpeed;
+        [SerializeField] private FloatReference castTriggerSpeed;
+
         [SerializeField] private BoolReference playerCastInput;
         [SerializeField] private BoolReference fishingLineCasted;
 
-
+        [SerializeField] float lureReturnSpeed = 10f;
 
         [Header("FishingRod")]
         [SerializeField]
@@ -46,14 +50,14 @@ namespace Europa
         private Vector2 rodDirectionVector;
 
         [SerializeField]
-        [Tooltip("The Rigidbody of the fishing Rod")]
-        private Rigidbody fishingRodRB;  
+        [Tooltip("The Rigid body of the fishing Rod")]
+        private Rigidbody fishingRodRB;
         [SerializeField]
-        [Tooltip("The Minium amout the transform needs to move by for the direction to be updated")]
+        [Tooltip("The Minimum amount the transform needs to move by for the direction to be updated")]
         private float minMoveAmount;
 
         [SerializeField]
-        [Tooltip("The Minium amout the transform needs to move by for the direction to be updated")]
+        [Tooltip("The Minimum amount the transform needs to move by for the direction to be updated")]
         private FishingMiniGameManager _FMGM;
 
         float CurrentReelRotation = 0;
@@ -76,12 +80,16 @@ namespace Europa
 
         private void Cast()
         {
-            fishingLineCasted.Value = true;
+            if (rodEndSpeed > castTriggerSpeed)
+            {
+                fishingLineCasted.Value = true;
+                UpdateLineLength(lureMaxDistanceFromRod.Value);
+            }
         }
 
         private void UpdateLineLength(float _length)
         {
-
+            lureCurrentMaxDistance.Value = _length;
         }
 
         private void UpDateRodDiretion()
@@ -107,8 +115,9 @@ namespace Europa
             return (returnLR, returnFW);
         }
 
-        public void OnTriggerPressed(InputAction _context)
+        public void OnTriggerPressed(InputAction.CallbackContext _context)
         {
+            print("Trigger Pressed");
             float input = _context.ReadValue<float>();
 
             if (input == 0 && playerCastInput.Value == true)
@@ -120,9 +129,23 @@ namespace Europa
             {
                 playerCastInput.Value = true;
             }
+            else if (input > 0 && fishingLineCasted.Value == true)
+            {
+                StartCoroutine(LerpLureToRod());
+            }
             else if (input == 0)
             {
                 playerCastInput.Value = false;
+            }
+
+        }
+
+        private IEnumerator LerpLureToRod()
+        {
+            while (fishingLineCasted.Value == true)
+            {
+                lureCurrentMaxDistance.Value = Mathf.Lerp(lureCurrentMaxDistance.Value, 0, lureReturnSpeed * Time.deltaTime);
+                yield return new WaitForEndOfFrame();
             }
 
         }
