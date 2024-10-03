@@ -1,4 +1,5 @@
 using Obvious.Soap;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Europa
@@ -16,24 +17,21 @@ namespace Europa
         [SerializeField] private int testValue;  // Test value that should increase or decrease based on rotation
 
         private float lastRotationX;
-        private Rigidbody rb;
-
-        private Transform parentTransform;
+        private Queue<float> rotationHistory = new Queue<float>();  // Store recent rotation values
+        [SerializeField] private int smoothingWindow = 5;  // How many frames to smooth over
 
         private bool handOnReel;
 
         private void Start()
         {
-
             // Initialize with the current X rotation of the game object
             lastRotationX = GetWorldRotationX();
-
         }
 
         private void Update()
         {
             // Check to see if the line has been cast and the mini-game is not running
-            if (!fishingMiniGameActive.Value && fishingRodCasted.Value  && handOnReel)
+            if (!fishingMiniGameActive.Value && fishingRodCasted.Value && handOnReel)
             {
                 UpdateLineMaxDistance();
             }
@@ -48,19 +46,58 @@ namespace Europa
             // Get the current world space X rotation and calculate relative movement
             float currentRotationX = GetWorldRotationX();
 
-            float rotationDelta = currentRotationX - lastRotationX;
-            print(rotationDelta);
+            // Add the current rotation to the history
+            AddRotationToHistory(currentRotationX);
 
-            if (rotationDelta > 0)
+            // Get the smoothed rotation delta
+            float smoothedRotationDelta = GetSmoothedRotationDelta(currentRotationX);
+
+            smoothedRotationDelta = Mathf.Clamp(smoothedRotationDelta, -10, 10);
+
+            Debug.Log($"Current Rotation of X {currentRotationX} Smoothed Rotation delta = {smoothedRotationDelta}");
+
+            // Use the smoothed rotation delta instead of the raw one
+            if (smoothedRotationDelta > 0)
             {
-                OnRotateClockwise(rotationDelta);
+                OnRotateClockwise(smoothedRotationDelta);
             }
-            else if (rotationDelta < 0)
+            else if (smoothedRotationDelta < 0)
             {
-                OnRotateCounterClockwise(rotationDelta);
+                OnRotateCounterClockwise(smoothedRotationDelta);
             }
 
             lastRotationX = currentRotationX;
+        }
+
+        /// <summary>
+        /// Adds the current rotation value to the history, maintaining the smoothing window size.
+        /// </summary>
+        private void AddRotationToHistory(float currentRotationX)
+        {
+            rotationHistory.Enqueue(currentRotationX);
+
+            // Keep the history size within the smoothing window
+            if (rotationHistory.Count > smoothingWindow)
+            {
+                rotationHistory.Dequeue();
+            }
+        }
+
+        /// <summary>
+        /// Calculates the smoothed rotation delta by averaging the recent rotation values.
+        /// </summary>
+        private float GetSmoothedRotationDelta(float currentRotationX)
+        {
+            // Calculate the average rotation from the history
+            float averageRotation = 0f;
+            foreach (float rotation in rotationHistory)
+            {
+                averageRotation += rotation;
+            }
+            averageRotation /= rotationHistory.Count;
+
+            // Return the delta between the current rotation and the average of recent rotations
+            return currentRotationX - averageRotation;
         }
 
         private float GetWorldRotationX()
@@ -92,12 +129,9 @@ namespace Europa
         /// <param name="rotationAmount">The amount the X rotation increased by.</param>
         private void OnRotateClockwise(float rotationAmount)
         {
-            //Debug.Log($"Rotated Clockwise by {rotationAmount} degrees.");
             testValue++;
-
             // Calculate the distance to add based on the rotation amount
-            lureCurrentMaxDistance.Value += ( rotationAmount * convertFromDegToDisScale);
-
+            lureCurrentMaxDistance.Value += (rotationAmount * convertFromDegToDisScale);
         }
 
         /// <summary>
@@ -106,12 +140,9 @@ namespace Europa
         /// <param name="rotationAmount">The amount the X rotation decreased by.</param>
         private void OnRotateCounterClockwise(float rotationAmount)
         {
-            //Debug.Log($"Rotated Counterclockwise by {rotationAmount} degrees.");
             testValue--;
-
             // Calculate the distance to subtract based on the rotation amount
-            lureCurrentMaxDistance.Value +=  rotationAmount * convertFromDegToDisScale;
-
+            lureCurrentMaxDistance.Value += rotationAmount * convertFromDegToDisScale;
         }
 
         /// <summary>
