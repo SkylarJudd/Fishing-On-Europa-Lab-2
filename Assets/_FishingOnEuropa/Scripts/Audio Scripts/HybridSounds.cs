@@ -6,27 +6,27 @@ using UnityEngine;
 public class HybridSounds : MonoBehaviour
 {
     [Header("Hybrid Interactions")]
-    public StudioEventEmitter hybridAngry;
-    public StudioEventEmitter hybridHappy;
-    public StudioEventEmitter hybridPlay;
-    public StudioEventEmitter hybridSad;
+    public StudioEventEmitter angry;
+    public StudioEventEmitter happy;
+    public StudioEventEmitter play;
+    public StudioEventEmitter sad;
 
     [Header("Hybrid Charm")]
-    public StudioEventEmitter hybridSpawnCharm;
-    public StudioEventEmitter hybridDropCharm;
-    public StudioEventEmitter hybridCharmPickup;
+    public StudioEventEmitter spawnCharm;
+    public StudioEventEmitter dropCharm;
+    public StudioEventEmitter charmPickup;
 
     [Header("Hybrid Eat")]
-    public StudioEventEmitter hybridActiveMunch;
-    public StudioEventEmitter hybridChomp;
-    public StudioEventEmitter hybridSlowMunch;
+    public StudioEventEmitter activeMunch;
+    public StudioEventEmitter chomp;
+    public StudioEventEmitter slowMunch;
 
     [Header("Hybrid Movement")]
-    public StudioEventEmitter hybridSplash;
-    public StudioEventEmitter hybridDive;
-    public StudioEventEmitter hybridSwim;
-    public StudioEventEmitter hybridIdle;
-    public StudioEventEmitter hybridCollision;
+    public StudioEventEmitter splash;
+    public StudioEventEmitter dive;
+    public StudioEventEmitter swim;
+    public StudioEventEmitter iIdle;
+    public StudioEventEmitter collision;
 
     public void PlaySound(StudioEventEmitter _name)
     {
