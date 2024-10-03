@@ -21,5 +21,5 @@ MonoBehaviour:
   _saved: 0
   _defaultValue: 0
   _resetOn: 0
-  _isClamped: 0
-  _minMax: {x: 0, y: 3.4028235e+38}
+  _isClamped: 1
+  _minMax: {x: 0, y: 40}

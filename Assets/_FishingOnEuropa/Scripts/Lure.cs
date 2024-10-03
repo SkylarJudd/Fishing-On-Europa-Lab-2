@@ -61,15 +61,16 @@ namespace Europa
 
         private void OnMaxDistanceChanged(float newValue)
         {
-            if (newValue == 0)
-            {
-                Casted.Value = false;
-            }
+            UpdateLure( newValue);
         }
 
         private void OnDistanceChanged(float newValue)
         {
+            UpdateLure( newValue);
+        }
 
+        private void UpdateLure( float newValue)
+        {
             if (newValue <= resetDistance)
             {
                 Casted.Value = false;
@@ -99,11 +100,7 @@ namespace Europa
                     //Debug.Log($"Applying force towards rod: {force}, Force magnitude: {force.magnitude}");
                 }
             }
-
-
-
         }
 
-       
     }
 }
