@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.07425486, g: 0.019470753, b: 0.023988847, a: 1}
+  m_IndirectSpecularColor: {r: 0.07479264, g: 0.019696271, b: 0.024038512, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1902,6 +1902,11 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2412535520591169718, guid: 4ee5f931c66d4694a8fa8b7e53c221dc,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 70d9ea5beac71234c9644a73813348ab, type: 2}
     - target: {fileID: 4945538696507517787, guid: 4ee5f931c66d4694a8fa8b7e53c221dc,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3730,10 +3735,20 @@ PrefabInstance:
       propertyPath: m_Name
       value: DayNightCycle
       objectReference: {fileID: 0}
+    - target: {fileID: 2773840998112354868, guid: 232f1d264d2e2d64eace14da916e0cda,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3802271532656692908, guid: 232f1d264d2e2d64eace14da916e0cda,
         type: 3}
       propertyPath: m_Cameras.Array.size
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4782854231764039662, guid: 232f1d264d2e2d64eace14da916e0cda,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6480877890758509511, guid: 232f1d264d2e2d64eace14da916e0cda,
         type: 3}
