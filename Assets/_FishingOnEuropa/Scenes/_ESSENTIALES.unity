@@ -123,40 +123,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
-
---- !u!1 &716946
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 716947}
-  m_Layer: 0
-  m_Name: FishingRod
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &716947
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 716946}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0.5, y: 0.5, z: 0.5, w: 0.5}
-  m_LocalPosition: {x: 0.17929986, y: 0, z: 0}
-  m_LocalScale: {x: 22.675732, y: 2.2412481, z: 22.675732}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 448494504}
-  - {fileID: 1019147268}
-  m_Father: {fileID: 958924206}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 91.615}
 --- !u!1 &17895782
 GameObject:
   m_ObjectHideFlags: 0
@@ -181,14 +147,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 17895782}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.534, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -3.1400003, y: -2.2840002, z: -11.255}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1877717349}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-
 --- !u!1 &55589098
 GameObject:
   m_ObjectHideFlags: 0
@@ -760,65 +725,13 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-
---- !u!1 &373930722 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 863313539413655328, guid: dbdadaad3a2d1674f945499b920627d9,
-    type: 3}
-  m_PrefabInstance: {fileID: 1806424663}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &373930723 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7204413666018029058, guid: dbdadaad3a2d1674f945499b920627d9,
     type: 3}
   m_PrefabInstance: {fileID: 1806424663}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &373930724
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 373930722}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d93ba61543949824db31c7cb89b4f009, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _binding: 0
-  _disableAfterSubscribing: 0
-  _eventResponses:
-  - Delay: 0
-    ScriptableEvent: {fileID: 11400000, guid: d81c4899543a5cc4a9e13f7c7f55aab0, type: 2}
-    Response:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 373930725}
-          m_TargetAssemblyTypeName: Europa.FishingMiniGameManager, Assembly-CSharp
-          m_MethodName: LureHitWater
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
---- !u!114 &373930725 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5911518260582333399, guid: dbdadaad3a2d1674f945499b920627d9,
-    type: 3}
-  m_PrefabInstance: {fileID: 1806424663}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 373930722}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aea96e125abd5a6448ed64bb42f82b13, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &388498734 stripped
-
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6621930902858238213, guid: 3ab19df1b0a29c049b8c6520821bf132,
     type: 3}
@@ -830,7 +743,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1007950064688769462}
   m_PrefabAsset: {fileID: 0}
-
 --- !u!1001 &414801794
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1057,13 +969,14 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 2293724037855637007, guid: ec8fef564a54f05418c2b8fe7fa910ae,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1040726102}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ec8fef564a54f05418c2b8fe7fa910ae, type: 3}
-
+--- !u!4 &414801795 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5396619862681362380, guid: ec8fef564a54f05418c2b8fe7fa910ae,
+    type: 3}
+  m_PrefabInstance: {fileID: 414801794}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &414810696
 GameObject:
   m_ObjectHideFlags: 0
@@ -2315,6 +2228,7 @@ Transform:
   - {fileID: 840922375}
   - {fileID: 989395510}
   - {fileID: 373930723}
+  - {fileID: 414801795}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1123016494 stripped
@@ -2572,6 +2486,12 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6776857322880072163, guid: b64c55988f8057149a7e8733404b6c2c,
     type: 3}
   m_PrefabInstance: {fileID: 445862993024158023}
+  m_PrefabAsset: {fileID: 0}
+--- !u!54 &1349427885 stripped
+Rigidbody:
+  m_CorrespondingSourceObject: {fileID: 7245818234153114688, guid: 3ab19df1b0a29c049b8c6520821bf132,
+    type: 3}
+  m_PrefabInstance: {fileID: 429788761714165410}
   m_PrefabAsset: {fileID: 0}
 --- !u!114 &1370187048
 MonoBehaviour:
@@ -3720,14 +3640,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5911518260582333399, guid: dbdadaad3a2d1674f945499b920627d9,
         type: 3}
-      propertyPath: maxAngle
-      value: 180
-      objectReference: {fileID: 0}
-    - target: {fileID: 5911518260582333399, guid: dbdadaad3a2d1674f945499b920627d9,
-        type: 3}
       propertyPath: fishingRod
       value: 
-      objectReference: {fileID: 1001497420}
+      objectReference: {fileID: 429788761714165411}
     - target: {fileID: 5911518260582333399, guid: dbdadaad3a2d1674f945499b920627d9,
         type: 3}
       propertyPath: bobberTipGO
@@ -3735,37 +3650,37 @@ PrefabInstance:
       objectReference: {fileID: 17895782}
     - target: {fileID: 5911518260582333399, guid: dbdadaad3a2d1674f945499b920627d9,
         type: 3}
-      propertyPath: Casted.Variable
+      propertyPath: rb_reelHandle
       value: 
-      objectReference: {fileID: 11400000, guid: 91164d818420917459bf868959a3a45e,
-        type: 2}
+      objectReference: {fileID: 1349427885}
     - target: {fileID: 5911518260582333399, guid: dbdadaad3a2d1674f945499b920627d9,
         type: 3}
       propertyPath: bobberGameObject
       value: 
-      objectReference: {fileID: 1877717348}
+      objectReference: {fileID: 3319358093280232136}
     - target: {fileID: 5911518260582333399, guid: dbdadaad3a2d1674f945499b920627d9,
         type: 3}
-      propertyPath: terrainLayerMask.m_Bits
-      value: 5242880
-      objectReference: {fileID: 0}
-    - target: {fileID: 5911518260582333399, guid: dbdadaad3a2d1674f945499b920627d9,
-        type: 3}
-      propertyPath: LureCurrentDistance.Variable
+      propertyPath: fishingRodHP.Variable
       value: 
-      objectReference: {fileID: 11400000, guid: f2f515a27d0f6034a9a91b8f1c18ad48,
+      objectReference: {fileID: 11400000, guid: 293f387b5093d6549acce6b84355eaef,
         type: 2}
     - target: {fileID: 5911518260582333399, guid: dbdadaad3a2d1674f945499b920627d9,
         type: 3}
-      propertyPath: LureCurrentMaxDistance.Variable
+      propertyPath: fishingEfficency.Variable
       value: 
-      objectReference: {fileID: 11400000, guid: fdc709a0982218446a8e212cf5a10b14,
+      objectReference: {fileID: 11400000, guid: 059d7f2f2a82c3f4390cbc5d0ef8c0d6,
         type: 2}
     - target: {fileID: 5911518260582333399, guid: dbdadaad3a2d1674f945499b920627d9,
         type: 3}
-      propertyPath: LureMaxDistanceFromRod.Variable
+      propertyPath: rodPullDirection.Variable
       value: 
-      objectReference: {fileID: 11400000, guid: 11c73aab1e4b6b645ae3c6335c7ddfc6,
+      objectReference: {fileID: 11400000, guid: b5c04773c2be83c4581588ca4d2aa2eb,
+        type: 2}
+    - target: {fileID: 5911518260582333399, guid: dbdadaad3a2d1674f945499b920627d9,
+        type: 3}
+      propertyPath: fightingMiniGameActive.Variable
+      value: 
+      objectReference: {fileID: 11400000, guid: 9bba7ba87938df34bb9dbb2f49437b9d,
         type: 2}
     - target: {fileID: 7204413666018029058, guid: dbdadaad3a2d1674f945499b920627d9,
         type: 3}
@@ -3820,11 +3735,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 863313539413655328, guid: dbdadaad3a2d1674f945499b920627d9,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 373930724}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dbdadaad3a2d1674f945499b920627d9, type: 3}
 --- !u!1001 &1811307060
 PrefabInstance:
@@ -3921,150 +3832,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 3319358093280232135}
   m_PrefabAsset: {fileID: 0}
-
-  m_GameObject: {fileID: 1877717348}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.074, y: 1.75, z: 11.255}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1904605779}
-  - {fileID: 17895783}
-  m_Father: {fileID: 2012903472}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1877717350
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1877717348}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 98755396ffb39624db4e335ca5c9eb7f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  targetObject: {fileID: 388498734}
-  destinationObject: {fileID: 1877717348}
-  positionOffset: {x: 0, y: 0, z: 0}
---- !u!114 &1877717351
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1877717348}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 98f5205f5d36cd44883d2a7bb256b496, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  fishingRodEndPointTransform:
-    UseLocal: 0
-    LocalValue: {x: 0, y: 0, z: 0}
-    Variable: {fileID: 11400000, guid: ba3c0508229f1d440945d0987fe7357a, type: 2}
-  LureEndPointTransform:
-    UseLocal: 0
-    LocalValue: {x: 0, y: 0, z: 0}
-    Variable: {fileID: 11400000, guid: 47cf46d5e2582cd4088ab8caec2598c6, type: 2}
-  LureCurrentDistance:
-    UseLocal: 0
-    LocalValue: 0
-    Variable: {fileID: 11400000, guid: f2f515a27d0f6034a9a91b8f1c18ad48, type: 2}
-  LureCurrentMaxDistance:
-    UseLocal: 0
-    LocalValue: 0
-    Variable: {fileID: 11400000, guid: fdc709a0982218446a8e212cf5a10b14, type: 2}
-  LureMaxDistanceFromRod:
-    UseLocal: 0
-    LocalValue: 0
-    Variable: {fileID: 11400000, guid: 11c73aab1e4b6b645ae3c6335c7ddfc6, type: 2}
-  Casted:
-    UseLocal: 0
-    LocalValue: 0
-    Variable: {fileID: 11400000, guid: 91164d818420917459bf868959a3a45e, type: 2}
-  lureRigidbody: {fileID: 1877717353}
-  forceMultiplier: 100
-  maxForce: 50
---- !u!65 &1877717352
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1877717348}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.48, y: 0.12, z: 0.48}
-  m_Center: {x: 0, y: -0.06963289, z: 0}
---- !u!54 &1877717353
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1877717348}
-  serializedVersion: 4
-  m_Mass: 1
-  m_Drag: 10
-  m_AngularDrag: 5
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
---- !u!114 &1877717354
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1877717348}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a40fd5c1f71f7964d8d4ae9c76c882b7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _version: 0
-  _raiseObject: 1.28
-  _buoyancyCoeff: 5.7
-  _boyancyTorque: 8
-  _accelerateDownhill: 0
-  _maximumBuoyancyForce: 13
-  _objectWidth: 3
-  _forceHeightOffset: -0.3
-  _dragInWaterUp: 3
-  _dragInWaterRight: 2
-  _dragInWaterForward: 1
-  _dragInWaterRotational: 0.02
-  _debugDraw: 1
-  _inWater: 0
-  OnLureHitWater: {fileID: 11400000, guid: d81c4899543a5cc4a9e13f7c7f55aab0, type: 2}
-  OnLureExitWater: {fileID: 11400000, guid: 13baa279cf5bc18409aa48086150091e, type: 2}
-  _previousInWaterState: 0
-
 --- !u!4 &1893988278 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1748528439184458762, guid: 7c48fd7e54ed904489b2b0131dd84ff2,
@@ -4453,8 +4220,38 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 419938759950405999, guid: 3ab19df1b0a29c049b8c6520821bf132,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 429788761714165421}
   m_SourcePrefab: {fileID: 100100000, guid: 3ab19df1b0a29c049b8c6520821bf132, type: 3}
+--- !u!1 &429788761714165411 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 419938759950405999, guid: 3ab19df1b0a29c049b8c6520821bf132,
+    type: 3}
+  m_PrefabInstance: {fileID: 429788761714165410}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &429788761714165421
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 429788761714165411}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43e1b7e3a3753d441ad841dcd53b4607, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fishingRodHP:
+    UseLocal: 0
+    LocalValue: 0
+    Variable: {fileID: 11400000, guid: 293f387b5093d6549acce6b84355eaef, type: 2}
+  fishingEfficency:
+    UseLocal: 0
+    LocalValue: 0
+    Variable: {fileID: 11400000, guid: 059d7f2f2a82c3f4390cbc5d0ef8c0d6, type: 2}
 --- !u!224 &440455735454287239
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5624,9 +5421,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 5616339010978054801, guid: 52a8e0d33fad1a24ca92e769caa2e85a,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 17895783}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 52a8e0d33fad1a24ca92e769caa2e85a, type: 3}
+--- !u!1 &3319358093280232136 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8849559212076729514, guid: 52a8e0d33fad1a24ca92e769caa2e85a,
+    type: 3}
+  m_PrefabInstance: {fileID: 3319358093280232135}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &3326275237299821349
 RectTransform:
   m_ObjectHideFlags: 0

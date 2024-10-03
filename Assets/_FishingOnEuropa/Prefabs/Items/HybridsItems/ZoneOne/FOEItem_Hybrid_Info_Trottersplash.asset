@@ -19,8 +19,13 @@ MonoBehaviour:
   inWorldVisuals: {fileID: 0}
   damageToRod: 25
   catchChance: 26
+  restMinTime: 3
+  restMaxTime: 5
+  stamina: 20
   fishSpeed: 0.5
   rotationSpeed: 5
   foodEaten: 01000000020000000300000004000000050000000600000007000000
   favFood: 8
   favToy: 0
+  patTrigger: {fileID: 0}
+  hybridInteractionTrigger: {fileID: 0}

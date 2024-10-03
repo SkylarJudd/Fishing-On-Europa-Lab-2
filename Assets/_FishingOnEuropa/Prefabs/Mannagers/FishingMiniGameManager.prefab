@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7204413666018029058}
   - component: {fileID: 5911518260582333399}
+  - component: {fileID: 2334015209020133010}
   m_Layer: 0
   m_Name: FishingMiniGameManager
   m_TagString: Untagged
@@ -48,7 +49,6 @@ MonoBehaviour:
   minBobberReelDistance: 0
   bobberGameObject: {fileID: 0}
   bobberTipGO: {fileID: 0}
-  bobberFishSpot: {fileID: 0}
   bobberState: 0
   targetHybrid: {fileID: 0}
   fishMask:
@@ -58,13 +58,76 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 5242880
   nearbyHybrids: []
+  trackingLureInFightSpeed: 0
   handleVelocity: 0
   minPullAngle: 0
+  fishingRodHP:
+    UseLocal: 0
+    LocalValue: 0
+    Variable: {fileID: 0}
+  fishingEfficency:
+    UseLocal: 0
+    LocalValue: 0
+    Variable: {fileID: 0}
+  fishingRod: {fileID: 0}
+  LureCurrentDistance:
+    UseLocal: 0
+    LocalValue: 0
+    Variable: {fileID: 11400000, guid: f2f515a27d0f6034a9a91b8f1c18ad48, type: 2}
+  LureCurrentMaxDistance:
+    UseLocal: 0
+    LocalValue: 0
+    Variable: {fileID: 11400000, guid: fdc709a0982218446a8e212cf5a10b14, type: 2}
+  LureMaxDistanceFromRod:
+    UseLocal: 0
+    LocalValue: 0
+    Variable: {fileID: 11400000, guid: 11c73aab1e4b6b645ae3c6335c7ddfc6, type: 2}
+  Casted:
+    UseLocal: 0
+    LocalValue: 0
+    Variable: {fileID: 11400000, guid: 91164d818420917459bf868959a3a45e, type: 2}
+  fightingMiniGameActive:
+    UseLocal: 0
+    LocalValue: 0
+    Variable: {fileID: 0}
   terrainLayerMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 5242880
   hybridRestTime: 1
-  fishRotationSpeed: 20
-  maxAngle: 20
+  currentHybridStamina: 0
+  bobberRotationSpeedFighting: 0
+  maxAngle: 180
   fishEncounterState: 0
   currentPullDirection: 0
+--- !u!114 &2334015209020133010
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 863313539413655328}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d93ba61543949824db31c7cb89b4f009, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _binding: 0
+  _disableAfterSubscribing: 0
+  _eventResponses:
+  - Delay: 0
+    ScriptableEvent: {fileID: 11400000, guid: d81c4899543a5cc4a9e13f7c7f55aab0, type: 2}
+    Response:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 5911518260582333399}
+          m_TargetAssemblyTypeName: Europa.FishingMiniGameManager, Assembly-CSharp
+          m_MethodName: LureHitWater
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2

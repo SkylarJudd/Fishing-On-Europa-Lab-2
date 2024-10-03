@@ -756,7 +756,7 @@ namespace Europa
                             print(currentAngle + " " + _FMGM.maxAngle);
 
                             //rotate bobber around player
-                            if (currentAngle < _FMGM.maxAngle) //&& !Physics.CheckSphere(_FMGM.bobberGameObject.transform.position, 0.5f, _FMGM.fishCollisionLayerMask)
+                            if (currentAngle < _FMGM.maxAngle && !Physics.CheckSphere(_FMGM.bobberGameObject.transform.position, 0.5f, _FMGM.fishCollisionLayerMask))
                             {
                                 _FMGM.bobberGameObject.transform.RotateAround(_FMGM.fishingRod.transform.position, rotationAxis, deltaAngle);
                             }
@@ -764,6 +764,36 @@ namespace Europa
                             break;
 
                         case HybridState.HybridMiniGame_Tired:
+
+                            rotationAxis = new();
+                            //reset bobber to center
+                            switch (_FMGM.currentPullDirection)
+                            {
+                                case FishingMiniGameManager.PullDirections.Left:
+                                    //set bobber rotation
+                                    rotationAxis = Vector3.down;
+                                    direction = Vector3.left;
+                                    //reset temp
+
+                                    break;
+                                case FishingMiniGameManager.PullDirections.Right:
+                                    rotationAxis = Vector3.up;
+                                    direction = Vector3.right;
+                                    break;
+
+                            }
+
+                            deltaAngle = _FMGM.bobberRotationSpeedFighting * Time.deltaTime;
+                            targetDir = _FMGM.fishingRod.transform.position - _FMGM.bobberTipGO.transform.position;
+                            currentAngle = Vector3.Angle(targetDir, _PLAYER.gameObject.transform.forward);
+
+                            //rotate bobber around player
+                            if (currentAngle > 5) //&& !Physics.CheckSphere(_FMGM.bobberGameObject.transform.position, 0.5f, _FMGM.fishCollisionLayerMask)
+                            {
+                                _FMGM.bobberGameObject.transform.RotateAround(_FMGM.fishingRod.transform.position, rotationAxis, deltaAngle);
+                            }
+
+
                             //print("Attached to line");
                             Vector3 directionToTarget = lureLocation.transform.position - transform.position;
                             float yOffset = 0.5f;
@@ -792,6 +822,10 @@ namespace Europa
                         case HybridState.HybridMiniGame_Escaped:
 
                             //swim away from player
+                            RotateAndMoveHybridTowards(caughtHybrid,_PLAYER.transform.TransformPoint(_PLAYER.transform.forward *3));
+
+                            //remove hybrid
+                            removeHybrid(caughtHybrid.europaItemData.itemGO, true);
 
                             break;
                     }
