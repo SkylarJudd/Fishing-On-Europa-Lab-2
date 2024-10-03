@@ -822,10 +822,22 @@ namespace Europa
 
                         case HybridState.HybridMiniGame_Caught:
 
+                            ////Move towards the target
+                            targetPosition = _FMGM.bobberTipGO.transform.position;
+
+                            if (targetPosition.y > caughtHybrid.navigationData.waterHeight)
+                            {
+                                targetPosition.y = caughtHybrid.navigationData.waterHeight;
+                            }
+                            caughtHybrid.europaItemData.itemGO.transform.position = Vector3.Lerp(caughtHybrid.europaItemData.itemGO.transform.position, new Vector3(targetPosition.x, targetPosition.y - 0, targetPosition.z), Time.deltaTime * (caughtHybrid.navigationData.maxSpeed * 3));
+
+
                             //end courtunie
                             yield return null;
                             break;
                         case HybridState.HybridMiniGame_Escaped:
+                            
+                            //not tested
 
                             //swim away from player
                             RotateAndMoveHybridTowards(caughtHybrid,_PLAYER.transform.TransformPoint(_PLAYER.transform.forward *3));
