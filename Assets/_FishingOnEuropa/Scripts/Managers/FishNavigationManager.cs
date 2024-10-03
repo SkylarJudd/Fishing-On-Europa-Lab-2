@@ -613,6 +613,7 @@ namespace Europa
                         if (outofWater)
                         {
                             _hybrid.navigationData.velocity.y = -Mathf.Abs(_hybrid.navigationData.velocity.y);
+                            _hybrid.navigationData.velocity.z = -Mathf.Abs(_hybrid.navigationData.velocity.z);
                         }
 
                         if (_hybrid.navigationData.aboutToHitWall == true && _hybrid.navigationData.hybridState != HybridState.HybridAvoidingWall)
