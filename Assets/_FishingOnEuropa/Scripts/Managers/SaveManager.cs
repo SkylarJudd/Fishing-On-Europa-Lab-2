@@ -15,6 +15,12 @@ namespace Europa
 {
     public class SaveManager : Singleton<SaveManager>
     {
+        /// <summary>
+        /// Called when the save manager is initialised. 
+        /// </summary>
+        public static event Action OnInitialised;
+
+
         [Header("Saves")]
         [Tooltip("A List that holds all the Stored Save Data once they are loaded")] //SaveData is a list of SavedSaveData that is a class that holds all the data in a form that can be serialized by the Jason converter. 
         public List<FOEDataFromSave> saveDatas = new List<FOEDataFromSave>();
@@ -56,8 +62,8 @@ namespace Europa
         /// </summary>
         public void StartGame()
         {
-
             FindAllSaves();
+            OnInitialised?.Invoke();
         }
 
         /// <summary>
@@ -77,7 +83,7 @@ namespace Europa
         /// </summary>
         private void OnApplicationQuit()
         {
-            if(saveDatas.Count == 0 || saveDatas == null)
+            if (saveDatas.Count == 0 || saveDatas == null)
                 return;
 
             Save();
@@ -117,7 +123,7 @@ namespace Europa
             return true;
         }
 
-       
+
 
         /// <summary>
         /// Initialize A new save file setting the default values that a new player will start with. 
@@ -174,7 +180,7 @@ namespace Europa
             LoadData(_Save);
 
             currentSaveIndex = saveIndex;
-            
+
         }
 
         /// <summary>
@@ -317,7 +323,7 @@ namespace Europa
 
             //Do we need to check if the player has more then the max number of saves? If so we should do it here. 
 
-            
+
             if (saveDatas.Count == 0) //Creates a new save if there is no saves loaded first time entering the game. 
             {
                 NewSave();
@@ -552,7 +558,7 @@ namespace Europa
         {
             SaveHybrid savedHybrid = new SaveHybrid
             {
-                
+
                 itemID = currentHybrid.itemID,
                 itemPosition = currentHybrid.itemPos.position,
                 itemRotation = currentHybrid.itemPos.rotation.eulerAngles,
@@ -564,8 +570,8 @@ namespace Europa
 
             return savedHybrid;
         }
-    
-        
+
+
 
         private SaveItem SetItemSaveData(FOESaveItem currentItem)
         {
@@ -592,9 +598,9 @@ namespace Europa
                 itemRotation = currentCrop.itemPos.rotation.eulerAngles,
                 itemSaveLocation = (int)currentCrop.itemLocation,
                 growthStage = (int)currentCrop.growthStage,
-                
+
             };
-                
+
 
             return savedCrop;
         }
