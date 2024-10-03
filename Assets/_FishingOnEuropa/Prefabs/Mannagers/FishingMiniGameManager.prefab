@@ -45,10 +45,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aea96e125abd5a6448ed64bb42f82b13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bobberRange: 3
+  bobberRange: 5
   minBobberReelDistance: 0
   bobberGameObject: {fileID: 0}
   bobberTipGO: {fileID: 0}
+  startingBobberAngle: 0
   bobberState: 0
   targetHybrid: {fileID: 0}
   fishMask:
@@ -61,14 +62,15 @@ MonoBehaviour:
   trackingLureInFightSpeed: 0
   handleVelocity: 0
   minPullAngle: 0
+  rb_reelHandle: {fileID: 0}
   fishingRodHP:
     UseLocal: 0
     LocalValue: 0
-    Variable: {fileID: 0}
+    Variable: {fileID: 11400000, guid: 293f387b5093d6549acce6b84355eaef, type: 2}
   fishingEfficency:
     UseLocal: 0
     LocalValue: 0
-    Variable: {fileID: 0}
+    Variable: {fileID: 11400000, guid: 059d7f2f2a82c3f4390cbc5d0ef8c0d6, type: 2}
   fishingRod: {fileID: 0}
   LureCurrentDistance:
     UseLocal: 0
@@ -89,14 +91,19 @@ MonoBehaviour:
   fightingMiniGameActive:
     UseLocal: 0
     LocalValue: 0
-    Variable: {fileID: 0}
+    Variable: {fileID: 11400000, guid: 9bba7ba87938df34bb9dbb2f49437b9d, type: 2}
+  rodPullDirection:
+    UseLocal: 0
+    LocalValue: 0
+    Variable: {fileID: 11400000, guid: b5c04773c2be83c4581588ca4d2aa2eb, type: 2}
   terrainLayerMask:
     serializedVersion: 2
     m_Bits: 5242880
   hybridRestTime: 1
   currentHybridStamina: 0
-  bobberRotationSpeedFighting: 0
-  maxAngle: 180
+  maxHybridStamina: 0
+  bobberRotationSpeedFighting: 20
+  maxAngle: 5
   fishEncounterState: 0
   currentPullDirection: 0
 --- !u!114 &2334015209020133010
