@@ -77,6 +77,12 @@ namespace Europa
         {
             lureCurrentDistance.Value = Vector3.Distance(fishingRodEndPointTransform.Value, lureEndPointTransform.Value);
         }
+        [ContextMenu("Casting for pc nerds")]
+        public void AutoCast()
+        {
+            fishingLineCasted.Value = true;
+            UpdateLineLength(lureMaxDistanceFromRod.Value);
+        }
 
         private void Cast()
         {

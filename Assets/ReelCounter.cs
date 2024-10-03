@@ -49,6 +49,7 @@ namespace Europa
             float currentRotationX = GetWorldRotationX();
 
             float rotationDelta = currentRotationX - lastRotationX;
+            print(rotationDelta);
 
             if (rotationDelta > 0)
             {
@@ -56,7 +57,7 @@ namespace Europa
             }
             else if (rotationDelta < 0)
             {
-                OnRotateCounterClockwise(-rotationDelta);
+                OnRotateCounterClockwise(rotationDelta);
             }
 
             lastRotationX = currentRotationX;
@@ -109,7 +110,7 @@ namespace Europa
             testValue--;
 
             // Calculate the distance to subtract based on the rotation amount
-            lureCurrentMaxDistance.Value -=  rotationAmount * convertFromDegToDisScale;
+            lureCurrentMaxDistance.Value +=  rotationAmount * convertFromDegToDisScale;
 
         }
 
