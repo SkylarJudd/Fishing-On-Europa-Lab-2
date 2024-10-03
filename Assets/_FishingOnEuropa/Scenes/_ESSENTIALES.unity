@@ -4030,6 +4030,12 @@ PrefabInstance:
       propertyPath: lureReturnSpeed
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 5391739380556445324, guid: 9973a74534b2b86419bb6c2612f36e8e,
+        type: 3}
+      propertyPath: onPlayerPressTriggerToCatch
+      value: 
+      objectReference: {fileID: 11400000, guid: 593c2fc4624c103488affea26c038761,
+        type: 2}
     - target: {fileID: 7352737673415855842, guid: 9973a74534b2b86419bb6c2612f36e8e,
         type: 3}
       propertyPath: m_LocalPosition.x

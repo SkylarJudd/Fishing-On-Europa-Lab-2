@@ -31,6 +31,9 @@ namespace Europa
 
         [SerializeField] private BoolReference playerCastInput;
         [SerializeField] private BoolReference fishingLineCasted;
+        [SerializeField] private BoolReference fishingMiniGame;
+
+        [SerializeField] private ScriptableEventNoParam onPlayerPressTriggerToCatch;
 
         [SerializeField] float lureReturnSpeed = 10f;
 
@@ -134,6 +137,10 @@ namespace Europa
             else if (input > 0 && playerCastInput.Value == false)
             {
                 playerCastInput.Value = true;
+            }
+            else if ( input > 0 && fishingMiniGame.Value == true)
+            {
+                onPlayerPressTriggerToCatch.Raise();
             }
             else if (input > 0 && fishingLineCasted.Value == true)
             {
