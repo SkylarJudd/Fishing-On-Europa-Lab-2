@@ -17,12 +17,15 @@ MonoBehaviour:
   spawnLocation: 0
   spawnChance: 26
   inWorldVisuals: {fileID: 0}
-  damageToRod: 0
+  damageToRod: 20
   catchChance: 26
   restMinTime: 2
   restMaxTime: 5
+  stamina: 20
   fishSpeed: 0
   rotationSpeed: 0
   foodEaten: 01000000020000000300000004000000050000000600000007000000
   favFood: 8
   favToy: 0
+  patTrigger: {fileID: 0}
+  hybridInteractionTrigger: {fileID: 0}

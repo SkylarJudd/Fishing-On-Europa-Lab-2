@@ -103,7 +103,7 @@ MonoBehaviour:
   currentHybridStamina: 0
   maxHybridStamina: 0
   bobberRotationSpeedFighting: 20
-  maxAngle: 5
+  maxAngle: 45
   fishEncounterState: 0
   currentPullDirection: 0
 --- !u!114 &2334015209020133010
@@ -129,6 +129,23 @@ MonoBehaviour:
         - m_Target: {fileID: 5911518260582333399}
           m_TargetAssemblyTypeName: Europa.FishingMiniGameManager, Assembly-CSharp
           m_MethodName: LureHitWater
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - Delay: 0
+    ScriptableEvent: {fileID: 11400000, guid: 593c2fc4624c103488affea26c038761, type: 2}
+    Response:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 5911518260582333399}
+          m_TargetAssemblyTypeName: Europa.FishingMiniGameManager, Assembly-CSharp
+          m_MethodName: ConfirmMiniGameStart
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
