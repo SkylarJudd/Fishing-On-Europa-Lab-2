@@ -5,6 +5,7 @@ using UnityEngine;
 using Obvious.Soap;
 using UnityEditor;
 using Europa;
+using Europa.GameEvents;
 
 namespace Europa
 {
@@ -14,6 +15,9 @@ namespace Europa
     [Serializable]
     public class FOEDataThatHasBeenLoaded
     {
+
+
+
         [Header("Saved Data")]
         [Tooltip("A soap String reference that holds the Name of the save")]
         public StringReference saveName = new StringReference();
@@ -53,6 +57,12 @@ namespace Europa
         [Header("Time")]
         [Tooltip("A reference to a class that stores references to the Soap objects that contain the in game time")]
         public CurrentTime time = new CurrentTime();
+
+        
+
+
+       
+
     }
 
     /// <summary>

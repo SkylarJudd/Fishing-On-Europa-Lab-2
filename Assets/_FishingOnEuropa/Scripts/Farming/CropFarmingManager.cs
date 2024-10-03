@@ -31,15 +31,18 @@ namespace Europa
 
             cropList.OnItemAdded += CropList_OnItemAdded;
             cropList.OnItemRemoved += CropList_OnItemRemoved;
+            cropList.OnGrothStageUpdate += CropList_OnGrothStageUpdate;
 
 
         }
+
+        
 
         private void OnDisable()
         {
             cropList.OnItemAdded -= CropList_OnItemAdded;
             cropList.OnItemRemoved -= CropList_OnItemRemoved;
-
+            cropList.OnGrothStageUpdate -= CropList_OnGrothStageUpdate;
 
         }
 
@@ -67,6 +70,11 @@ namespace Europa
         private void CropList_OnItemRemoved(FOEItem_Crop _crop)
         {
             RemoveCrop(_crop);
+        }
+
+        private void CropList_OnGrothStageUpdate(FOEItem_Crop _crop)
+        {
+            UpdatePlantVisuals(_crop);
         }
 
         private void SpawnCrop(FOEItem_Crop _crop)
@@ -97,7 +105,8 @@ namespace Europa
 
         private void GameEvents_OnTempMorningEvent(bool wasObserved, int cycles = 1)
         {
-            GrowPlants();
+            // GrowPlants();
+            print($"Morning Event Played with {cycles}");
         }
 
         [ContextMenu("GrowPlants")]
