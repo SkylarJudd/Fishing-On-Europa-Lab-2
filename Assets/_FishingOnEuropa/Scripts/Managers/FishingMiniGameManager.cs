@@ -93,26 +93,7 @@ namespace Europa
 
                         }
 
-                        //CHANGE INPUT HERE - commit to catching fish (or pull rod)
-                        if (nearbyHybrids.Length > 0 && Input.GetKey(KeyCode.Space))
-                        {
-                            targetHybrid = CalculateHybridWithHighestCatchChance(nearbyHybrids);
-
-                            targetHybridSO = targetHybrid.GetComponent<HybridInfo>().hybridInfo;
-                            //change fish state here
-                            maxHybridStamina = targetHybridSO.stamina;
-
-                            //need to get parent / FOE Item
-                            targetHybrid = targetHybrid.GetComponentInParent<FOEItem_Hybrid>().europaItemData.itemGO;
-
-                            _FNAVM.removeHybrid(targetHybrid, false);
-
-                            _FNAVM.UpdateHybridState(targetHybrid, HybridState.HybridMiniGame_SwimToLure);
-
-                            //remove from swim list and put in swimToPoint list
-                            _FNAVM.AddHybridTolist(targetHybrid);
-
-                        }
+                       
                     }
 
 
@@ -281,7 +262,7 @@ namespace Europa
 
             print(hybridRestTime);
             fishEncounterState = FishEncounterState.Resting;
-            fightingMiniGameActive.Value = true;
+            fightingMiniGameActive.Value = false;
 
         }
 
@@ -299,6 +280,30 @@ namespace Europa
             startingBobberAngle = Vector3.Angle(targetDir, _PLAYER.gameObject.transform.forward);
 
 
+        }
+
+        public void ConfirmMiniGameStart()
+        {
+            //CHANGE INPUT HERE - commit to catching fish (or pull rod)
+            if (nearbyHybrids.Length > 0&& bobberState == BobberState.HitWater)
+            {
+                targetHybrid = CalculateHybridWithHighestCatchChance(nearbyHybrids);
+
+                targetHybridSO = targetHybrid.GetComponent<HybridInfo>().hybridInfo;
+                //change fish state here
+                maxHybridStamina = targetHybridSO.stamina;
+
+                //need to get parent / FOE Item
+                targetHybrid = targetHybrid.GetComponentInParent<FOEItem_Hybrid>().europaItemData.itemGO;
+
+                _FNAVM.removeHybrid(targetHybrid, false);
+
+                _FNAVM.UpdateHybridState(targetHybrid, HybridState.HybridMiniGame_SwimToLure);
+
+                //remove from swim list and put in swimToPoint list
+                _FNAVM.AddHybridTolist(targetHybrid);
+
+            }
         }
 
         /// <summary>
