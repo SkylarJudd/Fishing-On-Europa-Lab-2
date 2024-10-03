@@ -15,7 +15,7 @@ namespace Europa
         ItemRarity rarity;
         public HybridSO hybridSO;
         public HybridNavigationData navigationData;
-        public FOESaveItem_Hybrid FOEhybridSaveData;
+        public FOESaveItem_Hybrid FOEHybridSaveData;
 
         [SerializeField]
         private GameObject inWorldVisuals;

@@ -15,7 +15,7 @@ namespace Europa
         {
             foreach (var item in _FNAVM._hybridsTamedList)
             {
-                UpdateHybridTrustEndOfDay(item.FOEhybridSaveData);
+                UpdateHybridTrustEndOfDay(item.FOEHybridSaveData);
             }
         }
 
@@ -48,12 +48,12 @@ namespace Europa
         /// <param name="_itemHybrid"></param>
         public void UpdateHybridPatTrust(FOEItem_Hybrid _itemHybrid)
         {
-            if(!_itemHybrid.FOEhybridSaveData.hasBeenPatCurrentDay)
+            if(!_itemHybrid.FOEHybridSaveData.hasBeenPatCurrentDay)
             {
-                _itemHybrid.FOEhybridSaveData.hasBeenPatCurrentDay = true;
+                _itemHybrid.FOEHybridSaveData.hasBeenPatCurrentDay = true;
 
                 //increase trust
-                _itemHybrid.FOEhybridSaveData.hybridTrust += pat_IncreaseTrust;
+                _itemHybrid.FOEHybridSaveData.hybridTrust += pat_IncreaseTrust;
             }
            
         }
@@ -64,13 +64,13 @@ namespace Europa
         /// <param name="_itemHybrid"></param>
         public void UpdateHybridPlushieTrust(FOEItem_Hybrid _itemHybrid)
         {
-            if (!_itemHybrid.FOEhybridSaveData.hasHadPlushieCurrentDay)
+            if (!_itemHybrid.FOEHybridSaveData.hasHadPlushieCurrentDay)
             {
 
-                _itemHybrid.FOEhybridSaveData.hasHadPlushieCurrentDay = true;
+                _itemHybrid.FOEHybridSaveData.hasHadPlushieCurrentDay = true;
 
                 //increase trust
-                _itemHybrid.FOEhybridSaveData.hybridTrust += plushie_IncreaseTrust;
+                _itemHybrid.FOEHybridSaveData.hybridTrust += plushie_IncreaseTrust;
 
             }
 
@@ -82,15 +82,15 @@ namespace Europa
         /// <param name="_itemHybrid"></param>
         public void UpdateHybridFeedTrust(FOEItem_Hybrid _itemHybrid, bool isFavFood)
         {
-            if (!_itemHybrid.FOEhybridSaveData.hasBeenFedCurrentDay)
+            if (!_itemHybrid.FOEHybridSaveData.hasBeenFedCurrentDay)
             {
-                _itemHybrid.FOEhybridSaveData.hasBeenFedCurrentDay = true;
+                _itemHybrid.FOEHybridSaveData.hasBeenFedCurrentDay = true;
 
                 //increase trust
                 if(isFavFood)
-                    _itemHybrid.FOEhybridSaveData.hybridTrust += favFeed_IncreaseTrust;
+                    _itemHybrid.FOEHybridSaveData.hybridTrust += favFeed_IncreaseTrust;
                 else
-                    _itemHybrid.FOEhybridSaveData.hybridTrust += feed_IncreaseTrust;
+                    _itemHybrid.FOEHybridSaveData.hybridTrust += feed_IncreaseTrust;
 
             }
 

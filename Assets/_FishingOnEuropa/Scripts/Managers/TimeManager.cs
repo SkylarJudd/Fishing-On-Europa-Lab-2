@@ -17,6 +17,7 @@ namespace Europa
         [SerializeReference] Light moon_temp; //will need to change as you can see two moons from Europa (Io and Ganymede)
         [SerializeField] AnimationCurve lightIntensityCurve;
         [SerializeField] float maxSunIntensity = 1;
+        [SerializeField] float sunLerpSpeed = 1;
         [SerializeField] float maxMoonIntensity = 0.5f;
 
 
@@ -176,7 +177,7 @@ namespace Europa
             Quaternion targetRotation = Quaternion.Euler(xRotation, rotation, 0);
 
             // Smoothly transition to the target rotation
-            sun.transform.rotation = Quaternion.Lerp(sun.transform.rotation, targetRotation, 1 * Time.deltaTime);
+            sun.transform.rotation = Quaternion.Lerp(sun.transform.rotation, targetRotation, sunLerpSpeed * Time.deltaTime);
         }
 
         /// <summary>

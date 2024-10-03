@@ -84,10 +84,11 @@ namespace Europa
                 if (seedID.ItemID == _crop.europaItemSO.itemID)
                 {
                     _crop.europaItemData.itemGO = _OPM.SpawnObject(seedID.growthStages[(int)_crop.cropState], _crop.europaItemData.itemTransform.position, _crop.europaItemData.itemTransform.rotation, PoolType.Plants);
-                    if (_crop.europaItemData.itemGO.TryGetComponent<PlantGrowth>(out PlantGrowth growthObjectExample))
+                    if (!_crop.europaItemData.itemGO.TryGetComponent(out PlantGrowth growthObjectExample))
                     {
-                        growthObjectExample.ItemLoaded(_crop.ItemLastUnloadedTime, _crop.growthData);
+                        continue;
                     }
+                    growthObjectExample.ItemLoaded(_crop.ItemLastUnloadedTime, _crop.growthData);
                 }
             }
         }
@@ -105,8 +106,9 @@ namespace Europa
 
         private void GameEvents_OnTempMorningEvent(bool wasObserved, int cycles = 1)
         {
-            // GrowPlants();
+
             print($"Morning Event Played with {cycles}");
+
         }
 
         [ContextMenu("GrowPlants")]
