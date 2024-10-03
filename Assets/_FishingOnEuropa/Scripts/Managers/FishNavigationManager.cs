@@ -500,6 +500,7 @@ namespace Europa
                         if (_hybrid.europaItemData.itemGO.transform.position.y > _hybrid.navigationData.waterHeight)
                         {
                             outofWater = true;
+                            //print("Help im Out of water");
                         }
 
                         if (UnityEngine.Random.Range(0, rayCastCheckChance) < 1 && hybridsSwimming.Count > 1)
@@ -614,6 +615,8 @@ namespace Europa
                         if (outofWater)
                         {
                             _hybrid.navigationData.velocity.y = -Mathf.Abs(_hybrid.navigationData.velocity.y);
+                            _hybrid.navigationData.velocity.z = -Mathf.Abs(_hybrid.navigationData.velocity.z);
+                            _hybrid.navigationData.velocity.x = -Mathf.Abs(_hybrid.navigationData.velocity.x);
                         }
 
                         if (_hybrid.navigationData.aboutToHitWall == true && _hybrid.navigationData.hybridState != HybridState.HybridAvoidingWall)
