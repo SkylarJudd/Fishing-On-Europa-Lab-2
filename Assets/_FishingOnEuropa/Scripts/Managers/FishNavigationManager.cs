@@ -616,7 +616,7 @@ namespace Europa
                         {
                             _hybrid.navigationData.velocity.y = -Mathf.Abs(_hybrid.navigationData.velocity.y);
                             _hybrid.navigationData.velocity.z = -Mathf.Abs(_hybrid.navigationData.velocity.z);
-                            _hybrid.navigationData.velocity.x = -Mathf.Abs(_hybrid.navigationData.velocity.x);
+
                         }
 
                         if (_hybrid.navigationData.aboutToHitWall == true && _hybrid.navigationData.hybridState != HybridState.HybridAvoidingWall)
