@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 0.07425486, g: 0.019470753, b: 0.023988847, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -3993,6 +3993,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5391739380556445324, guid: 9973a74534b2b86419bb6c2612f36e8e,
         type: 3}
+      propertyPath: fishingMiniGame.Variable
+      value: 
+      objectReference: {fileID: 11400000, guid: 9bba7ba87938df34bb9dbb2f49437b9d,
+        type: 2}
+    - target: {fileID: 5391739380556445324, guid: 9973a74534b2b86419bb6c2612f36e8e,
+        type: 3}
       propertyPath: onPlayerPressTriggerToCatch
       value: 
       objectReference: {fileID: 11400000, guid: 593c2fc4624c103488affea26c038761,
@@ -7314,6 +7320,12 @@ PrefabInstance:
       propertyPath: _onGameLoadEnd
       value: 
       objectReference: {fileID: 11400000, guid: 94bd2c96160c1bb4b85074c4f79bc503,
+        type: 2}
+    - target: {fileID: 720465840758760459, guid: 9a8f711610efc8849a0d96795a0fa21b,
+        type: 3}
+      propertyPath: _onGameDayStart
+      value: 
+      objectReference: {fileID: 11400000, guid: 4c544305b5b42134587493eb11e70e6a,
         type: 2}
     - target: {fileID: 720465840758760459, guid: 9a8f711610efc8849a0d96795a0fa21b,
         type: 3}
