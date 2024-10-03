@@ -677,7 +677,7 @@ namespace Europa
                         float distanceToTarget = Vector3.Distance(_hybrid.europaItemData.itemGO.transform.position, targetPosition);
                         float threshold = 1f; // Adjust the threshold as needed
 
-                        print(distanceToTarget);
+                        //print(distanceToTarget);
 
                         if (distanceToTarget < threshold && _hybrid.navigationData.arrivedAtLure == false)
                         {
@@ -739,7 +739,10 @@ namespace Europa
 
                             float deltaAngle = _FMGM.bobberRotationSpeedFighting * Time.deltaTime; 
                             var targetDir = _FMGM.fishingRod.transform.position - _FMGM.bobberTipGO.transform.position;
-                            float currentAngle = Vector3.Angle(targetDir, _PLAYER.gameObject.transform.forward);
+                            if (_FMGM.startingBobberAngle == 0) _FMGM.startingBobberAngle = Vector3.Angle(targetDir, _PLAYER.gameObject.transform.forward);
+
+                            float currentAngle = Vector3.Angle(targetDir, _PLAYER.gameObject.transform.forward)- _FMGM.startingBobberAngle;
+
 
                             switch (_FMGM.currentPullDirection)
                             {
@@ -756,10 +759,10 @@ namespace Europa
                                     break;
 
                             }
-                            print(currentAngle + " " + _FMGM.maxAngle);
+                            //print(currentAngle + " " + _FMGM.maxAngle);
 
                             //rotate bobber around player
-                            if (currentAngle < _FMGM.maxAngle && !Physics.CheckSphere(_FMGM.bobberGameObject.transform.position, 0.5f, _FMGM.fishCollisionLayerMask))
+                            if (Mathf.Abs(currentAngle) < _FMGM.maxAngle && !Physics.CheckSphere(_FMGM.bobberGameObject.transform.position, 0.5f, _FMGM.fishCollisionLayerMask))
                             {
                                 _FMGM.bobberGameObject.transform.RotateAround(_FMGM.fishingRod.transform.position, rotationAxis, deltaAngle);
                             }
@@ -774,31 +777,31 @@ namespace Europa
                             {
                                 case FishingMiniGameManager.PullDirections.Left:
                                     //set bobber rotation
-                                    rotationAxis = Vector3.down;
+                                    rotationAxis = Vector3.up;
                                     direction = Vector3.left;
                                     //reset temp
 
                                     break;
                                 case FishingMiniGameManager.PullDirections.Right:
-                                    rotationAxis = Vector3.up;
+                                    rotationAxis = Vector3.down;
                                     direction = Vector3.right;
                                     break;
 
                             }
 
-                            deltaAngle = _FMGM.bobberRotationSpeedFighting * Time.deltaTime;
+                            deltaAngle = (_FMGM.bobberRotationSpeedFighting/2) * Time.deltaTime;
                             targetDir = _FMGM.fishingRod.transform.position - _FMGM.bobberTipGO.transform.position;
-                            currentAngle = Vector3.Angle(targetDir, _PLAYER.gameObject.transform.forward);
-
+                            currentAngle = Vector3.Angle(targetDir, _PLAYER.gameObject.transform.forward) - _FMGM.startingBobberAngle;
+                            //print(currentAngle + " " + _FMGM.startingBobberAngle);
                             //rotate bobber around player
-                            if (currentAngle > 5) //&& !Physics.CheckSphere(_FMGM.bobberGameObject.transform.position, 0.5f, _FMGM.fishCollisionLayerMask)
+                            if (Mathf.Abs(currentAngle) > 0.5f && !Physics.CheckSphere(_FMGM.bobberGameObject.transform.position, 0.5f, _FMGM.fishCollisionLayerMask))
                             {
                                 _FMGM.bobberGameObject.transform.RotateAround(_FMGM.fishingRod.transform.position, rotationAxis, deltaAngle);
                             }
 
 
                             //print("Attached to line");
-                            Vector3 directionToTarget = lureLocation.transform.position - transform.position;
+                            Vector3 directionToTarget = _FMGM.bobberTipGO.transform.position - transform.position;
                             float yOffset = 0.5f;
                             directionToTarget = new Vector3(directionToTarget.x, directionToTarget.y - yOffset, directionToTarget.z);
                             // Rotate towards the target
@@ -806,15 +809,15 @@ namespace Europa
                             Quaternion targetRotation = Quaternion.LookRotation(directionToTarget);
                             transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * caughtHybrid.hybridSO.rotationSpeed);
 
-                            // Move towards the target
-                            Vector3 targetPos = lureLocation.transform.position;
+                            ////Move towards the target
+                            targetPosition = _FMGM.bobberTipGO.transform.position;
 
-                            if (targetPos.y > caughtHybrid.navigationData.waterHeight)
+                            if (targetPosition.y > caughtHybrid.navigationData.waterHeight)
                             {
-                                targetPos.y = caughtHybrid.navigationData.waterHeight;
+                                targetPosition.y = caughtHybrid.navigationData.waterHeight;
                             }
+                            caughtHybrid.europaItemData.itemGO.transform.position = Vector3.Lerp(caughtHybrid.europaItemData.itemGO.transform.position, new Vector3(targetPosition.x, targetPosition.y - 0, targetPosition.z), Time.deltaTime * (caughtHybrid.navigationData.maxSpeed * 3));
 
-                            transform.position = Vector3.Lerp(transform.position, new Vector3(targetPos.x, targetPos.y - yOffset, targetPos.z), Time.deltaTime * 100);
                             break;
 
                         case HybridState.HybridMiniGame_Caught:

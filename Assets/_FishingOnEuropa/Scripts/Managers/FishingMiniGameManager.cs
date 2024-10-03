@@ -12,7 +12,7 @@ namespace Europa
         [SerializeField] float bobberRange = 3; //detection range of nearby hybrids when cast
         [SerializeField] float minBobberReelDistance; //how close the bobber needs to be before reeling is complete
         public GameObject bobberGameObject, bobberTipGO; //fish spot is where fish will attach to
-
+        public float startingBobberAngle;
         public enum BobberState { Withdrawn, Cast, HitWater, AttachedFish }
 
         public BobberState bobberState;
@@ -47,15 +47,27 @@ namespace Europa
         [Header("Fish Encounter")]
         [SerializeField] LayerMask terrainLayerMask;
 
-        [SerializeField] float hybridRestTime, currentHybridStamina;
+        [SerializeField] float hybridRestTime, currentHybridStamina, maxHybridStamina;
         public float bobberRotationSpeedFighting, maxAngle;
         public enum FishEncounterState { None, Resting, Fighting, Caught }
         public FishEncounterState fishEncounterState;
         public enum PullDirections { NotSet, Left, Right, Middle }
         public PullDirections currentPullDirection;
 
+        private float time = 0.0f;
+        float interpolationPeriod = 1f;
+
         void Update()
         {
+            if(Input.GetKeyDown(KeyCode.R))
+            {
+                BeginRestingPeriod();
+            }
+            if(Input.GetKeyDown(KeyCode.F))
+            {
+                BeginFightingPeriod();
+            }
+
             //bobberGameObject.transform.RotateAround(_PLAYER.transform.position, Vector3.up, bobberRotationSpeed * Time.deltaTime);
 
             switch (bobberState)
@@ -88,6 +100,7 @@ namespace Europa
 
                             targetHybridSO = targetHybrid.GetComponent<HybridInfo>().hybridInfo;
                             //change fish state here
+                            maxHybridStamina = targetHybridSO.stamina;
 
                             //need to get parent / FOE Item
                             targetHybrid = targetHybrid.GetComponentInParent<FOEItem_Hybrid>().europaItemData.itemGO;
@@ -165,7 +178,46 @@ namespace Europa
                             //determine pull direction
                             if (currentPullDirection == PullDirections.NotSet) currentPullDirection = GetDirection();
 
-                            
+                            time += Time.deltaTime;
+
+                            if (time >= interpolationPeriod)
+                            {
+                                time = time - interpolationPeriod;
+                                print("UpdateHybridAndRodDuringFighting");
+                                //if rod is pulling in other direction
+                                if (CheckIfPullingInCorrectDirction())
+                                {
+                                    //deplete stamina each second
+                                    currentHybridStamina -= fishingEfficency;
+                                    print("Current Hybrid Stamina " + currentHybridStamina);
+                                    if (currentHybridStamina <= 0.0f)
+                                    {
+                                        //if stamina = 0 switch to resting
+                                        BeginRestingPeriod();
+                                    }
+                                }
+                                else
+                                {
+                                    //else damage rod
+                                    fishingRodHP.Value = fishingRodHP.Value - targetHybridSO.damageToRod;
+                                    print("Current Rod HP " + fishingRodHP.Value);
+
+                                    //if rod hp = 0
+
+                                    if (fishingRodHP <= 0.0f)
+                                    {
+                                        //escaped
+                                        _FNAVM.UpdateHybridState(targetHybrid, HybridState.HybridMiniGame_Escaped);
+
+
+                                        fishEncounterState = FishEncounterState.None;
+
+                                    }
+                                }
+
+                            }
+
+
                             break;
                     }
 
@@ -185,44 +237,6 @@ namespace Europa
 
         }
 
-
-        IEnumerator UpdateHybridAndRodDuringFighting()
-        {
-            while (true)
-            {
-                yield return new WaitForSeconds(1f);
-                //if rod is pulling in other direction
-                if (CheckIfPullingInCorrectDirction())
-                {
-                    //deplete stamina each second
-                    currentHybridStamina -= fishingEfficency;
-                    if (currentHybridStamina <= 0.0f)
-                    {
-                        //if stamina = 0 switch to resting
-                        BeginRestingPeriod();
-                    }
-                }
-                else
-                {
-                    //else damage rod
-                    fishingRodHP.Value -= targetHybridSO.damageToRod;
-
-                    //if rod hp = 0
-
-                    if (fishingRodHP <= 0.0f)
-                    {
-                        //escaped
-                        _FNAVM.UpdateHybridState(targetHybrid, HybridState.HybridMiniGame_Escaped);
-
-
-                        fishEncounterState = FishEncounterState.None;
-
-                    }
-                }
-            }
-        }
-
-
         bool CheckIfPullingInCorrectDirction()
         {
             bool directionCorrect = false;
@@ -234,6 +248,7 @@ namespace Europa
             else if(currentPullDirection == PullDirections.Left && !rodPullDirection)
                 directionCorrect = true;
 
+            print(directionCorrect);
             return directionCorrect;
         }
 
@@ -250,6 +265,12 @@ namespace Europa
         /// </summary>
         public void BeginRestingPeriod()
         {
+
+            currentHybridStamina = maxHybridStamina;
+
+
+            hybridRestTime = Random.Range(targetHybridSO.restMinTime, targetHybridSO.restMaxTime);
+
             //while reel is moving, change target fish to move to lure
             _FNAVM.removeHybrid(targetHybrid, false);
 
@@ -258,7 +279,6 @@ namespace Europa
             //remove from swim list and put in swimToPoint list
             _FNAVM.AddHybridTolist(targetHybrid);
 
-            hybridRestTime = Random.Range(targetHybridSO.restMinTime, targetHybridSO.restMaxTime);
             print(hybridRestTime);
             fishEncounterState = FishEncounterState.Resting;
             fightingMiniGameActive.Value = true;
@@ -267,15 +287,16 @@ namespace Europa
 
         public void BeginFightingPeriod()
         {
-            fishEncounterState = FishEncounterState.Fighting;
 
-            currentHybridStamina = targetHybridSO.stamina;
+            currentPullDirection = PullDirections.NotSet;
+
+            print("BeginFightingPeriod");
+            fishEncounterState = FishEncounterState.Fighting;
 
             fightingMiniGameActive.Value = true;
 
-            StartCoroutine(UpdateHybridAndRodDuringFighting());
-
-
+            var targetDir = fishingRod.transform.position - bobberTipGO.transform.position;
+            startingBobberAngle = Vector3.Angle(targetDir, _PLAYER.gameObject.transform.forward);
 
 
         }
@@ -325,6 +346,7 @@ namespace Europa
         {
             hybridRestTime = 0;
             fightingMiniGameActive.Value = false;
+            startingBobberAngle = 0;
             currentPullDirection = PullDirections.NotSet;
         }
 
