@@ -1576,7 +1576,8 @@ GameObject:
   m_Component:
   - component: {fileID: 8524404526064475452}
   - component: {fileID: 5391739380556445324}
-  - component: {fileID: 6587641830155620932}
+  - component: {fileID: 7211980985765781129}
+  - component: {fileID: 456272083775128744}
   m_Layer: 0
   m_Name: FishingRodLogic
   m_TagString: Untagged
@@ -1655,7 +1656,27 @@ MonoBehaviour:
   fishingRodRB: {fileID: 7737634450744826390}
   minMoveAmount: 0
   _FMGM: {fileID: 0}
---- !u!114 &6587641830155620932
+--- !u!114 &7211980985765781129
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6270473370532327393}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43e1b7e3a3753d441ad841dcd53b4607, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fishingRodHP:
+    UseLocal: 0
+    LocalValue: 0
+    Variable: {fileID: 11400000, guid: 293f387b5093d6549acce6b84355eaef, type: 2}
+  fishingEfficency:
+    UseLocal: 0
+    LocalValue: 0
+    Variable: {fileID: 11400000, guid: 059d7f2f2a82c3f4390cbc5d0ef8c0d6, type: 2}
+--- !u!114 &456272083775128744
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1691,7 +1712,7 @@ MonoBehaviour:
     m_ActionName: Auto Hand/Grip Released (R)
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5391739380556445324}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: Europa.FishingRodController, Assembly-CSharp
         m_MethodName: OnTriggerPressed
         m_Mode: 0
@@ -2351,6 +2372,75 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1 &7929064611700198781
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6462802548129772992}
+  - component: {fileID: 3889868608055626756}
+  m_Layer: 0
+  m_Name: LineStartTransform (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6462802548129772992
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7929064611700198781}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 6.275, z: -0.116}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5296439268608101951}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3889868608055626756
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7929064611700198781}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0500cc2ddecbabd4882da99c219d36f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rodEndPostion:
+    UseLocal: 0
+    LocalValue: {x: 0, y: 0, z: 0}
+    Variable: {fileID: 11400000, guid: ba3c0508229f1d440945d0987fe7357a, type: 2}
+  rodEndCurrentSpeed:
+    UseLocal: 0
+    LocalValue: 0
+    Variable: {fileID: 11400000, guid: 180ac7e2200e3f544b8a62fc33538208, type: 2}
+  rodEndPointForceDirection:
+    UseLocal: 0
+    LocalValue: {x: 0, y: 0, z: 0}
+    Variable: {fileID: 11400000, guid: 78bbc0e0df047af4d9322daffb8fcaf2, type: 2}
+  playerCastInput:
+    UseLocal: 0
+    LocalValue: 0
+    Variable: {fileID: 11400000, guid: d44e3034d276abc4899fd8aab8977f8a, type: 2}
+  miniGameActive:
+    UseLocal: 0
+    LocalValue: 0
+    Variable: {fileID: 11400000, guid: 9bba7ba87938df34bb9dbb2f49437b9d, type: 2}
+  miniGameRodPullDirection:
+    UseLocal: 0
+    LocalValue: 0
+    Variable: {fileID: 11400000, guid: b5c04773c2be83c4581588ca4d2aa2eb, type: 2}
+  movementThreshold: 0.01
 --- !u!1 &8227022800492327625
 GameObject:
   m_ObjectHideFlags: 0
@@ -2387,6 +2477,7 @@ Transform:
   m_Children:
   - {fileID: 2081924430147105955}
   - {fileID: 8892457338817575748}
+  - {fileID: 6462802548129772992}
   m_Father: {fileID: 7352737673415855842}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!54 &7737634450744826390
