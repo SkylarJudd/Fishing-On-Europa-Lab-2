@@ -11,10 +11,8 @@ namespace Europa
         [SerializeField] private FloatReference lureCurrentMaxDistance;
         [SerializeField] private FloatReference lureMaxDistance;
 
-        [SerializeField] private Vector3Reference reelRotation;
 
         [SerializeField] private float convertFromDegToDisScale = 0.1f;  // Scale to convert degrees to distance
-        [SerializeField] private int testValue;  // Test value that should increase or decrease based on rotation
 
         private float lastRotationX;
         private Queue<float> rotationHistory = new Queue<float>();  // Store recent rotation values
@@ -129,7 +127,7 @@ namespace Europa
         /// <param name="rotationAmount">The amount the X rotation increased by.</param>
         private void OnRotateClockwise(float rotationAmount)
         {
-            testValue++;
+            
             // Calculate the distance to add based on the rotation amount
             lureCurrentMaxDistance.Value += (rotationAmount * convertFromDegToDisScale);
         }
@@ -140,7 +138,7 @@ namespace Europa
         /// <param name="rotationAmount">The amount the X rotation decreased by.</param>
         private void OnRotateCounterClockwise(float rotationAmount)
         {
-            testValue--;
+            
             // Calculate the distance to subtract based on the rotation amount
             lureCurrentMaxDistance.Value += rotationAmount * convertFromDegToDisScale;
         }

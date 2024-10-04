@@ -7,7 +7,7 @@ using static Crest.Spline.Spline;
 
 namespace Europa
 {
-    
+
 
     public class FishNavigationManager : Singleton<FishNavigationManager>
     {
@@ -118,7 +118,7 @@ namespace Europa
             UpdateHybridReactCoroutine = StartCoroutine(UpdateHybridReact());
         }
 
-        
+
         /// <summary>
         /// Continuously updates the state of each hybrid in the pond, reacting to the player's proximity and actions.
         /// This coroutine runs in a loop and processes interactions between the player and hybrids based on distance and held items.
@@ -134,7 +134,7 @@ namespace Europa
                     // Iterate through each hybrid in the pond
                     foreach (FOEItem_Hybrid _hybrid in _hybridsToNavList)
                     {
-                        
+
                         // Check if the hybrid is within the player's reaction distance using trigger on hybrid
                         if (_hybrid.hybridSO.hybridInteractionTrigger.playerInRange)
                         {
@@ -300,7 +300,7 @@ namespace Europa
                 }
             }
         }
-        
+
         /// <summary>
         /// Check if hybrid is close enough to object to eat, then processes eat
         /// </summary>
@@ -309,7 +309,7 @@ namespace Europa
         /// <param name="_foodTransform"></param>
         void HybridEat(FOEItem_Hybrid _hybrid, FOEItem_Food _food, Transform _foodTransform)
         {
-            if(Vector3.Distance(_hybrid.transform.position, _foodTransform.position)< hybridDistanceToEat)
+            if (Vector3.Distance(_hybrid.transform.position, _foodTransform.position) < hybridDistanceToEat)
             {
                 //destroy/remove food item
                 _OPM.ReturnObjectToPool(_food);
@@ -323,7 +323,7 @@ namespace Europa
 
                 SetHybridTargetState(_hybrid, _PLAYER.leftHandPlushie.europaItemData.itemGO.transform);
             }
-            
+
         }
 
         /// <summary>
@@ -690,7 +690,7 @@ namespace Europa
                             caughtHybrid = _hybrid;
 
                             //send an update to minigame Manager that the Hybrid has arrived
-                            _FMGM.bobberState = FishingMiniGameManager.BobberState.AttachedFish;
+                            _FMGM.fishingMiniGameState = FishingMiniGameManager.BobberState.AttachedFish;
                             _FMGM.fishEncounterState = FishingMiniGameManager.FishEncounterState.Fighting;
 
                             StartCoroutine(UpdateMiniGame()); //start mini game coroutine
@@ -715,7 +715,7 @@ namespace Europa
                 if (caughtHybrid != null)
                 {
 
-                    switch(caughtHybrid.navigationData.hybridState)
+                    switch (caughtHybrid.navigationData.hybridState)
                     {
                         case HybridState.HybridMiniGame_Pulling:
 
@@ -737,11 +737,11 @@ namespace Europa
                             Vector3 rotationAxis = new();
                             Vector3 direction = new();
 
-                            float deltaAngle = _FMGM.bobberRotationSpeedFighting * Time.deltaTime; 
+                            float deltaAngle = _FMGM.bobberRotationSpeedFighting * Time.deltaTime;
                             var targetDir = _FMGM.fishingRod.transform.position - _FMGM.bobberTipGO.transform.position;
                             if (_FMGM.startingBobberAngle == 0) _FMGM.startingBobberAngle = Vector3.Angle(targetDir, _PLAYER.gameObject.transform.forward);
 
-                            float currentAngle = Vector3.Angle(targetDir, _PLAYER.gameObject.transform.forward)- _FMGM.startingBobberAngle;
+                            float currentAngle = Vector3.Angle(targetDir, _PLAYER.gameObject.transform.forward) - _FMGM.startingBobberAngle;
 
 
                             switch (_FMGM.currentPullDirection)
@@ -766,7 +766,7 @@ namespace Europa
                             {
                                 _FMGM.bobberGameObject.transform.RotateAround(_FMGM.fishingRod.transform.position, rotationAxis, deltaAngle);
                             }
-                            
+
                             break;
 
                         case HybridState.HybridMiniGame_Tired:
@@ -789,7 +789,7 @@ namespace Europa
 
                             }
 
-                            deltaAngle = (_FMGM.bobberRotationSpeedFighting/2) * Time.deltaTime;
+                            deltaAngle = (_FMGM.bobberRotationSpeedFighting / 2) * Time.deltaTime;
                             targetDir = _FMGM.fishingRod.transform.position - _FMGM.bobberTipGO.transform.position;
                             currentAngle = Vector3.Angle(targetDir, _PLAYER.gameObject.transform.forward) - _FMGM.startingBobberAngle;
                             //print(currentAngle + " " + _FMGM.startingBobberAngle);
@@ -836,11 +836,11 @@ namespace Europa
                             yield return null;
                             break;
                         case HybridState.HybridMiniGame_Escaped:
-                            
+
                             //not tested
 
                             //swim away from player
-                            RotateAndMoveHybridTowards(caughtHybrid,_PLAYER.transform.TransformPoint(_PLAYER.transform.forward *3));
+                            RotateAndMoveHybridTowards(caughtHybrid, _PLAYER.transform.TransformPoint(_PLAYER.transform.forward * 3));
 
                             //remove hybrid
                             removeHybrid(caughtHybrid.europaItemData.itemGO, true);
@@ -848,7 +848,7 @@ namespace Europa
                             break;
                     }
 
-                    
+
                 }
                 yield return new WaitForFixedUpdate();
             }
@@ -964,6 +964,33 @@ namespace Europa
             }
         }
 
+        public void removeHybrid(FOEItem_Hybrid _hybridInfo, bool _RemoveFromPond)
+        {
+
+            switch (_hybridInfo.navigationData.hybridState)
+            {
+                case HybridState.HybridIdle:
+                    removeHybridsIdle.Add(_hybridInfo);
+                    break;
+                case HybridState.HybridFlying:
+                    removeHybridsFlying.Add(_hybridInfo);
+                    break;
+                case HybridState.HybridHitWater:
+                    removeHybridsHitWater.Add(_hybridInfo);
+                    break;
+                case HybridState.HybridFlocking or HybridState.HybridAvoidingWall:
+                    removeHybridsSwimming.Add(_hybridInfo);
+                    break;
+                case HybridState.HybridMiniGame_SwimToLure:
+                    removeHybridSwimToLure.Add(_hybridInfo);
+                    break;
+            }
+            if (_RemoveFromPond)
+            {
+                _removeFromHybridsToNavList.Add(_hybridInfo);
+            }
+        }
+
         public void AddHybridTolist(GameObject go)
         {
             var _hybrid = GetHybridFromGO(go);
@@ -993,7 +1020,33 @@ namespace Europa
             }
         }
 
-        public void AddHybridTolist(FOEItem_Hybrid _hybrid, HybridState _state)
+        public void AddHybridTolist(FOEItem_Hybrid _hybrid)
+        {
+
+            print(_hybrid.navigationData.hybridState);
+            switch (_hybrid.navigationData.hybridState)
+            {
+                case HybridState.HybridIdle:
+                    hybridsIdle.Add(_hybrid);
+                    break;
+                case HybridState.HybridFlying:
+                    hybridsFlying.Add(_hybrid);
+                    break;
+                case HybridState.HybridHitWater:
+                    hybridsHitWater.Add(_hybrid);
+                    break;
+                case HybridState.HybridFlocking or HybridState.HybridAvoidingWall:
+                    hybridsSwimming.Add(_hybrid);
+                    break;
+                case HybridState.HybridMiniGame_SwimToLure:
+                    print("SWIM");
+                    hybridSwimToPoint.Add(_hybrid);
+                    break;
+
+            }
+        }
+
+            public void AddHybridTolist(FOEItem_Hybrid _hybrid, HybridState _state)
         {
             switch (_state)
             {
@@ -1062,7 +1115,7 @@ namespace Europa
         /// </summary>
         /// <param name="go"></param>
         /// <returns></returns>
-        private FOEItem_Hybrid GetHybridFromGO(GameObject go)
+        public FOEItem_Hybrid GetHybridFromGO(GameObject go)
         {
             foreach (FOEItem_Hybrid _hybrid in _hybridsToNavList)
             {
@@ -1089,6 +1142,13 @@ namespace Europa
                 return true;
             else return false;
 
+        }
+
+        public bool CheckHybridState(FOEItem_Hybrid _hybrid, HybridState _HybridState)
+        {
+            if (_hybrid.navigationData.hybridState == _HybridState)
+                return true;
+            else return false;
         }
 
 

@@ -54,6 +54,9 @@ namespace Europa
 
         [Header("Hybrid MiniGame")]
         public bool arrivedAtLure = false;
+        public float hybridRestTime;
+        public float currentHybridStamina;
+
 
 
         public Transform itemTarget; // this is used for the item target you can set the lure, 

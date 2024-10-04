@@ -59,9 +59,7 @@ namespace Europa
         [Tooltip("The Minimum amount the transform needs to move by for the direction to be updated")]
         private float minMoveAmount;
 
-        [SerializeField]
-        [Tooltip("The Minimum amount the transform needs to move by for the direction to be updated")]
-        private FishingMiniGameManager _FMGM;
+        
 
         float CurrentReelRotation = 0;
         private Vector3 lastRodTransform;
@@ -103,7 +101,7 @@ namespace Europa
 
         private void UpDateRodDiretion()
         {
-            if (_FMGM.bobberState == FishingMiniGameManager.BobberState.AttachedFish)
+            if (_FMGM.fishingMiniGameState == MiniGameState.HybridPulling)
             {
                 if (Vector3.Distance(lastRodTransform, fishingRod.transform.localPosition) > minMoveAmount)
                 {
