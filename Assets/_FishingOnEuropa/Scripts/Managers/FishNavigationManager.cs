@@ -17,7 +17,7 @@ namespace Europa
         [SerializeField] public ScriptableListFOEItem_Hybrid _hybridsTamedList;
 
         [Tooltip("a list that contains all the hybrids that has been spawned into this pond.")]
-        [SerializeField] private ScriptableListFOEItem_Hybrid _hybridsToNavList;
+        [SerializeField] public ScriptableListFOEItem_Hybrid _hybridsToNavList;
 
         [SerializeField] private ScriptableListFOEItem_Hybrid _removeFromHybridsToNavList;
 
@@ -37,7 +37,7 @@ namespace Europa
         [SerializeField] private ScriptableListFOEItem_Hybrid hybridsSwimming;
 
         [Tooltip("a list that contains all the hybrids that are Swimming To the Lure or an item in the players hand.")]
-        [SerializeField] private ScriptableListFOEItem_Hybrid hybridSwimToPoint;
+        [SerializeField] private ScriptableListFOEItem_Hybrid hybridSwimToLure;
 
         [Tooltip("a list that contains all the hybrids that are reacting to the player.")]
         [SerializeField] private ScriptableListFOEItem_Hybrid hybridReactToPlayer;
@@ -113,7 +113,7 @@ namespace Europa
             updateHybridFlyingCoroutine = StartCoroutine(UpdateHybridFlying());
             updateHitWaterCoroutine = StartCoroutine(UpdateHitWater());
             updateSwimmingCoroutine = StartCoroutine(UpdateSwimming());
-            updateSwimToLure = StartCoroutine(UpdateHybridToLure());
+            updateSwimToLure = StartCoroutine(UpdateHybridSwimToLure());
             UpdateHybridStatesCoroutine = StartCoroutine(UpdateHybridStates());
             UpdateHybridReactCoroutine = StartCoroutine(UpdateHybridReact());
         }
@@ -314,7 +314,7 @@ namespace Europa
                 //destroy/remove food item
                 _OPM.ReturnObjectToPool(_food);
 
-                //check if favourite food
+                //check if favorite food
                 bool isFav = false;
                 if (_hybrid.hybridSO.favFood == _food.foodItem)
                     isFav = true;
@@ -329,7 +329,7 @@ namespace Europa
         /// <summary>
         /// Sets the hybrid's target and updates its state based on its proximity to the target and current behavior parameters.
         /// </summary>
-        private void SetHybridTargetState(FOEItem_Hybrid _hybrid, Transform targetTransform)
+        public void SetHybridTargetState(FOEItem_Hybrid _hybrid, Transform targetTransform)
         {
             // Set target and update state based on proximity to the player
             _hybrid.navigationData.itemTarget = targetTransform;
@@ -340,6 +340,8 @@ namespace Europa
 
             }
         }
+
+
 
 
         private IEnumerator UpdateIdle()
@@ -500,7 +502,13 @@ namespace Europa
                         if (_hybrid.europaItemData.itemGO.transform.position.y > _hybrid.navigationData.waterHeight)
                         {
                             outofWater = true;
-                            //print("Help im Out of water");
+                            // Get the current position of the GameObject
+                            Vector3 currentPosition = _hybrid.europaItemData.itemGO.transform.position;
+
+                            // Create a new position with the updated y value from navigationData
+                            _hybrid.europaItemData.itemGO.transform.position = new Vector3(currentPosition.x, _hybrid.navigationData.waterHeight, currentPosition.z);
+
+                            print("Help im Out of water");
                         }
 
                         if (UnityEngine.Random.Range(0, rayCastCheckChance) < 1 && hybridsSwimming.Count > 1)
@@ -614,7 +622,7 @@ namespace Europa
 
                         if (outofWater)
                         {
-                            _hybrid.navigationData.velocity.y = -Mathf.Abs(_hybrid.navigationData.velocity.y);
+                            _hybrid.navigationData.velocity.x = -Mathf.Abs(_hybrid.navigationData.velocity.x);
                             _hybrid.navigationData.velocity.z = -Mathf.Abs(_hybrid.navigationData.velocity.z);
 
                         }
@@ -647,60 +655,41 @@ namespace Europa
             }
         }
 
-        private IEnumerator UpdateHybridToLure()
+        private IEnumerator UpdateHybridSwimToLure()
         {
+            float distanceToLureThreshold = 1f; // This Value controls how close the hybrids need to be to be considered close enough to the lure to be attached
+
             while (true)
             {
-                if (hybridSwimToPoint.Count > 0)
+                if (hybridSwimToLure.Count > 0)
                 {
-                    foreach (FOEItem_Hybrid _hybrid in hybridSwimToPoint)
+                    foreach (FOEItem_Hybrid _hybrid in hybridSwimToLure)
                     {
-                        print("swim part 2" + _FMGM.bobberTipGO.transform.position);
-                        Vector3 directionToTarget = _FMGM.bobberGameObject.transform.position - _hybrid.europaItemData.itemGO.transform.position;
-                        float yOffset = 0.5f;
-                        directionToTarget = new Vector3(directionToTarget.x, directionToTarget.y - yOffset, directionToTarget.z);
 
-                        // Rotate towards the target
-                        Quaternion targetRotation = Quaternion.LookRotation(directionToTarget);
-                        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * _hybrid.hybridSO.rotationSpeed);
+                        //MoveTheHybrid Towards the lure Target
+                        if (_hybrid.navigationData.hybridState == HybridState.HybridMiniGame_SwimToLure)  //checks to see if the hybrid needs to be moved closer to the lure or not
+                            RotateAndMoveHybridTowards(_hybrid);
 
-                        // Move towards the target
-                        Vector3 targetPosition = _FMGM.bobberTipGO.transform.position;
+                        //Check if the Hybrid Has reached that target
 
-                        if (targetPosition.y > _hybrid.navigationData.waterHeight)
+                        float distanceToTarget = Vector3.Distance(_hybrid.europaItemData.itemGO.transform.position, _hybrid.navigationData.itemTarget.position);  //gets the current distance the hybrid is from the lure
+                        if (distanceToTarget <= distanceToLureThreshold && _hybrid.navigationData.arrivedAtLure == false)  // if the hybrid is less then the threshold the hybrid will enter an idle state
                         {
-                            targetPosition.y = _hybrid.navigationData.waterHeight;
+                            _hybrid.navigationData.hybridState = HybridState.HybridIdle;  // sets the hybrids state to idle so it stops swimming once close enough
+                            _hybrid.navigationData.arrivedAtLure = true;  // sets arrived at lure to true, so it can be used by the above if statement to only call the add to list function once. 
+                            _FMGM.hybridsReachedLure.Add(_hybrid);  // adds the hybrid from the arrived at lure list
                         }
-                        _hybrid.europaItemData.itemGO.transform.position = Vector3.Lerp(_hybrid.europaItemData.itemGO.transform.position, new Vector3(targetPosition.x, targetPosition.y - yOffset, targetPosition.z), Time.deltaTime * (_hybrid.navigationData.maxSpeed * 2));
-
-                        // Check if the object has reached the target position
-                        float distanceToTarget = Vector3.Distance(_hybrid.europaItemData.itemGO.transform.position, targetPosition);
-                        float threshold = 1f; // Adjust the threshold as needed
-
-                        //print(distanceToTarget);
-
-                        if (distanceToTarget < threshold && _hybrid.navigationData.arrivedAtLure == false)
+                        else if (distanceToTarget > distanceToLureThreshold && _hybrid.navigationData.arrivedAtLure == true)  // if the hybrid if further away then the lure it will swim towards it. 
                         {
-                            Debug.Log("Object has reached the target!");
-                            _hybrid.navigationData.hybridState = HybridState.HybridIdle;
-                            _hybrid.navigationData.arrivedAtLure = true;
-                            hybridsIdle.Add(_hybrid);
-                            removeHybridSwimToLure.Add(_hybrid);
-
-                            caughtHybrid = _hybrid;
-
-                            //send an update to minigame Manager that the Hybrid has arrived
-                            _FMGM.fishingMiniGameState = FishingMiniGameManager.BobberState.AttachedFish;
-                            _FMGM.fishEncounterState = FishingMiniGameManager.FishEncounterState.Fighting;
-
-                            StartCoroutine(UpdateMiniGame()); //start mini game coroutine
-
+                            _hybrid.navigationData.hybridState = HybridState.HybridMiniGame_SwimToLure;
+                            _hybrid.navigationData.arrivedAtLure = false; // sets arrived at lure to false, so it can be used by the above if statement to only call the remove from list function once. 
+                            _FMGM.hybridsReachedLure.Remove(_hybrid);  // removes the hybrid from the arrived at lure list
                         }
 
                     }
                     foreach (var hybrid in removeHybridSwimToLure)
                     {
-                        hybridSwimToPoint.Remove(hybrid);
+                        hybridSwimToLure.Remove(hybrid);
                     }
                     removeHybridSwimToLure.Clear();
                 }
@@ -730,10 +719,15 @@ namespace Europa
                             {
                                 targetPosition.y = caughtHybrid.navigationData.waterHeight;
                             }
+
                             caughtHybrid.europaItemData.itemGO.transform.position = Vector3.Lerp(caughtHybrid.europaItemData.itemGO.transform.position, new Vector3(targetPosition.x, targetPosition.y - 0, targetPosition.z), Time.deltaTime * (caughtHybrid.navigationData.maxSpeed * 3));
 
                             //get pull direction
-                            if (_FMGM.currentPullDirection == FishingMiniGameManager.PullDirections.NotSet) _FMGM.currentPullDirection = _FMGM.GetDirection();
+                            if (_FMGM.currentPullDirection == FishingMiniGameManager.PullDirections.NotSet)
+                            {
+                                _FMGM.currentPullDirection = _FMGM.GetDirection();
+                            }
+
                             Vector3 rotationAxis = new();
                             Vector3 direction = new();
 
@@ -934,6 +928,28 @@ namespace Europa
             _hybrid.europaItemData.itemGO.transform.position = Vector3.Lerp(_hybrid.europaItemData.itemGO.transform.position, _targetPos, Time.deltaTime * _hybrid.navigationData.maxSpeed);
         }
 
+        /// <summary>
+        /// Rotates and moves the hybrid towards a target position.
+        /// </summary>
+        /// <param name="_hybrid">Hybrid to move.</param>
+        /// <param name="_targetPos">Position to move to and face.</param>
+        private void RotateAndMoveHybridTowards(FOEItem_Hybrid _hybrid)
+        {
+            Vector3 _targetPos = _hybrid.navigationData.itemTarget.position;
+
+            RotateHybridTowards(_hybrid, _targetPos);
+
+            // Clamp target position to water height
+            if (_targetPos.y > _hybrid.navigationData.waterHeight)
+            {
+                _targetPos.y = _hybrid.navigationData.waterHeight;
+            }
+
+            // Move towards the target
+            _hybrid.europaItemData.itemGO.transform.position = Vector3.Lerp(_hybrid.europaItemData.itemGO.transform.position, _targetPos, Time.deltaTime * _hybrid.navigationData.maxSpeed);
+        }
+
+
         public void removeHybrid(GameObject go, bool _RemoveFromPond)
         {
             foreach (FOEItem_Hybrid _hybrid in _hybridsToNavList)
@@ -991,6 +1007,10 @@ namespace Europa
             }
         }
 
+        /// <summary>
+        /// Adds hybrid to the list though their Go
+        /// </summary>
+        /// <param name="go"></param>
         public void AddHybridTolist(GameObject go)
         {
             var _hybrid = GetHybridFromGO(go);
@@ -1014,12 +1034,16 @@ namespace Europa
                         break;
                     case HybridState.HybridMiniGame_SwimToLure:
                         print("SWIM");
-                        hybridSwimToPoint.Add(_hybrid);
+                        hybridSwimToLure.Add(_hybrid);
                         break;
                 }
             }
         }
 
+        /// <summary>
+        /// To add a hybrid to a list who already has their state assigned
+        /// </summary>
+        /// <param name="_hybrid"></param>
         public void AddHybridTolist(FOEItem_Hybrid _hybrid)
         {
 
@@ -1040,14 +1064,20 @@ namespace Europa
                     break;
                 case HybridState.HybridMiniGame_SwimToLure:
                     print("SWIM");
-                    hybridSwimToPoint.Add(_hybrid);
+                    hybridSwimToLure.Add(_hybrid);
                     break;
 
             }
         }
 
-            public void AddHybridTolist(FOEItem_Hybrid _hybrid, HybridState _state)
+        /// <summary>
+        /// to add a hybrid to a list that dose not yet have their state assigned
+        /// </summary>
+        /// <param name="_hybrid"></param>
+        /// <param name="_state"></param>
+        public void AddHybridTolist(FOEItem_Hybrid _hybrid, HybridState _state)
         {
+            _hybrid.navigationData.hybridState = _state;
             switch (_state)
             {
                 case HybridState.HybridIdle:
@@ -1064,7 +1094,7 @@ namespace Europa
                     break;
                 case HybridState.HybridMiniGame_SwimToLure:
                     print("SWIM");
-                    hybridSwimToPoint.Add(_hybrid);
+                    hybridSwimToLure.Add(_hybrid);
                     break;
             }
         }
@@ -1151,6 +1181,11 @@ namespace Europa
             else return false;
         }
 
+        public void AssignHybridWithTargetAndState(FOEItem_Hybrid _hybrid, Transform targetTransform)
+        {
+            _hybrid.navigationData.itemTarget = targetTransform;
+            _hybrid.navigationData.hybridState = HybridState.HybridMiniGame_SwimToLure;
+        }
 
     }
 }

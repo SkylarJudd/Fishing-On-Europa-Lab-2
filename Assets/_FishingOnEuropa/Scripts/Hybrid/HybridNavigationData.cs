@@ -56,6 +56,7 @@ namespace Europa
         public bool arrivedAtLure = false;
         public float hybridRestTime;
         public float currentHybridStamina;
+        public float scaledCatchChance;
 
 
 

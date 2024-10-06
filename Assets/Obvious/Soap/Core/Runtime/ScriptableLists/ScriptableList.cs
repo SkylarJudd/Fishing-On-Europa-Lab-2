@@ -22,7 +22,7 @@ namespace Obvious.Soap
 
         [SerializeField] protected List<T> _list = new List<T>();
         private readonly HashSet<T> _hashSet = new HashSet<T>();
-        
+
         public int Count => _list.Count;
         public bool IsReadOnly => false;
         public bool IsEmpty => _list.Count == 0;
@@ -89,7 +89,7 @@ namespace Obvious.Soap
             _list.Insert(index, item);
             AddItemToHashAndRaiseEvents(item);
         }
-        
+
         private void AddItemToHashAndRaiseEvents(T item)
         {
             _hashSet.Add(item);
@@ -138,7 +138,7 @@ namespace Obvious.Soap
 
             return false;
         }
-        
+
         public void CopyTo(T[] array, int arrayIndex)
         {
             _list.CopyTo(array, arrayIndex);
@@ -168,7 +168,7 @@ namespace Obvious.Soap
 
             return false;
         }
-        
+
         bool ICollection<T>.Remove(T item)
         {
             return _list.Remove(item);
@@ -204,7 +204,7 @@ namespace Obvious.Soap
 
             if (index + count > _list.Count)
                 return false;
-            
+
             var itemsToRemove = _list.GetRange(index, count);
 
             foreach (var itemToRemove in itemsToRemove)
@@ -218,7 +218,7 @@ namespace Obvious.Soap
 #endif
             return true;
         }
-      
+
         public void Clear()
         {
             _hashSet.Clear();
@@ -291,5 +291,7 @@ namespace Obvious.Soap
             list.AddRange(_list.OfType<Object>());
             return list;
         }
+
+        
     }
 }
