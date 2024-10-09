@@ -9,17 +9,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a9978ce9c8bdc724896114c9952c52ea, type: 3}
-  m_Name: Float_LureCurrentMaxDistance
+  m_Script: {fileID: 11500000, guid: 1300736a6c75069498acdad864241816, type: 3}
+  m_Name: Rod_EndPointTransform_Vector3
   m_EditorClassIdentifier: 
   TagIndex: 0
   Description: 
-  _guid: fdc709a0982218446a8e212cf5a10b14
+  _guid: ba3c0508229f1d440945d0987fe7357a
   _saveGuid: 0
-  _value: 0
+  _value: {x: 0, y: 0, z: 0}
   _debugLogEnabled: 0
   _saved: 0
-  _defaultValue: 0
+  _defaultValue: {x: 0, y: 0, z: 0}
   _resetOn: 0
-  _isClamped: 1
-  _minMax: {x: 0, y: 40}

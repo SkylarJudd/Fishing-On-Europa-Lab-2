@@ -405,12 +405,8 @@ MonoBehaviour:
     UseLocal: 0
     LocalValue: 0
     Variable: {fileID: 11400000, guid: 11c73aab1e4b6b645ae3c6335c7ddfc6, type: 2}
-  reelRotation:
-    UseLocal: 0
-    LocalValue: {x: 0, y: 0, z: 0}
-    Variable: {fileID: 11400000, guid: 7921ae04cc3a6a945881f7fe08b0fe69, type: 2}
   convertFromDegToDisScale: 0.1
-  testValue: 0
+  smoothingWindow: 5
 --- !u!1 &1299687776603340879
 GameObject:
   m_ObjectHideFlags: 0
@@ -455,31 +451,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0500cc2ddecbabd4882da99c219d36f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rodEndPostion:
-    UseLocal: 0
-    LocalValue: {x: 0, y: 0, z: 0}
-    Variable: {fileID: 11400000, guid: ba3c0508229f1d440945d0987fe7357a, type: 2}
-  rodEndCurrentSpeed:
-    UseLocal: 0
-    LocalValue: 0
-    Variable: {fileID: 11400000, guid: 180ac7e2200e3f544b8a62fc33538208, type: 2}
-  rodEndPointForceDirection:
-    UseLocal: 0
-    LocalValue: {x: 0, y: 0, z: 0}
-    Variable: {fileID: 11400000, guid: 78bbc0e0df047af4d9322daffb8fcaf2, type: 2}
-  playerCastInput:
-    UseLocal: 0
-    LocalValue: 0
-    Variable: {fileID: 11400000, guid: d44e3034d276abc4899fd8aab8977f8a, type: 2}
-  miniGameActive:
-    UseLocal: 0
-    LocalValue: 0
-    Variable: {fileID: 11400000, guid: 9bba7ba87938df34bb9dbb2f49437b9d, type: 2}
-  miniGameRodPullDirection:
-    UseLocal: 0
-    LocalValue: 0
-    Variable: {fileID: 11400000, guid: b5c04773c2be83c4581588ca4d2aa2eb, type: 2}
-  movementThreshold: 0.01
 --- !u!1 &1309405093511829345
 GameObject:
   m_ObjectHideFlags: 0
@@ -1575,7 +1546,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8524404526064475452}
-  - component: {fileID: 5391739380556445324}
   - component: {fileID: 7211980985765781129}
   - component: {fileID: 456272083775128744}
   m_Layer: 0
@@ -1600,62 +1570,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 7352737673415855842}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5391739380556445324
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6270473370532327393}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 441a4b69b997c9742a8670643af230f2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  fishingRodEndPointTransform:
-    UseLocal: 0
-    LocalValue: {x: 0, y: 0, z: 0}
-    Variable: {fileID: 11400000, guid: ba3c0508229f1d440945d0987fe7357a, type: 2}
-  lureEndPointTransform:
-    UseLocal: 0
-    LocalValue: {x: 0, y: 0, z: 0}
-    Variable: {fileID: 11400000, guid: 47cf46d5e2582cd4088ab8caec2598c6, type: 2}
-  lureCurrentDistance:
-    UseLocal: 0
-    LocalValue: 0
-    Variable: {fileID: 11400000, guid: f2f515a27d0f6034a9a91b8f1c18ad48, type: 2}
-  lureCurrentMaxDistance:
-    UseLocal: 0
-    LocalValue: 0
-    Variable: {fileID: 11400000, guid: fdc709a0982218446a8e212cf5a10b14, type: 2}
-  lureMaxDistanceFromRod:
-    UseLocal: 0
-    LocalValue: 0
-    Variable: {fileID: 11400000, guid: 11c73aab1e4b6b645ae3c6335c7ddfc6, type: 2}
-  rodEndSpeed:
-    UseLocal: 0
-    LocalValue: 0
-    Variable: {fileID: 11400000, guid: 180ac7e2200e3f544b8a62fc33538208, type: 2}
-  castTriggerSpeed:
-    UseLocal: 1
-    LocalValue: 1
-    Variable: {fileID: 0}
-  playerCastInput:
-    UseLocal: 0
-    LocalValue: 0
-    Variable: {fileID: 11400000, guid: d44e3034d276abc4899fd8aab8977f8a, type: 2}
-  fishingLineCasted:
-    UseLocal: 0
-    LocalValue: 0
-    Variable: {fileID: 11400000, guid: 91164d818420917459bf868959a3a45e, type: 2}
-  lureReturnSpeed: 20
-  fishingRod: {fileID: 8227022800492327625}
-  rodDirectionLeftRight: 0
-  rodDirectionForwardBack: 0
-  rodDirectionVector: {x: 0, y: 0}
-  fishingRodRB: {fileID: 7737634450744826390}
-  minMoveAmount: 0
-  _FMGM: {fileID: 0}
 --- !u!114 &7211980985765781129
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2416,31 +2330,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0500cc2ddecbabd4882da99c219d36f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rodEndPostion:
-    UseLocal: 0
-    LocalValue: {x: 0, y: 0, z: 0}
-    Variable: {fileID: 11400000, guid: ba3c0508229f1d440945d0987fe7357a, type: 2}
-  rodEndCurrentSpeed:
-    UseLocal: 0
-    LocalValue: 0
-    Variable: {fileID: 11400000, guid: 180ac7e2200e3f544b8a62fc33538208, type: 2}
-  rodEndPointForceDirection:
-    UseLocal: 0
-    LocalValue: {x: 0, y: 0, z: 0}
-    Variable: {fileID: 11400000, guid: 78bbc0e0df047af4d9322daffb8fcaf2, type: 2}
-  playerCastInput:
-    UseLocal: 0
-    LocalValue: 0
-    Variable: {fileID: 11400000, guid: d44e3034d276abc4899fd8aab8977f8a, type: 2}
-  miniGameActive:
-    UseLocal: 0
-    LocalValue: 0
-    Variable: {fileID: 11400000, guid: 9bba7ba87938df34bb9dbb2f49437b9d, type: 2}
-  miniGameRodPullDirection:
-    UseLocal: 0
-    LocalValue: 0
-    Variable: {fileID: 11400000, guid: b5c04773c2be83c4581588ca4d2aa2eb, type: 2}
-  movementThreshold: 0.01
 --- !u!1 &8227022800492327625
 GameObject:
   m_ObjectHideFlags: 0
