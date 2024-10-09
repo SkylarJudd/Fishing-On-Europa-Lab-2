@@ -3499,9 +3499,210 @@ PrefabInstance:
       objectReference: {fileID: 17895782}
     - target: {fileID: 5911518260582333399, guid: dbdadaad3a2d1674f945499b920627d9,
         type: 3}
+      propertyPath: _lure.lure_Go
+      value: 
+      objectReference: {fileID: 3319358093280232136}
+    - target: {fileID: 5911518260582333399, guid: dbdadaad3a2d1674f945499b920627d9,
+        type: 3}
+      propertyPath: _lure.lure_RB
+      value: 
+      objectReference: {fileID: 3319358093280232137}
+    - target: {fileID: 5911518260582333399, guid: dbdadaad3a2d1674f945499b920627d9,
+        type: 3}
       propertyPath: bobberGameObject
       value: 
       objectReference: {fileID: 3319358093280232136}
+    - target: {fileID: 5911518260582333399, guid: dbdadaad3a2d1674f945499b920627d9,
+        type: 3}
+      propertyPath: _lure.lure_ExitWaterEvent
+      value: 
+      objectReference: {fileID: 11400000, guid: 13baa279cf5bc18409aa48086150091e,
+        type: 2}
+    - target: {fileID: 5911518260582333399, guid: dbdadaad3a2d1674f945499b920627d9,
+        type: 3}
+      propertyPath: _lure.lure_EnterWaterEvent
+      value: 
+      objectReference: {fileID: 11400000, guid: 13baa279cf5bc18409aa48086150091e,
+        type: 2}
+    - target: {fileID: 5911518260582333399, guid: dbdadaad3a2d1674f945499b920627d9,
+        type: 3}
+      propertyPath: _lure.lure_InWater.Variable
+      value: 
+      objectReference: {fileID: 11400000, guid: e426bbf60f101ab4ab8b605590b97ce5,
+        type: 2}
+    - target: {fileID: 5911518260582333399, guid: dbdadaad3a2d1674f945499b920627d9,
+        type: 3}
+      propertyPath: _lure.lure_HybridAttachPoint
+      value: 
+      objectReference: {fileID: 17895782}
+    - target: {fileID: 5911518260582333399, guid: dbdadaad3a2d1674f945499b920627d9,
+        type: 3}
+      propertyPath: _lure.lure_MaxAngle.Variable
+      value: 
+      objectReference: {fileID: 11400000, guid: 58de459f7b171fd4fb5cad79b062fdb7,
+        type: 2}
+    - target: {fileID: 5911518260582333399, guid: dbdadaad3a2d1674f945499b920627d9,
+        type: 3}
+      propertyPath: _lure.lure_InWaterTime.Variable
+      value: 
+      objectReference: {fileID: 11400000, guid: 54cbb7cc53ab3e544a3d1e34e5c8fd4e,
+        type: 2}
+    - target: {fileID: 5911518260582333399, guid: dbdadaad3a2d1674f945499b920627d9,
+        type: 3}
+      propertyPath: _lure.lure_ReturnSpeed.Variable
+      value: 
+      objectReference: {fileID: 11400000, guid: 9eb2e58a3e3f34d46bbbb127fe72cdc4,
+        type: 2}
+    - target: {fileID: 5911518260582333399, guid: dbdadaad3a2d1674f945499b920627d9,
+        type: 3}
+      propertyPath: _lure.lure_CastResetTime.Variable
+      value: 
+      objectReference: {fileID: 11400000, guid: ef26d845a0377f2448a4541f397b8635,
+        type: 2}
+    - target: {fileID: 5911518260582333399, guid: dbdadaad3a2d1674f945499b920627d9,
+        type: 3}
+      propertyPath: _lure.lure_ResetDistance.Variable
+      value: 
+      objectReference: {fileID: 11400000, guid: d9d4072fd08ff744e89e6cd20c5c1352,
+        type: 2}
+    - target: {fileID: 5911518260582333399, guid: dbdadaad3a2d1674f945499b920627d9,
+        type: 3}
+      propertyPath: _lure.lure_StartingAngle.Variable
+      value: 
+      objectReference: {fileID: 11400000, guid: 2fb6f7ea8bc7ca840a4a6ed2343aa55e,
+        type: 2}
+    - target: {fileID: 5911518260582333399, guid: dbdadaad3a2d1674f945499b920627d9,
+        type: 3}
+      propertyPath: _rod.rod_EndCurrentSpeed.Variable
+      value: 
+      objectReference: {fileID: 11400000, guid: 180ac7e2200e3f544b8a62fc33538208,
+        type: 2}
+    - target: {fileID: 5911518260582333399, guid: dbdadaad3a2d1674f945499b920627d9,
+        type: 3}
+      propertyPath: _rod.rod_PlayerCastInput.Variable
+      value: 
+      objectReference: {fileID: 11400000, guid: d44e3034d276abc4899fd8aab8977f8a,
+        type: 2}
+    - target: {fileID: 5911518260582333399, guid: dbdadaad3a2d1674f945499b920627d9,
+        type: 3}
+      propertyPath: _lure.lure_InWaterTimeOut.Variable
+      value: 
+      objectReference: {fileID: 11400000, guid: ad1ce6a28de0d1e44b898a89be127516,
+        type: 2}
+    - target: {fileID: 5911518260582333399, guid: dbdadaad3a2d1674f945499b920627d9,
+        type: 3}
+      propertyPath: _lure.lure_CurrentDistance.Variable
+      value: 
+      objectReference: {fileID: 11400000, guid: f2f515a27d0f6034a9a91b8f1c18ad48,
+        type: 2}
+    - target: {fileID: 5911518260582333399, guid: dbdadaad3a2d1674f945499b920627d9,
+        type: 3}
+      propertyPath: _lure.lure_MaxCastingForce.Variable
+      value: 
+      objectReference: {fileID: 11400000, guid: d71b73dd3ac99b044adcbd3775ee95e4,
+        type: 2}
+    - target: {fileID: 5911518260582333399, guid: dbdadaad3a2d1674f945499b920627d9,
+        type: 3}
+      propertyPath: _lure.lure_MaxReelingForce.Variable
+      value: 
+      objectReference: {fileID: 11400000, guid: 599b87c569d40bc428cde5a21c742f28,
+        type: 2}
+    - target: {fileID: 5911518260582333399, guid: dbdadaad3a2d1674f945499b920627d9,
+        type: 3}
+      propertyPath: _rod.rod_CastSpeedRequired.Variable
+      value: 
+      objectReference: {fileID: 11400000, guid: 4610c72ae51fbab4686feec943ba2af9,
+        type: 2}
+    - target: {fileID: 5911518260582333399, guid: dbdadaad3a2d1674f945499b920627d9,
+        type: 3}
+      propertyPath: _rod.rod_EndForceDirection.Variable
+      value: 
+      objectReference: {fileID: 11400000, guid: 78bbc0e0df047af4d9322daffb8fcaf2,
+        type: 2}
+    - target: {fileID: 5911518260582333399, guid: dbdadaad3a2d1674f945499b920627d9,
+        type: 3}
+      propertyPath: _rod.rod_EndPointTransform.Variable
+      value: 
+      objectReference: {fileID: 11400000, guid: ba3c0508229f1d440945d0987fe7357a,
+        type: 2}
+    - target: {fileID: 5911518260582333399, guid: dbdadaad3a2d1674f945499b920627d9,
+        type: 3}
+      propertyPath: _rod.rod_fishingEfficiency.Variable
+      value: 
+      objectReference: {fileID: 11400000, guid: 059d7f2f2a82c3f4390cbc5d0ef8c0d6,
+        type: 2}
+    - target: {fileID: 5911518260582333399, guid: dbdadaad3a2d1674f945499b920627d9,
+        type: 3}
+      propertyPath: _rod.fightingMiniGameActive.Variable
+      value: 
+      objectReference: {fileID: 11400000, guid: 2481017e9ca835e43a89a61de4340fe7,
+        type: 2}
+    - target: {fileID: 5911518260582333399, guid: dbdadaad3a2d1674f945499b920627d9,
+        type: 3}
+      propertyPath: _lure.lure_EndPointTransform.Variable
+      value: 
+      objectReference: {fileID: 11400000, guid: 47cf46d5e2582cd4088ab8caec2598c6,
+        type: 2}
+    - target: {fileID: 5911518260582333399, guid: dbdadaad3a2d1674f945499b920627d9,
+        type: 3}
+      propertyPath: _lure.lure_LureRotationSpeed.Variable
+      value: 
+      objectReference: {fileID: 11400000, guid: 7bbb194f703213c47b5958fb40a268a6,
+        type: 2}
+    - target: {fileID: 5911518260582333399, guid: dbdadaad3a2d1674f945499b920627d9,
+        type: 3}
+      propertyPath: _rod.rod_fishingRodCurrentHP.Variable
+      value: 
+      objectReference: {fileID: 11400000, guid: 293f387b5093d6549acce6b84355eaef,
+        type: 2}
+    - target: {fileID: 5911518260582333399, guid: dbdadaad3a2d1674f945499b920627d9,
+        type: 3}
+      propertyPath: _lure.lure_CurrentMaxDistance.Variable
+      value: 
+      objectReference: {fileID: 11400000, guid: fdc709a0982218446a8e212cf5a10b14,
+        type: 2}
+    - target: {fileID: 5911518260582333399, guid: dbdadaad3a2d1674f945499b920627d9,
+        type: 3}
+      propertyPath: _lure.lure_MaxDistanceFromRod.Variable
+      value: 
+      objectReference: {fileID: 11400000, guid: 11c73aab1e4b6b645ae3c6335c7ddfc6,
+        type: 2}
+    - target: {fileID: 5911518260582333399, guid: dbdadaad3a2d1674f945499b920627d9,
+        type: 3}
+      propertyPath: _rod.rod_fishingRodStartingHP.Variable
+      value: 
+      objectReference: {fileID: 11400000, guid: f0b2f69ba76b9524d9523e52a1c47a7a,
+        type: 2}
+    - target: {fileID: 5911518260582333399, guid: dbdadaad3a2d1674f945499b920627d9,
+        type: 3}
+      propertyPath: _lure.lure_CurrentCastResetTime.Variable
+      value: 
+      objectReference: {fileID: 11400000, guid: 1e49d200804388e4991ff1208024ce1e,
+        type: 2}
+    - target: {fileID: 5911518260582333399, guid: dbdadaad3a2d1674f945499b920627d9,
+        type: 3}
+      propertyPath: _lure.lure_LureStartingDistance.Variable
+      value: 
+      objectReference: {fileID: 11400000, guid: 0710dc24480424447bc58c3067e33a13,
+        type: 2}
+    - target: {fileID: 5911518260582333399, guid: dbdadaad3a2d1674f945499b920627d9,
+        type: 3}
+      propertyPath: _lure.lure_HybridToLureResetTime.Variable
+      value: 
+      objectReference: {fileID: 11400000, guid: 3c6e59a727e11254f935a19f7d58827f,
+        type: 2}
+    - target: {fileID: 5911518260582333399, guid: dbdadaad3a2d1674f945499b920627d9,
+        type: 3}
+      propertyPath: _lure.lure_CastingForceMultiplier.Variable
+      value: 
+      objectReference: {fileID: 11400000, guid: 0e272cc19f16d654d9d8825e356cef6e,
+        type: 2}
+    - target: {fileID: 5911518260582333399, guid: dbdadaad3a2d1674f945499b920627d9,
+        type: 3}
+      propertyPath: _lure.lure_ReelingForceMultiplier.Variable
+      value: 
+      objectReference: {fileID: 11400000, guid: 90e119ed55523cb4092465da3c5cfb0f,
+        type: 2}
     - target: {fileID: 7204413666018029058, guid: dbdadaad3a2d1674f945499b920627d9,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3552,7 +3753,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 2334015209020133010, guid: dbdadaad3a2d1674f945499b920627d9, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -3664,18 +3866,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 8408414007965488949}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1952739907 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5391739380556445324, guid: 9973a74534b2b86419bb6c2612f36e8e,
-    type: 3}
-  m_PrefabInstance: {fileID: 2121266996}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 441a4b69b997c9742a8670643af230f2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1980364370
 GameObject:
   m_ObjectHideFlags: 0
@@ -3885,7 +4075,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_ActionEvents.Array.data[2].m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 1952739907}
+      objectReference: {fileID: 0}
     - target: {fileID: 456272083775128744, guid: 9973a74534b2b86419bb6c2612f36e8e,
         type: 3}
       propertyPath: m_ActionEvents.Array.data[2].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
@@ -4058,8 +4248,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 89.722
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedComponents:
+    - {fileID: 5391739380556445324, guid: 9973a74534b2b86419bb6c2612f36e8e, type: 3}
+    m_RemovedGameObjects:
+    - {fileID: 7929064611700198781, guid: 9973a74534b2b86419bb6c2612f36e8e, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9973a74534b2b86419bb6c2612f36e8e, type: 3}
@@ -5310,6 +5502,12 @@ PrefabInstance:
 --- !u!1 &3319358093280232136 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8849559212076729514, guid: 52a8e0d33fad1a24ca92e769caa2e85a,
+    type: 3}
+  m_PrefabInstance: {fileID: 3319358093280232135}
+  m_PrefabAsset: {fileID: 0}
+--- !u!54 &3319358093280232137 stripped
+Rigidbody:
+  m_CorrespondingSourceObject: {fileID: 6943625304058226440, guid: 52a8e0d33fad1a24ca92e769caa2e85a,
     type: 3}
   m_PrefabInstance: {fileID: 3319358093280232135}
   m_PrefabAsset: {fileID: 0}

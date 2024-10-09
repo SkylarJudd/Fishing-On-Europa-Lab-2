@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a9978ce9c8bdc724896114c9952c52ea, type: 3}
-  m_Name: Float_FishingRodHP
+  m_Name: Rod_FishingRodStartingHP_Int
   m_EditorClassIdentifier: 
   TagIndex: 0
   Description: 
-  _guid: 293f387b5093d6549acce6b84355eaef
+  _guid: f0b2f69ba76b9524d9523e52a1c47a7a
   _saveGuid: 0
-  _value: 1000
+  _value: 100
   _debugLogEnabled: 0
   _saved: 0
   _defaultValue: 0
