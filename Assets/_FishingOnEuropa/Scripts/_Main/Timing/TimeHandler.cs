@@ -108,9 +108,10 @@ namespace Europa.GameEvents
         /// <returns>The total serialised minutes from the save file.</returns>
         private static ulong LoadSerialisedMinute()
         {
-            // Load the serialised time from the save file. TODO: Implement this.
-            string time = File.ReadAllText(TEMP_FILE_PATH);
-            return ulong.Parse(time);
+            //// Load the serialised time from the save file. TODO: Implement this.
+            //string time = File.ReadAllText(TEMP_FILE_PATH);
+            //return ulong.Parse(time);
+            return 0;
         }
         /// <summary>
         /// Saves the serialised minutes.
@@ -119,8 +120,8 @@ namespace Europa.GameEvents
         /// <exception cref="NotImplementedException"></exception>
         private static void SaveSerialisedMinute(ulong totalMinutes)
         {
-            // Save the serialised time to the save file. TODO: Implement this.
-            File.WriteAllText(TEMP_FILE_PATH, totalMinutes.ToString());
+            //// Save the serialised time to the save file. TODO: Implement this.
+            //File.WriteAllText(TEMP_FILE_PATH, totalMinutes.ToString());
         }
     }
 }

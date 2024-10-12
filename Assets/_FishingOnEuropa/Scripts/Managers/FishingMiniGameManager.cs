@@ -3,6 +3,7 @@ using Obvious.Soap;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Rendering;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -188,9 +189,15 @@ namespace Europa
         {
 
             if (fishingMiniGameState == MiniGameState.LureWindrawn) UpdateLureWithdrawnPosition(); // Updated the lures position so its attached to the rod
-            if (fishingMiniGameState != MiniGameState.LureWindrawn) CaculateDistance();//checks to see if the player has casted the line, and if so this function will be called
+           
 
         }
+
+        private void FixedUpdate()
+        {
+            if (fishingMiniGameState != MiniGameState.LureWindrawn) CaculateDistance();//checks to see if the player has casted the line, and if so this function will be called
+        }
+
         /// <summary>
         /// A function that updates the current location of the lure to the end point of the fishing rod
         /// </summary>
@@ -263,6 +270,7 @@ namespace Europa
 
         public void OnLineCast()
         {
+            Debug.Log($"On Line Cast Called");
             if (fishingMiniGameState == MiniGameState.LureWindrawn)
             {
                 updateMiniGameState(MiniGameState.LureCast);
@@ -272,8 +280,10 @@ namespace Europa
         }
         public void OnLureHitWater()
         {
+            print("On lure Hit Water called");
             if (fishingMiniGameState == MiniGameState.LureCast)
             {
+                print("Lure Has hit the water");
                 updateMiniGameState(MiniGameState.LureHitWater);
                 lureHitWaterCoroutine = StartCoroutine(LureHitWaterCoroutine());
                 // Will start a timer to make sure the lure stays in the water if it dose not it will restart the timer. 
@@ -351,7 +361,7 @@ namespace Europa
         /// <returns></returns>
         private IEnumerator LineCastCoroutine()
         {
-            _lure.lure_RB.AddForce(_rod.rod_EndForceDirection.Value * _rod.rod_EndCurrentSpeed.Value * _lure.lure_CastingForceMultiplier);
+            _lure.lure_RB.AddForce(_rod.rod_EndForceDirection.Value * _rod.rod_EndCurrentSpeed.Value * _lure.lure_CastingForceMultiplier.Value);
 
             _lure.lure_CurrentCastResetTime.Value = 0;  //sets the value to 0 so this function is self resetting
 
@@ -359,17 +369,20 @@ namespace Europa
 
             while (fishingMiniGameState == MiniGameState.LureCast)  // Keeps looping while the lure has been casted and has not hit the water
             {
-                _lure.lure_CurrentCastResetTime.Value += Time.deltaTime;  // Adds to CurrentCastResetTime timer every frame
+                print("In Casting Loop");
+                _lure.lure_CurrentCastResetTime.Value += Time.fixedDeltaTime;  // Adds to CurrentCastResetTime timer every frame
 
                 if (_lure.lure_CurrentCastResetTime.Value >= _lure.lure_CastResetTime) // check to see if the CurrentCastResetTime has exceeded the CastResetTime and if so will return the lure to the rod
                 {
+                    Debug.Log("Lure Has Been Cast for more then 4 seconds without hitting the water, Returning Lure To rod");
                     OnLureReturnToRod();
                     StopCoroutine(lineCastCorutine);
                 }
 
 
-                yield return new WaitForEndOfFrame();
+                yield return new WaitForFixedUpdate();
             }
+            StopCoroutine(lineCastCorutine);
         }
 
         /// <summary>
@@ -379,8 +392,8 @@ namespace Europa
         private IEnumerator LureHitWaterCoroutine()
         {
             _lure.lure_InWaterTime.Value = 0;  // sets the value back to 0 so this function is self resetting
-            _lure.lure_CurrentMaxDistance = _lure.lure_CurrentDistance;
-            _lure.lure_LureStartingDistance = _lure.lure_CurrentDistance;
+            _lure.lure_CurrentMaxDistance.Value = _lure.lure_CurrentDistance.Value;
+            _lure.lure_LureStartingDistance.Value = _lure.lure_CurrentDistance.Value;
 
             while (fishingMiniGameState == MiniGameState.LureHitWater)  // Keeps looping while the lure is in the state of hit water. 
             {
@@ -446,7 +459,7 @@ namespace Europa
                 {
 
                     HybirdReachedNavPointTimeout += Time.deltaTime;
-                    yield return new WaitForEndOfFrame();
+                    yield return new WaitForFixedUpdate();
                 }
 
                 if (hybridsReachedLure.Count != 0)
@@ -507,8 +520,10 @@ namespace Europa
         {
             while (fishingMiniGameState == MiniGameState.LureReturn)
             {
-                _lure.lure_CurrentMaxDistance.Value = Mathf.Lerp(_lure.lure_CurrentMaxDistance.Value, 0, _lure.lure_ReturnSpeed * Time.deltaTime);
-                yield return new WaitForEndOfFrame();
+                Debug.Log("Looping form Lerp to lure");
+                // Debug.Log($"Returning to Lure {_lure.lure_CurrentDistance.Value}");
+                _lure.lure_CurrentMaxDistance.Value = Mathf.Lerp(_lure.lure_CurrentMaxDistance.Value, 0, _lure.lure_ReturnSpeed.Value * Time.fixedDeltaTime);
+                yield return new WaitForFixedUpdate();
             }
 
         }
@@ -810,6 +825,7 @@ namespace Europa
         /// <param name="newValue"></param>
         private void UpdateLureDistance(float newValue)
         {
+            Debug.Log("Lure Length updated");
             if (newValue <= _lure.lure_ResetDistance.Value && fishingMiniGameState == MiniGameState.HybridTied)
             {
                 OnHybridCaught();
@@ -819,11 +835,12 @@ namespace Europa
                 OnLureReturnToRod();
             }
 
-            if (fishingMiniGameState == MiniGameState.LureCast || fishingMiniGameState == MiniGameState.LureHitWater || fishingMiniGameState == MiniGameState.HybridTied)
+            if (fishingMiniGameState == MiniGameState.LureCast || fishingMiniGameState == MiniGameState.LureHitWater || fishingMiniGameState == MiniGameState.HybridTied || fishingMiniGameState == MiniGameState.LureReturn)
             {
                 // Check if the current distance exceeds the allowed max distance
                 if (_lure.lure_CurrentDistance.Value > _lure.lure_CurrentMaxDistance.Value)
                 {
+                    Debug.Log("Adding Force to the lure");
                     // Calculate how much the current distance exceeds the max allowed distance
                     float excessDistance = _lure.lure_CurrentDistance.Value - _lure.lure_CurrentMaxDistance.Value;
 
@@ -845,6 +862,7 @@ namespace Europa
 
         private void OnLureEnterWater()
         {
+            print("On water Enter Event Heard");
             OnLureHitWater();
             _lure.lure_InWater.Value = true;
         }

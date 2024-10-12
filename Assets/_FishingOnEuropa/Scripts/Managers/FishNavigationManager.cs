@@ -508,7 +508,7 @@ namespace Europa
                             // Create a new position with the updated y value from navigationData
                             _hybrid.europaItemData.itemGO.transform.position = new Vector3(currentPosition.x, _hybrid.navigationData.waterHeight, currentPosition.z);
 
-                            print("Help im Out of water");
+                            //print("Help im Out of water");
                         }
 
                         if (UnityEngine.Random.Range(0, rayCastCheckChance) < 1 && hybridsSwimming.Count > 1)
