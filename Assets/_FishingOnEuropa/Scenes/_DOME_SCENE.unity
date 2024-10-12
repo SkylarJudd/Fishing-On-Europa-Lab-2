@@ -8050,6 +8050,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: LakesAndRiversScene
       objectReference: {fileID: 0}
+    - target: {fileID: 7515463737225351397, guid: f680af2b9d0ed4006be2e7778f465b4d,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7515463737225351398, guid: f680af2b9d0ed4006be2e7778f465b4d,
         type: 3}
       propertyPath: m_RootOrder

@@ -7,7 +7,6 @@
 using Crest.Internal;
 using UnityEngine;
 
-
 namespace Crest
 {
     /// <summary>

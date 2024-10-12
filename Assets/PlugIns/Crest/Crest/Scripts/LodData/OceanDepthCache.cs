@@ -826,19 +826,7 @@ namespace Crest
             var isBroken = RenderPipelineHelper.IsUniversal;
 
 #if UNITY_2022_3_OR_NEWER
-            string versionSubstring = Application.unityVersion.Substring(7, 2);
-            int parsedVersion;
-
-            if (int.TryParse(versionSubstring, out parsedVersion))
-            {
-                isBroken = parsedVersion < 23;
-            }
-            else
-            {
-                // Handle the case where parsing fails
-                Debug.LogWarning($"Failed to parse Unity version from: {Application.unityVersion}");
-                isBroken = false;  // Or set an appropriate default value
-            }
+            isBroken = int.Parse(Application.unityVersion.Substring(7, 2)) < 23;
 #endif
             if (isBroken)
             {

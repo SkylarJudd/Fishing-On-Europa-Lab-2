@@ -271,7 +271,7 @@ Shader "Crest/Ocean URP"
 			#include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
 			#include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Lighting.hlsl"
 #if UNITY_VERSION >= 202230
-			//#include_with_pragmas "Packages/com.unity.render-pipelines.core/ShaderLibrary/FoveatedRenderingKeywords.hlsl"
+			#include_with_pragmas "Packages/com.unity.render-pipelines.core/ShaderLibrary/FoveatedRenderingKeywords.hlsl"
 #endif
 
 			// @Hack: Work around to unity_CameraToWorld._13_23_33 not being set correctly in URP 7.4+
