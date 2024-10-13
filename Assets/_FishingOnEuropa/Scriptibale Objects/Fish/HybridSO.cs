@@ -20,7 +20,7 @@ namespace Europa
 
         [Header("Fishing MiniGame")]
         public float damageToRod;
-        public int catchChance;
+        public float catchChance;
         public int restMinTime, restMaxTime;
         public float stamina;
 

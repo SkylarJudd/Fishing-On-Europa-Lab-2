@@ -43,15 +43,14 @@ namespace Europa
             // Call the base class's FixedUpdate to maintain the existing functionality
             base.FixedUpdate();
 
-            // Check if the state of _inWater has changed from false to true
-            if (!_previousInWaterState && _inWater)
+            // Check if the object has just entered the water
+            if (_inWater && !_previousInWaterState)
             {
-                // Call OnEnterWater when the object enters the water
                 OnEnterWater();
             }
-            else if (_previousInWaterState && !_inWater)
+            // Check if the object has just exited the water
+            else if (!_inWater && _previousInWaterState)
             {
-                //call the OnExitWater when the object exits the water
                 OnExitWater();
             }
 

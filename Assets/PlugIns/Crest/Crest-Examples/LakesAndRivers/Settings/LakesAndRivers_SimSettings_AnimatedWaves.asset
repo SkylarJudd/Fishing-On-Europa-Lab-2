@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: LakesAndRivers_SimSettings_AnimatedWaves
   m_EditorClassIdentifier: 
   _version: 0
-  _waveResolutionMultiplier: 3
-  _attenuationInShallows: 0.5
-  _shallowsMaxDepth: 1000
+  _waveResolutionMultiplier: 3.136
+  _attenuationInShallows: 0.668
+  _shallowsMaxDepth: 881
   _collisionSource: 2
   _maxQueryCount: 4096
   _pingPongCombinePass: 1

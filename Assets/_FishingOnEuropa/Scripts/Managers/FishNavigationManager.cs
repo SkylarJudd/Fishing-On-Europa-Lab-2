@@ -689,6 +689,7 @@ namespace Europa
                     }
                     foreach (var hybrid in removeHybridSwimToLure)
                     {
+                        hybrid.navigationData.itemTarget = null;
                         hybridSwimToLure.Remove(hybrid);
                     }
                     removeHybridSwimToLure.Clear();
@@ -1063,7 +1064,6 @@ namespace Europa
                     hybridsSwimming.Add(_hybrid);
                     break;
                 case HybridState.HybridMiniGame_SwimToLure:
-                    print("SWIM");
                     hybridSwimToLure.Add(_hybrid);
                     break;
 
@@ -1185,6 +1185,7 @@ namespace Europa
         {
             _hybrid.navigationData.itemTarget = targetTransform;
             _hybrid.navigationData.hybridState = HybridState.HybridMiniGame_SwimToLure;
+            AddHybridTolist(_hybrid);
         }
 
     }

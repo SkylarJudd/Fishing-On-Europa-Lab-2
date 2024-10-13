@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a9978ce9c8bdc724896114c9952c52ea, type: 3}
-  m_Name: Lure_CastingForceMultiplier_Float
+  m_Name: Lure_AirDrag_Float
   m_EditorClassIdentifier: 
   TagIndex: 0
   Description: 
-  _guid: 0e272cc19f16d654d9d8825e356cef6e
+  _guid: 12af2f5e2cd0b1b4b87e0e2becaed63a
   _saveGuid: 0
-  _value: 800
+  _value: 1
   _debugLogEnabled: 0
   _saved: 0
   _defaultValue: 0

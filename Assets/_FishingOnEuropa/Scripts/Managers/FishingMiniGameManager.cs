@@ -3,9 +3,11 @@ using Obvious.Soap;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEditor.Rendering;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using static UnityEngine.Rendering.VolumeComponent;
 
 namespace Europa
 {
@@ -59,6 +61,12 @@ namespace Europa
         public FloatReference lure_LureRotationSpeed;  // The rotation speed of the lure during the mini game
         public FloatReference lure_LureStartingDistance;  // The rotation speed of the lure during the mini game
         public List<float> lure_MiniGameDistancePoints;
+
+        [Header("RB Drag")]
+        public FloatReference lure_AirDrag;
+        public FloatReference lure_AirRotationalDrag;
+        public FloatReference lure_WaterDrag;
+        public FloatReference lure_WaterRotationalDrag;
 
 
     }
@@ -148,6 +156,9 @@ namespace Europa
         private Coroutine startMiniGameCorutine;
         private Coroutine restingPeriodCoroutine;
         private Coroutine fightingPeriodCotoutine;
+        private Coroutine lerpLureToRodCotoutine;
+        private Coroutine hyrbidCatchRollCorutine;
+
 
         private Coroutine setHybridDirection;
 
@@ -183,13 +194,14 @@ namespace Europa
         private void SetupLure()
         {
             _lure.lure_RB = _lure.lure_Go.GetComponent<Rigidbody>();
+            SetRBDrag(_lure.lure_AirDrag.Value, _lure.lure_AirRotationalDrag.Value);
         }
 
         private void Update()
         {
 
             if (fishingMiniGameState == MiniGameState.LureWindrawn) UpdateLureWithdrawnPosition(); // Updated the lures position so its attached to the rod
-           
+
 
         }
 
@@ -274,6 +286,10 @@ namespace Europa
             if (fishingMiniGameState == MiniGameState.LureWindrawn)
             {
                 updateMiniGameState(MiniGameState.LureCast);
+
+                if (lineCastCorutine != null)
+                    StopCoroutine(lineCastCorutine);
+
                 lineCastCorutine = StartCoroutine(LineCastCoroutine());
                 // Start a timer, if the lure dose not enter the water in a set amount of time, it will return. 
             }
@@ -285,6 +301,10 @@ namespace Europa
             {
                 print("Lure Has hit the water");
                 updateMiniGameState(MiniGameState.LureHitWater);
+
+                if (lureHitWaterCoroutine != null)
+                    StopCoroutine(lureHitWaterCoroutine);
+
                 lureHitWaterCoroutine = StartCoroutine(LureHitWaterCoroutine());
                 // Will start a timer to make sure the lure stays in the water if it dose not it will restart the timer. 
             }
@@ -293,7 +313,11 @@ namespace Europa
         {
             updateMiniGameState(MiniGameState.LureReturn);
             // Starts a coroutine reducing the current max distance until the lure arrives back to the rod. 
-            StartCoroutine(LerpLureToRod());
+
+            if (lerpLureToRodCotoutine != null)
+                StopCoroutine(lerpLureToRodCotoutine);
+
+            lerpLureToRodCotoutine = StartCoroutine(LerpLureToRod());
 
         }
         public void OnLureArriveAtRod()
@@ -304,19 +328,23 @@ namespace Europa
         public void OnStartMiniGame()
         {
             updateMiniGameState(MiniGameState.StartMiniGame);
+            Debug.Log("Start Mini Game");
             startMiniGameCorutine = StartCoroutine(StartMiniGameCoroutine());
             // Will cause the 5 closest hybrids to swim towards the lure and wait for them to send a message saying they have arrived
         }
         public void OnHybridsArrived()
         {
+            Debug.Log("All Hybrids have arrived");
             updateMiniGameState(MiniGameState.RollForHybridCatch);
+
+            hyrbidCatchRollCorutine = StartCoroutine(HyrbidCatchRoll());
             // Once all the hybrids have arrived it Will start a Coroutine that will visually show each of the hybrids taking a bite of the bait in ascending order based on rarity. 
         }
         public void OnHybridAssignedToCatch()
         {
 
-            updateMiniGameState(MiniGameState.NonCaughtsReturnToSwim);
-            OnHybridFighting();
+            //updateMiniGameState(MiniGameState.NonCaughtsReturnToSwim);
+            //OnHybridFighting();
             // Once a hybrid has been assigned, It will loop through the rest of the hybrids and return them to swimming, and set the caught hybrid to pulling
         }
         public void OnHybridTried()
@@ -376,13 +404,13 @@ namespace Europa
                 {
                     Debug.Log("Lure Has Been Cast for more then 4 seconds without hitting the water, Returning Lure To rod");
                     OnLureReturnToRod();
-                    StopCoroutine(lineCastCorutine);
+                    yield break;
                 }
 
 
                 yield return new WaitForFixedUpdate();
             }
-            StopCoroutine(lineCastCorutine);
+
         }
 
         /// <summary>
@@ -399,24 +427,24 @@ namespace Europa
             {
                 if (_lure.lure_InWater == true)   // This will be set to true when the lure is in a water source
                 {
-                    _lure.lure_InWaterTime.Value += Time.deltaTime;
+                    _lure.lure_InWaterTime.Value += Time.fixedDeltaTime;
                     if (_lure.lure_InWaterTime.Value >= _lure.lure_CastResetTime.Value)
                     {
                         OnStartMiniGame();
-                        StopCoroutine(lureHitWaterCoroutine);
+                        yield break;
                     }
                 }
                 else if (_lure.lure_InWater == false)  // This will be set to false when the lure is not in a water source
                 {
-                    _lure.lure_InWaterTime.Value -= Time.deltaTime;
+                    _lure.lure_InWaterTime.Value -= Time.fixedDeltaTime;
                     if (_lure.lure_InWaterTime.Value <= -_lure.lure_CastResetTime.Value)
                     {
                         OnLureReturnToRod();
-                        StopCoroutine(lureHitWaterCoroutine);
+                        yield break;
                     }
                 }
 
-                yield return new WaitForEndOfFrame();
+                yield return new WaitForFixedUpdate();
             }
         }
 
@@ -434,7 +462,7 @@ namespace Europa
             {
                 Debug.LogError($"No hybrids where found in the list, make sure hybrids have spawned before starting the mini game, if hybrids are spawned something has gone wrong");
                 OnLureReturnToRod();
-                StopCoroutine(startMiniGameCorutine);
+                yield break;
             }
             else
             {
@@ -455,9 +483,9 @@ namespace Europa
 
                 }
 
-                while (hybridsReachedLure.Count < _convertedHybridList.Count || HybirdReachedNavPointTimeout < _lure.lure_HybridToLureResetTime.Value)
+                while (hybridsReachedLure.Count <= _convertedHybridList.Count && HybirdReachedNavPointTimeout < _lure.lure_HybridToLureResetTime.Value)
                 {
-
+                    Debug.Log($"Waiting for Hybrids {hybridsReachedLure.Count} Have made it ");
                     HybirdReachedNavPointTimeout += Time.deltaTime;
                     yield return new WaitForFixedUpdate();
                 }
@@ -465,13 +493,13 @@ namespace Europa
                 if (hybridsReachedLure.Count != 0)
                 {
                     OnHybridsArrived();
-                    StopCoroutine(startMiniGameCorutine);
+                    yield break;
                 }
                 else
                 {
                     Debug.LogWarning($"was not able to find any hybrids, if there are hybrid spawned, then something is going very wrong");
                     OnLureReturnToRod();
-                    StopCoroutine(startMiniGameCorutine);
+                    yield break;
                 }
             }
         }
@@ -522,7 +550,15 @@ namespace Europa
             {
                 Debug.Log("Looping form Lerp to lure");
                 // Debug.Log($"Returning to Lure {_lure.lure_CurrentDistance.Value}");
-                _lure.lure_CurrentMaxDistance.Value = Mathf.Lerp(_lure.lure_CurrentMaxDistance.Value, 0, _lure.lure_ReturnSpeed.Value * Time.fixedDeltaTime);
+                if (_lure.lure_CurrentMaxDistance.Value < 0.1f)
+                {
+                    _lure.lure_CurrentMaxDistance.Value = 0;
+                }
+                else
+                {
+                    _lure.lure_CurrentMaxDistance.Value = Mathf.Lerp(_lure.lure_CurrentMaxDistance.Value, 0, _lure.lure_ReturnSpeed.Value * Time.fixedDeltaTime);
+                }
+
                 yield return new WaitForFixedUpdate();
             }
 
@@ -556,22 +592,23 @@ namespace Europa
         /// <returns></returns>
         private IEnumerator HyrbidCatchRoll()
         {
+            print("Catch Roll Started");
             // use the list of the hybrids attached to the lure to calculate the catch change of each of them. 
             CaculateCatchChanceList();
             // get a random number between 0 - 100
             int randomNumber = UnityEngine.Random.Range(1, 100);
+            Debug.Log($"Catch change =  {randomNumber.ToString()} ");
 
             // work out what hybrid will be caught based off this number
             float total = 0;
-            int hybridsToAnimate = 0;
             foreach (FOEItem_Hybrid _hybrid in hybridsReachedLure)
             {
                 total += _hybrid.navigationData.scaledCatchChance;
-                hybridsToAnimate++;
 
                 if (total > randomNumber)
                 {
                     _FNAVM.caughtHybrid = _hybrid;
+                    Debug.Log($"Caught Hybrid = {_hybrid.name}");
                     break;
                 }
             }
@@ -580,11 +617,28 @@ namespace Europa
 
             for (int i = 1; i < randomNumber; i++)
             {
+
+                if (index >= hybridsReachedLure.Count - 1)
+                {
+                    Debug.LogWarning("Index reached the end of the list. Breaking early.");
+                    break;  // Prevent out-of-bounds access.
+                }
+
                 if (i > total)
                 {
-                    //stop the animation the hybrid sussing out the lure for the current index
-                    //return the hybrid to swimming and reset its values
-                    ResetHybrid(hybridsReachedLure[index]);
+                    if( _FNAVM.caughtHybrid == hybridsReachedLure[index])
+                    {
+                        // Play Bite Animate for Hybrid
+                        print(" Hybrid Bites");
+                    }
+                    else
+                    {
+                        //stop the animation the hybrid sussing out the lure for the current index
+                        //return the hybrid to swimming and reset its values
+                        ResetHybrid(hybridsReachedLure[index]);
+                    }
+                    
+                    
 
                     index++;
                     total += hybridsReachedLure[index].navigationData.scaledCatchChance;
@@ -594,9 +648,12 @@ namespace Europa
                 yield return new WaitForSeconds(0.1f);
             }
 
-            for (int i = index + 1; i < hybridsReachedLure.Count; i++)
+            foreach (FOEItem_Hybrid _hybrid in hybridsReachedLure)
             {
-                ResetHybrid(hybridsReachedLure[i]);
+                if( _hybrid != _FNAVM.caughtHybrid )
+                {
+                    ResetHybrid(_hybrid);
+                }
             }
 
             OnHybridAssignedToCatch();
@@ -608,10 +665,15 @@ namespace Europa
         /// <param name="_Hybrid"></param>
         private void ResetHybrid(FOEItem_Hybrid _Hybrid)
         {
+            if(_Hybrid == _FNAVM.caughtHybrid)
+            {
+                print(" Lol you dog shit at code, why you doing this");
+            }
+            Debug.Log($"Reseting {_Hybrid.name}");
             _Hybrid.navigationData.scaledCatchChance = 0;
             _Hybrid.navigationData.arrivedAtLure = false;
             _Hybrid.navigationData.firstNav = true;
-            _Hybrid.navigationData.itemTarget = null;
+            //_Hybrid.navigationData.itemTarget = null;
 
             _FNAVM.removeHybrid(_Hybrid, false);
             _FNAVM.AddHybridTolist(_Hybrid, HybridState.HybridFlocking);
@@ -623,7 +685,7 @@ namespace Europa
         /// </summary>
         private void CaculateCatchChanceList()
         {
-            int total = 0;
+            float total = 0;
 
             foreach (FOEItem_Hybrid _hybrid in hybridsReachedLure)
             {
@@ -632,7 +694,8 @@ namespace Europa
 
             foreach (FOEItem_Hybrid _hybrid in hybridsReachedLure)
             {
-                _hybrid.navigationData.scaledCatchChance = (_hybrid.hybridSO.catchChance / total) * 100;
+                _hybrid.navigationData.scaledCatchChance = (_hybrid.hybridSO.catchChance / total) * 100f;
+                Debug.Log($" Hybrid {_hybrid.name} has a scaled catch chance of {_hybrid.navigationData.scaledCatchChance}");
             }
 
             hybridsReachedLure.Sort((x, y) => x.navigationData.scaledCatchChance.CompareTo(y.navigationData.scaledCatchChance));
@@ -711,8 +774,8 @@ namespace Europa
                         if (_rod.rod_fishingRodCurrentHP.Value <= 0)
                         {
                             OnHybridEscape();
-                            StopCoroutine(fightingPeriodCotoutine);
                             StopCoroutine(setHybridDirection);
+                            yield break;
                         }
                     }
 
@@ -804,6 +867,7 @@ namespace Europa
             else
             {
                 OnLureReturnToRod();
+
             }
 
         }
@@ -825,14 +889,21 @@ namespace Europa
         /// <param name="newValue"></param>
         private void UpdateLureDistance(float newValue)
         {
+            if (fishingMiniGameState == MiniGameState.LureCast)
+                return;
+
             Debug.Log("Lure Length updated");
             if (newValue <= _lure.lure_ResetDistance.Value && fishingMiniGameState == MiniGameState.HybridTied)
             {
                 OnHybridCaught();
             }
+            else if (newValue <= _lure.lure_ResetDistance.Value * 4 && fishingMiniGameState == MiniGameState.LureReturn)
+            {
+                OnLureArriveAtRod();
+            }
             else if (newValue <= _lure.lure_ResetDistance.Value)
             {
-                OnLureReturnToRod();
+                OnLureArriveAtRod();
             }
 
             if (fishingMiniGameState == MiniGameState.LureCast || fishingMiniGameState == MiniGameState.LureHitWater || fishingMiniGameState == MiniGameState.HybridTied || fishingMiniGameState == MiniGameState.LureReturn)
@@ -865,11 +936,23 @@ namespace Europa
             print("On water Enter Event Heard");
             OnLureHitWater();
             _lure.lure_InWater.Value = true;
+            
+             SetRBDrag(_lure.lure_WaterDrag.Value, _lure.lure_WaterRotationalDrag.Value);
+
         }
 
         private void OnLureExitWater()
         {
+            print("On water Exit Event Heard");
             _lure.lure_InWater.Value = false;
+            SetRBDrag(_lure.lure_AirDrag.Value, _lure.lure_AirRotationalDrag.Value);
+        }
+
+        private void SetRBDrag(float _drag, float _rotDrag)
+        {
+            _lure.lure_RB.drag = _drag;
+            _lure.lure_RB.angularDrag = _rotDrag;
+
         }
     }
 }

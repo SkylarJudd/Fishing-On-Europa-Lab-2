@@ -4,12 +4,9 @@ using UnityEngine;
 
 namespace Europa
 {
-    public class ReelCounter : MonoBehaviour
+    public class ReelCounter : GameBehaviour
     {
-        [SerializeField] private BoolReference fishingMiniGameActive;
-        [SerializeField] private BoolReference fishingRodCasted;
         [SerializeField] private FloatReference lureCurrentMaxDistance;
-        [SerializeField] private FloatReference lureMaxDistance;
 
 
         [SerializeField] private float convertFromDegToDisScale = 0.1f;  // Scale to convert degrees to distance
@@ -29,7 +26,7 @@ namespace Europa
         private void Update()
         {
             // Check to see if the line has been cast and the mini-game is not running
-            if (!fishingMiniGameActive.Value && fishingRodCasted.Value && handOnReel)
+            if (handOnReel && ( _FMGM.fishingMiniGameState == MiniGameState.LureHitWater || _FMGM.fishingMiniGameState == MiniGameState.HybridTied))
             {
                 UpdateLineMaxDistance();
             }
