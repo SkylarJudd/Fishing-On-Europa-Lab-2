@@ -1,5 +1,8 @@
 {
   "dependencies": {
+    "com.gitamend.improvedtimers": "git+https://github.com/adammyhre/Unity-Improved-Timers.git",
+    "com.gitamend.unityutils": "git+https://github.com/adammyhre/Unity-Utils.git",
+    "com.kylewbanks.scenerefattribute": "git+https://github.com/KyleBanks/scene-ref-attribute.git",
     "com.unity.cinemachine": "2.10.1",
     "com.unity.collab-proxy": "2.5.2",
     "com.unity.feature.worldbuilding": "1.0.1",

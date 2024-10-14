@@ -7,6 +7,27 @@
       "dependencies": {},
       "url": "https://packages.unity.com"
     },
+    "com.gitamend.improvedtimers": {
+      "version": "git+https://github.com/adammyhre/Unity-Improved-Timers.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "b0d6f2f39e83be3cc95f00c3baea6228af988cb6"
+    },
+    "com.gitamend.unityutils": {
+      "version": "git+https://github.com/adammyhre/Unity-Utils.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "891bd4e6323244bf8c99eeb727978e4fb387c04e"
+    },
+    "com.kylewbanks.scenerefattribute": {
+      "version": "git+https://github.com/KyleBanks/scene-ref-attribute.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "b871efe4ded8ec9ff9de31c4c272fe5860e6549c"
+    },
     "com.unity.burst": {
       "version": "1.8.18",
       "depth": 1,
