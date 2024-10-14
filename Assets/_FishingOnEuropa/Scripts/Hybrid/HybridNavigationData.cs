@@ -15,6 +15,7 @@ namespace Europa
 
         HybridMiniGame_SwimToLure,
         HybridWaitForMiniGame,
+        HybirdSwimAroundLure,
         HybridMiniGame_Pulling,
         HybridMiniGame_Tired,
         HybridMiniGame_Caught,
@@ -57,6 +58,8 @@ namespace Europa
         public float hybridRestTime;
         public float currentHybridStamina;
         public float scaledCatchChance;
+        public float orbitDistance;
+        public bool orbitDirection;
 
 
 

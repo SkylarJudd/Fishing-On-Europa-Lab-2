@@ -668,23 +668,34 @@ namespace Europa
 
                         //MoveTheHybrid Towards the lure Target
                         if (_hybrid.navigationData.hybridState == HybridState.HybridMiniGame_SwimToLure)  //checks to see if the hybrid needs to be moved closer to the lure or not
+                        {
                             RotateAndMoveHybridTowards(_hybrid);
 
-                        //Check if the Hybrid Has reached that target
+                            //Check if the Hybrid Has reached that target
 
-                        float distanceToTarget = Vector3.Distance(_hybrid.europaItemData.itemGO.transform.position, _hybrid.navigationData.itemTarget.position);  //gets the current distance the hybrid is from the lure
-                        if (distanceToTarget <= distanceToLureThreshold && _hybrid.navigationData.arrivedAtLure == false)  // if the hybrid is less then the threshold the hybrid will enter an idle state
-                        {
-                            _hybrid.navigationData.hybridState = HybridState.HybridIdle;  // sets the hybrids state to idle so it stops swimming once close enough
-                            _hybrid.navigationData.arrivedAtLure = true;  // sets arrived at lure to true, so it can be used by the above if statement to only call the add to list function once. 
-                            _FMGM.hybridsReachedLure.Add(_hybrid);  // adds the hybrid from the arrived at lure list
+                            float distanceToTarget = Vector3.Distance(_hybrid.europaItemData.itemGO.transform.position, _hybrid.navigationData.itemTarget.position);  //gets the current distance the hybrid is from the lure
+                            if (distanceToTarget <= distanceToLureThreshold && _hybrid.navigationData.arrivedAtLure == false)  // if the hybrid is less then the threshold the hybrid will enter an idle state
+                            {
+                                _hybrid.navigationData.hybridState = HybridState.HybridIdle;  // sets the hybrids state to idle so it stops swimming once close enough
+                                _hybrid.navigationData.arrivedAtLure = true;  // sets arrived at lure to true, so it can be used by the above if statement to only call the add to list function once. 
+                                _FMGM.hybridsReachedLure.Add(_hybrid);  // adds the hybrid from the arrived at lure list
+                            }
+                            else if (distanceToTarget > distanceToLureThreshold && _hybrid.navigationData.arrivedAtLure == true)  // if the hybrid if further away then the lure it will swim towards it. 
+                            {
+                                _hybrid.navigationData.hybridState = HybridState.HybridMiniGame_SwimToLure;
+                                _hybrid.navigationData.arrivedAtLure = false; // sets arrived at lure to false, so it can be used by the above if statement to only call the remove from list function once. 
+                                if (_FMGM.fishingMiniGameState == MiniGameState.StartMiniGame)
+                                    _FMGM.hybridsReachedLure.Remove(_hybrid);  // removes the hybrid from the arrived at lure list
+                            }
                         }
-                        else if (distanceToTarget > distanceToLureThreshold && _hybrid.navigationData.arrivedAtLure == true)  // if the hybrid if further away then the lure it will swim towards it. 
+                        else if (_hybrid.navigationData.hybridState == HybridState.HybirdSwimAroundLure)
                         {
-                            _hybrid.navigationData.hybridState = HybridState.HybridMiniGame_SwimToLure;
-                            _hybrid.navigationData.arrivedAtLure = false; // sets arrived at lure to false, so it can be used by the above if statement to only call the remove from list function once. 
-                            _FMGM.hybridsReachedLure.Remove(_hybrid);  // removes the hybrid from the arrived at lure list
+                            print("Bitch we spinning!");
+                            HybridRotateAround(_hybrid);
                         }
+
+
+
 
                     }
                     foreach (var hybrid in removeHybridSwimToLure)
@@ -948,6 +959,55 @@ namespace Europa
 
             // Move towards the target
             _hybrid.europaItemData.itemGO.transform.position = Vector3.Lerp(_hybrid.europaItemData.itemGO.transform.position, _targetPos, Time.deltaTime * _hybrid.navigationData.maxSpeed);
+        }
+
+        /// <summary>
+        /// Makes the hybrid swim around its assigned target, moving closer if it's too far,
+        /// while rotating around the target smoothly.
+        /// </summary>
+        /// <param name="_hybrid">The hybrid to control.</param>
+        private void HybridRotateAround(FOEItem_Hybrid _hybrid)
+        {
+            // Get the target position and current position
+            Vector3 targetPos = _hybrid.navigationData.itemTarget.position;
+            Vector3 currentPos = _hybrid.europaItemData.itemGO.transform.position;
+
+            // Calculate the direction and distance to the target
+            Vector3 directionToTarget = targetPos - currentPos;
+            float distanceToTarget = directionToTarget.magnitude;
+
+            // Move towards the target if too far
+            Vector3 movePos = currentPos;
+            if (distanceToTarget > _hybrid.navigationData.orbitDistance) // Move closer if beyond orbit distance
+            {
+                Vector3 moveDirection = directionToTarget.normalized;
+                movePos = Vector3.Lerp(currentPos, targetPos, Time.deltaTime * _hybrid.navigationData.maxSpeed);
+            }
+
+            // Rotate around the target while moving
+            float orbitSpeed = _hybrid.hybridSO.rotationSpeed * 20 * Time.deltaTime;
+            Quaternion orbitRotation = Quaternion.Euler(0, orbitSpeed, 0);
+
+            // Calculate the new position by rotating the current position around the target
+            Vector3 offset = movePos - targetPos;
+            offset = orbitRotation * offset;
+            Vector3 newPos = targetPos + offset;
+
+            // Move the hybrid to the new position
+            _hybrid.europaItemData.itemGO.transform.position = newPos;
+
+            // Calculate travel direction for rotation
+            Vector3 travelDirection = (newPos - currentPos).normalized;
+            if (travelDirection != Vector3.zero) // Ensure non-zero direction
+            {
+                // Rotate the hybrid to face the direction it's traveling
+                Quaternion targetRotation = Quaternion.LookRotation(travelDirection);
+                _hybrid.europaItemData.itemGO.transform.rotation = Quaternion.Lerp(
+                    _hybrid.europaItemData.itemGO.transform.rotation,
+                    targetRotation,
+                    _hybrid.hybridSO.rotationSpeed * Time.deltaTime
+                );
+            }
         }
 
 

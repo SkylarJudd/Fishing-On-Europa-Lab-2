@@ -146,6 +146,11 @@ namespace Europa
         [SerializeField] private float resetLureTimeOut = 2f;
         [SerializeField] private float resetLurecurrentTime = 0;
 
+        [SerializeField] private FloatReference currentMiniGameRNGCount;
+        [SerializeField] private ScriptableEventBool miniGameLureUIActive;
+
+
+
 
 
 
@@ -599,6 +604,8 @@ namespace Europa
             int randomNumber = UnityEngine.Random.Range(1, 100);
             Debug.Log($"Catch change =  {randomNumber.ToString()} ");
 
+            randomNumber = 99;
+
             // work out what hybrid will be caught based off this number
             float total = 0;
             foreach (FOEItem_Hybrid _hybrid in hybridsReachedLure)
@@ -612,10 +619,13 @@ namespace Europa
                     break;
                 }
             }
-            total = hybridsReachedLure[0].navigationData.scaledCatchChance;
-            int index = 0;
 
-            for (int i = 1; i < randomNumber; i++)
+            int index = 0;
+            total = hybridsReachedLure[index].navigationData.scaledCatchChance;
+            hybridsReachedLure[index].navigationData.orbitDistance = 0.3f;
+            miniGameLureUIActive.Raise(true);
+
+            for (currentMiniGameRNGCount.Value = 1; currentMiniGameRNGCount.Value < randomNumber; currentMiniGameRNGCount.Value++)
             {
 
                 if (index >= hybridsReachedLure.Count - 1)
@@ -624,29 +634,38 @@ namespace Europa
                     break;  // Prevent out-of-bounds access.
                 }
 
-                if (i > total)
+                if (currentMiniGameRNGCount.Value > total)
                 {
                     if( _FNAVM.caughtHybrid == hybridsReachedLure[index])
                     {
                         // Play Bite Animate for Hybrid
                         print(" Hybrid Bites");
+                        
                     }
                     else
                     {
                         //stop the animation the hybrid sussing out the lure for the current index
                         //return the hybrid to swimming and reset its values
                         ResetHybrid(hybridsReachedLure[index]);
+                        _lure.lure_RB.AddForce(Vector3.down * 10f, ForceMode.Impulse);
                     }
-                    
-                    
+
+
 
                     index++;
+                    hybridsReachedLure[index].navigationData.orbitDistance = 0.2f;
                     total += hybridsReachedLure[index].navigationData.scaledCatchChance;
                 }
 
                 // animate the current index hybrid to look like its sussing out the  lure
                 yield return new WaitForSeconds(0.1f);
             }
+
+            _lure.lure_RB.AddForce(Vector3.down * 20f, ForceMode.Impulse);
+
+            //TODO Play test this, if the game need a snagging mechanics to catch they hybrid add this here. Start a coroutine and check if the player pulls back on the fishing rod, 
+
+            miniGameLureUIActive.Raise(false);
 
             foreach (FOEItem_Hybrid _hybrid in hybridsReachedLure)
             {
@@ -690,6 +709,9 @@ namespace Europa
             foreach (FOEItem_Hybrid _hybrid in hybridsReachedLure)
             {
                 total += _hybrid.hybridSO.catchChance;
+                _hybrid.navigationData.hybridState = HybridState.HybirdSwimAroundLure;
+                _hybrid.navigationData.orbitDirection = UnityEngine.Random.Range(0, 2) == 0;
+                _hybrid.navigationData.orbitDistance = 1f;
             }
 
             foreach (FOEItem_Hybrid _hybrid in hybridsReachedLure)
@@ -698,7 +720,7 @@ namespace Europa
                 Debug.Log($" Hybrid {_hybrid.name} has a scaled catch chance of {_hybrid.navigationData.scaledCatchChance}");
             }
 
-            hybridsReachedLure.Sort((x, y) => x.navigationData.scaledCatchChance.CompareTo(y.navigationData.scaledCatchChance));
+            hybridsReachedLure.Sort((y, x) => x.navigationData.scaledCatchChance.CompareTo(y.navigationData.scaledCatchChance));
         }
 
         /// <summary>
