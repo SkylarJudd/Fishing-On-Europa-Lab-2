@@ -398,6 +398,9 @@ namespace Europa
                             hybridsHitWater.Add(_hybrid);
                             //hybridsFlying.RemoveAt(i);
                             removeHybridsFlying.Add(_hybrid);
+
+                            Transform spawnTranform = _hybrid.europaItemData.itemGO.transform;
+                            _VFXM.PlayVFX(FOEVFXClass.Water, FOEVFX.W_Splash1, spawnTranform, Quaternion.identity, false);
                         }
                     }
 

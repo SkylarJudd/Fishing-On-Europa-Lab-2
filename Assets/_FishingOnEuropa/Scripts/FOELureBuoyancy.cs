@@ -47,6 +47,7 @@ namespace Europa
             if (_inWater && !_previousInWaterState)
             {
                 OnEnterWater();
+                
             }
             // Check if the object has just exited the water
             else if (!_inWater && _previousInWaterState)

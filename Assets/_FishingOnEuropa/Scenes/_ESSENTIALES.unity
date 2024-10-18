@@ -5611,7 +5611,8 @@ MonoBehaviour:
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_fontSharedMaterials: []
+  m_fontSharedMaterials:
+  - {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
@@ -5805,7 +5806,8 @@ MonoBehaviour:
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_fontSharedMaterials: []
+  m_fontSharedMaterials:
+  - {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
@@ -6060,7 +6062,8 @@ MonoBehaviour:
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_fontSharedMaterials: []
+  m_fontSharedMaterials:
+  - {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
@@ -7230,7 +7233,7 @@ PrefabInstance:
     - target: {fileID: 8665237637937771944, guid: c95ff7b86b430394b8c1ef8601c75db6,
         type: 3}
       propertyPath: fOEVFX_MiniGame.fOE_MiniGameParticles.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8665237637937771944, guid: c95ff7b86b430394b8c1ef8601c75db6,
         type: 3}
@@ -7344,6 +7347,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8665237637937771944, guid: c95ff7b86b430394b8c1ef8601c75db6,
         type: 3}
+      propertyPath: fOEVFX_MiniGame.fOE_MiniGameParticles.Array.data[1].FOEVFX
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8665237637937771944, guid: c95ff7b86b430394b8c1ef8601c75db6,
+        type: 3}
       propertyPath: fOEVFX_Other.fOE_OtherParticles.Array.data[0].ParticleSystem
       value: 
       objectReference: {fileID: 4938095755617958530, guid: 2e79f16be10fbd14f8d5ef191f8db4aa,
@@ -7406,7 +7414,7 @@ PrefabInstance:
         type: 3}
       propertyPath: fOEVFX_Water.fOE_WaterParticles.Array.data[0].ParticleSystem
       value: 
-      objectReference: {fileID: 6532625474870085668, guid: 07a977963523b3b4dbcaa27119f6b469,
+      objectReference: {fileID: 8765008237907035935, guid: ee1c36be32b35c844beaaec7378d2ac4,
         type: 3}
     - target: {fileID: 8665237637937771944, guid: c95ff7b86b430394b8c1ef8601c75db6,
         type: 3}
@@ -7498,6 +7506,12 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 6532625474870085668, guid: 07a977963523b3b4dbcaa27119f6b469,
         type: 3}
+    - target: {fileID: 8665237637937771944, guid: c95ff7b86b430394b8c1ef8601c75db6,
+        type: 3}
+      propertyPath: fOEVFX_MiniGame.fOE_MiniGameParticles.Array.data[1].ParticleSystem
+      value: 
+      objectReference: {fileID: 15519141184830793, guid: a966ff7ca9ba43649bbf73addb10565d,
+        type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -7527,7 +7541,8 @@ MonoBehaviour:
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_fontSharedMaterials: []
+  m_fontSharedMaterials:
+  - {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:

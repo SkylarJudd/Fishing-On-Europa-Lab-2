@@ -13,27 +13,30 @@ namespace Europa
     public enum FOEVFX
     {
         //Water
-        Splash1,
+        W_Splash1,
 
         //Player
 
 
         //MiniGame
-
+        MG_Catch,
 
         //Hybrid
 
 
         //Other
-        Confetti1, Confetti2,
-        Area1, Area2, Area3, Area4, Area5,
-        Dust1,
-        Flash1, Flash2, Flash3, Flash4, Flash5, Flash6, Flash7, Flash8,
-        Shine1, Shine2, Shine3,
-        Sparkle1,
-        Water1, Water2
+        O_Confetti1, O_Confetti2,
+        O_Area1, O_Area2, O_Area3, O_Area4, O_Area5,
+        O_Dust1,
+        O_Flash1, O_Flash2, O_Flash3, O_Flash4, O_Flash5, O_Flash6, O_Flash7, O_Flash8,
+        O_Shine1, O_Shine2, O_Shine3,
+        O_Sparkle1,
+        O_Water1, O_Water2
 
     }
+
+   
+
     [Serializable]
     public class FOE_Particle
     {
@@ -164,6 +167,25 @@ namespace Europa
             StartCoroutine(StopParticleAfterTime(_particle, _exitTime));
         }
 
+        // Overload with exit time to handle looping animations.
+        public void PlayVFX(FOEVFXClass _VFXGroup, FOEVFX _VFX, Transform _position, Quaternion _customRotation, bool _parent)
+        {
+
+            bool check;
+            ParticleSystem _particle;
+
+            (_particle, check) = SpawnVFXErrorCheck(_VFXGroup, _VFX);
+
+            if (!check)
+                return;
+
+            _particle = GetParticleSystem(_particle, _position, _customRotation, _parent);
+
+            PlayVFX(_particle);
+
+            
+        }
+
         private void PlayVFX(ParticleSystem _PS)
         {
             _PS.gameObject.AddComponent<ParticleAutoReturn>().Init(_PS, ReturnToPool);
@@ -174,7 +196,7 @@ namespace Europa
             playedParticles.Add(_PS);
         }
 
-        private ParticleSystem GetParticleSystem(ParticleSystem _PS , Transform _position, bool _parent)
+        private ParticleSystem GetParticleSystem(ParticleSystem _PS, Transform _position, bool _parent)
         {
             GameObject particleGO = _OPM.SpawnObject(_PS.gameObject, _position.position, _position.rotation, PoolType.Particales);
             ParticleSystem particleSpawened = particleGO.GetComponent<ParticleSystem>();
@@ -184,6 +206,18 @@ namespace Europa
 
             return particleSpawened;
         }
+
+        private ParticleSystem GetParticleSystem(ParticleSystem _PS, Transform _position , Quaternion _rotation, bool _parent)
+        {
+            GameObject particleGO = _OPM.SpawnObject(_PS.gameObject, _position.position, _rotation, PoolType.Particales);
+            ParticleSystem particleSpawened = particleGO.GetComponent<ParticleSystem>();
+
+            if (_parent)
+                particleGO.transform.parent = _position;
+
+            return particleSpawened;
+        }
+
 
         private (ParticleSystem, bool) SpawnVFXErrorCheck(FOEVFXClass _VFXGroup, FOEVFX _VFX)
         {

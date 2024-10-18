@@ -958,8 +958,9 @@ namespace Europa
             print("On water Enter Event Heard");
             OnLureHitWater();
             _lure.lure_InWater.Value = true;
-            
-             SetRBDrag(_lure.lure_WaterDrag.Value, _lure.lure_WaterRotationalDrag.Value);
+
+            SetRBDrag(_lure.lure_WaterDrag.Value, _lure.lure_WaterRotationalDrag.Value);
+            _VFXM.PlayVFX(FOEVFXClass.Water, FOEVFX.W_Splash1, _lure.lure_Go.transform, false);
 
         }
 

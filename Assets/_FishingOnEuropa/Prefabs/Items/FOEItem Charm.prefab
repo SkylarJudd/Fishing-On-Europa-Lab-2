@@ -61,7 +61,7 @@ PrefabInstance:
     - target: {fileID: 8910402524323637192, guid: 43fb700f02b00b046b82d8ecda0ba12e,
         type: 3}
       propertyPath: m_Name
-      value: FOEItem
+      value: FOEItem Charm
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
