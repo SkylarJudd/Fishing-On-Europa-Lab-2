@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7204413666018029058}
   - component: {fileID: 5911518260582333399}
-  - component: {fileID: 2334015209020133010}
+  - component: {fileID: 994638007232903761}
   m_Layer: 0
   m_Name: FishingMiniGameManager
   m_TagString: Untagged
@@ -45,68 +45,198 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aea96e125abd5a6448ed64bb42f82b13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bobberRange: 5
-  minBobberReelDistance: 0
-  bobberGameObject: {fileID: 0}
-  bobberTipGO: {fileID: 0}
-  startingBobberAngle: 0
-  bobberState: 0
-  targetHybrid: {fileID: 0}
+  fishingMiniGameState: 0
+  _lure:
+    lure_Go: {fileID: 0}
+    lure_HybridAttachPoint: {fileID: 0}
+    lure_RB: {fileID: 0}
+    lure_EndPointTransform:
+      UseLocal: 0
+      LocalValue: {x: 0, y: 0, z: 0}
+      Variable: {fileID: 11400000, guid: 47cf46d5e2582cd4088ab8caec2598c6, type: 2}
+    lure_CurrentDistance:
+      UseLocal: 0
+      LocalValue: 0
+      Variable: {fileID: 11400000, guid: f2f515a27d0f6034a9a91b8f1c18ad48, type: 2}
+    lure_CurrentMaxDistance:
+      UseLocal: 0
+      LocalValue: 0
+      Variable: {fileID: 11400000, guid: fdc709a0982218446a8e212cf5a10b14, type: 2}
+    lure_MaxDistanceFromRod:
+      UseLocal: 0
+      LocalValue: 0
+      Variable: {fileID: 11400000, guid: 11c73aab1e4b6b645ae3c6335c7ddfc6, type: 2}
+    lure_CastingForceMultiplier:
+      UseLocal: 0
+      LocalValue: 0
+      Variable: {fileID: 11400000, guid: 0e272cc19f16d654d9d8825e356cef6e, type: 2}
+    lure_MaxCastingForce:
+      UseLocal: 0
+      LocalValue: 0
+      Variable: {fileID: 11400000, guid: d71b73dd3ac99b044adcbd3775ee95e4, type: 2}
+    lure_ReelingForceMultiplier:
+      UseLocal: 0
+      LocalValue: 0
+      Variable: {fileID: 11400000, guid: 90e119ed55523cb4092465da3c5cfb0f, type: 2}
+    lure_MaxReelingForce:
+      UseLocal: 0
+      LocalValue: 0
+      Variable: {fileID: 11400000, guid: 599b87c569d40bc428cde5a21c742f28, type: 2}
+    lure_ResetDistance:
+      UseLocal: 0
+      LocalValue: 0
+      Variable: {fileID: 11400000, guid: d9d4072fd08ff744e89e6cd20c5c1352, type: 2}
+    lure_CurrentCastResetTime:
+      UseLocal: 0
+      LocalValue: 0
+      Variable: {fileID: 11400000, guid: 1e49d200804388e4991ff1208024ce1e, type: 2}
+    lure_CastResetTime:
+      UseLocal: 0
+      LocalValue: 0
+      Variable: {fileID: 11400000, guid: ef26d845a0377f2448a4541f397b8635, type: 2}
+    lure_HybridToLureResetTime:
+      UseLocal: 0
+      LocalValue: 0
+      Variable: {fileID: 11400000, guid: 3c6e59a727e11254f935a19f7d58827f, type: 2}
+    lure_ReturnSpeed:
+      UseLocal: 0
+      LocalValue: 0
+      Variable: {fileID: 11400000, guid: 9eb2e58a3e3f34d46bbbb127fe72cdc4, type: 2}
+    lure_InWater:
+      UseLocal: 0
+      LocalValue: 0
+      Variable: {fileID: 11400000, guid: e426bbf60f101ab4ab8b605590b97ce5, type: 2}
+    lure_InWaterTime:
+      UseLocal: 0
+      LocalValue: 0
+      Variable: {fileID: 11400000, guid: 54cbb7cc53ab3e544a3d1e34e5c8fd4e, type: 2}
+    lure_InWaterTimeOut:
+      UseLocal: 0
+      LocalValue: 0
+      Variable: {fileID: 11400000, guid: ad1ce6a28de0d1e44b898a89be127516, type: 2}
+    lure_EnterWaterEvent: {fileID: 11400000, guid: d81c4899543a5cc4a9e13f7c7f55aab0,
+      type: 2}
+    lure_ExitWaterEvent: {fileID: 11400000, guid: 13baa279cf5bc18409aa48086150091e,
+      type: 2}
+    lure_StartingAngle:
+      UseLocal: 0
+      LocalValue: 0
+      Variable: {fileID: 11400000, guid: 2fb6f7ea8bc7ca840a4a6ed2343aa55e, type: 2}
+    lure_MaxAngle:
+      UseLocal: 0
+      LocalValue: 0
+      Variable: {fileID: 11400000, guid: 58de459f7b171fd4fb5cad79b062fdb7, type: 2}
+    lure_LureRotationSpeed:
+      UseLocal: 0
+      LocalValue: 0
+      Variable: {fileID: 11400000, guid: 7bbb194f703213c47b5958fb40a268a6, type: 2}
+    lure_LureStartingDistance:
+      UseLocal: 0
+      LocalValue: 0
+      Variable: {fileID: 11400000, guid: 0710dc24480424447bc58c3067e33a13, type: 2}
+    lure_MiniGameDistancePoints: []
+    lure_AirDrag:
+      UseLocal: 0
+      LocalValue: 0
+      Variable: {fileID: 11400000, guid: 12af2f5e2cd0b1b4b87e0e2becaed63a, type: 2}
+    lure_AirRotationalDrag:
+      UseLocal: 0
+      LocalValue: 0
+      Variable: {fileID: 11400000, guid: e638c4e2caeddeb4e889071f6dcb3e4a, type: 2}
+    lure_WaterDrag:
+      UseLocal: 0
+      LocalValue: 0
+      Variable: {fileID: 11400000, guid: acdd158fee1d71b4489513e21f5a6143, type: 2}
+    lure_WaterRotationalDrag:
+      UseLocal: 0
+      LocalValue: 0
+      Variable: {fileID: 11400000, guid: eb011725769aa3a4182c533dd49e1cc7, type: 2}
+  _rod:
+    rod_EndPointTransform:
+      UseLocal: 0
+      LocalValue: {x: 0, y: 0, z: 0}
+      Variable: {fileID: 11400000, guid: ba3c0508229f1d440945d0987fe7357a, type: 2}
+    rod_EndForceDirection:
+      UseLocal: 0
+      LocalValue: {x: 0, y: 0, z: 0}
+      Variable: {fileID: 11400000, guid: 78bbc0e0df047af4d9322daffb8fcaf2, type: 2}
+    rod_EndCurrentSpeed:
+      UseLocal: 0
+      LocalValue: 0
+      Variable: {fileID: 11400000, guid: 180ac7e2200e3f544b8a62fc33538208, type: 2}
+    rod_CastSpeedRequired:
+      UseLocal: 0
+      LocalValue: 0
+      Variable: {fileID: 11400000, guid: 4610c72ae51fbab4686feec943ba2af9, type: 2}
+    rod_PlayerCastInput:
+      UseLocal: 0
+      LocalValue: 0
+      Variable: {fileID: 11400000, guid: d44e3034d276abc4899fd8aab8977f8a, type: 2}
+    rod_RodPullDirectionEnum: 0
+    rod_fishingRodCurrentHP:
+      UseLocal: 0
+      LocalValue: 0
+      Variable: {fileID: 11400000, guid: 293f387b5093d6549acce6b84355eaef, type: 2}
+    rod_fishingRodStartingHP:
+      UseLocal: 0
+      LocalValue: 0
+      Variable: {fileID: 11400000, guid: f0b2f69ba76b9524d9523e52a1c47a7a, type: 2}
+    rod_fishingEfficiency:
+      UseLocal: 0
+      LocalValue: 0
+      Variable: {fileID: 11400000, guid: 059d7f2f2a82c3f4390cbc5d0ef8c0d6, type: 2}
+    fightingMiniGameActive:
+      UseLocal: 0
+      LocalValue: 0
+      Variable: {fileID: 11400000, guid: 2481017e9ca835e43a89a61de4340fe7, type: 2}
+  _reel:
+    reel_CurrentReelRotation:
+      UseLocal: 0
+      LocalValue: 0
+      Variable: {fileID: 0}
+    reel_SmoothedReelRotation:
+      UseLocal: 0
+      LocalValue: 0
+      Variable: {fileID: 0}
+    reel_LastReelRotation:
+      UseLocal: 0
+      LocalValue: 0
+      Variable: {fileID: 0}
+    smoothingWindow:
+      UseLocal: 0
+      LocalValue: 0
+      Variable: {fileID: 0}
+    reel_PlayersHandOnReel:
+      UseLocal: 0
+      LocalValue: 0
+      Variable: {fileID: 0}
   fishMask:
     serializedVersion: 2
     m_Bits: 256
-  fishCollisionLayerMask:
-    serializedVersion: 2
-    m_Bits: 5242880
-  nearbyHybrids: []
-  trackingLureInFightSpeed: 0
-  handleVelocity: 0
-  minPullAngle: 0
-  rb_reelHandle: {fileID: 0}
-  fishingRodHP:
-    UseLocal: 0
-    LocalValue: 0
-    Variable: {fileID: 11400000, guid: 293f387b5093d6549acce6b84355eaef, type: 2}
-  fishingEfficency:
-    UseLocal: 0
-    LocalValue: 0
-    Variable: {fileID: 11400000, guid: 059d7f2f2a82c3f4390cbc5d0ef8c0d6, type: 2}
-  fishingRod: {fileID: 0}
-  LureCurrentDistance:
-    UseLocal: 0
-    LocalValue: 0
-    Variable: {fileID: 11400000, guid: f2f515a27d0f6034a9a91b8f1c18ad48, type: 2}
-  LureCurrentMaxDistance:
-    UseLocal: 0
-    LocalValue: 0
-    Variable: {fileID: 11400000, guid: fdc709a0982218446a8e212cf5a10b14, type: 2}
-  LureMaxDistanceFromRod:
-    UseLocal: 0
-    LocalValue: 0
-    Variable: {fileID: 11400000, guid: 11c73aab1e4b6b645ae3c6335c7ddfc6, type: 2}
-  Casted:
-    UseLocal: 0
-    LocalValue: 0
-    Variable: {fileID: 11400000, guid: 91164d818420917459bf868959a3a45e, type: 2}
-  fightingMiniGameActive:
-    UseLocal: 0
-    LocalValue: 0
-    Variable: {fileID: 11400000, guid: 9bba7ba87938df34bb9dbb2f49437b9d, type: 2}
-  rodPullDirection:
-    UseLocal: 0
-    LocalValue: 0
-    Variable: {fileID: 11400000, guid: b5c04773c2be83c4581588ca4d2aa2eb, type: 2}
   terrainLayerMask:
     serializedVersion: 2
     m_Bits: 5242880
-  hybridRestTime: 1
-  currentHybridStamina: 0
-  maxHybridStamina: 0
-  bobberRotationSpeedFighting: 20
-  maxAngle: 45
-  fishEncounterState: 0
-  currentPullDirection: 0
---- !u!114 &2334015209020133010
+  nearbyHybrids: []
+  miniGamePullDirection: 0
+  maxHybridsToFind: 5
+  hybridCurrentFightAttempts: 0
+  hybridMaxFightAttempts: 3
+  minHybridPullingDirectionTime: 5
+  maxHybridPullingDirectionTime: 10
+  lureRotationAxis: {x: 0, y: 0, z: 0}
+  hybridsReachedLure: []
+  playerIncorrectPullTimeBuffer: 1
+  currentIncorrectPullTimeBuffer: 0
+  resetLureRotation: 0
+  resetLureTimeOut: 2
+  resetLurecurrentTime: 0
+  currentMiniGameRNGCount:
+    UseLocal: 0
+    LocalValue: 0
+    Variable: {fileID: 11400000, guid: 303501697c697a449a95bad405d4224c, type: 2}
+  miniGameLureUIActive: {fileID: 11400000, guid: 1e011d4b5e3f6cf4cb6776c0690ad171,
+    type: 2}
+--- !u!114 &994638007232903761
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -115,43 +245,121 @@ MonoBehaviour:
   m_GameObject: {fileID: 863313539413655328}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d93ba61543949824db31c7cb89b4f009, type: 3}
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _binding: 0
-  _disableAfterSubscribing: 0
-  _eventResponses:
-  - Delay: 0
-    ScriptableEvent: {fileID: 11400000, guid: d81c4899543a5cc4a9e13f7c7f55aab0, type: 2}
-    Response:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 5911518260582333399}
-          m_TargetAssemblyTypeName: Europa.FishingMiniGameManager, Assembly-CSharp
-          m_MethodName: LureHitWater
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-  - Delay: 0
-    ScriptableEvent: {fileID: 11400000, guid: 593c2fc4624c103488affea26c038761, type: 2}
-    Response:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 5911518260582333399}
-          m_TargetAssemblyTypeName: Europa.FishingMiniGameManager, Assembly-CSharp
-          m_MethodName: ConfirmMiniGameStart
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
+  m_Actions: {fileID: -944628639613478452, guid: ea9500ae32862c949b420c59682d02ed,
+    type: 3}
+  m_NotificationBehavior: 2
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents:
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 1d49c14b-53c9-4b24-9f7e-01b847117447
+    m_ActionName: Auto Hand/Grip Pressed (R)
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 2bcdcfe6-d375-47cf-8611-8a091d0e1373
+    m_ActionName: Auto Hand/Grip Released (R)
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5911518260582333399}
+        m_TargetAssemblyTypeName: Europa.FishingMiniGameManager, Assembly-CSharp
+        m_MethodName: OnPlayerTriggerInputRight
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 566d1445-1bae-41c2-8faa-0fb585d6fcf2
+    m_ActionName: Auto Hand/Trigger Pressed (R)
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 84a2eb22-abbe-42a0-bfd4-c7b23e87413e
+    m_ActionName: Auto Hand/Trigger Released (R)
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 22b8d162-dd2e-4b8e-8a87-601b84643f15
+    m_ActionName: Auto Hand/Primary Pressed (R)
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 9af1f2ca-5121-413f-8dd5-bffcbad8aa46
+    m_ActionName: Auto Hand/Primary Released (R)
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 61fbe058-5cbf-404d-843a-0ec8ef9860d0
+    m_ActionName: Auto Hand/Grip Pressed (L)
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: cf582500-8c04-40d2-9d63-27232968428e
+    m_ActionName: Auto Hand/Grip Released (L)
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5911518260582333399}
+        m_TargetAssemblyTypeName: Europa.FishingMiniGameManager, Assembly-CSharp
+        m_MethodName: OnPlayerTriggerInputLeft
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: b755511b-f257-4aaf-b514-2fa5b634537f
+    m_ActionName: Auto Hand/Trigger Pressed (L)
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: a30b77df-a668-4c45-afc2-b26943033292
+    m_ActionName: Auto Hand/Trigger Released (L)
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 5b4863cc-89dc-4525-be7d-a1a6977afcfd
+    m_ActionName: Auto Hand/Primary Pressed (L)
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: f751b8c0-0731-4e3e-bfae-85bc6c54cc8b
+    m_ActionName: Auto Hand/Primary Released (L)
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 3c2d2d55-78c4-4124-bd6e-564f4c4010b2
+    m_ActionName: Auto Hand/Grip Axis (R)
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: f63623a0-0de4-4490-b2ac-a51ad4c590d3
+    m_ActionName: Auto Hand/Grip Axis (L)
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 8fa38cdc-b34a-45af-8dee-8e2cc6d37036
+    m_ActionName: Auto Hand/Trigger Axis (R)
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 7cb8ed76-7e44-487e-bfe8-97f780a18487
+    m_ActionName: Auto Hand/Trigger Axis (L)
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: af914b24-bf18-4d9a-b31a-7a68a51d3c46
+    m_ActionName: Auto Hand/Haptic (R)
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 36d26138-77b4-4b0b-826c-6a3cb94e21de
+    m_ActionName: Auto Hand/Haptic (L)
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: 
+  m_DefaultActionMap: Auto Hand
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
