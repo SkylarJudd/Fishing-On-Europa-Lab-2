@@ -13,7 +13,8 @@ namespace Europa
     public enum FOEVFX
     {
         //Water
-        W_Splash1,
+        W_Splash1, W_Splash2, W_Splash3,
+        W_Ripples1,
 
         //Player
 
@@ -183,18 +184,38 @@ namespace Europa
 
             PlayVFX(_particle);
 
+
+        }
+
+        // Overload with PS Returned to Handled systems that will play for an unknown amount of time
+        public void PlayVFX(FOEVFXClass _VFXGroup, FOEVFX _VFX, Transform _position, Quaternion _customRotation, bool _parent , out ParticleSystem _PS)
+        {
+
+            bool check;
             
+
+            (_PS, check) = SpawnVFXErrorCheck(_VFXGroup, _VFX);
+
+            if (!check)
+                return;
+
+            _PS = GetParticleSystem(_PS, _position, _customRotation, _parent);
+
+            PlayVFX(_PS);
+
+
         }
 
         private void PlayVFX(ParticleSystem _PS)
         {
-            _PS.gameObject.AddComponent<ParticleAutoReturn>().Init(_PS, ReturnToPool);
+            _PS.gameObject.AddComponent<ParticleAutoReturn>().Init(_PS, StopVFX);
 
             // Play the particle system.
             _PS.Play();
 
             playedParticles.Add(_PS);
         }
+
 
         private ParticleSystem GetParticleSystem(ParticleSystem _PS, Transform _position, bool _parent)
         {
@@ -245,14 +266,14 @@ namespace Europa
 
             if (particle != null && particle.isPlaying)
             {
-                particle.Stop(); // Stop the particle system.
-                ReturnToPool(particle); // Return it to the pool.
+                StopVFX(particle); // Return it to the pool.
             }
         }
 
         // Function to return the particle to the object pool.
-        private void ReturnToPool(ParticleSystem particle)
+        public void StopVFX(ParticleSystem particle)
         {
+            particle.Stop(); // Stop the particle system.
             playedParticles.Remove(particle);
             _OPM.ReturnObjectToPool(particle.gameObject);
         }
@@ -390,7 +411,6 @@ namespace Europa
         {
             foreach (FOE_Particle _particle in _particles)
             {
-                Debug.Log($"Particle {_particle.FOEVFX.ToString()} has been added to {_dict}");
                 _dict.Add(_particle.FOEVFX, _particle.ParticleSystem);
             }
         }

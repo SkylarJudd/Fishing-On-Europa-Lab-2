@@ -20,6 +20,7 @@ namespace Europa
         protected static TrustManager _TM { get { return TrustManager.instance; } }
         protected static FishingMiniGameManager _FMGM { get { return FishingMiniGameManager.instance; } }
         protected static VFXManager _VFXM { get { return VFXManager.instance; } }
+        protected static HapticsManager _HM { get { return HapticsManager.instance; } }
 
 
         public Transform getClosestEnermy(Transform _origin, List<GameObject> _objects)

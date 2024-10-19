@@ -82,6 +82,7 @@ namespace Europa
         private Coroutine updateSwimToLure;
         private Coroutine UpdateHybridStatesCoroutine;
         private Coroutine UpdateHybridReactCoroutine;
+        private Coroutine updateMiniGameCoroutine;
         #endregion
 
         private GameObject lureLocation;
@@ -400,7 +401,7 @@ namespace Europa
                             removeHybridsFlying.Add(_hybrid);
 
                             Transform spawnTranform = _hybrid.europaItemData.itemGO.transform;
-                            _VFXM.PlayVFX(FOEVFXClass.Water, FOEVFX.W_Splash1, spawnTranform, Quaternion.identity, false);
+                            _VFXM.PlayVFX(FOEVFXClass.Water, FOEVFX.W_Splash2, spawnTranform, Quaternion.identity, false);
                         }
                     }
 
@@ -693,7 +694,6 @@ namespace Europa
                         }
                         else if (_hybrid.navigationData.hybridState == HybridState.HybirdSwimAroundLure)
                         {
-                            print("Bitch we spinning!");
                             HybridRotateAround(_hybrid);
                         }
 
@@ -711,13 +711,51 @@ namespace Europa
                 yield return new WaitForFixedUpdate();
             }
         }
+        /// <summary>
+        /// A function that is used to Start the mini games update Loop
+        /// </summary>
+        public void StartMiniGame()
+        {
+            updateMiniGameCoroutine = StartCoroutine(UpdateMiniGameCoroutine());
+        }
+        /// <summary>
+        /// A function that is called to stop the mini games update loop
+        /// </summary>
+        public void StopMiniGame()
+        {
+            StopCoroutine(updateMiniGameCoroutine);
+        }
 
-        private IEnumerator UpdateMiniGame()
+        private IEnumerator UpdateMiniGameCoroutine()
         {
             while (true)
             {
                 if (caughtHybrid != null)
                 {
+
+                    switch (caughtHybrid.navigationData.hybridState)
+                    {
+                        case HybridState.HybridMiniGame_Pulling:
+                            Debug.Log("I am pulling");
+                            caughtHybrid.europaItemData.itemTransform.position = Vector3.Lerp(caughtHybrid.europaItemData.itemTransform.position, _FMGM._lure.lure_HybridAttachPoint.transform.position, 10 * Time.deltaTime);
+                            break;
+                        case HybridState.HybridMiniGame_Tired:
+                            Debug.Log("I am tired");
+                            caughtHybrid.europaItemData.itemTransform.position = Vector3.Lerp(caughtHybrid.europaItemData.itemTransform.position, _FMGM._lure.lure_HybridAttachPoint.transform.position, 10 * Time.deltaTime);
+                            break;
+                        case HybridState.HybridMiniGame_Escaped:
+                            Debug.Log("Later Bitch!");
+                            break;
+                        case HybridState.HybridMiniGame_Caught:
+                            Debug.Log("Awwww man");
+                            caughtHybrid.europaItemData.itemTransform.position = Vector3.Lerp(caughtHybrid.europaItemData.itemTransform.position, _FMGM._lure.lure_HybridAttachPoint.transform.position, 10 * Time.deltaTime);
+                            break;
+                        default:
+                            break;
+
+                    }
+
+                    #region Warning Huge Zombie Code!!!!
 
                     //switch (caughtHybrid.navigationData.hybridState)
                     //{
@@ -856,7 +894,7 @@ namespace Europa
 
                     //        break;
                     //}
-
+                    #endregion
 
                 }
                 yield return new WaitForFixedUpdate();
@@ -1111,7 +1149,6 @@ namespace Europa
         public void AddHybridTolist(FOEItem_Hybrid _hybrid)
         {
 
-            print(_hybrid.navigationData.hybridState);
             switch (_hybrid.navigationData.hybridState)
             {
                 case HybridState.HybridIdle:

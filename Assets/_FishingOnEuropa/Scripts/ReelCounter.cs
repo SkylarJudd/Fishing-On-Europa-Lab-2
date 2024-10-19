@@ -49,7 +49,6 @@ namespace Europa
 
             smoothedRotationDelta = Mathf.Clamp(smoothedRotationDelta, -10, 10);
 
-            Debug.Log($"Current Rotation of X {currentRotationX} Smoothed Rotation delta = {smoothedRotationDelta}");
 
             // Use the smoothed rotation delta instead of the raw one
             if (smoothedRotationDelta > 0)
