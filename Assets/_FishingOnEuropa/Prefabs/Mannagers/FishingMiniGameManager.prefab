@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fishingMiniGameState: 0
-  _lure:
+  lure:
     lure_Go: {fileID: 0}
     lure_HybridAttachPoint: {fileID: 0}
     lure_RB: {fileID: 0}
@@ -151,7 +151,12 @@ MonoBehaviour:
       UseLocal: 0
       LocalValue: 0
       Variable: {fileID: 11400000, guid: eb011725769aa3a4182c533dd49e1cc7, type: 2}
-  _rod:
+  rod:
+    rod_Go: {fileID: 0}
+    rod_EndPoint: {fileID: 0}
+    rod_RB: {fileID: 0}
+    rod_Hand: 0
+    rod_Held: 0
     rod_EndPointTransform:
       UseLocal: 0
       LocalValue: {x: 0, y: 0, z: 0}
@@ -189,7 +194,7 @@ MonoBehaviour:
       UseLocal: 0
       LocalValue: 0
       Variable: {fileID: 11400000, guid: 2481017e9ca835e43a89a61de4340fe7, type: 2}
-  _reel:
+  reel:
     reel_CurrentReelRotation:
       UseLocal: 0
       LocalValue: 0
@@ -216,26 +221,34 @@ MonoBehaviour:
   terrainLayerMask:
     serializedVersion: 2
     m_Bits: 5242880
-  nearbyHybrids: []
-  miniGamePullDirection: 0
-  maxHybridsToFind: 5
-  hybridCurrentFightAttempts: 0
-  hybridMaxFightAttempts: 3
-  minHybridPullingDirectionTime: 5
-  maxHybridPullingDirectionTime: 10
-  lureRotationAxis: {x: 0, y: 0, z: 0}
-  hybridsReachedLure: []
-  playerIncorrectPullTimeBuffer: 1
-  currentIncorrectPullTimeBuffer: 0
-  resetLureRotation: 0
-  resetLureTimeOut: 2
-  resetLurecurrentTime: 0
-  currentMiniGameRNGCount:
-    UseLocal: 0
-    LocalValue: 0
-    Variable: {fileID: 11400000, guid: 303501697c697a449a95bad405d4224c, type: 2}
-  miniGameLureUIActive: {fileID: 11400000, guid: 1e011d4b5e3f6cf4cb6776c0690ad171,
-    type: 2}
+  miniGame:
+    miniGamePullDirection: 0
+    maxHybridsToFind: 5
+    hybridCurrentFightAttempts: 0
+    hybridMaxFightAttempts: 3
+    minHybridPullingDirectionTime: 5
+    maxHybridPullingDirectionTime: 10
+    lureRotationAxis: {x: 0, y: 0, z: 0}
+    hybridsReachedLure: []
+    playerIncorrectPullTimeBuffer: 1
+    currentIncorrectPullTimeBuffer: 0
+    resetLureRotation: 0
+    resetLureTimeOut: 2
+    resetLurecurrentTime: 0
+    currentMiniGameRNGCount:
+      UseLocal: 0
+      LocalValue: 0
+      Variable: {fileID: 0}
+    miniGameLureUIActive: {fileID: 0}
+    currentStaminaOnHybrid:
+      UseLocal: 0
+      LocalValue: 0
+      Variable: {fileID: 0}
+    startingStaminaOnHybrid:
+      UseLocal: 0
+      LocalValue: 0
+      Variable: {fileID: 0}
+    miniGameLureHybridStaminaUIActive: {fileID: 0}
 --- !u!114 &994638007232903761
 MonoBehaviour:
   m_ObjectHideFlags: 0

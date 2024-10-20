@@ -19,7 +19,7 @@ namespace Europa
 
         void Update()
         {
-            if (_FMGM._rod.rod_PlayerCastInput.Value == true)
+            if (_FMGM.rod.rod_PlayerCastInput.Value == true)
             {
                 CaculateFishingRodEndPoint();
             }
@@ -30,7 +30,7 @@ namespace Europa
             }
 
             
-            _FMGM._rod.rod_EndPointTransform.Value = transform.position;  //Updates the position of the end point of the fishing rod
+            _FMGM.rod.rod_EndPointTransform.Value = transform.position;  //Updates the position of the end point of the fishing rod
         }
 
         private void CaculateFishingRodEndPoint()
@@ -42,10 +42,10 @@ namespace Europa
             lastPos = transform.position;
 
             // Calculate the direction of movement (normalized velocity)
-            _FMGM._rod.rod_EndForceDirection.Value = endPointSpeed.normalized;
+            _FMGM.rod.rod_EndForceDirection.Value = endPointSpeed.normalized;
 
             // Calculate the current speed of the end point this value and the value above will be used when casting
-            _FMGM._rod.rod_EndCurrentSpeed.Value = endPointSpeed.magnitude;
+            _FMGM.rod.rod_EndCurrentSpeed.Value = endPointSpeed.magnitude;
 
             // Draw a line in the Scene view to represent the velocity direction
             // Start from the fishing rod's end point (transform.position)
@@ -68,18 +68,15 @@ namespace Europa
             // Check if the object is on the left or right side of the player
             if (dotProduct > 0)
             {
-                Debug.Log("The object is on the right side of the player!");
-                _FMGM._rod.rod_RodPullDirectionEnum = PullDirections.Right;
+                _FMGM.rod.rod_RodPullDirectionEnum = PullDirections.Right;
             }
             else if (dotProduct < 0)
             {
-                Debug.Log("The object is on the left side of the player!");
-                _FMGM._rod.rod_RodPullDirectionEnum = PullDirections.Left;
+                _FMGM.rod.rod_RodPullDirectionEnum = PullDirections.Left;
             }
             else
             {
-                Debug.Log("The object is directly in front or behind the player!");
-                _FMGM._rod.rod_RodPullDirectionEnum = PullDirections.Middle;
+                _FMGM.rod.rod_RodPullDirectionEnum = PullDirections.Middle;
             }
 
         }

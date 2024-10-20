@@ -490,7 +490,7 @@ namespace Europa
         }
 
         /// <summary>
-        /// loops though the list of hybrids that are swimming and calls the fuctions that are needed for each hybrid to move. 
+        /// loops though the list of hybrids that are swimming and calls the functions that are needed for each hybrid to move. 
         /// </summary>
         /// <returns></returns>
         private IEnumerator UpdateSwimming()
@@ -682,14 +682,14 @@ namespace Europa
                             {
                                 _hybrid.navigationData.hybridState = HybridState.HybridIdle;  // sets the hybrids state to idle so it stops swimming once close enough
                                 _hybrid.navigationData.arrivedAtLure = true;  // sets arrived at lure to true, so it can be used by the above if statement to only call the add to list function once. 
-                                _FMGM.hybridsReachedLure.Add(_hybrid);  // adds the hybrid from the arrived at lure list
+                                _FMGM.miniGame.hybridsReachedLure.Add(_hybrid);  // adds the hybrid from the arrived at lure list
                             }
                             else if (distanceToTarget > distanceToLureThreshold && _hybrid.navigationData.arrivedAtLure == true)  // if the hybrid if further away then the lure it will swim towards it. 
                             {
                                 _hybrid.navigationData.hybridState = HybridState.HybridMiniGame_SwimToLure;
                                 _hybrid.navigationData.arrivedAtLure = false; // sets arrived at lure to false, so it can be used by the above if statement to only call the remove from list function once. 
                                 if (_FMGM.fishingMiniGameState == MiniGameState.StartMiniGame)
-                                    _FMGM.hybridsReachedLure.Remove(_hybrid);  // removes the hybrid from the arrived at lure list
+                                    _FMGM.miniGame.hybridsReachedLure.Remove(_hybrid);  // removes the hybrid from the arrived at lure list
                             }
                         }
                         else if (_hybrid.navigationData.hybridState == HybridState.HybirdSwimAroundLure)
@@ -736,19 +736,19 @@ namespace Europa
                     switch (caughtHybrid.navigationData.hybridState)
                     {
                         case HybridState.HybridMiniGame_Pulling:
-                            Debug.Log("I am pulling");
-                            caughtHybrid.europaItemData.itemTransform.position = Vector3.Lerp(caughtHybrid.europaItemData.itemTransform.position, _FMGM._lure.lure_HybridAttachPoint.transform.position, 10 * Time.deltaTime);
+                            //Debug.Log("I am pulling");
+                            caughtHybrid.europaItemData.itemTransform.position = Vector3.Lerp(caughtHybrid.europaItemData.itemTransform.position, _FMGM.lure.lure_HybridAttachPoint.transform.position, 10 * Time.deltaTime);
                             break;
                         case HybridState.HybridMiniGame_Tired:
-                            Debug.Log("I am tired");
-                            caughtHybrid.europaItemData.itemTransform.position = Vector3.Lerp(caughtHybrid.europaItemData.itemTransform.position, _FMGM._lure.lure_HybridAttachPoint.transform.position, 10 * Time.deltaTime);
+                            //Debug.Log("I am tired");
+                            caughtHybrid.europaItemData.itemTransform.position = Vector3.Lerp(caughtHybrid.europaItemData.itemTransform.position, _FMGM.lure.lure_HybridAttachPoint.transform.position, 10 * Time.deltaTime);
                             break;
                         case HybridState.HybridMiniGame_Escaped:
                             Debug.Log("Later Bitch!");
                             break;
                         case HybridState.HybridMiniGame_Caught:
                             Debug.Log("Awwww man");
-                            caughtHybrid.europaItemData.itemTransform.position = Vector3.Lerp(caughtHybrid.europaItemData.itemTransform.position, _FMGM._lure.lure_HybridAttachPoint.transform.position, 10 * Time.deltaTime);
+                            caughtHybrid.europaItemData.itemTransform.position = Vector3.Lerp(caughtHybrid.europaItemData.itemTransform.position, _FMGM.lure.lure_HybridAttachPoint.transform.position, 10 * Time.deltaTime);
                             break;
                         default:
                             break;

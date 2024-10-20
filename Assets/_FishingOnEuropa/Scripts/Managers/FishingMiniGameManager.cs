@@ -1,13 +1,16 @@
 
 using Obvious.Soap;
+using Obvious.Soap.Example;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Mathematics;
 using Unity.VisualScripting;
 using UnityEditor.Rendering;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using static UnityEngine.Rendering.VolumeComponent;
+using static UnityEngine.UIElements.UxmlAttributeDescription;
 
 namespace Europa
 {
@@ -93,13 +96,49 @@ namespace Europa
         public BoolReference rod_PlayerCastInput; // this keeps track of if the player is holding down the trigger to cast the fishing rod. 
 
         [Header("MiniGame")]
-        
+
         public PullDirections rod_RodPullDirectionEnum;
         public FloatReference rod_fishingRodCurrentHP; //how much hp the rod has 
         public FloatReference rod_fishingRodStartingHP; //the starting HP of the fishing Rod 
         public FloatReference rod_fishingEfficiency; //the rate at which hybrid stamina is drained per second
 
         public BoolReference fightingMiniGameActive; //this Bool will be true when the mini game is active
+    }
+
+    [Serializable]
+    public class FOEMiniGame
+    {
+
+        public PullDirections miniGamePullDirection;
+        public int maxHybridsToFind = 5;
+        public int hybridCurrentFightAttempts = 0;
+        public int hybridMaxFightAttempts = 3;
+        public float minHybridPullingDirectionTime = 5;
+        public float maxHybridPullingDirectionTime = 10;
+        public Vector3 lureRotationAxis;
+        public List<FOEItem_Hybrid> hybridsReachedLure;
+
+        public float playerIncorrectPullTimeBuffer = 1;
+        public float currentIncorrectPullTimeBuffer = 0;
+        public bool resetLureRotation = false;
+
+        public float resetLureTimeOut = 2f;
+        public float resetLurecurrentTime = 0;
+
+        public Vector3 playerStartLocation;
+        public Vector3 lureStartLocation;
+
+        public float startingAngle;
+        public float currentAngleOffset;
+        public Transform lureTargetPosition;
+
+        public FloatReference currentMiniGameRNGCount;
+        public ScriptableEventBool miniGameLureUIActive;
+
+        public FloatReference currentStaminaOnHybrid;
+        public FloatReference startingStaminaOnHybrid;
+        public ScriptableEventBool miniGameLureHybridStaminaUIActive;
+
     }
 
     [Serializable]
@@ -123,42 +162,24 @@ namespace Europa
         public MiniGameState fishingMiniGameState;
 
         [Header("Lure")]
-        public FOELure _lure;
+        public FOELure lure;
 
         [Header("Rod")]
-        public FOERod _rod;
+        public FOERod rod;
 
         [Header("Reel")]
-        public FOEReel _reel;
+        public FOEReel reel;
 
         [Header("Hybrids")]
         public LayerMask fishMask;
         [SerializeField] LayerMask terrainLayerMask;
-        public Collider[] nearbyHybrids;
+
 
         [Header("MiniGame")]
-        [SerializeField] private PullDirections miniGamePullDirection;
-        [SerializeField] private int maxHybridsToFind = 5;
-        [SerializeField] private int hybridCurrentFightAttempts = 0;
-        [SerializeField] private int hybridMaxFightAttempts = 3;
-        [SerializeField] private float minHybridPullingDirectionTime = 5;
-        [SerializeField] private float maxHybridPullingDirectionTime = 10;
-        [SerializeField] private Vector3 lureRotationAxis;
-        [SerializeField] public List<FOEItem_Hybrid> hybridsReachedLure;
-
-        [SerializeField] private float playerIncorrectPullTimeBuffer = 1;
-        [SerializeField] private float currentIncorrectPullTimeBuffer = 0;
-        [SerializeField] private bool resetLureRotation = false;
-
-        [SerializeField] private float resetLureTimeOut = 2f;
-        [SerializeField] private float resetLurecurrentTime = 0;
-
-        [SerializeField] private FloatReference currentMiniGameRNGCount;
-        [SerializeField] private ScriptableEventBool miniGameLureUIActive;
+        public FOEMiniGame miniGame;
 
 
-
-
+        
 
 
 
@@ -170,8 +191,6 @@ namespace Europa
         private Coroutine fightingPeriodCotoutine;
         private Coroutine lerpLureToRodCotoutine;
         private Coroutine hyrbidCatchRollCorutine;
-
-
         private Coroutine setHybridDirection;
 
 
@@ -183,19 +202,19 @@ namespace Europa
 
         private void Awake()
         {
-            _lure.lure_CurrentDistance.Variable.OnValueChanged += UpdateLureDistance;
-            _lure.lure_CurrentMaxDistance.Variable.OnValueChanged += UpdateLureDistance;
-            _lure.lure_EnterWaterEvent.OnRaised += OnLureEnterWater;
-            _lure.lure_ExitWaterEvent.OnRaised += OnLureExitWater;
+            lure.lure_CurrentDistance.Variable.OnValueChanged += UpdateLureDistance;
+            lure.lure_CurrentMaxDistance.Variable.OnValueChanged += UpdateLureDistance;
+            lure.lure_EnterWaterEvent.OnRaised += OnLureEnterWater;
+            lure.lure_ExitWaterEvent.OnRaised += OnLureExitWater;
 
         }
 
         private void OnDisable()
         {
-            _lure.lure_CurrentDistance.Variable.OnValueChanged -= UpdateLureDistance;
-            _lure.lure_CurrentMaxDistance.Variable.OnValueChanged -= UpdateLureDistance;
-            _lure.lure_EnterWaterEvent.OnRaised -= OnLureEnterWater;
-            _lure.lure_ExitWaterEvent.OnRaised -= OnLureExitWater;
+            lure.lure_CurrentDistance.Variable.OnValueChanged -= UpdateLureDistance;
+            lure.lure_CurrentMaxDistance.Variable.OnValueChanged -= UpdateLureDistance;
+            lure.lure_EnterWaterEvent.OnRaised -= OnLureEnterWater;
+            lure.lure_ExitWaterEvent.OnRaised -= OnLureExitWater;
 
         }
 
@@ -207,13 +226,13 @@ namespace Europa
 
         private void SetupLure()
         {
-            _lure.lure_RB = _lure.lure_Go.GetComponent<Rigidbody>();
-            SetRBDrag(_lure.lure_AirDrag.Value, _lure.lure_AirRotationalDrag.Value);
+            lure.lure_RB = lure.lure_Go.GetComponent<Rigidbody>();
+            SetRBDrag(lure.lure_AirDrag.Value, lure.lure_AirRotationalDrag.Value);
         }
 
         private void SetupRod()
         {
-            _rod.rod_RB = _rod.rod_Go.GetComponent<Rigidbody>();
+            rod.rod_RB = rod.rod_Go.GetComponent<Rigidbody>();
         }
 
         private void Update()
@@ -234,7 +253,7 @@ namespace Europa
         /// </summary>
         private void UpdateLureWithdrawnPosition()
         {
-            _lure.lure_RB.transform.position = _rod.rod_EndPointTransform.Value;
+            lure.lure_RB.transform.position = rod.rod_EndPointTransform.Value;
         }
 
         /// <summary>
@@ -242,7 +261,7 @@ namespace Europa
         /// </summary>
         private void CaculateDistance()
         {
-            _lure.lure_CurrentDistance.Value = Vector3.Distance(_rod.rod_EndPointTransform.Value, _lure.lure_EndPointTransform.Value);
+            lure.lure_CurrentDistance.Value = Vector3.Distance(rod.rod_EndPointTransform.Value, lure.lure_EndPointTransform.Value);
         }
 
         /// <summary>
@@ -252,14 +271,14 @@ namespace Europa
         public void OnPlayerTriggerInputLeft(InputAction.CallbackContext _context)
         {
 
-            
-            if (_rod.rod_Hand != HandEnum.LeftHand) return;
 
-            
+            if (rod.rod_Hand != HandEnum.LeftHand) return;
+
+
             float input = _context.ReadValue<float>(); //Will read the value of the trigger from the input context
 
             //Dose a bunch of checks to see if the line is able to be casted, and if so calls a function to cast the line
-            if (input == 0 && _rod.rod_PlayerCastInput.Value == true && fishingMiniGameState == MiniGameState.LureWindrawn && _rod.rod_EndCurrentSpeed > _rod.rod_CastSpeedRequired)
+            if (input == 0 && rod.rod_PlayerCastInput.Value == true && fishingMiniGameState == MiniGameState.LureWindrawn && rod.rod_EndCurrentSpeed > rod.rod_CastSpeedRequired)
             {
                 OnLineCast();
             }
@@ -270,7 +289,7 @@ namespace Europa
                 OnLureReturnToRod();
             }
 
-            _rod.rod_PlayerCastInput.Value = input > 0 ? true : false;
+            rod.rod_PlayerCastInput.Value = input > 0 ? true : false;
 
         }
         /// <summary>
@@ -280,13 +299,13 @@ namespace Europa
         public void OnPlayerTriggerInputRight(InputAction.CallbackContext _context)
         {
 
-            if (_rod.rod_Hand != HandEnum.RightHand) return;
+            if (rod.rod_Hand != HandEnum.RightHand) return;
 
-            
+
             float input = _context.ReadValue<float>();
 
             //Dose a bunch of checks to see if the line is able to be casted, and if so calls a function to cast the line
-            if (input == 0 && _rod.rod_PlayerCastInput.Value == true && fishingMiniGameState == MiniGameState.LureWindrawn && _rod.rod_EndCurrentSpeed > _rod.rod_CastSpeedRequired)
+            if (input == 0 && rod.rod_PlayerCastInput.Value == true && fishingMiniGameState == MiniGameState.LureWindrawn && rod.rod_EndCurrentSpeed > rod.rod_CastSpeedRequired)
             {
                 OnLineCast();
             }
@@ -297,7 +316,7 @@ namespace Europa
                 OnLureReturnToRod();
             }
 
-            _rod.rod_PlayerCastInput.Value = input > 0 ? true : false;
+            rod.rod_PlayerCastInput.Value = input > 0 ? true : false;
 
         }
 
@@ -319,7 +338,7 @@ namespace Europa
         {
             if (fishingMiniGameState == MiniGameState.LureCast)
             {
-                
+
                 updateMiniGameState(MiniGameState.LureHitWater);
 
                 if (lureHitWaterCoroutine != null)
@@ -386,9 +405,13 @@ namespace Europa
         public void OnHybridEscape()
         {
             updateMiniGameState(MiniGameState.HybridEscape);
-            // Will need to make the line make a snapping noise
-            // lerp the lure back to the rod
-            // set the hybrid free 
+
+            StopCoroutine(fightingPeriodCotoutine);
+
+            ResetHybrid(_FNAVM.caughtHybrid);
+
+
+            _FNAVM.caughtHybrid = null;
             print("I am calling Lure Return");
             OnLureReturnToRod();
         }
@@ -408,19 +431,19 @@ namespace Europa
         /// <returns></returns>
         private IEnumerator LineCastCoroutine()
         {
-            _lure.lure_RB.AddForce(_rod.rod_EndForceDirection.Value * _rod.rod_EndCurrentSpeed.Value * _lure.lure_CastingForceMultiplier.Value);
+            lure.lure_RB.AddForce(rod.rod_EndForceDirection.Value * rod.rod_EndCurrentSpeed.Value * lure.lure_CastingForceMultiplier.Value);
 
-            _lure.lure_CurrentCastResetTime.Value = 0;  //sets the value to 0 so this function is self resetting
+            lure.lure_CurrentCastResetTime.Value = 0;  //sets the value to 0 so this function is self resetting
 
-            _lure.lure_CurrentMaxDistance.Value = _lure.lure_MaxDistanceFromRod.Value; //Sets the current distance of the fishing rod to the max distance
+            lure.lure_CurrentMaxDistance.Value = lure.lure_MaxDistanceFromRod.Value; //Sets the current distance of the fishing rod to the max distance
 
             while (fishingMiniGameState == MiniGameState.LureCast)  // Keeps looping while the lure has been casted and has not hit the water
             {
-                _lure.lure_CurrentCastResetTime.Value += Time.fixedDeltaTime;  // Adds to CurrentCastResetTime timer every frame
+                lure.lure_CurrentCastResetTime.Value += Time.fixedDeltaTime;  // Adds to CurrentCastResetTime timer every frame
 
-                if (_lure.lure_CurrentCastResetTime.Value >= _lure.lure_CastResetTime.Value) // check to see if the CurrentCastResetTime has exceeded the CastResetTime and if so will return the lure to the rod
+                if (lure.lure_CurrentCastResetTime.Value >= lure.lure_CastResetTime.Value) // check to see if the CurrentCastResetTime has exceeded the CastResetTime and if so will return the lure to the rod
                 {
-                    Debug.LogWarning($"Lure Has Been Cast for more then {_lure.lure_CastResetTime.Value.ToString()} seconds without hitting the water, Returning Lure To rod");
+                    Debug.LogWarning($"Lure Has Been Cast for more then {lure.lure_CastResetTime.Value.ToString()} seconds without hitting the water, Returning Lure To rod");
                     print("I am calling Lure Return");
                     OnLureReturnToRod();
                     yield break;
@@ -438,25 +461,25 @@ namespace Europa
         /// <returns></returns>
         private IEnumerator LureHitWaterCoroutine()
         {
-            _lure.lure_InWaterTime.Value = 0;  // sets the value back to 0 so this function is self resetting
-            _lure.lure_CurrentMaxDistance.Value = _lure.lure_CurrentDistance.Value;
-            _lure.lure_LureStartingDistance.Value = _lure.lure_CurrentDistance.Value;
+            lure.lure_InWaterTime.Value = 0;  // sets the value back to 0 so this function is self resetting
+            lure.lure_CurrentMaxDistance.Value = lure.lure_CurrentDistance.Value;
+            lure.lure_LureStartingDistance.Value = lure.lure_CurrentDistance.Value;
 
             while (fishingMiniGameState == MiniGameState.LureHitWater)  // Keeps looping while the lure is in the state of hit water. 
             {
-                if (_lure.lure_InWater == true)   // This will be set to true when the lure is in a water source
+                if (lure.lure_InWater == true)   // This will be set to true when the lure is in a water source
                 {
-                    _lure.lure_InWaterTime.Value += Time.fixedDeltaTime;
-                    if (_lure.lure_InWaterTime.Value >= _lure.lure_CastResetTime.Value)
+                    lure.lure_InWaterTime.Value += Time.fixedDeltaTime;
+                    if (lure.lure_InWaterTime.Value >= lure.lure_CastResetTime.Value)
                     {
                         OnStartMiniGame();
                         yield break;
                     }
                 }
-                else if (_lure.lure_InWater == false)  // This will be set to false when the lure is not in a water source
+                else if (lure.lure_InWater == false)  // This will be set to false when the lure is not in a water source
                 {
-                    _lure.lure_InWaterTime.Value -= Time.fixedDeltaTime;
-                    if (_lure.lure_InWaterTime.Value <= -_lure.lure_CastResetTime.Value)
+                    lure.lure_InWaterTime.Value -= Time.fixedDeltaTime;
+                    if (lure.lure_InWaterTime.Value <= -lure.lure_CastResetTime.Value)
                     {
                         print("I am calling Lure Return");
                         OnLureReturnToRod();
@@ -491,7 +514,7 @@ namespace Europa
 
                 List<FOEItem_Hybrid> _foundHybrids = GetClosestHybrids(_convertedHybridList); //gets the 5 closest hybrids in the list
 
-                hybridsReachedLure.Clear();  // sets the hybrid reached nav points back to 0 so its self resetting, this value is iterated each time a hybrid reaches its destination. 
+                miniGame.hybridsReachedLure.Clear();  // sets the hybrid reached nav points back to 0 so its self resetting, this value is iterated each time a hybrid reaches its destination. 
                 float HybirdReachedNavPointTimeout = 0;
 
                 foreach (FOEItem_Hybrid _hybrid in _foundHybrids)
@@ -500,17 +523,17 @@ namespace Europa
                     _FNAVM.removeHybrid(_hybrid, false);
 
                     //Set Hybrid to nav point
-                    _FNAVM.AssignHybridWithTargetAndState(_hybrid, _lure.lure_HybridAttachPoint.transform);
+                    _FNAVM.AssignHybridWithTargetAndState(_hybrid, lure.lure_HybridAttachPoint.transform);
 
                 }
 
-                while (hybridsReachedLure.Count <= _convertedHybridList.Count && HybirdReachedNavPointTimeout < _lure.lure_HybridToLureResetTime.Value)
+                while (miniGame.hybridsReachedLure.Count <= _convertedHybridList.Count && HybirdReachedNavPointTimeout < lure.lure_HybridToLureResetTime.Value)
                 {
                     HybirdReachedNavPointTimeout += Time.deltaTime;
                     yield return new WaitForFixedUpdate();
                 }
 
-                if (hybridsReachedLure.Count != 0)
+                if (miniGame.hybridsReachedLure.Count != 0)
                 {
                     OnHybridsArrived();
                     yield break;
@@ -547,19 +570,19 @@ namespace Europa
         /// </summary>
         private void SetUpMiniGame()
         {
-            _lure.lure_MiniGameDistancePoints.Clear();
-            hybridCurrentFightAttempts = 0;
-            _rod.rod_fishingRodCurrentHP.Value = _rod.rod_fishingRodStartingHP;
+            lure.lure_MiniGameDistancePoints.Clear();
+            miniGame.hybridCurrentFightAttempts = 0;
+            rod.rod_fishingRodCurrentHP.Value = rod.rod_fishingRodStartingHP;
 
             // Calculate divisions of the starting distance
-            float division = _lure.lure_LureStartingDistance / hybridMaxFightAttempts;
+            float division = lure.lure_LureStartingDistance / miniGame.hybridMaxFightAttempts;
 
             // Assign calculated points to the list dynamically based on HybridMaxFightAttempts
-            for (int i = hybridMaxFightAttempts; i > 0; i--)
+            for (int i = miniGame.hybridMaxFightAttempts; i > 0; i--)
             {
-                _lure.lure_MiniGameDistancePoints.Add(division * i);
+                lure.lure_MiniGameDistancePoints.Add(division * i);
             }
-            _lure.lure_MiniGameDistancePoints.Add(0);
+            lure.lure_MiniGameDistancePoints.Add(0);
         }
         /// <summary>
         /// This function will lerp the lures current max distance towards 0 causing the lure to move towards the fishing rod.  
@@ -569,18 +592,16 @@ namespace Europa
         {
             while (fishingMiniGameState == MiniGameState.LureReturn)
             {
-                Debug.Log("IDK why Im looping still I should only be looping if the mini game state is lure Return?");
-                print($"fishing Mini game state {fishingMiniGameState.ToString()}");
                 // Debug.Log($"Returning to Lure {_lure.lure_CurrentDistance.Value}");
-                if (_lure.lure_CurrentMaxDistance.Value < 0.1f)
+                if (lure.lure_CurrentMaxDistance.Value < 0.1f)
                 {
-                    _lure.lure_CurrentMaxDistance.Value = 0;
+                    lure.lure_CurrentMaxDistance.Value = 0;
                     UpdateLureDistance(0);
                     yield break;
                 }
                 else
                 {
-                    _lure.lure_CurrentMaxDistance.Value = Mathf.Lerp(_lure.lure_CurrentMaxDistance.Value, 0, _lure.lure_ReturnSpeed.Value * Time.fixedDeltaTime);
+                    lure.lure_CurrentMaxDistance.Value = Mathf.Lerp(lure.lure_CurrentMaxDistance.Value, 0, lure.lure_ReturnSpeed.Value * Time.fixedDeltaTime);
                 }
 
                 yield return new WaitForFixedUpdate();
@@ -596,13 +617,13 @@ namespace Europa
         private List<FOEItem_Hybrid> GetClosestHybrids(List<FOEItem_Hybrid> _Hybrid)
         {
             // Check if there are fewer than 5 hybrids to avoid unnecessary processing
-            if (_Hybrid.Count <= maxHybridsToFind)
+            if (_Hybrid.Count <= miniGame.maxHybridsToFind)
                 return new List<FOEItem_Hybrid>(_Hybrid);
 
             // Sort the hybrids based on distance to the lure's end point
             _Hybrid.Sort((a, b) =>
-                Vector3.Distance(_lure.lure_EndPointTransform.Value, a.europaItemData.itemTransform.position)
-                .CompareTo(Vector3.Distance(_lure.lure_EndPointTransform.Value, b.europaItemData.itemTransform.position))
+                Vector3.Distance(lure.lure_EndPointTransform.Value, a.europaItemData.itemTransform.position)
+                .CompareTo(Vector3.Distance(lure.lure_EndPointTransform.Value, b.europaItemData.itemTransform.position))
             );
 
             // Return the top 5 closest hybrids
@@ -625,7 +646,7 @@ namespace Europa
 
             // work out what hybrid will be caught based off this number
             float total = 0;
-            foreach (FOEItem_Hybrid _hybrid in hybridsReachedLure)
+            foreach (FOEItem_Hybrid _hybrid in miniGame.hybridsReachedLure)
             {
                 total += _hybrid.navigationData.scaledCatchChance;
 
@@ -638,47 +659,47 @@ namespace Europa
             }
 
             int index = 0;
-            total = hybridsReachedLure[index].navigationData.scaledCatchChance;
-            hybridsReachedLure[index].navigationData.orbitDistance = 0.3f;
-            miniGameLureUIActive.Raise(true);
+            total = miniGame.hybridsReachedLure[index].navigationData.scaledCatchChance;
+            miniGame.hybridsReachedLure[index].navigationData.orbitDistance = 0.3f;
+            miniGame.miniGameLureUIActive.Raise(true);
 
-            for (currentMiniGameRNGCount.Value = 1; currentMiniGameRNGCount.Value < randomNumber; currentMiniGameRNGCount.Value++)
+            for (miniGame.currentMiniGameRNGCount.Value = 1; miniGame.currentMiniGameRNGCount.Value < randomNumber; miniGame.currentMiniGameRNGCount.Value++)
             {
 
-                if (index >= hybridsReachedLure.Count - 1)
+                if (index >= miniGame.hybridsReachedLure.Count - 1)
                 {
                     Debug.LogWarning("Index reached the end of the list. Breaking early.");
                     break;  // Prevent out-of-bounds access.
                 }
 
-                if (currentMiniGameRNGCount.Value > total)
+                if (miniGame.currentMiniGameRNGCount.Value > total)
                 {
-                    if( _FNAVM.caughtHybrid == hybridsReachedLure[index])
+                    if (_FNAVM.caughtHybrid == miniGame.hybridsReachedLure[index])
                     {
                         // Play Bite Animate for Hybrid
                         print(" Hybrid Bites");
-                        
+
                     }
                     else
                     {
                         //stop the animation the hybrid sussing out the lure for the current index
                         //return the hybrid to swimming and reset its values
-                        ResetHybrid(hybridsReachedLure[index]);
-                        _lure.lure_RB.AddForce(Vector3.down * 10f, ForceMode.Impulse);
+                        ResetHybrid(miniGame.hybridsReachedLure[index]);
+                        lure.lure_RB.AddForce(Vector3.down * 10f, ForceMode.Impulse);
 
 
-                        if (_rod.rod_Held)
+                        if (rod.rod_Held)
                         {
                             //adds a force to the rod that makes it rotate downwards towards the _lure.lure_tranform
 
                             // Calculate the direction from the rod to the lure.
-                            Vector3 directionToLure = (_lure.lure_EndPointTransform.Value - _rod.rod_EndPointTransform.Value).normalized;
+                            Vector3 directionToLure = (lure.lure_EndPointTransform.Value - rod.rod_EndPointTransform.Value).normalized;
 
                             // Calculate the desired rotation as a quaternion to point the rod toward the lure.
                             Quaternion targetRotation = Quaternion.LookRotation(directionToLure, Vector3.up);
 
                             // Calculate the difference between the current rotation and target rotation.
-                            Quaternion rotationDifference = targetRotation * Quaternion.Inverse(_rod.rod_Go.transform.rotation);
+                            Quaternion rotationDifference = targetRotation * Quaternion.Inverse(rod.rod_Go.transform.rotation);
 
                             // Convert the quaternion difference into an angular velocity.
                             Vector3 angularVelocity = new Vector3(
@@ -688,42 +709,47 @@ namespace Europa
                             ) * 10f;  // Adjust 10f to control rotation speed
 
                             // Apply torque to the rod's Rigidbody to rotate it toward the lure.
-                            _rod.rod_RB.AddTorque(angularVelocity * 20f, ForceMode.Impulse);
-                            _rod.rod_RB.AddForce(directionToLure * 3f, ForceMode.Impulse);
+                            rod.rod_RB.AddTorque(angularVelocity * 20f, ForceMode.Impulse);
+                            rod.rod_RB.AddForce(directionToLure * 3f, ForceMode.Impulse);
 
 
-                            _HM.PlayHaptic(_rod.rod_Hand);
+                            _HM.PlayHaptic(rod.rod_Hand);
                         }
-                            
 
-                        _VFXM.PlayVFX(FOEVFXClass.Water, FOEVFX.W_Splash3, _lure.lure_Go.transform, false);
+
+                        _VFXM.PlayVFX(FOEVFXClass.Water, FOEVFX.W_Splash3, lure.lure_Go.transform, false);
 
                     }
 
 
 
                     index++;
-                    hybridsReachedLure[index].navigationData.orbitDistance = 0.2f;
-                    total += hybridsReachedLure[index].navigationData.scaledCatchChance;
+                    miniGame.hybridsReachedLure[index].navigationData.orbitDistance = 0.2f;
+                    total += miniGame.hybridsReachedLure[index].navigationData.scaledCatchChance;
                 }
 
                 // animate the current index hybrid to look like its sussing out the  lure
                 yield return new WaitForSeconds(0.1f);
             }
 
-            _lure.lure_RB.AddForce(Vector3.down * 20f, ForceMode.Impulse);
+            lure.lure_RB.AddForce(Vector3.down * 20f, ForceMode.Impulse);
 
             //TODO Play test this, if the game need a snagging mechanics to catch they hybrid add this here. Start a coroutine and check if the player pulls back on the fishing rod, 
 
-            miniGameLureUIActive.Raise(false);
+            miniGame.miniGameLureUIActive.Raise(false);
 
-            foreach (FOEItem_Hybrid _hybrid in hybridsReachedLure)
+            foreach (FOEItem_Hybrid _hybrid in miniGame.hybridsReachedLure)
             {
-                if( _hybrid != _FNAVM.caughtHybrid )
+                if (_hybrid != _FNAVM.caughtHybrid)
                 {
                     ResetHybrid(_hybrid);
                 }
             }
+
+            //remove from all lists and put in Mini Game List 
+            _FNAVM.removeHybrid(_FNAVM.caughtHybrid, false);
+            _FNAVM.caughtHybrid.navigationData.hybridState = HybridState.HybridMiniGame_Pulling;
+            _FNAVM.StartMiniGame(); //Starts the MiniGame Coroutine in the Fish Navigation Manager
 
             OnHybridAssignedToCatch();
         }
@@ -734,7 +760,7 @@ namespace Europa
         /// <param name="_Hybrid"></param>
         private void ResetHybrid(FOEItem_Hybrid _Hybrid)
         {
-           
+
             _Hybrid.navigationData.scaledCatchChance = 0;
             _Hybrid.navigationData.arrivedAtLure = false;
             _Hybrid.navigationData.firstNav = true;
@@ -752,7 +778,7 @@ namespace Europa
         {
             float total = 0;
 
-            foreach (FOEItem_Hybrid _hybrid in hybridsReachedLure)
+            foreach (FOEItem_Hybrid _hybrid in miniGame.hybridsReachedLure)
             {
                 total += _hybrid.hybridSO.catchChance;
                 _hybrid.navigationData.hybridState = HybridState.HybirdSwimAroundLure;
@@ -760,13 +786,13 @@ namespace Europa
                 _hybrid.navigationData.orbitDistance = 1f;
             }
 
-            foreach (FOEItem_Hybrid _hybrid in hybridsReachedLure)
+            foreach (FOEItem_Hybrid _hybrid in miniGame.hybridsReachedLure)
             {
                 _hybrid.navigationData.scaledCatchChance = (_hybrid.hybridSO.catchChance / total) * 100f;
 
             }
 
-            hybridsReachedLure.Sort((y, x) => x.navigationData.scaledCatchChance.CompareTo(y.navigationData.scaledCatchChance));
+            miniGame.hybridsReachedLure.Sort((y, x) => x.navigationData.scaledCatchChance.CompareTo(y.navigationData.scaledCatchChance));
         }
 
         /// <summary>
@@ -776,18 +802,18 @@ namespace Europa
         {
             Debug.Log("Starting Hybrid Resting");
 
-            
+
             // Set the rest time to a value between the hybrids max rest time and their min rest time
             _FNAVM.caughtHybrid.navigationData.hybridRestTime = UnityEngine.Random.Range(_FNAVM.caughtHybrid.hybridSO.restMinTime, _FNAVM.caughtHybrid.hybridSO.restMaxTime);
             //remove from all lists and put in Mini Game List 
             _FNAVM.removeHybrid(_FNAVM.caughtHybrid, false);
             _FNAVM.AddHybridTolist(_FNAVM.caughtHybrid, HybridState.HybridMiniGame_Tired);
             //Sets the MiniGame Active Bool To False
-            _rod.fightingMiniGameActive.Value = false;
+            rod.fightingMiniGameActive.Value = false;
 
 
 
-            while (_FNAVM.caughtHybrid.navigationData.hybridRestTime >= 0 || _lure.lure_CurrentDistance < _lure.lure_MiniGameDistancePoints[hybridCurrentFightAttempts])
+            while (_FNAVM.caughtHybrid.navigationData.hybridRestTime >= 0 || lure.lure_CurrentDistance < lure.lure_MiniGameDistancePoints[miniGame.hybridCurrentFightAttempts])
             {
                 _FNAVM.caughtHybrid.navigationData.hybridRestTime -= Time.deltaTime;
                 yield return new WaitForEndOfFrame();
@@ -804,76 +830,131 @@ namespace Europa
         {
             Debug.Log("Starting Hybrid Fighting");
 
-            if (_lure.lure_MiniGameDistancePoints.Count < hybridMaxFightAttempts)
-            {
-                hybridCurrentFightAttempts++;
-            }
-            print(hybridCurrentFightAttempts);
+            miniGame.hybridCurrentFightAttempts++;
+            if (lure.lure_MiniGameDistancePoints.Count < miniGame.hybridMaxFightAttempts) miniGame.hybridCurrentFightAttempts = miniGame.hybridMaxFightAttempts;
 
-            //remove from all lists and put in Mini Game List 
-            _FNAVM.removeHybrid(_FNAVM.caughtHybrid, false);
-            _FNAVM.caughtHybrid.navigationData.hybridState = HybridState.HybridMiniGame_Pulling;
-            _FNAVM.StartMiniGame(); //Starts the MiniGame Coroutine in the Fish Navigation Manager
 
-            //Sets the MiniGame Active Bool To true
-            _rod.fightingMiniGameActive.Value = true;
+            SetUpMiniGamePulling();
 
-            var targetDir = _rod.rod_EndPointTransform.Value - _lure.lure_HybridAttachPoint.transform.position;
-            _lure.lure_StartingAngle.Value = Vector3.Angle(targetDir, _PLAYER.gameObject.transform.forward);
-
-            setHybridDirection = StartCoroutine(SetHybridDirection());  //Starts of Coroutine to set the rotation of the lure
-
-            // Set the current Stamina to the hybrids max stamina;
-            _FNAVM.caughtHybrid.navigationData.currentHybridStamina = _FNAVM.caughtHybrid.hybridSO.stamina;
-
-            Debug.Log($" Hybrids Current stamina = {_FNAVM.caughtHybrid.navigationData.currentHybridStamina}");
 
             while (_FNAVM.caughtHybrid.navigationData.currentHybridStamina > 0)  // Checks to see if the hybrids Stamina is > 0 
             {
-                RotateLure(lureRotationAxis); //calls a function to rotate the lure using LureRotationAxis, this value is set by the SetHybridDirection that will update the direction every few seconds
+
+                RotateLure();
+                CaculateRodHP();
 
 
-                if (miniGamePullDirection != _rod.rod_RodPullDirectionEnum)
-                {
-                    //player is not pulling the correct Direction;
-                    //Checks to see if the player has been pulling in the incorrect direction for more then the playerIncorrectPullTimeBuffer
-                    if (currentIncorrectPullTimeBuffer <= playerIncorrectPullTimeBuffer)
-                    {
-                        currentIncorrectPullTimeBuffer += Time.deltaTime;
-                    }
-                    else
-                    {
-                        _rod.rod_fishingRodCurrentHP.Value -= _FNAVM.caughtHybrid.hybridSO.damageToRod * Time.deltaTime;
-                        if (_rod.rod_fishingRodCurrentHP.Value <= 0)
-                        {
-                            OnHybridEscape();
-                            StopCoroutine(setHybridDirection);
-                            yield break;
-                        }
-                    }
 
-                }
-                else
-                {
-                    // Player is pulling the correct Direction;
-                    currentIncorrectPullTimeBuffer = 0;
-                }
 
                 _FNAVM.caughtHybrid.navigationData.currentHybridStamina -= Time.deltaTime;  // Subtracts the hybrids stamina each frame based of time.delta time
+                miniGame.currentStaminaOnHybrid.Value = _FNAVM.caughtHybrid.navigationData.currentHybridStamina;
                 yield return new WaitForEndOfFrame();
             }
 
             StopCoroutine(setHybridDirection);  // Stops the Coroutine that will randomly change the direction the hybrid is pulling
-            resetLureRotation = false;  // Sets the ResetLureRotation To False, this value is set to true once the lure reaches its starting angle
+            miniGame.resetLureRotation = false;  // Sets the ResetLureRotation To False, this value is set to true once the lure reaches its starting angle
+            FlipRotationAxis();
 
-            while (resetLureRotation == false)
+            while (miniGame.resetLureRotation == false)
             {
-                ResetLureRotation(lureRotationAxis); // calls a function to return the lure to the starting location
+                //(miniGame.lureRotationAxis, forward, targetDirection); // calls a function to return the lure to the starting location
                 yield return new WaitForEndOfFrame();
             }
 
             OnHybridTried();
         }
+
+        private void RotateLure()
+        {
+            float deltaAngle = lure.lure_LureRotationSpeed.Value * Time.deltaTime;
+            miniGame.currentAngleOffset = Vector3.Angle(_PLAYER.transform.forward, miniGame.lureTargetPosition.transform.position - _PLAYER.transform.position) - miniGame.startingAngle;
+
+            // Calculate the shortest path to rotate back within the valid angle range
+            if (Mathf.Abs(miniGame.currentAngleOffset) < lure.lure_MaxAngle.Value)
+            {
+                miniGame.lureTargetPosition.RotateAround(_PLAYER.transform.position, miniGame.lureRotationAxis, deltaAngle);
+            }
+            else
+            {
+                // Gradually rotate back towards the maximum allowed angle
+                float correctionAngle = Mathf.Sign(miniGame.currentAngleOffset) * deltaAngle;
+
+                if (miniGame.lureRotationAxis == Vector3.up)
+                {
+                    miniGame.lureTargetPosition.RotateAround(_PLAYER.transform.position, miniGame.lureRotationAxis, -correctionAngle);
+                }
+                else
+                {
+                    miniGame.lureTargetPosition.RotateAround(_PLAYER.transform.position, miniGame.lureRotationAxis, correctionAngle);
+                }
+
+            }
+
+        }
+
+        private void CaculateRodHP()
+        {
+            if (miniGame.miniGamePullDirection != rod.rod_RodPullDirectionEnum)
+            {
+                //player is not pulling the correct Direction;
+                //Checks to see if the player has been pulling in the incorrect direction for more then the playerIncorrectPullTimeBuffer
+                if (miniGame.currentIncorrectPullTimeBuffer <= miniGame.playerIncorrectPullTimeBuffer)
+                {
+                    miniGame.currentIncorrectPullTimeBuffer += Time.deltaTime;
+                }
+                else
+                {
+                    rod.rod_fishingRodCurrentHP.Value -= _FNAVM.caughtHybrid.hybridSO.damageToRod * Time.deltaTime;
+                    if (rod.rod_fishingRodCurrentHP.Value <= 0)
+                    {
+                        print("I called Hybrid Escaped");
+                        OnHybridEscape();
+                    }
+                }
+
+            }
+            else
+            {
+                // Player is pulling the correct Direction;
+                miniGame.currentIncorrectPullTimeBuffer = 0;
+            }
+        }
+
+        private void SetUpMiniGamePulling()
+        {
+            setHybridDirection = StartCoroutine(SetHybridDirection());
+
+            SetupHybridPulling();
+            SetUpMiniGamePreCaculations();
+
+
+        }
+
+        private void SetupHybridPulling()
+        {
+             // Set the current Stamina to the hybrids max stamina;
+            _FNAVM.caughtHybrid.navigationData.currentHybridStamina = _FNAVM.caughtHybrid.hybridSO.stamina;
+            miniGame.currentStaminaOnHybrid.Value = _FNAVM.caughtHybrid.hybridSO.stamina;
+            miniGame.startingStaminaOnHybrid.Value = _FNAVM.caughtHybrid.hybridSO.stamina;
+            miniGame.miniGameLureHybridStaminaUIActive.Raise(true);
+            Debug.Log($" Hybrids Current stamina = {_FNAVM.caughtHybrid.navigationData.currentHybridStamina}");
+        
+        }
+
+        private void SetUpMiniGamePreCaculations()
+        {
+            miniGame.playerStartLocation = _PLAYER.transform.position;
+            miniGame.lureStartLocation = lure.lure_Go.transform.position;
+
+            miniGame.startingAngle = Vector3.Angle(_PLAYER.transform.forward, lure.lure_Go.transform.position - _PLAYER.transform.position);
+            miniGame.lureTargetPosition.position = lure.lure_Go.transform.position;
+
+            rod.rod_fishingRodCurrentHP.Value = rod.rod_fishingRodStartingHP.Value;
+        }
+
+      
+
+      
 
         /// <summary>
         /// Sets the Direction the hybrid is pulling
@@ -881,80 +962,94 @@ namespace Europa
         /// <returns></returns>
         private IEnumerator SetHybridDirection()
         {
+            int random = UnityEngine.Random.Range(1, 3);
+            miniGame.lureRotationAxis = random == 1 ? miniGame.lureRotationAxis = Vector3.up : miniGame.lureRotationAxis = Vector3.down;
+            miniGame.miniGamePullDirection = random == 1 ? PullDirections.Left : PullDirections.Right;
+
             while (fishingMiniGameState == MiniGameState.HybridPulling)
             {
-                int random = UnityEngine.Random.Range(1, 3);
-                lureRotationAxis = random == 1 ? lureRotationAxis = Vector3.up : lureRotationAxis = Vector3.down;
-                miniGamePullDirection = random == 1 ? PullDirections.Left : PullDirections.Right;
-                print($"MiniGame pull direction = {miniGamePullDirection.ToString()}");
+                FlipRotationAxis();
+                yield return new WaitForSeconds(UnityEngine.Random.Range(miniGame.minHybridPullingDirectionTime, miniGame.maxHybridPullingDirectionTime));
+            }
+        }
 
-                yield return new WaitForSeconds(UnityEngine.Random.Range(minHybridPullingDirectionTime, maxHybridPullingDirectionTime));
+        private void FlipRotationAxis()
+        {
+            Debug.Log($"Rotation was {miniGame.lureRotationAxis}");
+            miniGame.lureRotationAxis = miniGame.lureRotationAxis == Vector3.down ? Vector3.up : Vector3.down;
+            miniGame.miniGamePullDirection = miniGame.lureRotationAxis == Vector3.down ? PullDirections.Right : PullDirections.Left;
+            Debug.Log($"Rotation is now {miniGame.lureRotationAxis}");
+        }
+
+        private void RotateLure(Vector3 _rotationAxis,  Vector3 _forward, Vector3 _targetDir, float _SpeedMutiplayer = 1f)
+        {
+            // Rotates the lure around the Player based, the _RotationAxis determines the direction of the rotation
+
+            float deltaAngle;
+            float currentAngle;
+
+            (deltaAngle, currentAngle) = CaculateAngle(_SpeedMutiplayer, _forward, _targetDir );
+
+            //rotate bobber around player
+            if (Mathf.Abs(currentAngle) < lure.lure_MaxAngle.Value && !Physics.CheckSphere(lure.lure_Go.transform.position, 0.5f, terrainLayerMask))
+            {
+                RotateLureAroundPlayer(_rotationAxis, deltaAngle);
+            }
+            else if (Physics.CheckSphere(lure.lure_Go.transform.position, 0.5f, terrainLayerMask))
+            {
+                Debug.LogWarning("Hybrid Hit Land and got away");
+                print("I called Hybrid Escaped");
+                OnHybridEscape();
             }
         }
 
 
 
-        private void RotateLure(Vector3 _rotationAxix, float _SpeedMutiplayer = 1f)
+        private void ResetLureRotation(Vector3 _rotationAxis, Vector3 _forward, Vector3 _targetDir,  float _SpeedMutiplayer = 1.5f)
         {
-            //sets the delta angle from the lure rotation speed and the time
-            float deltaAngle = (_lure.lure_LureRotationSpeed.Value * _SpeedMutiplayer) * Time.deltaTime;
+            float deltaAngle;
+            float currentAngle;
 
-            Vector3 targetDir = _rod.rod_EndPointTransform.Value - _lure.lure_HybridAttachPoint.transform.position;
-
-            if (_lure.lure_StartingAngle.Value == 0)
-            {
-                _lure.lure_StartingAngle.Value = Vector3.Angle(targetDir, _PLAYER.gameObject.transform.forward);
-            }
-
-            float currentAngle = Vector3.Angle(targetDir, _PLAYER.playerHead.forward) - _lure.lure_StartingAngle.Value;
+            (deltaAngle, currentAngle) = CaculateAngle(_SpeedMutiplayer, _forward, _targetDir);
 
             //rotate bobber around player
-            if (Mathf.Abs(currentAngle) < _lure.lure_MaxAngle && !Physics.CheckSphere(_lure.lure_Go.transform.position, 0.5f, terrainLayerMask))
+            if (Mathf.Abs(currentAngle) > 0.5f && !Physics.CheckSphere(lure.lure_Go.transform.position, 0.5f, terrainLayerMask) && miniGame.resetLurecurrentTime < miniGame.resetLureTimeOut)
             {
-                _lure.lure_Go.transform.RotateAround(_rod.rod_EndPointTransform, _rotationAxix, deltaAngle);
-            }
-        }
-
-
-
-        private void ResetLureRotation(Vector3 _rotationAxix, float _SpeedMutiplayer = 1.5f)
-        {
-
-            //sets the delta angle from the lure rotation speed and the time
-            float deltaAngle = (_lure.lure_LureRotationSpeed.Value * _SpeedMutiplayer) * Time.deltaTime;
-
-            Vector3 targetDir = _rod.rod_EndPointTransform.Value - _lure.lure_HybridAttachPoint.transform.position;
-
-
-            float currentAngle = Vector3.Angle(targetDir, _PLAYER.playerHead.forward) - _lure.lure_StartingAngle.Value;
-
-            //rotate bobber around player
-            if (Mathf.Abs(currentAngle) > 0.5f && !Physics.CheckSphere(_lure.lure_Go.transform.position, 0.5f, terrainLayerMask) && resetLurecurrentTime < resetLureTimeOut)
-            {
-                _lure.lure_Go.transform.RotateAround(_rod.rod_EndPointTransform, _rotationAxix, deltaAngle);
-
+                RotateLureAroundPlayer(_rotationAxis, deltaAngle);
             }
             else if (Mathf.Abs(currentAngle) <= 0.5f)
             {
-                resetLureRotation = true;
+                miniGame.resetLureRotation = true;
             }
-            else if (Physics.CheckSphere(_lure.lure_Go.transform.position, 0.5f, terrainLayerMask))
+            else if (Physics.CheckSphere(lure.lure_Go.transform.position, 0.5f, terrainLayerMask))
             {
-                print("I am calling Lure Return");
-                OnLureReturnToRod();
+                Debug.LogWarning("Hybrid Hit Land and got away");
+                print("I called Hybrid Escaped");
+                OnHybridEscape();
             }
-            else if (resetLurecurrentTime > resetLureTimeOut)
+            else if (miniGame.resetLurecurrentTime > miniGame.resetLureTimeOut)
             {
-                resetLureRotation = true;
+                miniGame.resetLureRotation = true;
             }
-            resetLurecurrentTime += Time.deltaTime;
+
+            miniGame.resetLurecurrentTime += Time.deltaTime;
         }
 
+        private (float, float) CaculateAngle(float _SpeedMutiplayer, Vector3 _forward , Vector3 _targetDir)
+        {
+            float deltaAngle = (lure.lure_LureRotationSpeed.Value * _SpeedMutiplayer) * Time.deltaTime;
+            float currentAngle = Vector3.Angle(_targetDir, _forward) - lure.lure_StartingAngle.Value;
+
+            return ( deltaAngle, currentAngle );
+        }
+
+        private void RotateLureAroundPlayer(Vector3 _rotationAxis , float _deltaAngle) => lure.lure_Go.transform.RotateAround(rod.rod_EndPointTransform.Value, _rotationAxis, _deltaAngle);
+       
 
 
         public bool CheckForHybridCollision(Vector3 direction)
         {
-            if (!Physics.Raycast(_lure.lure_HybridAttachPoint.transform.position, direction, 3f, terrainLayerMask))
+            if (!Physics.Raycast(lure.lure_HybridAttachPoint.transform.position, direction, 3f, terrainLayerMask))
             {
                 return true; //no collision
             }
@@ -971,15 +1066,15 @@ namespace Europa
                 return;
 
             
-            if (newValue <= _lure.lure_ResetDistance.Value && fishingMiniGameState == MiniGameState.HybridTied)
+            if (newValue <= lure.lure_ResetDistance.Value && fishingMiniGameState == MiniGameState.HybridTied)
             {
                 OnHybridCaught();
             }
-            else if (newValue <= _lure.lure_ResetDistance.Value * 4 && fishingMiniGameState == MiniGameState.LureReturn)
+            else if (newValue <= lure.lure_ResetDistance.Value * 4 && fishingMiniGameState == MiniGameState.LureReturn)
             {
                 OnLureArriveAtRod();
             }
-            else if (newValue <= _lure.lure_ResetDistance.Value)
+            else if (newValue <= lure.lure_ResetDistance.Value)
             {
                 OnLureArriveAtRod();
             }
@@ -987,22 +1082,22 @@ namespace Europa
             if (fishingMiniGameState == MiniGameState.LureCast || fishingMiniGameState == MiniGameState.LureHitWater || fishingMiniGameState == MiniGameState.HybridTied || fishingMiniGameState == MiniGameState.LureReturn)
             {
                 // Check if the current distance exceeds the allowed max distance
-                if (_lure.lure_CurrentDistance.Value > _lure.lure_CurrentMaxDistance.Value)
+                if (lure.lure_CurrentDistance.Value > lure.lure_CurrentMaxDistance.Value)
                 {
                     // Calculate how much the current distance exceeds the max allowed distance
-                    float excessDistance = _lure.lure_CurrentDistance.Value - _lure.lure_CurrentMaxDistance.Value;
+                    float excessDistance = lure.lure_CurrentDistance.Value - lure.lure_CurrentMaxDistance.Value;
 
                     // Calculate direction from the lure to the fishing rod
-                    Vector3 directionToRod = (_rod.rod_EndPointTransform.Value - _lure.lure_EndPointTransform.Value).normalized;
+                    Vector3 directionToRod = (rod.rod_EndPointTransform.Value - lure.lure_EndPointTransform.Value).normalized;
 
                     // Calculate the force based on the excess distance and force multiplier
-                    Vector3 force = directionToRod * excessDistance * _lure.lure_ReelingForceMultiplier;
+                    Vector3 force = directionToRod * excessDistance * lure.lure_ReelingForceMultiplier;
 
                     // Clamp the magnitude of the force to the specified maxForce
-                    force = Vector3.ClampMagnitude(force, _lure.lure_MaxReelingForce);
+                    force = Vector3.ClampMagnitude(force, lure.lure_MaxReelingForce);
 
                     // Apply the clamped force to the Rigidbody
-                    _lure.lure_RB.AddForce(force, ForceMode.Force);
+                    lure.lure_RB.AddForce(force, ForceMode.Force);
 
                 }
             }
@@ -1011,25 +1106,25 @@ namespace Europa
         private void OnLureEnterWater()
         {
             OnLureHitWater();
-            _lure.lure_InWater.Value = true;
+            lure.lure_InWater.Value = true;
 
-            SetRBDrag(_lure.lure_WaterDrag.Value, _lure.lure_WaterRotationalDrag.Value);
-            _VFXM.PlayVFX(FOEVFXClass.Water, FOEVFX.W_Splash2, _lure.lure_Go.transform, false);
-            _VFXM.PlayVFX(FOEVFXClass.Water, FOEVFX.W_Ripples1, _lure.lure_Go.transform, Quaternion.identity, true, out _rippleParticleSystem);
+            SetRBDrag(lure.lure_WaterDrag.Value, lure.lure_WaterRotationalDrag.Value);
+            _VFXM.PlayVFX(FOEVFXClass.Water, FOEVFX.W_Splash2, lure.lure_Go.transform, false);
+            _VFXM.PlayVFX(FOEVFXClass.Water, FOEVFX.W_Ripples1, lure.lure_Go.transform, Quaternion.identity, true, out _rippleParticleSystem);
 
         }
 
         private void OnLureExitWater()
         {
-            _lure.lure_InWater.Value = false;
-            SetRBDrag(_lure.lure_AirDrag.Value, _lure.lure_AirRotationalDrag.Value);
+            lure.lure_InWater.Value = false;
+            SetRBDrag(lure.lure_AirDrag.Value, lure.lure_AirRotationalDrag.Value);
             _VFXM.StopVFX(_rippleParticleSystem);
         }
 
         private void SetRBDrag(float _drag, float _rotDrag)
         {
-            _lure.lure_RB.drag = _drag;
-            _lure.lure_RB.angularDrag = _rotDrag;
+            lure.lure_RB.drag = _drag;
+            lure.lure_RB.angularDrag = _rotDrag;
 
         }
     }
