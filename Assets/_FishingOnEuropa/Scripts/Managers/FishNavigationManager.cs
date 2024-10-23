@@ -1,9 +1,9 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using Obvious.Soap;
-using static Crest.Spline.Spline;
+using Unity.Collections;
+using Unity.Jobs;
+using Unity.Burst;
 
 namespace Europa
 {
@@ -100,6 +100,15 @@ namespace Europa
         [SerializeField] float moveToPlayerStoppingDistance;
 
         [SerializeField] float hybridDistanceToEat;
+
+        private struct HybridData
+        {
+            public Vector3 position;
+            public Vector3 velocity;
+            public float waterHeight;
+            public float maxSpeed;
+            public float minSpeed;
+        }
 
 
         private void Start()
@@ -276,7 +285,7 @@ namespace Europa
             {
 
                 //check if hand is moving
-                if (_PLAYER.leftHand.GetComponent<Rigidbody>().velocity.magnitude >= 1)
+                if (_PLAYER.leftHand.GetComponent<Rigidbody>().linearVelocity.magnitude >= 1)
                 {
                     //play animation here
 
@@ -289,7 +298,7 @@ namespace Europa
             {
 
                 //check if hand is moving
-                if (_PLAYER.rightHand.GetComponent<Rigidbody>().velocity.magnitude >= 1)
+                if (_PLAYER.rightHand.GetComponent<Rigidbody>().linearVelocity.magnitude >= 1)
                 {
 
                     //play animation here
@@ -485,179 +494,356 @@ namespace Europa
         private void UpdateRB(Rigidbody _rb, bool _gravity, float _drag, float _angularDrag)
         {
             _rb.useGravity = _gravity;
-            _rb.drag = _drag;
-            _rb.angularDrag = _angularDrag;
+            _rb.linearDamping = _drag;
+            _rb.angularDamping = _angularDrag;
         }
 
+        #region Zombie Code Updating Swimming 
         /// <summary>
         /// loops though the list of hybrids that are swimming and calls the functions that are needed for each hybrid to move. 
         /// </summary>
         /// <returns></returns>
+        //private IEnumerator UpdateSwimming()
+        //{
+        //    while (true)
+        //    {
+        //        if (hybridsSwimming.Count > 0)
+        //        {
+        //            foreach (FOEItem_Hybrid _hybrid in hybridsSwimming)
+        //            {
+        //                bool outofWater = false;
+
+        //                if (_hybrid.europaItemData.itemGO.transform.position.y > _hybrid.navigationData.waterHeight)
+        //                {
+        //                    outofWater = true;
+        //                    // Get the current position of the GameObject
+        //                    Vector3 currentPosition = _hybrid.europaItemData.itemGO.transform.position;
+
+        //                    // Create a new position with the updated y value from navigationData
+        //                    _hybrid.europaItemData.itemGO.transform.position = new Vector3(currentPosition.x, _hybrid.navigationData.waterHeight, currentPosition.z);
+
+        //                    //print("Help im Out of water");
+        //                }
+
+        //                if (UnityEngine.Random.Range(0, rayCastCheckChance) < 1 && hybridsSwimming.Count > 1)
+        //                {
+        //                    Ray hybridRay = new Ray(_hybrid.europaItemData.itemGO.transform.position, _hybrid.europaItemData.itemGO.transform.forward);
+        //                    float raycastDistance = 0.5f;
+        //                    int layerMask = ~LayerMask.GetMask("Fish");
+
+        //                    if (debug)
+        //                        Debug.DrawRay(hybridRay.origin, hybridRay.direction * raycastDistance, Color.red);
+
+        //                    if (Physics.Raycast(hybridRay, out RaycastHit hit, raycastDistance, layerMask))
+        //                    {
+        //                        if (hit.collider.gameObject.CompareTag("Wall"))
+        //                        {
+        //                            _hybrid.navigationData.aboutToHitWall = true;
+        //                        }
+        //                        else
+        //                        {
+        //                            _hybrid.navigationData.aboutToHitWall = false;
+        //                            _hybrid.navigationData.hybridState = HybridState.HybridFlocking;
+        //                        }
+        //                    }
+        //                    else
+        //                    {
+        //                        _hybrid.navigationData.aboutToHitWall = false;
+        //                        _hybrid.navigationData.hybridState = HybridState.HybridFlocking;
+        //                    }
+        //                }
+
+        //                if (UnityEngine.Random.Range(0, applyBoidsChance) < 1 && hybridsSwimming.Count > 1 || _hybrid.navigationData.firstNav == true)
+        //                {
+        //                    _hybrid.navigationData.firstNav = false;
+        //                    Vector3 separationVelocity = Vector3.zero;
+        //                    Vector3 alignmentVelocity = Vector3.zero;
+        //                    Vector3 cohesionVelocity = Vector3.zero;
+
+        //                    int numOfBoidsToAvoid = 0;
+        //                    int numOfBoidsToAlignWith = 0;
+        //                    int numOfBoidsInFlock = 0;
+        //                    Vector3 currBoidPosition = _hybrid.europaItemData.itemGO.transform.position;
+        //                    Vector3 positionToMoveTowards = Vector3.zero;
+
+        //                    foreach (FOEItem_Hybrid _otherBoid in hybridsSwimming)
+        //                    {
+        //                        if (ReferenceEquals(_otherBoid, _hybrid))
+        //                        {
+        //                            continue;
+        //                        }
+
+        //                        Vector3 otherBoidsPosition = _otherBoid.europaItemData.itemGO.transform.position;
+        //                        float dist = Vector3.Distance(currBoidPosition, otherBoidsPosition);
+
+        //                        // Separation Check
+        //                        if (dist < separationRange)
+        //                        {
+        //                            Vector3 otherBoidToCurrentBoid = currBoidPosition - otherBoidsPosition;
+        //                            Vector3 dirToTravel = otherBoidToCurrentBoid.normalized;
+        //                            separationVelocity += dirToTravel / dist;
+        //                            numOfBoidsToAvoid++;
+        //                        }
+
+        //                        // Alignment Check
+        //                        if (dist < alignmentRange)
+        //                        {
+        //                            alignmentVelocity += _otherBoid.navigationData.velocity;
+        //                            numOfBoidsToAlignWith++;
+        //                        }
+
+        //                        // Cohesion Check
+        //                        if (dist < cohesionRange)
+        //                        {
+        //                            positionToMoveTowards += otherBoidsPosition;
+        //                            numOfBoidsInFlock++;
+        //                        }
+        //                    }
+
+        //                    if (numOfBoidsToAvoid != 0)
+        //                    {
+        //                        separationVelocity /= numOfBoidsToAvoid;
+        //                        separationVelocity.Normalize();
+        //                        separationVelocity *= separationFactor;
+        //                    }
+
+        //                    if (numOfBoidsToAlignWith != 0)
+        //                    {
+        //                        alignmentVelocity /= numOfBoidsToAlignWith;
+        //                        alignmentVelocity.Normalize();
+        //                        alignmentVelocity *= alignmentFactor;
+        //                    }
+
+        //                    if (numOfBoidsInFlock != 0)
+        //                    {
+        //                        positionToMoveTowards /= numOfBoidsInFlock;
+        //                        Vector3 cohesionDirection = positionToMoveTowards - currBoidPosition;
+        //                        cohesionDirection.Normalize();
+        //                        cohesionVelocity = cohesionDirection * cohesionFactor;
+        //                    }
+
+        //                    _hybrid.navigationData.velocity += separationVelocity;
+        //                    _hybrid.navigationData.velocity += alignmentVelocity;
+        //                    _hybrid.navigationData.velocity += cohesionVelocity;
+
+        //                    _hybrid.navigationData.velocity = Vector3.ClampMagnitude(_hybrid.navigationData.velocity, _hybrid.navigationData.maxSpeed);
+
+        //                    Vector3 direction = _hybrid.navigationData.velocity.normalized;
+        //                    float speed = _hybrid.navigationData.velocity.magnitude;
+        //                    speed = Mathf.Clamp(speed, _hybrid.navigationData.minSpeed, _hybrid.navigationData.maxSpeed);
+        //                    _hybrid.navigationData.velocity = direction * speed;
+        //                }
+
+        //                if (outofWater)
+        //                {
+        //                    _hybrid.navigationData.velocity.x = -Mathf.Abs(_hybrid.navigationData.velocity.x);
+        //                    _hybrid.navigationData.velocity.z = -Mathf.Abs(_hybrid.navigationData.velocity.z);
+
+        //                }
+
+        //                if (_hybrid.navigationData.aboutToHitWall == true && _hybrid.navigationData.hybridState != HybridState.HybridAvoidingWall)
+        //                {
+        //                    Vector3 oppositeDirection = -_hybrid.europaItemData.itemGO.transform.forward;
+        //                    _hybrid.navigationData.velocity = oppositeDirection * _hybrid.navigationData.maxSpeed;
+        //                    _hybrid.navigationData.hybridState = HybridState.HybridAvoidingWall;
+        //                }
+
+        //                // Move the Hybrid in the direction of Velocity
+        //                _hybrid.europaItemData.itemGO.transform.position += _hybrid.navigationData.velocity * Time.deltaTime;
+
+        //                // Rotate the Hybrid toward the direction it is moving
+        //                Quaternion targetRotation = Quaternion.LookRotation(_hybrid.navigationData.velocity);
+        //                //Debug.Log($"Updating Rotation: {_Hybrid.hybridGameObject.name} Current Rotation: {_Hybrid.hybridGameObject.transform.rotation} Target Rotation: {targetRotation}");
+        //                _hybrid.europaItemData.itemGO.transform.rotation = Quaternion.Lerp(_hybrid.europaItemData.itemGO.transform.rotation, targetRotation, _hybrid.hybridSO.rotationSpeed * Time.deltaTime);
+
+        //            }
+
+        //            // Remove hybrids from hybridsHitWater
+        //            foreach (var hybrid in removeHybridsSwimming)
+        //            {
+        //                hybridsSwimming.Remove(hybrid);
+        //            }
+        //            removeHybridsSwimming.Clear();
+        //        }
+        //        yield return new WaitForFixedUpdate();
+        //    }
+        //}
+
+        #endregion
+
         private IEnumerator UpdateSwimming()
         {
             while (true)
             {
                 if (hybridsSwimming.Count > 0)
                 {
-                    foreach (FOEItem_Hybrid _hybrid in hybridsSwimming)
+                    NativeArray<HybridData> hybridDataArray = new NativeArray<HybridData>(hybridsSwimming.Count, Allocator.TempJob);
+                    NativeArray<Vector3> newPositions = new NativeArray<Vector3>(hybridsSwimming.Count, Allocator.TempJob);
+                    NativeArray<Vector3> newVelocities = new NativeArray<Vector3>(hybridsSwimming.Count, Allocator.TempJob);
+
+                    // Populate data from the hybrids
+                    for (int i = 0; i < hybridsSwimming.Count; i++)
                     {
-                        bool outofWater = false;
-
-                        if (_hybrid.europaItemData.itemGO.transform.position.y > _hybrid.navigationData.waterHeight)
+                        var hybrid = hybridsSwimming[i];
+                        hybridDataArray[i] = new HybridData
                         {
-                            outofWater = true;
-                            // Get the current position of the GameObject
-                            Vector3 currentPosition = _hybrid.europaItemData.itemGO.transform.position;
-
-                            // Create a new position with the updated y value from navigationData
-                            _hybrid.europaItemData.itemGO.transform.position = new Vector3(currentPosition.x, _hybrid.navigationData.waterHeight, currentPosition.z);
-
-                            //print("Help im Out of water");
-                        }
-
-                        if (UnityEngine.Random.Range(0, rayCastCheckChance) < 1 && hybridsSwimming.Count > 1)
-                        {
-                            Ray hybridRay = new Ray(_hybrid.europaItemData.itemGO.transform.position, _hybrid.europaItemData.itemGO.transform.forward);
-                            float raycastDistance = 0.5f;
-                            int layerMask = ~LayerMask.GetMask("Fish");
-
-                            if (debug)
-                                Debug.DrawRay(hybridRay.origin, hybridRay.direction * raycastDistance, Color.red);
-
-                            if (Physics.Raycast(hybridRay, out RaycastHit hit, raycastDistance, layerMask))
-                            {
-                                if (hit.collider.gameObject.CompareTag("Wall"))
-                                {
-                                    _hybrid.navigationData.aboutToHitWall = true;
-                                }
-                                else
-                                {
-                                    _hybrid.navigationData.aboutToHitWall = false;
-                                    _hybrid.navigationData.hybridState = HybridState.HybridFlocking;
-                                }
-                            }
-                            else
-                            {
-                                _hybrid.navigationData.aboutToHitWall = false;
-                                _hybrid.navigationData.hybridState = HybridState.HybridFlocking;
-                            }
-                        }
-
-                        if (UnityEngine.Random.Range(0, applyBoidsChance) < 1 && hybridsSwimming.Count > 1 || _hybrid.navigationData.firstNav == true)
-                        {
-                            _hybrid.navigationData.firstNav = false;
-                            Vector3 separationVelocity = Vector3.zero;
-                            Vector3 alignmentVelocity = Vector3.zero;
-                            Vector3 cohesionVelocity = Vector3.zero;
-
-                            int numOfBoidsToAvoid = 0;
-                            int numOfBoidsToAlignWith = 0;
-                            int numOfBoidsInFlock = 0;
-                            Vector3 currBoidPosition = _hybrid.europaItemData.itemGO.transform.position;
-                            Vector3 positionToMoveTowards = Vector3.zero;
-
-                            foreach (FOEItem_Hybrid _otherBoid in hybridsSwimming)
-                            {
-                                if (ReferenceEquals(_otherBoid, _hybrid))
-                                {
-                                    continue;
-                                }
-
-                                Vector3 otherBoidsPosition = _otherBoid.europaItemData.itemGO.transform.position;
-                                float dist = Vector3.Distance(currBoidPosition, otherBoidsPosition);
-
-                                // Separation Check
-                                if (dist < separationRange)
-                                {
-                                    Vector3 otherBoidToCurrentBoid = currBoidPosition - otherBoidsPosition;
-                                    Vector3 dirToTravel = otherBoidToCurrentBoid.normalized;
-                                    separationVelocity += dirToTravel / dist;
-                                    numOfBoidsToAvoid++;
-                                }
-
-                                // Alignment Check
-                                if (dist < alignmentRange)
-                                {
-                                    alignmentVelocity += _otherBoid.navigationData.velocity;
-                                    numOfBoidsToAlignWith++;
-                                }
-
-                                // Cohesion Check
-                                if (dist < cohesionRange)
-                                {
-                                    positionToMoveTowards += otherBoidsPosition;
-                                    numOfBoidsInFlock++;
-                                }
-                            }
-
-                            if (numOfBoidsToAvoid != 0)
-                            {
-                                separationVelocity /= numOfBoidsToAvoid;
-                                separationVelocity.Normalize();
-                                separationVelocity *= separationFactor;
-                            }
-
-                            if (numOfBoidsToAlignWith != 0)
-                            {
-                                alignmentVelocity /= numOfBoidsToAlignWith;
-                                alignmentVelocity.Normalize();
-                                alignmentVelocity *= alignmentFactor;
-                            }
-
-                            if (numOfBoidsInFlock != 0)
-                            {
-                                positionToMoveTowards /= numOfBoidsInFlock;
-                                Vector3 cohesionDirection = positionToMoveTowards - currBoidPosition;
-                                cohesionDirection.Normalize();
-                                cohesionVelocity = cohesionDirection * cohesionFactor;
-                            }
-
-                            _hybrid.navigationData.velocity += separationVelocity;
-                            _hybrid.navigationData.velocity += alignmentVelocity;
-                            _hybrid.navigationData.velocity += cohesionVelocity;
-
-                            _hybrid.navigationData.velocity = Vector3.ClampMagnitude(_hybrid.navigationData.velocity, _hybrid.navigationData.maxSpeed);
-
-                            Vector3 direction = _hybrid.navigationData.velocity.normalized;
-                            float speed = _hybrid.navigationData.velocity.magnitude;
-                            speed = Mathf.Clamp(speed, _hybrid.navigationData.minSpeed, _hybrid.navigationData.maxSpeed);
-                            _hybrid.navigationData.velocity = direction * speed;
-                        }
-
-                        if (outofWater)
-                        {
-                            _hybrid.navigationData.velocity.x = -Mathf.Abs(_hybrid.navigationData.velocity.x);
-                            _hybrid.navigationData.velocity.z = -Mathf.Abs(_hybrid.navigationData.velocity.z);
-
-                        }
-
-                        if (_hybrid.navigationData.aboutToHitWall == true && _hybrid.navigationData.hybridState != HybridState.HybridAvoidingWall)
-                        {
-                            Vector3 oppositeDirection = -_hybrid.europaItemData.itemGO.transform.forward;
-                            _hybrid.navigationData.velocity = oppositeDirection * _hybrid.navigationData.maxSpeed;
-                            _hybrid.navigationData.hybridState = HybridState.HybridAvoidingWall;
-                        }
-
-                        // Move the Hybrid in the direction of Velocity
-                        _hybrid.europaItemData.itemGO.transform.position += _hybrid.navigationData.velocity * Time.deltaTime;
-
-                        // Rotate the Hybrid toward the direction it is moving
-                        Quaternion targetRotation = Quaternion.LookRotation(_hybrid.navigationData.velocity);
-                        //Debug.Log($"Updating Rotation: {_Hybrid.hybridGameObject.name} Current Rotation: {_Hybrid.hybridGameObject.transform.rotation} Target Rotation: {targetRotation}");
-                        _hybrid.europaItemData.itemGO.transform.rotation = Quaternion.Lerp(_hybrid.europaItemData.itemGO.transform.rotation, targetRotation, _hybrid.hybridSO.rotationSpeed * Time.deltaTime);
-
+                            position = hybrid.europaItemData.itemGO.transform.position,
+                            velocity = hybrid.navigationData.velocity,
+                            waterHeight = hybrid.navigationData.waterHeight,
+                            maxSpeed = hybrid.navigationData.maxSpeed,
+                            minSpeed = hybrid.navigationData.minSpeed,
+                        };
                     }
 
-                    // Remove hybrids from hybridsHitWater
+                    // Schedule the job
+                    var swimmingJob = new BoidBehaviorJob
+                    {
+                        hybrids = hybridDataArray,
+                        newPositions = newPositions,
+                        newVelocities = newVelocities,
+                        separationRange = separationRange,
+                        alignmentRange = alignmentRange,
+                        cohesionRange = cohesionRange,
+                        separationFactor = separationFactor,
+                        alignmentFactor = alignmentFactor,
+                        cohesionFactor = cohesionFactor,
+                        deltaTime = Time.deltaTime
+                    };
+
+                    JobHandle jobHandle = swimmingJob.Schedule(hybridsSwimming.Count, 64);
+                    jobHandle.Complete();
+
+                    // Apply results to the hybrids
+                    for (int i = 0; i < hybridsSwimming.Count; i++)
+                    {
+                        // Update the hybrid's position
+                        hybridsSwimming[i].europaItemData.itemGO.transform.position = newPositions[i];
+
+                        // Get the new velocity direction
+                        Vector3 velocity = newVelocities[i];
+
+                        if (velocity.sqrMagnitude > 0.01f) // Ensure there is meaningful movement
+                        {
+                            // Calculate the target rotation based on the velocity direction
+                            Quaternion targetRotation = Quaternion.LookRotation(velocity.normalized);
+
+                            // Smoothly interpolate towards the target rotation using Lerp
+                            hybridsSwimming[i].europaItemData.itemGO.transform.rotation = Quaternion.Lerp(
+                                hybridsSwimming[i].europaItemData.itemGO.transform.rotation,
+                                targetRotation,
+                                hybridsSwimming[i].hybridSO.rotationSpeed * Time.deltaTime
+                            );
+                        }
+
+                        // Update the velocity in the hybrid's data for the next frame
+                        hybridsSwimming[i].navigationData.velocity = velocity;
+                    }
+
+                    // Cleanup
+                    hybridDataArray.Dispose();
+                    newPositions.Dispose();
+                    newVelocities.Dispose();
+
+                    // Remove hybrids marked for removal
                     foreach (var hybrid in removeHybridsSwimming)
                     {
                         hybridsSwimming.Remove(hybrid);
                     }
                     removeHybridsSwimming.Clear();
                 }
+
                 yield return new WaitForFixedUpdate();
             }
         }
+
+        [BurstCompile]
+        private struct BoidBehaviorJob : IJobParallelFor
+        {
+            [ReadOnly] public NativeArray<HybridData> hybrids;
+            public NativeArray<Vector3> newPositions;
+            public NativeArray<Vector3> newVelocities;
+
+            public float deltaTime;
+            public float separationRange, alignmentRange, cohesionRange;
+            public float separationFactor, alignmentFactor, cohesionFactor;
+
+            public void Execute(int index)
+            {
+                HybridData hybrid = hybrids[index];
+
+                Vector3 separation = Vector3.zero;
+                Vector3 alignment = Vector3.zero;
+                Vector3 cohesion = Vector3.zero;
+
+                int neighborsForSeparation = 0;
+                int neighborsForAlignment = 0;
+                int neighborsForCohesion = 0;
+
+                Vector3 currentPosition = hybrid.position;
+
+                // Calculate boid behavior by looping over all hybrids
+                for (int i = 0; i < hybrids.Length; i++)
+                {
+                    if (i == index) continue;
+
+                    Vector3 otherPosition = hybrids[i].position;
+                    float distance = Vector3.Distance(currentPosition, otherPosition);
+
+                    // Separation: Avoid getting too close to other hybrids
+                    if (distance < separationRange)
+                    {
+                        separation += (currentPosition - otherPosition).normalized / distance;
+                        neighborsForSeparation++;
+                    }
+
+                    // Alignment: Steer towards the average heading of neighbors
+                    if (distance < alignmentRange)
+                    {
+                        alignment += hybrids[i].velocity;
+                        neighborsForAlignment++;
+                    }
+
+                    // Cohesion: Move towards the center of mass of neighbors
+                    if (distance < cohesionRange)
+                    {
+                        cohesion += otherPosition;
+                        neighborsForCohesion++;
+                    }
+                }
+
+                // Finalize the velocities if neighbors were found
+                if (neighborsForSeparation > 0)
+                    separation = (separation / neighborsForSeparation) * separationFactor;
+
+                if (neighborsForAlignment > 0)
+                    alignment = (alignment / neighborsForAlignment) * alignmentFactor;
+
+                if (neighborsForCohesion > 0)
+                {
+                    cohesion = (cohesion / neighborsForCohesion) - currentPosition;
+                    cohesion = cohesion.normalized * cohesionFactor;
+                }
+
+                // Combine all the velocities
+                Vector3 newVelocity = hybrid.velocity + separation + alignment + cohesion;
+
+                // Clamp the velocity
+                newVelocity = Vector3.ClampMagnitude(newVelocity, hybrid.maxSpeed);
+
+                // Update position based on new velocity
+                Vector3 newPosition = currentPosition + newVelocity * deltaTime;
+
+                // Ensure the hybrid stays within water height
+                if (newPosition.y > hybrid.waterHeight)
+                    newPosition.y = hybrid.waterHeight;
+
+                // Store the results
+                newPositions[index] = newPosition;
+                newVelocities[index] = newVelocity;
+            }
+        }
+
+
 
         private IEnumerator UpdateHybridSwimToLure()
         {

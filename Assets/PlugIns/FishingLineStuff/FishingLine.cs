@@ -70,7 +70,7 @@ public class BezierLine : MonoBehaviour
         if (controlRigidbody != null)
         {
             controlRigidbody.mass = controlPointMass;
-            controlRigidbody.drag = controlPointDrag;
+            controlRigidbody.linearDamping = controlPointDrag;
         }
     }
 

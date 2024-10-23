@@ -130,7 +130,7 @@ namespace Europa
             }
 
             // Set the velocity of the Rigidbody
-            _Rb.velocity = new Vector3(VXZ.x, Vy, VXZ.z);
+            _Rb.linearVelocity = new Vector3(VXZ.x, Vy, VXZ.z);
             _Rb.useGravity = true;
 
             // Apply rotational force

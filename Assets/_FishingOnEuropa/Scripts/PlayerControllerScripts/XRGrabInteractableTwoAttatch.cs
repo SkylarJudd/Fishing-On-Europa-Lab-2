@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 
-public class XRGrabInteractableTwoAttatch : XRGrabInteractable
+public class XRGrabInteractableTwoAttatch : UnityEngine.XR.Interaction.Toolkit.Interactables.XRGrabInteractable
 {
 
     public Transform leftAttachedTransform;
@@ -32,7 +32,7 @@ public class XRGrabInteractableTwoAttatch : XRGrabInteractable
          base.OnSelectEntered(args);
      } 
 
-     public override Transform GetAttachTransform(IXRInteractor interactor)
+     public override Transform GetAttachTransform(UnityEngine.XR.Interaction.Toolkit.Interactors.IXRInteractor interactor)
     {
         //Debug.Log("GetAttachTransform");
 

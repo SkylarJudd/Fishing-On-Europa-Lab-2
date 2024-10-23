@@ -1123,8 +1123,8 @@ namespace Europa
 
         private void SetRBDrag(float _drag, float _rotDrag)
         {
-            lure.lure_RB.drag = _drag;
-            lure.lure_RB.angularDrag = _rotDrag;
+            lure.lure_RB.linearDamping = _drag;
+            lure.lure_RB.angularDamping = _rotDrag;
 
         }
     }

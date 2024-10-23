@@ -55,12 +55,12 @@ public class BubbleMovement : MonoBehaviour
 
                 // Calculate the force to apply
                 Vector3 forceDirection = new Vector3(0, targetYPosition - transform.position.y, 0);
-                Vector3 force = forceDirection * springForce - rb.velocity * damping;
+                Vector3 force = forceDirection * springForce - rb.linearVelocity * damping;
 
                 // Apply the force to the Rigidbody
                 rb.AddForce(force);
 
-                // Ensure the Rigidbody doesn’t have unwanted rotation
+                // Ensure the Rigidbody doesnï¿½t have unwanted rotation
                 //rb.angularVelocity = Vector3.zero;
             }
         }
@@ -76,7 +76,7 @@ public class BubbleMovement : MonoBehaviour
     {
         isFloating = false;
         rb.useGravity = true; // Gravity should be on when picked up
-        rb.velocity = Vector3.zero;
+        rb.linearVelocity = Vector3.zero;
         sineWaveOffset = 0.0f; // Reset the sine wave offset when picked up
     }
 }

@@ -11,7 +11,7 @@ public class CustomGravityXR : MonoBehaviour
     void Start()
     {
         characterController.GetComponent<Rigidbody>().useGravity = true; // Enable gravity
-        characterController.GetComponent<Rigidbody>().drag = 1f; // Optional: Add drag for more natural movement
+        characterController.GetComponent<Rigidbody>().linearDamping = 1f; // Optional: Add drag for more natural movement
     }
 }
     
