@@ -12,4 +12,47 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab1a0ab734d9a004187865a007e2cd78, type: 3}
   m_Name: AudioClipsSO
   m_EditorClassIdentifier: 
-  audioClips: []
+  audioClips:
+  - {fileID: 8300000, guid: e35b629a4dd764c4e8ce63997db74abd, type: 3}
+  - {fileID: 8300000, guid: c00193f69f150124cbf3f5671b986b63, type: 3}
+  - {fileID: 8300000, guid: 507a0f5a69630eb4e8d402b3f7bdbf51, type: 3}
+  - {fileID: 8300000, guid: 00791ec0309906b4997bbe3d85449fc6, type: 3}
+  - {fileID: 8300000, guid: 4ce0b11da9e379f488ecc1585e5747df, type: 3}
+  - {fileID: 8300000, guid: bd1ca43dd3a4e2744ad4a8eb422312c2, type: 3}
+  - {fileID: 8300000, guid: a7003794d84268d418ee08bc6db634ea, type: 3}
+  - {fileID: 8300000, guid: 0031bceadbe496245a185148b58d2a81, type: 3}
+  - {fileID: 8300000, guid: c4b4a5aca12497348a04aa08e0ecc888, type: 3}
+  - {fileID: 8300000, guid: b873bb748d9a36344a47cbaa96cf6f23, type: 3}
+  - {fileID: 8300000, guid: f37ec698c7ee8084ca3f489dfc5dd38b, type: 3}
+  - {fileID: 8300000, guid: ab54c045bef8d954b83268c32ae7e9e1, type: 3}
+  - {fileID: 8300000, guid: 954059ca718d5e34f8a019eba18c86fa, type: 3}
+  - {fileID: 8300000, guid: e5306339744e29943baaa09c67fafc90, type: 3}
+  - {fileID: 8300000, guid: 23dfddfd963457e438a7b5dc592f247d, type: 3}
+  - {fileID: 8300000, guid: 0a47e2af49353f64481acddc0841cbf6, type: 3}
+  audioClips_grassWalk:
+  - {fileID: 8300000, guid: 2a082b684893aaf4caca87cb7e696ba0, type: 3}
+  - {fileID: 8300000, guid: 5e1586986b325074bbb93fbbb5c9cdda, type: 3}
+  - {fileID: 8300000, guid: cefca1f5af7978544969f821a6e2f01a, type: 3}
+  - {fileID: 8300000, guid: 2ecd99e3181a2a345b56755268d7b365, type: 3}
+  - {fileID: 8300000, guid: 6295d3e02feb8ae44860a01abed176a2, type: 3}
+  - {fileID: 8300000, guid: 0f6fe489d73e9af458f8f3b0cc72ff49, type: 3}
+  - {fileID: 8300000, guid: f4093feb0877d9c41b142e191bf0b4b3, type: 3}
+  - {fileID: 8300000, guid: dfaa2ee74fcca32449d1c9269478e612, type: 3}
+  - {fileID: 8300000, guid: bfbff903a8bba2440b2b0b3d9c52e274, type: 3}
+  - {fileID: 8300000, guid: 08667c58564ae154380c7efbec469977, type: 3}
+  - {fileID: 8300000, guid: 05f32c0d79a447f46b578fe1638786fd, type: 3}
+  audioClips_gravelWalk:
+  - {fileID: 8300000, guid: aabc29101d32e9a44ae14d997d7a4372, type: 3}
+  - {fileID: 8300000, guid: cca6704394859b34c896cf9c8d7952dc, type: 3}
+  - {fileID: 8300000, guid: 719e58f1b9001304da6104761dd84c2b, type: 3}
+  audioClips_stoneWalk:
+  - {fileID: 8300000, guid: 5ba47d5f3a1377a459b6ed3c2a9e874e, type: 3}
+  - {fileID: 8300000, guid: 1b52cb31d5183fb4aa9fcfdf3fab4093, type: 3}
+  - {fileID: 8300000, guid: c1a7d61f164bb9449b41221806b46fe8, type: 3}
+  - {fileID: 8300000, guid: 42d2ad664b8513b4584d20ac96f062d1, type: 3}
+  - {fileID: 8300000, guid: 7f2a77edef34e7545944dd87bed37fc4, type: 3}
+  - {fileID: 8300000, guid: ac1835dff19b75944ba311c3ec49b88b, type: 3}
+  - {fileID: 8300000, guid: 7491a37058f2e4741b3e69f8471fb00e, type: 3}
+  - {fileID: 8300000, guid: a940432c5d6b0e6429e45433c0c9f7f0, type: 3}
+  - {fileID: 8300000, guid: f7757a8e8d824d645a4b971e4159b3da, type: 3}
+  - {fileID: 8300000, guid: dea34ada9bf4f7e4b93950b07a0b636b, type: 3}

@@ -41,7 +41,7 @@ namespace Europa
 
         private void Start()
         {
-
+            ChangeBackgroundMusic(BackgroundMusicClips.Valley);
 
             foreach (Sound s in sounds)
             {
@@ -70,7 +70,7 @@ namespace Europa
                     break;
                 }
             }
-
+            print(clip.name);
             return clip;
         }
 
@@ -114,7 +114,9 @@ namespace Europa
         /// <param name="_clip"></param>
         public void ChangeBackgroundMusic(AudioClipsSO.BackgroundMusicClips _clip )
         {
+            print("Change bgm");
             bgMusicAudioSource.clip = GetBGMusicClipFromEnum(_clip);
+            bgMusicAudioSource.Play();
 
         }
 
