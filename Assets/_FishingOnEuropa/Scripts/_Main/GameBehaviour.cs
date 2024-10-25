@@ -2,6 +2,8 @@
 using UnityEngine;
 using System.Collections.Generic;
 using Obvious.Soap.Example;
+using System.Collections;
+using System;
 
 namespace Europa
 {
@@ -75,6 +77,23 @@ namespace Europa
                 }
             }
             return null;
+        }
+
+        /// <summary>
+        /// Executes the Action block as a Coroutine after X seconds
+        /// </summary>
+        /// <param name="seconds">Seconds.</param>
+        protected void ExecuteAfterSeconds(float seconds, Action func)
+        {
+            if (seconds <= 0f)
+                func();
+            else
+                StartCoroutine(ExecuteAfterSecondsCoroutine(seconds, func));
+        }
+        private IEnumerator ExecuteAfterSecondsCoroutine(float seconds, Action func)
+        {
+            yield return new WaitForSeconds(seconds);
+            func();
         }
     }
 }
