@@ -4,6 +4,7 @@ using UnityEngine;
 using Unity.Collections;
 using Unity.Jobs;
 using Unity.Burst;
+using static UnityEditor.Experimental.GraphView.GraphView;
 
 namespace Europa
 {
@@ -74,6 +75,7 @@ namespace Europa
         #endregion
 
         [SerializeField] float correctRotationSpeed = 0.1f; //being used by UpdateHitWater()
+        [SerializeField] LayerMask environmentLayerMask;
 
         #region Hybrid Nav Coroutines
         private Coroutine updateHybridFlyingCoroutine;
@@ -680,6 +682,7 @@ namespace Europa
                     NativeArray<HybridData> hybridDataArray = new NativeArray<HybridData>(hybridsSwimming.Count, Allocator.TempJob);
                     NativeArray<Vector3> newPositions = new NativeArray<Vector3>(hybridsSwimming.Count, Allocator.TempJob);
                     NativeArray<Vector3> newVelocities = new NativeArray<Vector3>(hybridsSwimming.Count, Allocator.TempJob);
+                    NativeArray<bool> aboutToHitWallArray = new NativeArray<bool>(hybridsSwimming.Count, Allocator.TempJob);
 
                     // Populate data from the hybrids
                     for (int i = 0; i < hybridsSwimming.Count; i++)
@@ -701,13 +704,18 @@ namespace Europa
                         hybrids = hybridDataArray,
                         newPositions = newPositions,
                         newVelocities = newVelocities,
+                        aboutToHitWall = aboutToHitWallArray,
                         separationRange = separationRange,
                         alignmentRange = alignmentRange,
                         cohesionRange = cohesionRange,
                         separationFactor = separationFactor,
                         alignmentFactor = alignmentFactor,
                         cohesionFactor = cohesionFactor,
-                        deltaTime = Time.deltaTime
+                        environmentLayerMask = environmentLayerMask,
+                        rayCastChance = rayCastCheckChance,
+                        applyBoidsChance = applyBoidsChance,
+                        deltaTime = Time.deltaTime,
+                        debug = debug
                     };
 
                     JobHandle jobHandle = swimmingJob.Schedule(hybridsSwimming.Count, 64);
@@ -716,33 +724,53 @@ namespace Europa
                     // Apply results to the hybrids
                     for (int i = 0; i < hybridsSwimming.Count; i++)
                     {
-                        // Update the hybrid's position
-                        hybridsSwimming[i].europaItemData.itemGO.transform.position = newPositions[i];
+                        var hybrid = hybridsSwimming[i];
 
-                        // Get the new velocity direction
-                        Vector3 velocity = newVelocities[i];
+                        // Update position
+                        hybrid.europaItemData.itemGO.transform.position = newPositions[i];
 
-                        if (velocity.sqrMagnitude > 0.01f) // Ensure there is meaningful movement
+                        // Handle wall avoidance
+                        if (aboutToHitWallArray[i])
                         {
-                            // Calculate the target rotation based on the velocity direction
-                            Quaternion targetRotation = Quaternion.LookRotation(velocity.normalized);
-
-                            // Smoothly interpolate towards the target rotation using Lerp
-                            hybridsSwimming[i].europaItemData.itemGO.transform.rotation = Quaternion.Lerp(
-                                hybridsSwimming[i].europaItemData.itemGO.transform.rotation,
-                                targetRotation,
-                                hybridsSwimming[i].hybridSO.rotationSpeed * Time.deltaTime
-                            );
+                            // Reverse direction if about to hit a wall
+                            hybrid.navigationData.velocity = -hybrid.europaItemData.itemGO.transform.forward * hybrid.navigationData.maxSpeed;
+                            hybrid.navigationData.hybridState = HybridState.HybridAvoidingWall;
                         }
+                        else
+                        {
+                            // Smooth rotation towards velocity direction
+                            Vector3 velocity = newVelocities[i];
+                            if (velocity.sqrMagnitude > 0.01f)
+                            {
+                                Quaternion targetRotation = Quaternion.LookRotation(velocity.normalized);
+                                hybrid.europaItemData.itemGO.transform.rotation = Quaternion.Lerp(
+                                    hybrid.europaItemData.itemGO.transform.rotation,
+                                    targetRotation,
+                                    hybrid.hybridSO.rotationSpeed * Time.deltaTime
+                                );
+                            }
 
-                        // Update the velocity in the hybrid's data for the next frame
-                        hybridsSwimming[i].navigationData.velocity = velocity;
+
+                            // Apply random boid behavior based on chance
+                            if (UnityEngine.Random.Range(0, applyBoidsChance) < 1)
+                            {
+                                // Update velocity
+                                hybrid.navigationData.velocity = velocity;
+                            }
+                            else
+                            {
+                                // Keep previous velocity
+                            }
+
+                           
+                        }
                     }
 
                     // Cleanup
                     hybridDataArray.Dispose();
                     newPositions.Dispose();
                     newVelocities.Dispose();
+                    aboutToHitWallArray.Dispose();
 
                     // Remove hybrids marked for removal
                     foreach (var hybrid in removeHybridsSwimming)
@@ -762,10 +790,14 @@ namespace Europa
             [ReadOnly] public NativeArray<HybridData> hybrids;
             public NativeArray<Vector3> newPositions;
             public NativeArray<Vector3> newVelocities;
+            public NativeArray<bool> aboutToHitWall;
 
             public float deltaTime;
             public float separationRange, alignmentRange, cohesionRange;
             public float separationFactor, alignmentFactor, cohesionFactor;
+            public LayerMask environmentLayerMask;
+            public int rayCastChance, applyBoidsChance;
+            public bool debug;
 
             public void Execute(int index)
             {
@@ -781,7 +813,7 @@ namespace Europa
 
                 Vector3 currentPosition = hybrid.position;
 
-                // Calculate boid behavior by looping over all hybrids
+                // Calculate boid behavior based on nearby hybrids
                 for (int i = 0; i < hybrids.Length; i++)
                 {
                     if (i == index) continue;
@@ -789,21 +821,21 @@ namespace Europa
                     Vector3 otherPosition = hybrids[i].position;
                     float distance = Vector3.Distance(currentPosition, otherPosition);
 
-                    // Separation: Avoid getting too close to other hybrids
+                    // Separation: Avoid nearby hybrids
                     if (distance < separationRange)
                     {
                         separation += (currentPosition - otherPosition).normalized / distance;
                         neighborsForSeparation++;
                     }
 
-                    // Alignment: Steer towards the average heading of neighbors
+                    // Alignment: Match velocity with neighbors
                     if (distance < alignmentRange)
                     {
                         alignment += hybrids[i].velocity;
                         neighborsForAlignment++;
                     }
 
-                    // Cohesion: Move towards the center of mass of neighbors
+                    // Cohesion: Move toward the center of mass of neighbors
                     if (distance < cohesionRange)
                     {
                         cohesion += otherPosition;
@@ -811,7 +843,7 @@ namespace Europa
                     }
                 }
 
-                // Finalize the velocities if neighbors were found
+                // Calculate final velocities
                 if (neighborsForSeparation > 0)
                     separation = (separation / neighborsForSeparation) * separationFactor;
 
@@ -824,22 +856,32 @@ namespace Europa
                     cohesion = cohesion.normalized * cohesionFactor;
                 }
 
-                // Combine all the velocities
                 Vector3 newVelocity = hybrid.velocity + separation + alignment + cohesion;
-
-                // Clamp the velocity
                 newVelocity = Vector3.ClampMagnitude(newVelocity, hybrid.maxSpeed);
 
-                // Update position based on new velocity
-                Vector3 newPosition = currentPosition + newVelocity * deltaTime;
+                // Wall avoidance with raycast
+                bool hitWall = false;
+                
+                Ray ray = new Ray(currentPosition, newVelocity.normalized);
+                if (Physics.Raycast(ray, out RaycastHit hit, 0.5f, environmentLayerMask))
+                {
+                    hitWall = hit.collider.CompareTag("Wall");
+                    if (debug) Debug.DrawRay(ray.origin, ray.direction * 0.5f, Color.red);
+                }
+                
 
-                // Ensure the hybrid stays within water height
-                if (newPosition.y > hybrid.waterHeight)
-                    newPosition.y = hybrid.waterHeight;
+                aboutToHitWall[index] = hitWall;
 
-                // Store the results
-                newPositions[index] = newPosition;
-                newVelocities[index] = newVelocity;
+
+                // Update position
+                newPositions[index] = currentPosition + newVelocities[index] * deltaTime;
+
+                // Ensure hybrid stays within water height
+                if (newPositions[index].y > hybrid.waterHeight)
+                {
+                    newPositions[index] = new Vector3(newPositions[index].x, hybrid.waterHeight, newPositions[index].z);
+                }
+
             }
         }
 
