@@ -38,6 +38,7 @@ namespace Europa
 
         public HybridState hybridState;
         public ItemLocation hybridLocation;
+        public SpawnedPond spawnedPond;
         public Vector3 velocity;
 
         public float minSpeed;

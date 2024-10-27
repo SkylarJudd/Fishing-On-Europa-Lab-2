@@ -5,12 +5,17 @@ using UnityEngine;
 namespace Europa
 {
    
+    public enum SpawnedPond
+    {
+        WestPond1, WestPond2,EastPond1, EastPond2, MiddlePond, NorthPond, SouthPond, NorthEastCavePond, NorthWestCavePond,
+    }
 
-    public class GeyserMannager : MonoBehaviour
+    public class GeyserController : MonoBehaviour
     {
         [Header("Pond Data")]
         public Transform waterHeight;
         public ItemLocation pondType;
+        public SpawnedPond pond;
 
         [Header("Geyser List")]
         [SerializeField]
