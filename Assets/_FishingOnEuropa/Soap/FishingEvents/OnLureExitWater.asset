@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TagIndex: 0
   Description: 
-  _debugLogEnabled: 0
+  _debugLogEnabled: 1

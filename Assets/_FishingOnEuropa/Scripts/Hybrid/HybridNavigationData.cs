@@ -15,6 +15,7 @@ namespace Europa
 
         HybridMiniGame_SwimToLure,
         HybridWaitForMiniGame,
+        HybirdSwimAroundLure,
         HybridMiniGame_Pulling,
         HybridMiniGame_Tired,
         HybridMiniGame_Caught,
@@ -37,6 +38,7 @@ namespace Europa
 
         public HybridState hybridState;
         public ItemLocation hybridLocation;
+        public SpawnedPond spawnedPond;
         public Vector3 velocity;
 
         public float minSpeed;
@@ -54,6 +56,12 @@ namespace Europa
 
         [Header("Hybrid MiniGame")]
         public bool arrivedAtLure = false;
+        public float hybridRestTime;
+        public float currentHybridStamina;
+        public float scaledCatchChance;
+        public float orbitDistance;
+        public bool orbitDirection;
+
 
 
         public Transform itemTarget; // this is used for the item target you can set the lure, 

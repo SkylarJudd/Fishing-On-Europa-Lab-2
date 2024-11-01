@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6683605772449176070}
-  m_Layer: 0
+  m_Layer: 24
   m_Name: SpawnPoints (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -41,7 +41,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7476727070849513717}
-  m_Layer: 0
+  m_Layer: 24
   m_Name: SpawnPoints (7)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -73,7 +73,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3621576433946551800}
-  m_Layer: 0
+  m_Layer: 24
   m_Name: TankTwoSpawnPoints
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -112,7 +112,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1513780618933962647}
-  m_Layer: 0
+  m_Layer: 24
   m_Name: SpawnPoints
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -144,7 +144,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1254628039373504857}
-  m_Layer: 0
+  m_Layer: 24
   m_Name: DefultGroundSpawnPoints
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -186,7 +186,7 @@ GameObject:
   - component: {fileID: 4846858584466630645}
   - component: {fileID: 7710142187815197446}
   - component: {fileID: 2262787381715375412}
-  m_Layer: 0
+  m_Layer: 24
   m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -233,6 +233,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -269,7 +272,7 @@ GameObject:
   - component: {fileID: 5189138690165972219}
   - component: {fileID: 616004914103181179}
   - component: {fileID: 8171033101863747139}
-  m_Layer: 0
+  m_Layer: 24
   m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -316,6 +319,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -350,7 +356,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1348461626302070050}
-  m_Layer: 0
+  m_Layer: 24
   m_Name: SpawnPoints (6)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -382,7 +388,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5916503820047689266}
-  m_Layer: 0
+  m_Layer: 24
   m_Name: SpawnPoints (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -414,7 +420,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 484233029329302585}
-  m_Layer: 0
+  m_Layer: 24
   m_Name: SpawnPoints (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -448,7 +454,7 @@ GameObject:
   - component: {fileID: 8378187770596011300}
   - component: {fileID: 3141079361268724824}
   - component: {fileID: 3263914671428457753}
-  m_Layer: 0
+  m_Layer: 24
   m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -495,6 +501,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -529,7 +538,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6850041893185089203}
-  m_Layer: 0
+  m_Layer: 24
   m_Name: SpawnPoints (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -563,7 +572,7 @@ GameObject:
   - component: {fileID: 2565048827743386164}
   - component: {fileID: 5218656954618043001}
   - component: {fileID: 2616488400324907121}
-  m_Layer: 0
+  m_Layer: 24
   m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -610,6 +619,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -646,7 +658,7 @@ GameObject:
   - component: {fileID: 3681116281295256931}
   - component: {fileID: 4429737665439026594}
   - component: {fileID: 4665208103273358044}
-  m_Layer: 0
+  m_Layer: 24
   m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -693,6 +705,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -729,7 +744,7 @@ GameObject:
   - component: {fileID: 632718536962165724}
   - component: {fileID: 6436599619255441067}
   - component: {fileID: 9016830397608075946}
-  m_Layer: 0
+  m_Layer: 24
   m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -776,6 +791,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -810,7 +828,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2979642826583980407}
-  m_Layer: 0
+  m_Layer: 24
   m_Name: SpawnPoints (7)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -842,7 +860,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7791447358126559889}
-  m_Layer: 0
+  m_Layer: 24
   m_Name: SpawnPoints (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -876,7 +894,7 @@ GameObject:
   - component: {fileID: 6153632138309935635}
   - component: {fileID: 5609683208685784744}
   - component: {fileID: 5264105923710422010}
-  m_Layer: 0
+  m_Layer: 24
   m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -923,6 +941,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -957,7 +978,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5316593387922132405}
-  m_Layer: 0
+  m_Layer: 24
   m_Name: SpawnPoints (7)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -989,7 +1010,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8388039288658690329}
-  m_Layer: 0
+  m_Layer: 24
   m_Name: SpawnPoints (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1023,7 +1044,7 @@ GameObject:
   - component: {fileID: 34525443366841521}
   - component: {fileID: 7115164694625493257}
   - component: {fileID: 6370217487494615764}
-  m_Layer: 0
+  m_Layer: 24
   m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1070,6 +1091,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -1104,7 +1128,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8146907207199958785}
-  m_Layer: 0
+  m_Layer: 24
   m_Name: SpawnPoints
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1138,7 +1162,7 @@ GameObject:
   - component: {fileID: 6904988611431704450}
   - component: {fileID: 8949543841270006395}
   - component: {fileID: 4335938272817239506}
-  m_Layer: 0
+  m_Layer: 24
   m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1185,6 +1209,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -1220,7 +1247,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3010996462890327732}
   - component: {fileID: 406045421707340054}
-  m_Layer: 0
+  m_Layer: 24
   m_Name: FarmMannager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1257,18 +1284,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7db8438327590084a8854597e11ae5d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hybridInfos:
-  - {fileID: 11400000, guid: 776caf4cc4ccdba4cb9fa5ecf383e743, type: 2}
-  - {fileID: 11400000, guid: d0a9f39952c8dd54a988d57caa969c5e, type: 2}
-  - {fileID: 11400000, guid: fc8355f0a1f2668438f22f2240d9d8b1, type: 2}
-  - {fileID: 11400000, guid: 9324671bbaa17be4986f2003aa4549d2, type: 2}
-  - {fileID: 11400000, guid: b5bffd5595ec26e48b841f2a784e1235, type: 2}
-  - {fileID: 11400000, guid: 11b9830542c4d264fbbee450aa971683, type: 2}
-  - {fileID: 11400000, guid: 8498973ca9613a14197874a007333231, type: 2}
-  - {fileID: 11400000, guid: 745894885b8b05e4e981b12d3968dd43, type: 2}
-  - {fileID: 11400000, guid: 62f2201882b826a4eaeea487b409f0c5, type: 2}
-  - {fileID: 11400000, guid: 3cf2b0dc153bc9d4987319f845fad268, type: 2}
-  hybridInFarm: []
+  fishToSpawn: {fileID: 0}
   tankOneSpawnPoints:
   - {fileID: 1513780618933962647}
   - {fileID: 3551445850767828276}
@@ -1298,7 +1314,11 @@ MonoBehaviour:
   - {fileID: 6683605772449176070}
   - {fileID: 8430722112276177321}
   - {fileID: 6620625748968329999}
-  fishNavigationManager: {fileID: 1353610535653204931}
+  _mainTankWaterHight: 1
+  _windowTankWaterHight: 1
+  _hybridsToNavList: {fileID: 0}
+  _hybridsSwimmingList: {fileID: 0}
+  _hybridInFarm: {fileID: 0}
 --- !u!1 &4628725001595995538
 GameObject:
   m_ObjectHideFlags: 0
@@ -1310,7 +1330,7 @@ GameObject:
   - component: {fileID: 4288595244894696686}
   - component: {fileID: 1855107010147277455}
   - component: {fileID: 2450505975723910489}
-  m_Layer: 0
+  m_Layer: 24
   m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1357,6 +1377,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -1393,7 +1416,7 @@ GameObject:
   - component: {fileID: 1557506871683862056}
   - component: {fileID: 8852118790982213281}
   - component: {fileID: 3525196762892507388}
-  m_Layer: 0
+  m_Layer: 24
   m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1440,6 +1463,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -1474,7 +1500,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4831947175071949661}
-  m_Layer: 0
+  m_Layer: 24
   m_Name: SpawnPoints (6)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1508,7 +1534,7 @@ GameObject:
   - component: {fileID: 7434484156294707879}
   - component: {fileID: 615514974396396444}
   - component: {fileID: 2973565675966549943}
-  m_Layer: 0
+  m_Layer: 24
   m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1555,6 +1581,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -1589,7 +1618,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6469755763585014505}
-  m_Layer: 0
+  m_Layer: 24
   m_Name: SpawnPoints (6)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1623,7 +1652,7 @@ GameObject:
   - component: {fileID: 6794111615233672968}
   - component: {fileID: 4868862062147250156}
   - component: {fileID: 6356298254751495196}
-  m_Layer: 0
+  m_Layer: 24
   m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1670,6 +1699,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -1706,7 +1738,7 @@ GameObject:
   - component: {fileID: 6787297545805871659}
   - component: {fileID: 4718770575684812338}
   - component: {fileID: 3512395948411264863}
-  m_Layer: 0
+  m_Layer: 24
   m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1753,6 +1785,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -1787,7 +1822,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1262072186713845092}
-  m_Layer: 0
+  m_Layer: 24
   m_Name: SpawnPoints (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1819,7 +1854,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7141842904516259445}
-  m_Layer: 0
+  m_Layer: 24
   m_Name: Updated_FishingNodePackage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1853,7 +1888,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3551445850767828276}
-  m_Layer: 0
+  m_Layer: 24
   m_Name: SpawnPoints (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1885,7 +1920,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 825463975102167670}
-  m_Layer: 0
+  m_Layer: 24
   m_Name: SpawnPoints (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1919,7 +1954,7 @@ GameObject:
   - component: {fileID: 2090246171079435464}
   - component: {fileID: 8241490354657276880}
   - component: {fileID: 8968481769255608516}
-  m_Layer: 0
+  m_Layer: 24
   m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1966,6 +2001,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -2000,7 +2038,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3751753152319346369}
-  m_Layer: 0
+  m_Layer: 24
   m_Name: SpawnPoints (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2034,7 +2072,7 @@ GameObject:
   - component: {fileID: 8683289312376072208}
   - component: {fileID: 1750647205382147531}
   - component: {fileID: 5965565175360461834}
-  m_Layer: 0
+  m_Layer: 24
   m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2081,6 +2119,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -2115,7 +2156,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8194822639048915004}
-  m_Layer: 0
+  m_Layer: 24
   m_Name: TankOneSpawnPoints
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2155,7 +2196,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7186533055392102159}
-  m_Layer: 0
+  m_Layer: 24
   m_Name: SpawnPoints (8)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2189,7 +2230,7 @@ GameObject:
   - component: {fileID: 5033595166478297200}
   - component: {fileID: 7256127195677965762}
   - component: {fileID: 8486742065113521233}
-  m_Layer: 0
+  m_Layer: 24
   m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2236,6 +2277,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -2272,7 +2316,7 @@ GameObject:
   - component: {fileID: 4916058809482768345}
   - component: {fileID: 1478287373666636911}
   - component: {fileID: 4153560399680471399}
-  m_Layer: 0
+  m_Layer: 24
   m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2319,6 +2363,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -2355,7 +2402,7 @@ GameObject:
   - component: {fileID: 1839550102917310302}
   - component: {fileID: 7314332719465128635}
   - component: {fileID: 6499018944639498948}
-  m_Layer: 0
+  m_Layer: 24
   m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2402,6 +2449,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -2436,7 +2486,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2839359901700604869}
-  m_Layer: 0
+  m_Layer: 24
   m_Name: SpawnPoints (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2468,7 +2518,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1859187186075792110}
-  m_Layer: 0
+  m_Layer: 24
   m_Name: SpawnPoints (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2502,7 +2552,7 @@ GameObject:
   - component: {fileID: 618814590195592085}
   - component: {fileID: 1289866723026994279}
   - component: {fileID: 7131059697472037259}
-  m_Layer: 0
+  m_Layer: 24
   m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2549,6 +2599,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -2583,7 +2636,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6620625748968329999}
-  m_Layer: 0
+  m_Layer: 24
   m_Name: SpawnPoints (8)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2615,7 +2668,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4636892041389751533}
-  m_Layer: 0
+  m_Layer: 24
   m_Name: SpawnPoints (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2649,7 +2702,7 @@ GameObject:
   - component: {fileID: 3548168530820075225}
   - component: {fileID: 8382637695816115232}
   - component: {fileID: 7424585682022891945}
-  m_Layer: 0
+  m_Layer: 24
   m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2696,6 +2749,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -2732,7 +2788,7 @@ GameObject:
   - component: {fileID: 3804807476148019807}
   - component: {fileID: 550681736476418615}
   - component: {fileID: 8740227221641186421}
-  m_Layer: 0
+  m_Layer: 24
   m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2779,6 +2835,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -2813,7 +2872,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7212105189633562590}
-  m_Layer: 0
+  m_Layer: 24
   m_Name: SpawnPoints (8)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2845,7 +2904,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2311700829438937519}
-  m_Layer: 0
+  m_Layer: 24
   m_Name: SpawnPoints (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2879,7 +2938,7 @@ GameObject:
   - component: {fileID: 179711918215575587}
   - component: {fileID: 2666447734534340659}
   - component: {fileID: 4370585828346311344}
-  m_Layer: 0
+  m_Layer: 24
   m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2926,6 +2985,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -2962,7 +3024,7 @@ GameObject:
   - component: {fileID: 8411866656107992984}
   - component: {fileID: 1718247738414202930}
   - component: {fileID: 8629685581637283303}
-  m_Layer: 0
+  m_Layer: 24
   m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3009,6 +3071,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -3045,7 +3110,7 @@ GameObject:
   - component: {fileID: 1275972239424196491}
   - component: {fileID: 1700626762689769418}
   - component: {fileID: 9072303823588871074}
-  m_Layer: 0
+  m_Layer: 24
   m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3092,6 +3157,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -3126,7 +3194,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8430722112276177321}
-  m_Layer: 0
+  m_Layer: 24
   m_Name: SpawnPoints (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3160,7 +3228,7 @@ GameObject:
   - component: {fileID: 5477096770568803246}
   - component: {fileID: 4665473165423815726}
   - component: {fileID: 6241183039218104246}
-  m_Layer: 0
+  m_Layer: 24
   m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3207,6 +3275,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -3290,6 +3361,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 164519287512054153, guid: bdab25ecbae4b5248ba0bd2aaf934e8c,
+        type: 3}
+      propertyPath: m_Layer
+      value: 24
+      objectReference: {fileID: 0}
+    - target: {fileID: 441231068597014992, guid: bdab25ecbae4b5248ba0bd2aaf934e8c,
+        type: 3}
+      propertyPath: m_Layer
+      value: 24
+      objectReference: {fileID: 0}
+    - target: {fileID: 863505117665467107, guid: bdab25ecbae4b5248ba0bd2aaf934e8c,
+        type: 3}
+      propertyPath: m_Layer
+      value: 24
+      objectReference: {fileID: 0}
+    - target: {fileID: 956547660289540263, guid: bdab25ecbae4b5248ba0bd2aaf934e8c,
+        type: 3}
+      propertyPath: m_Layer
+      value: 24
+      objectReference: {fileID: 0}
     - target: {fileID: 2040108576563145234, guid: bdab25ecbae4b5248ba0bd2aaf934e8c,
         type: 3}
       propertyPath: fishNavigationManager
@@ -3312,8 +3403,53 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2576565187027953458, guid: bdab25ecbae4b5248ba0bd2aaf934e8c,
         type: 3}
+      propertyPath: m_Layer
+      value: 24
+      objectReference: {fileID: 0}
+    - target: {fileID: 2576565187027953458, guid: bdab25ecbae4b5248ba0bd2aaf934e8c,
+        type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3541460510275226843, guid: bdab25ecbae4b5248ba0bd2aaf934e8c,
+        type: 3}
+      propertyPath: m_Layer
+      value: 24
+      objectReference: {fileID: 0}
+    - target: {fileID: 3819034673749089034, guid: bdab25ecbae4b5248ba0bd2aaf934e8c,
+        type: 3}
+      propertyPath: m_Layer
+      value: 24
+      objectReference: {fileID: 0}
+    - target: {fileID: 3947271045992555314, guid: bdab25ecbae4b5248ba0bd2aaf934e8c,
+        type: 3}
+      propertyPath: m_Layer
+      value: 24
+      objectReference: {fileID: 0}
+    - target: {fileID: 4006046156556850847, guid: bdab25ecbae4b5248ba0bd2aaf934e8c,
+        type: 3}
+      propertyPath: m_Layer
+      value: 24
+      objectReference: {fileID: 0}
+    - target: {fileID: 4041897669262163788, guid: bdab25ecbae4b5248ba0bd2aaf934e8c,
+        type: 3}
+      propertyPath: m_Layer
+      value: 24
+      objectReference: {fileID: 0}
+    - target: {fileID: 4077586897259655089, guid: bdab25ecbae4b5248ba0bd2aaf934e8c,
+        type: 3}
+      propertyPath: m_Layer
+      value: 24
+      objectReference: {fileID: 0}
+    - target: {fileID: 4226125759242839963, guid: bdab25ecbae4b5248ba0bd2aaf934e8c,
+        type: 3}
+      propertyPath: m_Layer
+      value: 24
+      objectReference: {fileID: 0}
+    - target: {fileID: 4431350297490551103, guid: bdab25ecbae4b5248ba0bd2aaf934e8c,
+        type: 3}
+      propertyPath: m_Layer
+      value: 24
       objectReference: {fileID: 0}
     - target: {fileID: 4860697896351928860, guid: bdab25ecbae4b5248ba0bd2aaf934e8c,
         type: 3}
@@ -3325,6 +3461,61 @@ PrefabInstance:
       propertyPath: fishMannager
       value: 
       objectReference: {fileID: 8390491979092721068}
+    - target: {fileID: 5675674174680760560, guid: bdab25ecbae4b5248ba0bd2aaf934e8c,
+        type: 3}
+      propertyPath: m_Layer
+      value: 24
+      objectReference: {fileID: 0}
+    - target: {fileID: 5770992707526990409, guid: bdab25ecbae4b5248ba0bd2aaf934e8c,
+        type: 3}
+      propertyPath: m_Layer
+      value: 24
+      objectReference: {fileID: 0}
+    - target: {fileID: 5955778741510701726, guid: bdab25ecbae4b5248ba0bd2aaf934e8c,
+        type: 3}
+      propertyPath: m_Layer
+      value: 24
+      objectReference: {fileID: 0}
+    - target: {fileID: 6107031034336060141, guid: bdab25ecbae4b5248ba0bd2aaf934e8c,
+        type: 3}
+      propertyPath: m_Layer
+      value: 24
+      objectReference: {fileID: 0}
+    - target: {fileID: 6423488059447896542, guid: bdab25ecbae4b5248ba0bd2aaf934e8c,
+        type: 3}
+      propertyPath: m_Layer
+      value: 24
+      objectReference: {fileID: 0}
+    - target: {fileID: 6639498445679035950, guid: bdab25ecbae4b5248ba0bd2aaf934e8c,
+        type: 3}
+      propertyPath: m_Layer
+      value: 24
+      objectReference: {fileID: 0}
+    - target: {fileID: 7297886169245132194, guid: bdab25ecbae4b5248ba0bd2aaf934e8c,
+        type: 3}
+      propertyPath: m_Layer
+      value: 24
+      objectReference: {fileID: 0}
+    - target: {fileID: 7528100975361938598, guid: bdab25ecbae4b5248ba0bd2aaf934e8c,
+        type: 3}
+      propertyPath: m_Layer
+      value: 24
+      objectReference: {fileID: 0}
+    - target: {fileID: 7658765491275996300, guid: bdab25ecbae4b5248ba0bd2aaf934e8c,
+        type: 3}
+      propertyPath: m_Layer
+      value: 24
+      objectReference: {fileID: 0}
+    - target: {fileID: 7694590783670570097, guid: bdab25ecbae4b5248ba0bd2aaf934e8c,
+        type: 3}
+      propertyPath: m_Layer
+      value: 24
+      objectReference: {fileID: 0}
+    - target: {fileID: 7934931982214690005, guid: bdab25ecbae4b5248ba0bd2aaf934e8c,
+        type: 3}
+      propertyPath: m_Layer
+      value: 24
+      objectReference: {fileID: 0}
     - target: {fileID: 8077518203180803918, guid: bdab25ecbae4b5248ba0bd2aaf934e8c,
         type: 3}
       propertyPath: fishNavigationManager
@@ -3418,6 +3609,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: FishNavigationMannager
+      objectReference: {fileID: 0}
+    - target: {fileID: 8775232215500538061, guid: 16bfaf496f290d34aa4024ae51ee1add,
+        type: 3}
+      propertyPath: m_Layer
+      value: 24
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -38,7 +38,6 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2893,6 +2892,7 @@ MonoBehaviour:
   trackingContainer: {fileID: 8871425797546597317}
   handRight: {fileID: 1108852279}
   handLeft: {fileID: 668230207}
+  playerSettings: {fileID: 0}
   useMovement: 1
   maxMoveSpeed: 2.3
   moveAcceleration: 100000

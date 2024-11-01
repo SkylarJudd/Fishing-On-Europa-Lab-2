@@ -360,16 +360,11 @@ MonoBehaviour:
   held: 0
   nameTextGO: {fileID: 6247287042589627215}
   nameText: {fileID: 3237197434450889542}
+  itemVisuals: []
   bubbleMovement: {fileID: 4154050616457382147}
   ItemLastUnloadedTime: 0
   seedSO: {fileID: 0}
   cropState: 0
-  CropVisuals:
-  - {fileID: 5018876682116353268}
-  - {fileID: 7000518135838365723}
-  - {fileID: 8364046665071463737}
-  - {fileID: 818638793128132146}
-  - {fileID: 8494197781995680576}
   growthData: {fileID: 0}
 --- !u!114 &4154050616457382147 stripped
 MonoBehaviour:

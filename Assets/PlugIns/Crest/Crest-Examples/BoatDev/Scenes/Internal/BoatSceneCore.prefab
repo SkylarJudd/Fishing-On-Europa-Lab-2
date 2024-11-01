@@ -1336,6 +1336,7 @@ MonoBehaviour:
   _dragInWaterForward: 1
   _dragInWaterRotational: 0.2
   _debugDraw: 0
+  _inWater: 0
 --- !u!1 &1709276512667904554
 GameObject:
   m_ObjectHideFlags: 0
@@ -3987,6 +3988,7 @@ MonoBehaviour:
   _dragInWaterForward: 1
   _dragInWaterRotational: 0.2
   _debugDraw: 0
+  _inWater: 0
 --- !u!1 &1709276514066741516
 GameObject:
   m_ObjectHideFlags: 0

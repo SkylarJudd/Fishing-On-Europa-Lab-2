@@ -25,7 +25,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2293724037855637007}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 16.918156, y: 7.5654464, z: -24.081146}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -54,9 +54,9 @@ MonoBehaviour:
       UseLocal: 0
       LocalValue: 
       Variable: {fileID: 11400000, guid: a68d631e191f6964ebccfa6badfd4c34, type: 2}
-    hybridFarmList: {fileID: 11400000, guid: b18e6ef0e12e8e347af0dd0079eb7e53, type: 2}
-    hybridDomeList: {fileID: 11400000, guid: c3025e6db687f2145b1272ba025a5c1d, type: 2}
-    hybridsInventoryList: {fileID: 11400000, guid: 195854aeb48bd234a84aa5c4b611f5d5,
+    hybridFarmList: {fileID: 11400000, guid: 897d9df1d22b37d419e588541d04c678, type: 2}
+    hybridDomeList: {fileID: 11400000, guid: 7a3697ed6ccd83145962216ec9b0cd66, type: 2}
+    hybridsInventoryList: {fileID: 11400000, guid: 10a8d62b35861cf4685f811c64e600e4,
       type: 2}
     player:
       currentScene:
@@ -128,11 +128,11 @@ MonoBehaviour:
           UseLocal: 0
           LocalValue: 0
           Variable: {fileID: 11400000, guid: 7fe91fee1e2ec494281ab1a3fbc00f2e, type: 2}
-    itemsInFarmList: {fileID: 11400000, guid: 51bb3d0d894f9604391e0c471b6bacbd, type: 2}
-    itemsInDomeList: {fileID: 11400000, guid: 4890019a755639045bff1e7fd5a79bc3, type: 2}
-    itemsInInventoryList: {fileID: 11400000, guid: 97a1768e3190c634ab08ef35c1cfb0f5,
+    itemsInFarmList: {fileID: 11400000, guid: 6d7a05004d87b8e4cba999b490b25a6a, type: 2}
+    itemsInDomeList: {fileID: 11400000, guid: f0277f387e4fe6343bb6c1b7837c4b64, type: 2}
+    itemsInInventoryList: {fileID: 11400000, guid: 1cc2ebab60846b94689f1a0039714086,
       type: 2}
-    cropsPlanted: {fileID: 11400000, guid: 045757eda1f875b4ea014ef89aad4c76, type: 2}
+    cropsPlanted: {fileID: 11400000, guid: 7d4dd53aba8273f41855835ac78af368, type: 2}
     time:
       days:
         UseLocal: 0

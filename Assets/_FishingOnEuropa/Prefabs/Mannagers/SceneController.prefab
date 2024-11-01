@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   IgnoreScenes: 02000000
-  currentEnviromentScene: 4
+  currentEnviromentScene: 5
   defaultTransform: {fileID: 0}
   debug: 1
-  starterScene: 6
+  starterScene: 5

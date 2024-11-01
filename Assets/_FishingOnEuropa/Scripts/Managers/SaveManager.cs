@@ -16,7 +16,7 @@ namespace Europa
     public class SaveManager : Singleton<SaveManager>
     {
         /// <summary>
-        /// Called when the save manager is initialised. 
+        /// Called when the save manager is initialized. 
         /// </summary>
         public static event Action OnInitialised;
 

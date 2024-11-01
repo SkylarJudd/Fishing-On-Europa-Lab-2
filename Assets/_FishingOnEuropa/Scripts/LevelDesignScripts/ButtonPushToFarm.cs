@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.XR.Interaction.Toolkit;
+
 
 public class ButtonPushToFarm : MonoBehaviour
 {
@@ -10,7 +10,7 @@ public class ButtonPushToFarm : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        GetComponent<XRSimpleInteractable>().selectEntered.AddListener(x => SendPlayerToWorld());
+        GetComponent<UnityEngine.XR.Interaction.Toolkit.Interactables.XRSimpleInteractable>().selectEntered.AddListener(x => SendPlayerToWorld());
     }
 
     public void SendPlayerToWorld()

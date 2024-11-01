@@ -25,7 +25,7 @@ namespace Europa
 
             _PLAYER.OnFoodDrop(_Hand.left);
             
-            ToggleHandVisuals(false);
+            ToggleItemVisualsOnPickup(false);
         }
 
         public override void OnPickUp(Hand _Hand, Grabbable _Grabbable)
@@ -37,7 +37,7 @@ namespace Europa
             if (foodItemComponent != null)
             {
                 _PLAYER.OnFoodPickUp(_Hand.left, foodItemComponent);
-                ToggleHandVisuals(true);
+                ToggleItemVisualsOnPickup(true);
             }
             else
             {
@@ -48,7 +48,7 @@ namespace Europa
 
         }
 
-        private void ToggleHandVisuals(bool _Toggle)
+        private void ToggleItemVisualsOnPickup(bool _Toggle)
         {
             inWorldVisuals.SetActive(!_Toggle);
             inWorldVisuals.SetActive(_Toggle);

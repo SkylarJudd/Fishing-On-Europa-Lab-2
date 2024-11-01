@@ -186,7 +186,6 @@ namespace Europa
             }
             else
             {
-                Debug.Log("Found Pooled Object");
                 spawnableObj.transform.position = spawnPosition;
                 spawnableObj.transform.rotation = spawnRotation;
                 pool.inactiveObjects.Remove(spawnableObj);

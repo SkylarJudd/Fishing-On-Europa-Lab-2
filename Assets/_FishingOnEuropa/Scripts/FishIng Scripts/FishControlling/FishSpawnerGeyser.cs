@@ -9,11 +9,11 @@ namespace Europa
 {
     public class FishSpawnerGeyser : GameBehaviour
     {
-        [SerializeField] 
+        [SerializeField]
         private FishToSpawnSO fishToSpawn;
-        [SerializeField] 
+        [SerializeField]
         private Transform spawnPos;
-        [SerializeField] 
+        [SerializeField]
         private Transform targetPos;
         [SerializeField]
         private Transform randomLocation;
@@ -36,7 +36,7 @@ namespace Europa
             public GameObject hybridGameObject;
         }
 
-        [SerializeField] GeyserMannager geyserMannager;
+        [SerializeField] GeyserController geyserMannager;
 
         private void Start()
         {
@@ -130,7 +130,7 @@ namespace Europa
             }
 
             // Set the velocity of the Rigidbody
-            _Rb.velocity = new Vector3(VXZ.x, Vy, VXZ.z);
+            _Rb.linearVelocity = new Vector3(VXZ.x, Vy, VXZ.z);
             _Rb.useGravity = true;
 
             // Apply rotational force
@@ -178,5 +178,6 @@ namespace Europa
 
             return new Vector3(x, y, z);
         }
+
     }
 }

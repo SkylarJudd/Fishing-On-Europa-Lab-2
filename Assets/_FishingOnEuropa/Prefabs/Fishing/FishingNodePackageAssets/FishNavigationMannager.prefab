@@ -44,49 +44,41 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f376aaee8c34e7049b2a1010a45ea6d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hybridsInPond: []
-  hybridsIdle: []
-  hybridsFlying: []
-  hybridsHitWater: []
-  hybridsSwimming: []
-  hybridSwimToPoint: []
-  hybridReactToPlayer: []
-  caughtHybrid:
-    hybridGameObject: {fileID: 0}
-    hybridRigidbody: {fileID: 0}
-    pondType: 0
-    foodEaten: 
-    favToy: 0
-    isTamed: 1
-    HybridState: 0
-    velocity: {x: 0, y: 0, z: 0}
-    minSpeed: 0
-    maxSpeed: 0
-    rotationSpeed: 0
-    waterHeight: 0
-    isTurning: 0
-    aboutToHitWall: 0
-    firstNav: 0
-    distanceToPlayer: 0
-    distanceToLeftHand: 0
-    distanceToRightHand: 0
-    arrivedAtLure: 0
-    itemTarget: {fileID: 0}
+  _hybridsTamedList: {fileID: 0}
+  _hybridsToNavList: {fileID: 11400000, guid: eccfc48b5d90af148a1f602d1999386d, type: 2}
+  _removeFromHybridsToNavList: {fileID: 11400000, guid: 89eff27f2e6e9c242b4cac309ebd76b0,
+    type: 2}
+  hybridsIdle: {fileID: 11400000, guid: 21ef4673e1e025045b26041f3340351e, type: 2}
+  hybridsFlying: {fileID: 11400000, guid: fccbaeabfdfd3024db9e65159b641003, type: 2}
+  hybridsHitWater: {fileID: 11400000, guid: 944ff58308519d741941284e039cc2ef, type: 2}
+  hybridsSwimming: {fileID: 11400000, guid: ef9098ea051dd52449162d94743f2122, type: 2}
+  hybridSwimToLure: {fileID: 11400000, guid: f63ad8f7ef461c0459f93e8593ff181b, type: 2}
+  hybridReactToPlayer: {fileID: 11400000, guid: d6074fcb319a2f045aca5abfd34d7e3f,
+    type: 2}
+  caughtHybrid: {fileID: 0}
+  removeHybridsIdle: {fileID: 11400000, guid: c7f8e929015611443b4601f9e19f79e4, type: 2}
+  removeHybridsFlying: {fileID: 11400000, guid: 94009ee4640318445b17fd3f4a7fa468,
+    type: 2}
+  removeHybridsHitWater: {fileID: 11400000, guid: bae03a9c7597535439435b59526ef523,
+    type: 2}
+  removeHybridsSwimming: {fileID: 11400000, guid: b5e36e30fae1649489969056bdd2a34a,
+    type: 2}
+  removeHybridSwimToLure: {fileID: 11400000, guid: d8f29d6a5a9819e46a21034ddd75c028,
+    type: 2}
+  removeHybridReact: {fileID: 11400000, guid: 70427047ee22d8145bb50733d768cc62, type: 2}
   applyBoidsChance: 20
   rayCastCheckChance: 20
   debug: 1
-  separationRange: 1
+  separationRange: 1.63
   alignmentRange: 2
-  cohesionRange: 3
-  separationFactor: 1
-  alignmentFactor: 1
-  cohesionFactor: 1
+  cohesionRange: 2.72
+  separationFactor: 2.53
+  alignmentFactor: 0.32
+  cohesionFactor: 0.17
   correctRotationSpeed: 5
-  fishCollisionLayerMask:
-    serializedVersion: 2
-    m_Bits: 5242880
-  playerReactionDistance: 5
-  playerReactionDistanceReset: 0
+  playerReactionDistance: 3
+  playerReactionDistanceReset: 4
   playerHandReactionDistance: 2
-  playerHandReactionDistanceReset: 0
+  playerHandReactionDistanceReset: 1
   moveToPlayerStoppingDistance: 3
+  hybridDistanceToEat: 0

@@ -1,3 +1,4 @@
+using Codice.Client.BaseCommands;
 using System.Collections.Generic;
 using System.Data;
 using UnityEngine;
@@ -6,9 +7,11 @@ using UnityEngine.XR;
 using InputDevice = UnityEngine.XR.InputDevice;
 //using UnityEngine.XR.OpenXR.Input;
 
-namespace Autohand.Demo {
+namespace Autohand.Demo
+{
     [HelpURL("https://app.gitbook.com/s/5zKO0EvOjzUDeT2aiFk3/auto-hand/controller-input")]
-    public class OpenXRHandControllerLink : HandControllerLink {
+    public class OpenXRHandControllerLink : HandControllerLink
+    {
         public InputActionProperty grabAxis;
         public InputActionProperty squeezeAxis;
         public InputActionProperty grabAction;
@@ -23,23 +26,26 @@ namespace Autohand.Demo {
 
         private bool squeezing;
         private bool grabbing;
-        private void Start() {
-            if(hand.left)
+        private void Start()
+        {
+            if (hand.left)
                 handLeft = this;
             else
                 handRight = this;
         }
-            
 
-        public void OnEnable(){
-            if (grabAction == squeezeAction){
+
+        public void OnEnable()
+        {
+            if (grabAction == squeezeAction)
+            {
                 Debug.LogError("AUTOHAND: You are using the same button for grab and squeeze on HAND CONTROLLER LINK, this will create conflict or errors", this);
             }
 
-            if(grabAxis.action != null) grabAxis.action.Enable();
-            if(squeezeAxis.action != null) squeezeAxis.action.Enable();
-            if(hapticAction.action != null) hapticAction.action.Enable();
-            if(grabAction.action != null) grabAction.action.performed += Grab;
+            if (grabAxis.action != null) grabAxis.action.Enable();
+            if (squeezeAxis.action != null) squeezeAxis.action.Enable();
+            if (hapticAction.action != null) hapticAction.action.Enable();
+            if (grabAction.action != null) grabAction.action.performed += Grab;
             if (grabAction.action != null) grabAction.action.Enable();
             if (grabAction.action != null) grabAction.action.performed += Grab;
             if (releaseAction.action != null) releaseAction.action.Enable();
@@ -50,7 +56,7 @@ namespace Autohand.Demo {
             if (stopSqueezeAction.action != null) stopSqueezeAction.action.performed += StopSqueeze;
 
 
-            if(hand.left)
+            if (hand.left)
                 role = XRNode.LeftHand;
             else
                 role = XRNode.RightHand;
@@ -58,60 +64,78 @@ namespace Autohand.Demo {
         }
 
 
-        void OnDisable() {
-            if(grabAction.action != null) grabAction.action.performed -= Grab;
-            if(releaseAction.action != null) releaseAction.action.performed -= Release;
-            if(squeezeAction.action != null) squeezeAction.action.performed -= Squeeze;
-            if(stopSqueezeAction.action != null) stopSqueezeAction.action.performed -= StopSqueeze;
+        void OnDisable()
+        {
+            if (grabAction.action != null) grabAction.action.performed -= Grab;
+            if (releaseAction.action != null) releaseAction.action.performed -= Release;
+            if (squeezeAction.action != null) squeezeAction.action.performed -= Squeeze;
+            if (stopSqueezeAction.action != null) stopSqueezeAction.action.performed -= StopSqueeze;
 
         }
 
 
 
 
-        private void Update() {
+        private void Update()
+        {
             hand.SetGrip(grabAxis.action.ReadValue<float>(), squeezeAxis.action.ReadValue<float>());
         }
 
-        private void Grab(InputAction.CallbackContext grab){
-            if (!grabbing){
+        private void Grab(InputAction.CallbackContext grab)
+        {
+            if (!grabbing)
+            {
                 hand.Grab();
                 grabbing = true;
             }
         }
-        
-        private void Release(InputAction.CallbackContext grab){
-            if (grabbing){
+
+        private void Release(InputAction.CallbackContext grab)
+        {
+            if (grabbing)
+            {
                 hand.Release();
                 grabbing = false;
             }
         }
 
-        private void Squeeze(InputAction.CallbackContext grab){
-            if (!squeezing){
+        private void Squeeze(InputAction.CallbackContext grab)
+        {
+            if (!squeezing)
+            {
                 hand.Squeeze();
                 squeezing = true;
             }
         }
-        
-        private void StopSqueeze(InputAction.CallbackContext grab){
-            if (squeezing){
+
+        private void StopSqueeze(InputAction.CallbackContext grab)
+        {
+            if (squeezing)
+            {
                 hand.Unsqueeze();
                 squeezing = false;
             }
         }
 
-        public override void TryHapticImpulse(float duration, float amp, float freq = 10) {
+        public override void TryHapticImpulse(float duration, float amp, float freq = 10)
+        {
 
             InputDevices.GetDevicesAtXRNode(role, devices);
             //OpenXRInput.SendHapticImpulse(hapticAction.action, amp, duration, hand.left ? UnityEngine.InputSystem.XR.XRController.leftHand : UnityEngine.InputSystem.XR.XRController.rightHand);
-            foreach(var device in devices) {
-                if(device.TryGetHapticCapabilities(out var capabilities) && capabilities.supportsImpulse) {
+            foreach (var device in devices)
+            {
+                if (device.TryGetHapticCapabilities(out var capabilities) && capabilities.supportsImpulse)
+                {
                     device.SendHapticImpulse(0u, amp, duration);
                 }
             }
 
             base.TryHapticImpulse(duration, amp, freq);
+        }
+        [ContextMenu("Play Haptics")]
+        public void PlayHaptics()
+        {
+            TryHapticImpulse(1, 1, 10);
         }
 
     }

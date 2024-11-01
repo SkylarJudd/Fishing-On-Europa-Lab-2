@@ -45,3 +45,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameState: 0
+  _onGameAwake: {fileID: 11400000, guid: 3560ad8b530e96f4fa15b4eea0681e75, type: 2}
+  _onGameStart: {fileID: 11400000, guid: 2323c7ecf9602104a8619f764a3f0531, type: 2}
+  _onMainMenuLoaded: {fileID: 11400000, guid: 77e726034f162cc429ef6f9b3d5b9ba6, type: 2}
+  _onMainMenuUnloaded: {fileID: 11400000, guid: 8687925148812ef48a31c12e6c2bc9ad,
+    type: 2}
+  _onNewSave: {fileID: 11400000, guid: 5364442128b27a24185d909869396b82, type: 2}
+  _onSave: {fileID: 11400000, guid: 449a9e1b38b734149959f75b4a569be4, type: 2}
+  _onGameLoadStart: {fileID: 11400000, guid: 67cfe7c2582560c44a54d73daf874ab1, type: 2}
+  _onGameLoadEnd: {fileID: 11400000, guid: 94bd2c96160c1bb4b85074c4f79bc503, type: 2}
+  _onFarmSceneLoaded: {fileID: 11400000, guid: 5b5f1c15d86c8ed4797ba1f8cbcacb89, type: 2}
+  _onFarmSceneUnloaded: {fileID: 11400000, guid: 150bc0e89c379844aa2b9531a06c261d,
+    type: 2}
+  _onDomeSceneLoaded: {fileID: 11400000, guid: 1f679a5a42bbe1340b73c4cebd39f7df, type: 2}
+  _onDomeSceneUnloaded: {fileID: 11400000, guid: f3eba869c594fc54789b3241785c2479,
+    type: 2}
+  _onTutorialSceneLoaded: {fileID: 11400000, guid: 1480242dc211d924bb54b53e1da1b081,
+    type: 2}
+  _onTutorialSceneUnloaded: {fileID: 11400000, guid: 583238bc19789d1468de067a5bc2533f,
+    type: 2}
+  _onGamePauseStart: {fileID: 11400000, guid: 6e6f13fc5aa7cb949ab3f0a3cf4304b1, type: 2}
+  _onGamePauseEnd: {fileID: 11400000, guid: 569c6ace05fd6cf4b853385d26cc35e5, type: 2}
+  _onExitGame: {fileID: 11400000, guid: c7ff631de1b36a7459bb2268af46c68b, type: 2}
+  _onGameDayStart: {fileID: 11400000, guid: 4c544305b5b42134587493eb11e70e6a, type: 2}
