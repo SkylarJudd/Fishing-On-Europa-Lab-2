@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: TFF_Water_01B
-  m_Shader: {fileID: 4800000, guid: 40735a78a24974b4ca151bb9fd04c9fc, type: 3}
+  m_Shader: {fileID: 4800000, guid: 95ba5b42a42a33143b0a911b61cc9bca, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -29,6 +29,22 @@ Material:
         m_Offset: {x: 0, y: 0}
     - _NormalMap:
         m_Texture: {fileID: 2800000, guid: db76e0ea49f14f147bee066871c70d88, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _TextureRamp:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _TextureSample:
+        m_Texture: {fileID: 2800000, guid: b350a85546837c147a924ff576c0b371, type: 3}
+        m_Scale: {x: 10, y: 10}
+        m_Offset: {x: 0, y: 0}
+    - _TextureSample0:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _WindNoiseTexture:
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _texcoord:
@@ -72,11 +88,15 @@ Material:
     - _WaveIntensity: 0.15
     - _WaveSpeed: 1
     - _Waves: 0
+    - _WindJitter: 0.1
+    - _WindScroll: 0.1
     - __dirty: 0
     m_Colors:
+    - _ColorOverlay: {r: 0, g: 0, b: 0, a: 0}
     - _DeepColor: {r: 0.38431373, g: 0.5065575, b: 0.54901963, a: 1}
     - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
     - _FoamColor: {r: 0.3278302, g: 0.36525837, b: 0.5, a: 1}
     - _FresnelColor: {r: 0.19607843, g: 0.59992784, b: 0.6039216, a: 1}
     - _ShallowColor: {r: 0, g: 0.43644172, b: 0.4716981, a: 1}
   m_BuildTextureStacks: []
+  m_AllowLocking: 1
